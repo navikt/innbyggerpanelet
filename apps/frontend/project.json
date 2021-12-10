@@ -1,6 +1,6 @@
 {
-  "root": "apps/innbyggerpanelet",
-  "sourceRoot": "apps/innbyggerpanelet/src",
+  "root": "apps/frontend",
+  "sourceRoot": "apps/frontend/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -8,17 +8,14 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/innbyggerpanelet",
-        "index": "apps/innbyggerpanelet/src/index.html",
+        "outputPath": "dist/apps/frontend",
+        "index": "apps/frontend/src/index.html",
         "baseHref": "/",
-        "main": "apps/innbyggerpanelet/src/main.tsx",
-        "polyfills": "apps/innbyggerpanelet/src/polyfills.ts",
-        "tsConfig": "apps/innbyggerpanelet/tsconfig.app.json",
-        "assets": [
-          "apps/innbyggerpanelet/src/favicon.ico",
-          "apps/innbyggerpanelet/src/assets"
-        ],
-        "styles": ["apps/innbyggerpanelet/src/styles.scss"],
+        "main": "apps/frontend/src/main.tsx",
+        "polyfills": "apps/frontend/src/polyfills.ts",
+        "tsConfig": "apps/frontend/tsconfig.app.json",
+        "assets": ["apps/frontend/src/favicon.ico", "apps/frontend/src/assets"],
+        "styles": ["apps/frontend/src/styles.scss"],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
       },
@@ -26,8 +23,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/innbyggerpanelet/src/environments/environment.ts",
-              "with": "apps/innbyggerpanelet/src/environments/environment.prod.ts"
+              "replace": "apps/frontend/src/environments/environment.ts",
+              "with": "apps/frontend/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -42,13 +39,13 @@
     "serve": {
       "executor": "@nrwl/web:dev-server",
       "options": {
-        "buildTarget": "innbyggerpanelet:build",
+        "buildTarget": "frontend:build",
         "hmr": true,
-        "proxyConfig": "apps/innbyggerpanelet/proxy.conf.json"
+        "proxyConfig": "apps/frontend/proxy.conf.json"
       },
       "configurations": {
         "production": {
-          "buildTarget": "innbyggerpanelet:build:production",
+          "buildTarget": "frontend:build:production",
           "hmr": false
         }
       }
@@ -57,14 +54,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/innbyggerpanelet/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/innbyggerpanelet"],
+      "outputs": ["coverage/apps/frontend"],
       "options": {
-        "jestConfig": "apps/innbyggerpanelet/jest.config.js",
+        "jestConfig": "apps/frontend/jest.config.js",
         "passWithNoTests": true
       }
     }

@@ -3,7 +3,6 @@
   "projects": {
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
-    "innbyggerpanelet": "apps/innbyggerpanelet",
-    "innbyggerpanelet-e2e": "apps/innbyggerpanelet-e2e"
+    "frontend": "apps/frontend"
   }
 }
