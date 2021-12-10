@@ -1,8 +1,8 @@
 name: CI
 on: push
 
-env: 
-  NX_BASE: ""
+env:
+  NX_BASE: ''
   IMAGE_PREFIX: innbyggerpanelet-
   CLUSTER: labs-gcp
   SHOULD_DEPLOY: ${{ github.ref == 'refs/heads/main' || false }}
