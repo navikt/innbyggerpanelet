@@ -1,7 +1,10 @@
 import * as express from 'express';
 import { Message } from '@innbyggerpanelet/api-interfaces';
+import { internalRouter } from './app/internal';
 
 const app = express();
+
+app.use("/internal", internalRouter);
 
 const greeting: Message = { message: 'Welcome to api!' };
 
