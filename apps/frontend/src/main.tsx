@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import App from './app/app';
 
+// Root 
 ReactDOM.render(
   <StrictMode>
     <App />
