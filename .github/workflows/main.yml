@@ -4,7 +4,7 @@ on: push
 env:
   NX_BASE: ''
   IMAGE_PREFIX: innbyggerpanelet-
-  CLUSTER: labs-gcp
+  CLUSTER: dev-gcp
   SHOULD_DEPLOY: ${{ github.ref == 'refs/heads/main' || false }}
 
 concurrency:
