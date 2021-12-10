@@ -1,0 +1,73 @@
+{
+  "root": "apps/innbyggerpanelet",
+  "sourceRoot": "apps/innbyggerpanelet/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/innbyggerpanelet",
+        "index": "apps/innbyggerpanelet/src/index.html",
+        "baseHref": "/",
+        "main": "apps/innbyggerpanelet/src/main.tsx",
+        "polyfills": "apps/innbyggerpanelet/src/polyfills.ts",
+        "tsConfig": "apps/innbyggerpanelet/tsconfig.app.json",
+        "assets": [
+          "apps/innbyggerpanelet/src/favicon.ico",
+          "apps/innbyggerpanelet/src/assets"
+        ],
+        "styles": ["apps/innbyggerpanelet/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/innbyggerpanelet/src/environments/environment.ts",
+              "with": "apps/innbyggerpanelet/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "innbyggerpanelet:build",
+        "hmr": true,
+        "proxyConfig": "apps/innbyggerpanelet/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "innbyggerpanelet:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/innbyggerpanelet/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/innbyggerpanelet"],
+      "options": {
+        "jestConfig": "apps/innbyggerpanelet/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
