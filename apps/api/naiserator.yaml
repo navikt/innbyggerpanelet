@@ -31,9 +31,3 @@ spec:
     - https://innbyggerpanelet.labs.nais.io/api
   envFrom:
     - secret: innbyggerpanelet
-  filesFrom:
-    - secret: innbyggerpanelet-service-account
-  accessPolicy:
-    outbound:
-      rules:
-        - application: redis
