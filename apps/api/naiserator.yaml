@@ -28,6 +28,6 @@ spec:
     true: false
     path: /internal/prometheus
   ingresses:
-    - https://innbyggerpanelet.labs.nais.io/api
+    - https://innbyggerpanelet.dev.nais.io/api
   envFrom:
     - secret: innbyggerpanelet
