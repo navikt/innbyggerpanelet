@@ -1,12 +1,12 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
 metadata:
   name: innbyggerpanelet-frontend
   namespace: team-researchops
   labels:
     team: team-researchops
 spec:
-  image: {{image}}
+  image: { { image } }
   port: 2022
   team: team-researchops
   liveness:
