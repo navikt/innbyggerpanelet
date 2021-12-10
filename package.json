@@ -6,7 +6,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "parallel": "nx run-many --target=serve --projects=api,innbyggerpanelet --parallel",
+    "parallel": "nx run-many --target=serve --projects=api,frontend --parallel",
     "affected:apps": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE",
     "affected:libs": "nx affected:libs --base=remotes/origin/main$NX_BASE",
     "affected:build": "nx affected:build --base=remotes/origin/main$NX_BASE",
