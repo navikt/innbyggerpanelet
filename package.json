@@ -13,7 +13,8 @@
     "affected:test": "nx affected:test --base=remotes/origin/main$NX_BASE",
     "affected:lint": "nx affected:lint --base=remotes/origin/main$NX_BASE",
     "affected:dep-graph": "nx affected:dep-graph --base=remotes/origin/main$NX_BASE",
-    "affected": "nx affected"
+    "affected": "nx affected",
+    "matrix": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE|tr -d '\\n'|jq -cRs 'split(\" \")'"
   },
   "private": true,
   "dependencies": {
