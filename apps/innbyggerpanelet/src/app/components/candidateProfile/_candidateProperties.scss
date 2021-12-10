@@ -1,0 +1,16 @@
+.candidates-properties-container {
+    background-color: lightgray;
+    padding-left: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0.5rem;
+
+    display: flex;
+    flex-direction: row;
+
+    p:not(:first-child):not(:last-child){
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+

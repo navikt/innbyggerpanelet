@@ -1,10 +1,11 @@
 /* Your styles goes here. */
 
 /* VIEWS */
-@import './views/candidateProfile/candidateProfile';
+@import './views/candidateProfile/candidateProfileView';
 
 /* COMPONENTS */
 @import './components/candidateProfile/candidateProfileInfo';
+@import './components/candidateProfile/candidateProperties';
 
 /* CONTAINERS */
 
