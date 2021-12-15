@@ -5,9 +5,9 @@ export default function CandidateProperties(): ReactElement {
     const [candidateProperties, setCandidateProperties] = useState<string[]>([
         'Aldersgruppe 40-50 år',
         'Arbeidsledig',
-        'Bruker hjelpemiddelteknologi'
+        'Bruker hjelpemiddelteknologi',
     ])
-    
+
     return (
         <div className="candidates-properties-container">
             {candidateProperties.map(

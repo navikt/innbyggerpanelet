@@ -5,12 +5,8 @@
     padding-bottom: 1rem;
     margin-top: 0.5rem;
 
-    display: flex;
-    flex-direction: row;
-
-    p:not(:first-child):not(:last-child){
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
+    display: grid;
+    grid-template-columns: auto auto auto;
 }
+
 
