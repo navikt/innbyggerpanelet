@@ -2,11 +2,27 @@
     background-color: lightgray;
     padding-left: 2rem;
     padding-top: 1rem;
+    padding-right: 2rem;
     padding-bottom: 1rem;
     margin-top: 0.5rem;
 
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: fit-content(17rem) fit-content(17rem) fit-content(17rem);
+
+    p:nth-child(3n + 1) {
+        padding-right: 1rem;
+    }
+
+    p:nth-child(3n + 2) {
+        border-left: 1px solid gray;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    p:nth-child(3n + 3) {
+        border-left: 1px solid gray;
+        padding-left: 1rem;
+    }
 }
 
 

@@ -6,6 +6,9 @@ export default function CandidateProperties(): ReactElement {
         'Aldersgruppe 40-50 år',
         'Arbeidsledig',
         'Bruker hjelpemiddelteknologi',
+        'Hei',
+        'hei', 
+        'hei'
     ])
 
     return (
