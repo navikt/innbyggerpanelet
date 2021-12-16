@@ -1,5 +1,6 @@
 import { Button, Heading } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
+import CandidatePerformedUsabilityTests from '../../components/candidateProfile/CandidatePerformedUsabilityTests'
 import CandidateProfileInfo from '../../components/candidateProfile/CandidateProfileInfo'
 import CandidateProperties from '../../components/candidateProfile/CandidateProperties'
 
@@ -13,6 +14,8 @@ export default function CandidateProfileView(): ReactElement {
             <CandidateProfileInfo />
             <Heading size="medium">Egenskaper</Heading>
             <CandidateProperties />
+            <Heading size="medium">Gjennomført innsiktsarbeid</Heading>
+            <CandidatePerformedUsabilityTests />
         </div>
     )
 }
