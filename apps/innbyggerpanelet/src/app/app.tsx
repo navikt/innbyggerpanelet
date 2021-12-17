@@ -1,13 +1,11 @@
-import React from 'react';
-import "@navikt/ds-css"
-import CandidateProfileView from './views/candidateProfile/CandidateProfileView';
+import React from 'react'
+import '@navikt/ds-css'
 
 export const App = () => {
-  return (
-    <>
-      <CandidateProfileView />
-    </>
-  );
-};
+    return (
+        <>
+        </>
+    )
+}
 
-export default App;
+export default App
