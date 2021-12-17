@@ -1,4 +1,6 @@
+import { Heading } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
+import CandidateExperiencePoints from '../../components/candidateProfile/CandidateExperiencePoints'
 import CandidateIcon from '../../components/candidateProfile/CandidateIcon'
 
 export interface Candidate {
@@ -16,8 +18,10 @@ export interface Candidate {
 
 export default function CandidateProfile(candidate: Candidate): ReactElement {
     return (
-        <div>
+        <div className='candidate-profile'>
             <CandidateIcon />
+            <Heading size="large">{candidate.name}</Heading>
+            <CandidateExperiencePoints />
         </div>
     )
 }
