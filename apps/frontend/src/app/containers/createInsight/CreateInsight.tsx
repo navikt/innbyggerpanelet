@@ -8,21 +8,28 @@ interface IProps {
     name: string;
 }
 
-const candidates: Candidate[] = [{
-    name: "Ola Nordmann"
-}]
+const candidates: Candidate[] = [
+    {
+        name: 'Ola Nordmann',
+    },
+];
 
-const traits: Trait[] = [{name: "Er under 25 år", id: 1}]
+const traits: Trait[] = [{ name: 'Er under 25 år', id: 1 }];
 
-export const CreateInsight: FC<IProps> = ({ name }) => {
+export const CreateInsight: FC<IProps> = () => {
     return (
         <>
-            <Heading level={"1"} size="2xlarge" spacing>Nytt innsiktsarbeid</Heading>
-            <InsightConfiguration id={1}/>
+            <Heading level={'1'} size="2xlarge" spacing>
+                Nytt innsiktsarbeid
+            </Heading>
+            <InsightConfiguration id={1} />
             <Heading level={'2'} size="xlarge" spacing>
                 Kandidater
             </Heading>
-            <CandidatePicker candidate={candidates[0]} relevantTraits={traits} />
+            <CandidatePicker
+                candidate={candidates[0]}
+                relevantTraits={traits}
+            />
         </>
     );
 };

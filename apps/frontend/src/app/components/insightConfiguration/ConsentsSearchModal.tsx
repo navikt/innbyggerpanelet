@@ -16,6 +16,7 @@ export const ConsentsSearchModal: FC<IProps> = ({
     addConsent,
 }) => {
     // Query API for results
+    // Remove item on click
     const consents: Consent[] = [{ id: 1, name: 'Samtykker til skjermopptak' }];
 
     return (

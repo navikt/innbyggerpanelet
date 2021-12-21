@@ -10,6 +10,7 @@ interface IProps {
     id: number;
 }
 
+// TODO: Should be moved to "@innbyggerpanelet/api-interfaces"
 interface IFormControl {
     [key: string]: string | number | Trait[] | Consent[]; // String indexation
     name: string;
@@ -19,6 +20,7 @@ interface IFormControl {
     consents: Consent[];
 }
 
+// TODO: Should be declared in container CreateInsight
 const defaultFormControl: IFormControl = {
     name: '',
     description: '',

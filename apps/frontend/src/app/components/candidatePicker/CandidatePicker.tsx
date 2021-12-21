@@ -19,7 +19,7 @@ export const CandidatePicker: FC<IProps> = ({ candidate, relevantTraits }) => {
                 <div className={style.relevanceGrading}>
                     <div className={style.relevanceGradingBar}>
                         <div style={{ width: `${50}%` }}></div>
-                    </div>{' '}
+                    </div>
                     <Detail>{`${50}%`}</Detail>
                 </div>
             </div>
