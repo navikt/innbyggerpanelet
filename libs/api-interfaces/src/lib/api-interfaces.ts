@@ -7,10 +7,11 @@ export interface Candidate {
 }
 
 export interface Trait {
-    name: string;
     id: number;
+    name: string;
 }
 
 export interface Consent {
-  name: string;
+    id: number;
+    name: string;
 }

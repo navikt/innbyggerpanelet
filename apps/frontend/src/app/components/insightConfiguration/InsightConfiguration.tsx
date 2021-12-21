@@ -1,8 +1,10 @@
-import { ChangeEvent, FC, useState } from "react";
-import {TextField, Textarea, Button} from "@navikt/ds-react";
+import { ChangeEvent, FC, useState } from 'react';
+import { TextField, Textarea, Button } from '@navikt/ds-react';
+import { Consent, Trait } from '@innbyggerpanelet/api-interfaces';
+import { TraitsSearchModal } from './TraitsSearchModal';
+import { ConsentsSearchModal } from './ConsentsSearchModal';
 
-import style from "./InsightConfiguration.module.scss";
-import { Consent, Trait } from "@innbyggerpanelet/api-interfaces";
+import style from './InsightConfiguration.module.scss';
 
 interface IProps {
     id: number;
@@ -13,57 +15,135 @@ interface IFormControl {
     name: string;
     description: string;
     numberOfCandidates: number;
-    traits: Trait[]; 
+    traits: Trait[];
     consents: Consent[];
 }
 
 const defaultFormControl: IFormControl = {
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     numberOfCandidates: 5,
     traits: [],
-    consents: []
-}
+    consents: [],
+};
 
-export const InsightConfiguration: FC<IProps> = ({id}) => {
+export const InsightConfiguration: FC<IProps> = ({ id }) => {
     const [values, setValues] = useState<IFormControl>(defaultFormControl);
 
-    const [traitInputs, setTraitInputs] = useState<HTMLSelectElement[]>([]);
-    const [consentInputs, setConsentInputs] = useState<HTMLSelectElement[]>([]);
+    const [openTraits, setOpenTraits] = useState<boolean>(false);
+    const [openConsents, setOpenConsents] = useState<boolean>(false);
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const newValues = {...values};         
+    const handleInputChange = (
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const newValues = { ...values };
         newValues[event.target.id] = event.target.value;
         setValues(newValues);
-    }
+    };
 
-    const addListInput = () => {
-        /* 
-            Add new ned list item to either traits or consents
-        */ 
-    }
+    const addTrait = (trait: Trait) => {
+        const newValues = { ...values };
+        newValues.traits = [...newValues.traits, trait];
 
-    const removeListInput = () => {
-        /*
-            Remove list item from either traits or consents 
-        */ 
-    }
+        setValues(newValues);
+    };
 
-    return (<div className={style.wrapper}>
-        <div className={style.insightInfo}>
-            <TextField label="Navn" id="name" onChange={handleInputChange} value={values.name}/>
-            <Textarea label="Beskrivelse" id="description" onChange={handleInputChange} value={values.description}/>
-            <TextField label="Antall kandidater" type="number" id="numberOfCandidates" onChange={handleInputChange} value={values.numberOfCandidates}/>
-        </div>
-        <div className={style.insightSpecs}>
-            <div className={style.insightTraits}>
-                {traitInputs}
-                <Button size="small">+ Legg til kriterie</Button>
+    const addConsent = (consent: Consent) => {
+        const newValues = { ...values };
+        newValues.consents = [...newValues.consents, consent];
+
+        setValues(newValues);
+    };
+
+    const removeTrait = (trait: Trait) => {
+        const newValues = { ...values };
+        const filteredTraits = newValues.traits.filter(
+            (item) => item.id !== trait.id
+        );
+
+        newValues.traits = filteredTraits;
+        setValues(newValues);
+    };
+
+    const removeConsent = (consent: Consent) => {
+        const newValues = { ...values };
+        const filteredConsents = newValues.consents.filter(
+            (item) => item.id !== consent.id
+        );
+
+        newValues.consents = filteredConsents;
+        setValues(newValues);
+    };
+
+    return (
+        <>
+            <div className={style.wrapper}>
+                <div className={style.insightInfo}>
+                    <TextField
+                        label="Navn"
+                        id="name"
+                        onChange={handleInputChange}
+                        value={values.name}
+                    />
+                    <Textarea
+                        label="Beskrivelse"
+                        id="description"
+                        onChange={handleInputChange}
+                        value={values.description}
+                    />
+                    <TextField
+                        label="Antall kandidater"
+                        type="number"
+                        id="numberOfCandidates"
+                        onChange={handleInputChange}
+                        value={values.numberOfCandidates}
+                    />
+                </div>
+                <div className={style.insightSpecs}>
+                    <div className={style.insightTraits}>
+                        {values.traits.map((trait, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    onClick={() => removeTrait(trait)}>
+                                    {trait.name}
+                                </div>
+                            );
+                        })}
+                        <Button
+                            size="small"
+                            onClick={() => setOpenTraits(true)}>
+                            + Legg til kriterie
+                        </Button>
+                    </div>
+                    <div className={style.insightConsents}>
+                        {values.consents.map((consent, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    onClick={() => removeConsent(consent)}>
+                                    {consent.name}
+                                </div>
+                            );
+                        })}
+                        <Button
+                            size="small"
+                            onClick={() => setOpenConsents(true)}>
+                            + Legg til samtykke
+                        </Button>
+                    </div>
+                </div>
             </div>
-            <div className={style.insightConsents}>
-                {consentInputs}
-                <Button size="small">+ Legg til samtykke</Button>
-            </div>
-        </div>
-    </div>)
-}
+            <TraitsSearchModal
+                open={openTraits}
+                close={() => setOpenTraits(false)}
+                addTrait={addTrait}
+            />
+            <ConsentsSearchModal
+                open={openConsents}
+                close={() => setOpenConsents(false)}
+                addConsent={addConsent}
+            />
+        </>
+    );
+};
