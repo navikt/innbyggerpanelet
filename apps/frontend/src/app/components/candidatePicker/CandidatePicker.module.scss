@@ -1,0 +1,35 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
+}
+
+.header {
+    padding: 1ch;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.candidateName {
+    flex: 1;
+    margin: 0;
+}
+
+.relevanceGradingBar {
+    flex: 1;
+    background-color: grey;
+    height: 20px;
+}
+
+.relevanceGradingBar > div {
+    background-color: blue;
+
+    height: inherit;
+}
+.traits {
+    padding: 1ch;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: grey;
+}
