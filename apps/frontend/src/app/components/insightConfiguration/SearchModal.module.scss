@@ -1,0 +1,18 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 2ch;
+    gap: 1ch;
+    width: 600px;
+}
+
+.result {
+    border: 2px solid var(--navds-text-field-color-border);
+    border-radius: 4px;
+    padding: 1ch;
+}
+
+.result:hover {
+    border-color: var(--navds-text-field-color-border-hover);
+    cursor: pointer;
+}

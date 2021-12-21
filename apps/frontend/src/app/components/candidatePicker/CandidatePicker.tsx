@@ -1,6 +1,6 @@
 import { Candidate, Trait } from '@innbyggerpanelet/api-interfaces';
 import { FC } from 'react';
-import { Label } from '@navikt/ds-react';
+import { Label, Detail } from '@navikt/ds-react';
 
 import style from './CandidatePicker.module.scss';
 
@@ -16,13 +16,16 @@ export const CandidatePicker: FC<IProps> = ({ candidate, relevantTraits }) => {
                 <Label size="medium" className={style.candidateName}>
                     {candidate.name}
                 </Label>
-                <div className={style.relevanceGradingBar}>
-                    <div style={{ width: `${50}%` }}></div>
+                <div className={style.relevanceGrading}>
+                    <div className={style.relevanceGradingBar}>
+                        <div style={{ width: `${50}%` }}></div>
+                    </div>{' '}
+                    <Detail>{`${50}%`}</Detail>
                 </div>
             </div>
             <div className={style.traits}>
                 {relevantTraits.map((trait, index) => {
-                    return <p key={index}>{trait.name}</p>;
+                    return <Detail key={index}>{trait.name}</Detail>;
                 })}
             </div>
         </div>

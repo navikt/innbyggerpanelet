@@ -9,27 +9,35 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: lightgrey;
 }
 
 .candidateName {
     flex: 1;
-    margin: 0;
+}
+
+.relevanceGrading {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    margin: auto 0;
+    gap: 1ch;
 }
 
 .relevanceGradingBar {
     flex: 1;
-    background-color: grey;
-    height: 20px;
+    background-color: white;
+    height: inherit;
 }
 
 .relevanceGradingBar > div {
-    background-color: blue;
-
+    background-color: var(--navds-button-color-primary-background);
     height: inherit;
 }
 .traits {
     padding: 1ch;
     display: grid;
     grid-template-columns: auto auto auto auto;
-    background-color: grey;
+    background-color: lightgrey;
 }

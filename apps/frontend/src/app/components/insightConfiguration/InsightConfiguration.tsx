@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
-import { TextField, Textarea, Button } from '@navikt/ds-react';
+import { Label, TextField, Textarea, Button } from '@navikt/ds-react';
 import { Consent, Trait } from '@innbyggerpanelet/api-interfaces';
 import { TraitsSearchModal } from './TraitsSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
@@ -101,6 +101,9 @@ export const InsightConfiguration: FC<IProps> = ({ id }) => {
                 </div>
                 <div className={style.insightSpecs}>
                     <div className={style.insightTraits}>
+                        <Label size="medium" spacing>
+                            Kriterier:
+                        </Label>
                         {values.traits.map((trait, index) => {
                             return (
                                 <div
@@ -117,6 +120,9 @@ export const InsightConfiguration: FC<IProps> = ({ id }) => {
                         </Button>
                     </div>
                     <div className={style.insightConsents}>
+                        <Label size="medium" spacing>
+                            Samtykker:
+                        </Label>
                         {values.consents.map((consent, index) => {
                             return (
                                 <div
