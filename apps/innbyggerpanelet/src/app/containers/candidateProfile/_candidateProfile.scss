@@ -1,6 +1,13 @@
 .candidate-profile {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 45rem;
+}
+
+.candidate-info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     align-items: center;
-    padding: 1.5rem
 }
