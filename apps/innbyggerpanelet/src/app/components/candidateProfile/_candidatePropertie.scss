@@ -1,0 +1,14 @@
+.candidate-propertie {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: lightgray;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    h1.navds-heading {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 1rem;
+    }
+}

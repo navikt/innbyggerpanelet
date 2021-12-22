@@ -6,11 +6,11 @@ const candidate: Candidate = {
     name: 'Nord nordmann',
     age: 19,
     motherTounge: 'Norsk',
-    education: 'higher',
+    education: 'Høyskole/Universitet',
     benefits: undefined,
-    handicap: false,
+    handicap: '',
     assistiveTechnology: 'Skjermleser',
-    digitalSkills: 'average',
+    digitalSkills: 'Gjennomsnittelig',
     employed: true,
     industry: 'Olje og gass'
 }
