@@ -20,8 +20,10 @@
   "dependencies": {
     "@navikt/ds-css": "^0.12.5",
     "@navikt/ds-react": "^0.14.1",
+    "@navikt/ds-tokens": "^0.7.0",
     "core-js": "^3.6.5",
     "express": "4.17.1",
+    "normalize.css": "^8.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "regenerator-runtime": "0.13.7",
