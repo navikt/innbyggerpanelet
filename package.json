@@ -25,10 +25,13 @@
     "core-js": "^3.6.5",
     "express": "4.17.1",
     "normalize.css": "^8.0.1",
+    "pg": "^8.7.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "typeorm": "^0.2.41"
   },
   "devDependencies": {
     "@nrwl/cli": "13.3.0",
