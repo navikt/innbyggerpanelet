@@ -1,6 +1,6 @@
 import { Heading } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
-import CandidatePropertie from '../../components/candidateProfile/CandidatePropertie'
+import PropertieValueField from '../../components/misc/propertieValueField/PropertieValueField'
 import { Candidate } from './CandidateProfile'
 
 export default function CandidateProperties(candidate: Candidate): ReactElement {
@@ -8,35 +8,35 @@ export default function CandidateProperties(candidate: Candidate): ReactElement 
         <div>
             <div className='candidate-properties'>
                 <Heading size="large">Egenskaper</Heading>
-                <CandidatePropertie 
+                <PropertieValueField 
                     propertie="Alder"
                     value={candidate.age.toString()}    
                 />
-                <CandidatePropertie 
+                <PropertieValueField 
                     propertie='Morsmål'
                     value={candidate.motherTounge}
                 />
-                <CandidatePropertie 
+                <PropertieValueField 
                     propertie='Utdanning'
                     value={candidate.education}
                 />
-                <CandidatePropertie 
+                <PropertieValueField 
                     propertie='Ytelser'
                     value={candidate.benefits}
                 />
-                <CandidatePropertie 
+                <PropertieValueField 
                     propertie='Funksjonsvariasjon'
                     value={candidate.handicap}
                 />
-                <CandidatePropertie 
+                <PropertieValueField 
                     propertie='Hjelpemiddelteknologi'
                     value={candidate.assistiveTechnology}
                 />
-                <CandidatePropertie 
+                <PropertieValueField 
                     propertie='Digitale ferdigheter'
                     value={candidate.digitalSkills}
                 />
-                <CandidatePropertie 
+                <PropertieValueField 
                     propertie='Bransje'
                     value={candidate.industry}
                 />

@@ -1,7 +1,7 @@
 import { Heading } from '@navikt/ds-react'
 import React, { ReactElement, useEffect, useState } from 'react'
 
-export default function CandidatePropertie(
+export default function PropertieValueField(
     {
         propertie,
         value
@@ -17,7 +17,7 @@ export default function CandidatePropertie(
     }
 
     return(
-        <div className="candidate-propertie">
+        <div className="propertie-value-field">
             <Heading size="small">{propertie}</Heading>
             <p>{propertieValue}</p>
         </div>
