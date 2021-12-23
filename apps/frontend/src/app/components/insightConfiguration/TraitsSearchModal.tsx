@@ -1,6 +1,6 @@
 import { Trait } from '@innbyggerpanelet/api-interfaces';
 import { Modal, SearchField } from '@navikt/ds-react';
-import { FC } from 'react';
+import { ReactElement } from 'react';
 
 import style from './SearchModal.module.scss';
 
@@ -10,7 +10,11 @@ interface IProps {
     addTrait: (trait: Trait) => void;
 }
 
-export const TraitsSearchModal: FC<IProps> = ({ open, close, addTrait }) => {
+export const TraitsSearchModal = ({
+    open,
+    close,
+    addTrait,
+}: IProps): ReactElement => {
     // Query API for results
     // Remove item on click
     const traits: Trait[] = [

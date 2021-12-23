@@ -1,9 +1,8 @@
 import { Candidate, Insight, Trait } from '@innbyggerpanelet/api-interfaces';
-import { FC } from 'react';
+import { ReactElement } from 'react';
 import { Label, Detail } from '@navikt/ds-react';
 
 import style from './CandidatePicker.module.scss';
-import { isUndefined } from 'util';
 
 interface IProps {
     candidate: Candidate;
@@ -11,11 +10,11 @@ interface IProps {
     setInsight: (insight: Insight) => void;
 }
 
-export const CandidatePicker: FC<IProps> = ({
+export const CandidatePicker = ({
     candidate,
     insight,
     setInsight,
-}) => {
+}: IProps): ReactElement => {
     const isSelected = (): boolean => {
         const exists = insight.candidates.find((c) => c.id === candidate.id);
         return exists !== undefined;

@@ -1,15 +1,15 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    padding: 2ch;
-    gap: 1ch;
+    padding: 2rem;
+    gap: 1rem;
     width: 600px;
 }
 
 .result {
-    border: 2px solid var(--navds-text-field-color-border);
-    border-radius: 4px;
-    padding: 1ch;
+    border: 0.2rem solid var(--navds-text-field-color-border);
+    border-radius: 0.2rem;
+    padding: 1rem;
 }
 
 .result:hover {
@@ -18,5 +18,5 @@
 }
 
 .result + .result {
-    margin: 1ch 0 0;
+    margin: 0.5rem 0 0;
 }

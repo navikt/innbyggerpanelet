@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, ReactElement, useState } from 'react';
 import { Label, TextField, Textarea, Button } from '@navikt/ds-react';
 import { Consent, Insight, Trait } from '@innbyggerpanelet/api-interfaces';
 import { TraitsSearchModal } from './TraitsSearchModal';
@@ -11,7 +11,10 @@ interface IProps {
     setInsight: (insight: Insight) => void;
 }
 
-export const InsightConfiguration: FC<IProps> = ({ insight, setInsight }) => {
+export const InsightConfiguration = ({
+    insight,
+    setInsight,
+}: IProps): ReactElement => {
     const [openTraits, setOpenTraits] = useState<boolean>(false);
     const [openConsents, setOpenConsents] = useState<boolean>(false);
 
@@ -57,6 +60,8 @@ export const InsightConfiguration: FC<IProps> = ({ insight, setInsight }) => {
         setInsight(newInsight);
     };
 
+    // This block of code is entirely too big, the insightTraits and insightConsent css classes should be separated into components.
+    // Should also look into using the @navikt/date-picker. Currently the onChange prop does not handle event as a parameter.
     return (
         <>
             <div className={style.wrapper}>
@@ -74,14 +79,14 @@ export const InsightConfiguration: FC<IProps> = ({ insight, setInsight }) => {
                         value={insight.description}
                     />
                     <div className={style.dates}>
-                        <Textarea
+                        <TextField
                             id="starts"
                             label="Startdato"
                             placeholder="DD-MM-ÅÅÅÅ"
                             onChange={handleInputChange}
                             value={insight.starts}
                         />
-                        <Textarea
+                        <TextField
                             id="ends"
                             label="Sluttdato"
                             placeholder="DD-MM-ÅÅÅÅ"
