@@ -1,34 +1,43 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Heading } from '@navikt/ds-react';
-import { Candidate, Trait } from '@innbyggerpanelet/api-interfaces';
+import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces';
 import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
 
-interface IProps {
-    name: string;
-}
-
 const candidates: Candidate[] = [
     {
+        id: 1,
         name: 'Ola Nordmann',
+        traits: [{ id: 12, name: 'Hello' }],
     },
 ];
 
-const traits: Trait[] = [{ name: 'Er under 25 år', id: 1 }];
+const defaultInsight: Insight = {
+    name: '',
+    description: '',
+    starts: '',
+    ends: '',
+    candidates: [],
+    traits: [],
+    consents: [],
+};
 
-export const CreateInsight: FC<IProps> = () => {
+export const CreateInsight: FC = () => {
+    const [insight, setInsight] = useState<Insight>(defaultInsight);
+
     return (
         <>
             <Heading level={'1'} size="2xlarge" spacing>
                 Nytt innsiktsarbeid
             </Heading>
-            <InsightConfiguration id={1} />
+            <InsightConfiguration insight={insight} setInsight={setInsight} />
             <Heading level={'2'} size="xlarge" spacing>
                 Kandidater
             </Heading>
             <CandidatePicker
                 candidate={candidates[0]}
-                relevantTraits={traits}
+                insight={insight}
+                setInsight={setInsight}
             />
         </>
     );

@@ -1,80 +1,60 @@
 import { ChangeEvent, FC, useState } from 'react';
 import { Label, TextField, Textarea, Button } from '@navikt/ds-react';
-import { Consent, Trait } from '@innbyggerpanelet/api-interfaces';
+import { Consent, Insight, Trait } from '@innbyggerpanelet/api-interfaces';
 import { TraitsSearchModal } from './TraitsSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 
 import style from './InsightConfiguration.module.scss';
 
 interface IProps {
-    id: number;
+    insight: Insight;
+    setInsight: (insight: Insight) => void;
 }
 
-// TODO: Should be moved to "@innbyggerpanelet/api-interfaces"
-interface IFormControl {
-    [key: string]: string | number | Trait[] | Consent[]; // String indexation
-    name: string;
-    description: string;
-    numberOfCandidates: number;
-    traits: Trait[];
-    consents: Consent[];
-}
-
-// TODO: Should be declared in container CreateInsight
-const defaultFormControl: IFormControl = {
-    name: '',
-    description: '',
-    numberOfCandidates: 5,
-    traits: [],
-    consents: [],
-};
-
-export const InsightConfiguration: FC<IProps> = ({ id }) => {
-    const [values, setValues] = useState<IFormControl>(defaultFormControl);
-
+export const InsightConfiguration: FC<IProps> = ({ insight, setInsight }) => {
     const [openTraits, setOpenTraits] = useState<boolean>(false);
     const [openConsents, setOpenConsents] = useState<boolean>(false);
 
     const handleInputChange = (
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        const newValues = { ...values };
-        newValues[event.target.id] = event.target.value;
-        setValues(newValues);
+        const newInsight = { ...insight };
+        newInsight[event.target.id] = event.target.value;
+        setInsight(newInsight);
     };
 
     const addTrait = (trait: Trait) => {
-        const newValues = { ...values };
-        newValues.traits = [...newValues.traits, trait];
+        const newInsight = { ...insight };
+        newInsight.traits = [...newInsight.traits, trait];
 
-        setValues(newValues);
+        setInsight(newInsight);
     };
 
     const addConsent = (consent: Consent) => {
-        const newValues = { ...values };
-        newValues.consents = [...newValues.consents, consent];
+        const newInsight = { ...insight };
+        newInsight.consents = [...newInsight.consents, consent];
 
-        setValues(newValues);
+        setInsight(newInsight);
     };
 
     const removeTrait = (trait: Trait) => {
-        const newValues = { ...values };
-        const filteredTraits = newValues.traits.filter(
+        const newInsight = { ...insight };
+        const filteredTraits = newInsight.traits.filter(
             (item) => item.id !== trait.id
         );
 
-        newValues.traits = filteredTraits;
-        setValues(newValues);
+        newInsight.traits = filteredTraits;
+        setInsight(newInsight);
     };
 
     const removeConsent = (consent: Consent) => {
-        const newValues = { ...values };
-        const filteredConsents = newValues.consents.filter(
+        const newInsight = { ...insight };
+        const filteredConsents = newInsight.consents.filter(
             (item) => item.id !== consent.id
         );
 
-        newValues.consents = filteredConsents;
-        setValues(newValues);
+        newInsight.consents = filteredConsents;
+        setInsight(newInsight);
     };
 
     return (
@@ -85,20 +65,20 @@ export const InsightConfiguration: FC<IProps> = ({ id }) => {
                         label="Navn"
                         id="name"
                         onChange={handleInputChange}
-                        value={values.name}
+                        value={insight.name}
                     />
                     <Textarea
                         label="Beskrivelse"
                         id="description"
                         onChange={handleInputChange}
-                        value={values.description}
+                        value={insight.description}
                     />
                     <TextField
                         label="Antall kandidater"
                         type="number"
                         id="numberOfCandidates"
-                        onChange={handleInputChange}
-                        value={values.numberOfCandidates}
+                        value={insight.candidates.length}
+                        disabled
                     />
                 </div>
                 <div className={style.insightSpecs}>
@@ -106,7 +86,7 @@ export const InsightConfiguration: FC<IProps> = ({ id }) => {
                         <Label size="medium" spacing>
                             Kriterier:
                         </Label>
-                        {values.traits.map((trait, index) => {
+                        {insight.traits.map((trait, index) => {
                             return (
                                 <div
                                     key={index}
@@ -125,7 +105,7 @@ export const InsightConfiguration: FC<IProps> = ({ id }) => {
                         <Label size="medium" spacing>
                             Samtykker:
                         </Label>
-                        {values.consents.map((consent, index) => {
+                        {insight.consents.map((consent, index) => {
                             return (
                                 <div
                                     key={index}

@@ -13,7 +13,10 @@ interface IProps {
 export const TraitsSearchModal: FC<IProps> = ({ open, close, addTrait }) => {
     // Query API for results
     // Remove item on click
-    const traits: Trait[] = [{ id: 12, name: 'Under 25 år' }];
+    const traits: Trait[] = [
+        { id: 12, name: 'Under 25 år' },
+        { id: 13, name: 'Over 25 år' },
+    ];
 
     return (
         <Modal open={open} onClose={close}>
