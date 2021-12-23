@@ -2,6 +2,7 @@ import { Heading } from '@navikt/ds-react'
 import React, { ReactElement, useState } from 'react'
 import CandidateExperiencePoints from '../../components/candidateProfile/CandidateExperiencePoints'
 import CandidateIcon from '../../components/candidateProfile/CandidateIcon'
+import CandidatePerfomedInsightWork, { InsigthWork } from './CandidatePerformedInsightWork'
 import CandidateProperties from './CandidateProperties'
 
 export interface Candidate {
@@ -19,7 +20,13 @@ export interface Candidate {
 
 // TODO: Explore the oppertunity to use useContext for a candidate, as 
 // there is now quite alot of prop drilling
-export default function CandidateProfile(candidate: Candidate): ReactElement {
+export default function CandidateProfile({
+    candidate,
+    candidatePerformedInsightWork
+}: {
+    candidate: Candidate
+    candidatePerformedInsightWork: InsigthWork[]
+}): ReactElement {
     return (
         <div>
             <div className='candidate-profile'>
@@ -29,6 +36,7 @@ export default function CandidateProfile(candidate: Candidate): ReactElement {
                     <CandidateExperiencePoints />
                 </div>
                 <CandidateProperties {...candidate}/>
+                <CandidatePerfomedInsightWork {...candidatePerformedInsightWork}/>
             </div>
         </div>
     )

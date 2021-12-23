@@ -1,6 +1,7 @@
 import React from 'react'
 import '@navikt/ds-css'
 import CandidateProfile, { Candidate } from './containers/candidateProfile/CandidateProfile'
+import { InsigthWork } from './containers/candidateProfile/CandidatePerformedInsightWork'
 
 const candidate: Candidate = {
     name: 'Nord nordmann',
@@ -15,9 +16,20 @@ const candidate: Candidate = {
     industry: 'Olje og gass'
 }
 
+const candidatePerformedInsightWork: InsigthWork[] = [
+    {
+        name: 'Arbeidsavklaringspenger',
+        insightTechnique: 'Intervju'
+    },
+    {
+        name: 'Dagpenger',
+        insightTechnique: 'Lydopptak'
+    }
+]
+
 export const App = () => {
     return (
-        <CandidateProfile {...candidate}/>
+        <CandidateProfile candidate={candidate} candidatePerformedInsightWork={candidatePerformedInsightWork}/>
     )
 }
 
