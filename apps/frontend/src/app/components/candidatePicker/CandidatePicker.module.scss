@@ -34,6 +34,7 @@
 .relevanceGradingBar > div {
     background-color: green;
     height: inherit;
+    transition: width 1s;
 }
 .traits {
     padding: 1ch;

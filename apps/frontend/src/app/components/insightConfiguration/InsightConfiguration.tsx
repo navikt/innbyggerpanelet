@@ -5,7 +5,6 @@ import { TraitsSearchModal } from './TraitsSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 
 import style from './InsightConfiguration.module.scss';
-import { Datepicker } from '@navikt/ds-datepicker';
 
 interface IProps {
     insight: Insight;

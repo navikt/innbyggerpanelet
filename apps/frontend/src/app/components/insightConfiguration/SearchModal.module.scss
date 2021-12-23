@@ -16,3 +16,7 @@
     border-color: var(--navds-text-field-color-border-hover);
     cursor: pointer;
 }
+
+.result + .result {
+    margin: 1ch 0 0;
+}
