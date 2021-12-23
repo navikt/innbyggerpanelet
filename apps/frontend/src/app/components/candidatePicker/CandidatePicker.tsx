@@ -84,7 +84,7 @@ export const CandidatePicker: FC<IProps> = ({
                             className={`${
                                 traitIsRelevant(trait)
                                     ? style.relevantTrait
-                                    : ''
+                                    : style.irrelevantTrait
                             }`}>
                             {trait.name}
                         </Detail>

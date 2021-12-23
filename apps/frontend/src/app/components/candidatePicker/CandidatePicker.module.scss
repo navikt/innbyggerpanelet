@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1ch;
+    gap: 2px;
 }
 
 .header {
@@ -49,4 +49,12 @@
 
 .relevantTrait {
     color: green;
+}
+
+.irrelevantTrait {
+    color: red;
+}
+
+.wrapper + .wrapper {
+    margin-top: 1ch;
 }
