@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Button, Heading } from '@navikt/ds-react';
+import { Button, Heading, Label } from '@navikt/ds-react';
 import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces';
 import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
@@ -34,16 +34,22 @@ export const CreateInsight: FC = () => {
 
     return (
         <div className={style.wrapper}>
-            <div className={style.header}>
+            <div className={style.configHeader}>
                 <Heading level={'1'} size="2xlarge" spacing>
                     Nytt innsiktsarbeid
                 </Heading>
                 <Button>INVITER</Button>
             </div>
             <InsightConfiguration insight={insight} setInsight={setInsight} />
-            <Heading level={'2'} size="xlarge" spacing>
-                Kandidater
-            </Heading>
+            <div className={style.candidatesHeader}>
+                <Heading level={'2'} size="xlarge" spacing>
+                    Kandidater
+                </Heading>
+                <Label>
+                    Valgte kandidater: {insight.candidates.length}/
+                    {candidates.length}
+                </Label>
+            </div>
             <div>
                 {candidates.map((candidate, index) => {
                     return (

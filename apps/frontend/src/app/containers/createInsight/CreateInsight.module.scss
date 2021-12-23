@@ -5,8 +5,19 @@
     margin: 1ch 0 0 0;
 }
 
-.header {
+.configHeader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.candidatesHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.candidatesHeader > p {
+    margin: auto 0;
 }

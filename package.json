@@ -19,6 +19,7 @@
   "private": true,
   "dependencies": {
     "@navikt/ds-css": "^0.12.5",
+    "@navikt/ds-datepicker": "^1.0.4",
     "@navikt/ds-react": "^0.14.1",
     "@navikt/ds-tokens": "^0.7.0",
     "core-js": "^3.6.5",

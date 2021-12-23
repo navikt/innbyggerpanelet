@@ -13,6 +13,12 @@
     gap: 1ch;
 }
 
+.insightInfo .dates {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .insightSpecs {
     flex: 1;
     display: flex;

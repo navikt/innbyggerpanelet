@@ -5,6 +5,7 @@ import { TraitsSearchModal } from './TraitsSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 
 import style from './InsightConfiguration.module.scss';
+import { Datepicker } from '@navikt/ds-datepicker';
 
 interface IProps {
     insight: Insight;
@@ -62,24 +63,33 @@ export const InsightConfiguration: FC<IProps> = ({ insight, setInsight }) => {
             <div className={style.wrapper}>
                 <div className={style.insightInfo}>
                     <TextField
-                        label="Navn"
                         id="name"
+                        label="Navn"
                         onChange={handleInputChange}
                         value={insight.name}
                     />
                     <Textarea
-                        label="Beskrivelse"
                         id="description"
+                        label="Beskrivelse"
                         onChange={handleInputChange}
                         value={insight.description}
                     />
-                    <TextField
-                        label="Antall kandidater"
-                        type="number"
-                        id="numberOfCandidates"
-                        value={insight.candidates.length}
-                        disabled
-                    />
+                    <div className={style.dates}>
+                        <Textarea
+                            id="starts"
+                            label="Startdato"
+                            placeholder="DD-MM-ÅÅÅÅ"
+                            onChange={handleInputChange}
+                            value={insight.starts}
+                        />
+                        <Textarea
+                            id="ends"
+                            label="Sluttdato"
+                            placeholder="DD-MM-ÅÅÅÅ"
+                            onChange={handleInputChange}
+                            value={insight.ends}
+                        />
+                    </div>
                 </div>
                 <div className={style.insightSpecs}>
                     <div className={style.insightTraits}>
