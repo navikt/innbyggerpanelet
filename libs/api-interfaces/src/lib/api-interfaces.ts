@@ -1,7 +1,3 @@
-export interface Message {
-    message: string;
-}
-
 export interface Candidate {
     id: number;
     name: string;
