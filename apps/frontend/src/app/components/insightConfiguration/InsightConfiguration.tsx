@@ -1,6 +1,10 @@
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { Label, TextField, Textarea, Button } from '@navikt/ds-react';
-import { IConsent, IInsight, ICriteria } from '@innbyggerpanelet/api-interfaces';
+import {
+    IConsent,
+    IInsight,
+    ICriteria,
+} from '@innbyggerpanelet/api-interfaces';
 import { CriteriasSearchModal } from './CriteriasSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 

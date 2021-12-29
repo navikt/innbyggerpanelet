@@ -1,4 +1,8 @@
-import { ICandidate, IInsight, ICriteria } from '@innbyggerpanelet/api-interfaces';
+import {
+    ICandidate,
+    IInsight,
+    ICriteria,
+} from '@innbyggerpanelet/api-interfaces';
 import { ReactElement } from 'react';
 import { Label, Detail } from '@navikt/ds-react';
 
@@ -33,7 +37,10 @@ export const CandidatePicker = ({
     };
 
     const getRelevancePercentage = (): number => {
-        return ((getRelevantcriterias().length / insight.criterias.length) * 100) | 0;
+        return (
+            ((getRelevantcriterias().length / insight.criterias.length) * 100) |
+            0
+        );
     };
 
     const criteriaIsRelevant = (criteria: ICriteria): boolean => {
