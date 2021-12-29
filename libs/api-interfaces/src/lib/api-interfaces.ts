@@ -1,27 +1,33 @@
-export interface Candidate {
+export interface ICandidate {
     id: number;
     name: string;
-    traits: Trait[];
+    traits: ITrait[];
 }
 
-export interface Trait {
+export interface ITrait {
     id: number;
     name: string;
 }
 
-export interface Consent {
+export interface IConsent {
     id: number;
     name: string;
 }
 
 // Needs Ref to project, and ID.
-export interface Insight {
-    [key: string]: string | number | Date | Trait[] | Consent[] | Candidate[]; // String indexation
+export interface IInsight {
+    [key: string]:
+        | string
+        | number
+        | Date
+        | ITrait[]
+        | IConsent[]
+        | ICandidate[]; // String indexation
     name: string;
     description: string;
     starts: string;
     ends: string;
-    candidates: Candidate[];
-    traits: Trait[];
-    consents: Consent[];
+    candidates: ICandidate[];
+    traits: ITrait[];
+    consents: IConsent[];
 }

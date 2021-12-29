@@ -1,3 +1,4 @@
+import { IInsight } from '@innbyggerpanelet/api-interfaces';
 import {
     Entity,
     Column,
@@ -8,7 +9,9 @@ import {
 import { Candidate, Consent, Trait } from '.';
 
 @Entity()
-export class Insight {
+export class Insight implements IInsight {
+    [key: string]: any;
+
     @PrimaryGeneratedColumn()
     id: number;
 

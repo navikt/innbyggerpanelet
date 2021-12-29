@@ -1,13 +1,13 @@
 import { ReactElement, useState } from 'react';
 import { Button, Heading, Label, Panel } from '@navikt/ds-react';
-import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces';
+import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
 import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
 
 import style from './CreateInsight.module.scss';
 
 // Temporary mock data
-const candidates: Candidate[] = [
+const candidates: ICandidate[] = [
     {
         id: 1,
         name: 'Ola Nordmann',
@@ -20,7 +20,7 @@ const candidates: Candidate[] = [
     },
 ];
 
-const defaultInsight: Insight = {
+const defaultInsight: IInsight = {
     name: '',
     description: '',
     starts: '',
@@ -32,7 +32,7 @@ const defaultInsight: Insight = {
 
 export const CreateInsight = (): ReactElement => {
     // TODO: Look into using context when receipt container is to be made.
-    const [insight, setInsight] = useState<Insight>(defaultInsight);
+    const [insight, setInsight] = useState<IInsight>(defaultInsight);
 
     return (
         <Panel>

@@ -1,14 +1,14 @@
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { Label, TextField, Textarea, Button } from '@navikt/ds-react';
-import { Consent, Insight, Trait } from '@innbyggerpanelet/api-interfaces';
+import { IConsent, IInsight, ITrait } from '@innbyggerpanelet/api-interfaces';
 import { TraitsSearchModal } from './TraitsSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 
 import style from './InsightConfiguration.module.scss';
 
 interface IProps {
-    insight: Insight;
-    setInsight: (insight: Insight) => void;
+    insight: IInsight;
+    setInsight: (insight: IInsight) => void;
 }
 
 export const InsightConfiguration = ({
@@ -26,21 +26,21 @@ export const InsightConfiguration = ({
         setInsight(newInsight);
     };
 
-    const addTrait = (trait: Trait) => {
+    const addTrait = (trait: ITrait) => {
         const newInsight = { ...insight };
         newInsight.traits = [...newInsight.traits, trait];
 
         setInsight(newInsight);
     };
 
-    const addConsent = (consent: Consent) => {
+    const addConsent = (consent: IConsent) => {
         const newInsight = { ...insight };
         newInsight.consents = [...newInsight.consents, consent];
 
         setInsight(newInsight);
     };
 
-    const removeTrait = (trait: Trait) => {
+    const removeTrait = (trait: ITrait) => {
         const newInsight = { ...insight };
         const filteredTraits = newInsight.traits.filter(
             (item) => item.id !== trait.id
@@ -50,7 +50,7 @@ export const InsightConfiguration = ({
         setInsight(newInsight);
     };
 
-    const removeConsent = (consent: Consent) => {
+    const removeConsent = (consent: IConsent) => {
         const newInsight = { ...insight };
         const filteredConsents = newInsight.consents.filter(
             (item) => item.id !== consent.id

@@ -1,11 +1,17 @@
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
-import { Trait } from '../entities';
+import { traitQuery } from '../queries';
 
 export const traitRouter = Router();
 
 traitRouter.get('/', async (req, res) => {
-    const traits = getRepository(Trait).find();
+    const traits = await traitQuery.selectAllTraits();
 
     res.send(traits);
+});
+
+traitRouter.post('/', async (req, res) => {
+    const { traits } = req.body;
+    const result = await traitQuery.insertTraits(traits);
+
+    res.send(result);
 });

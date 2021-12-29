@@ -1,13 +1,13 @@
-import { Candidate, Insight, Trait } from '@innbyggerpanelet/api-interfaces';
+import { ICandidate, IInsight, ITrait } from '@innbyggerpanelet/api-interfaces';
 import { ReactElement } from 'react';
 import { Label, Detail } from '@navikt/ds-react';
 
 import style from './CandidatePicker.module.scss';
 
 interface IProps {
-    candidate: Candidate;
-    insight: Insight;
-    setInsight: (insight: Insight) => void;
+    candidate: ICandidate;
+    insight: IInsight;
+    setInsight: (insight: IInsight) => void;
 }
 
 export const CandidatePicker = ({
@@ -20,7 +20,7 @@ export const CandidatePicker = ({
         return exists !== undefined;
     };
 
-    const getRelevantTraits = (): Trait[] => {
+    const getRelevantTraits = (): ITrait[] => {
         const traitIDs = candidate.traits.map((trait) => {
             return trait.id;
         });
@@ -36,7 +36,7 @@ export const CandidatePicker = ({
         return ((getRelevantTraits().length / insight.traits.length) * 100) | 0;
     };
 
-    const traitIsRelevant = (trait: Trait): boolean => {
+    const traitIsRelevant = (trait: ITrait): boolean => {
         const relevantTraits = getRelevantTraits();
         return relevantTraits.includes(trait);
     };
