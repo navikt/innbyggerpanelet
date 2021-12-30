@@ -1,10 +1,25 @@
 import { getRepository } from 'typeorm';
 import { Candidate } from '../entities';
 
-const selectAllCandidates = async () => {
+// Returns candidates sorted after number of traits matching param
+const selectSortedCandidatesByTraits = async (traitIds: string[]) => {
     return await getRepository(Candidate)
         .createQueryBuilder('candidate')
+        .leftJoinAndSelect(
+            'candidate.traits',
+            'trait',
+            'trait.id IN (:...traitIds)',
+            { traitIds }
+        )
+        .orderBy('trait', 'DESC')
         .getMany();
+};
+
+const selectCandidateById = async (id: number) => {
+    return await getRepository(Candidate)
+        .createQueryBuilder('candidate')
+        .where('candidate.id = :id', { id })
+        .getOne();
 };
 
 const insertCandidates = async (candidates: Candidate[]) => {
@@ -26,7 +41,8 @@ const addTrait = async (candidateID: number, traitID: number) => {
 };
 
 export const candidateQuery = {
-    selectAllCandidates,
+    selectSortedCandidatesByTraits,
+    selectCandidateById,
     insertCandidates,
     addTrait,
 };

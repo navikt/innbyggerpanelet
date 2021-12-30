@@ -3,12 +3,23 @@ import { candidateQuery } from '../queries';
 
 export const candidateRouter = Router();
 
-// Should make search functionality based on fields in entity.
-// Example. /api/candidate?traits=[1,2,3,4]&consents=[1]
+// Search all candidates ordered by number of matching traits
+// Example. /api/candidate?trait=1&trait=2
 candidateRouter.get('/', async (req, res) => {
-    const candidates = await candidateQuery.selectAllCandidates();
+    const trait = [req.query.trait].flat() as string[];
+
+    const candidates = await candidateQuery.selectSortedCandidatesByTraits(
+        trait
+    );
 
     res.send(candidates);
+});
+
+candidateRouter.get('/:id', async (req, res) => {
+    const candidateID = parseInt(req.params.id);
+    const candidate = await candidateQuery.selectCandidateById(candidateID);
+
+    res.send(candidate);
 });
 
 candidateRouter.post('/', async (req, res) => {

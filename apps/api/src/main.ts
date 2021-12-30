@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as helmet from 'helmet';
 import { internalRouter } from './app/internal';
 import { createConnection } from 'typeorm';
 import { Candidate, Consent, Insight, Trait } from './entities';
@@ -24,6 +25,7 @@ createConnection({
 }).then((connection) => {
     const app = express();
     app.use(express.json());
+    app.use(helmet());
 
     app.use('/internal', internalRouter);
     app.use('/api/candidate', candidateRouter);

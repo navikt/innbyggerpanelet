@@ -24,6 +24,7 @@
     "@navikt/ds-tokens": "^0.7.0",
     "core-js": "^3.6.5",
     "express": "4.17.1",
+    "helmet": "^4.6.0",
     "normalize.css": "^8.0.1",
     "pg": "^8.7.1",
     "pg-native": "^3.0.0",
