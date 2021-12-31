@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import '@navikt/ds-css'
-import CandidateProfile, { Candidate } from './containers/candidateProfile/CandidateProfile'
-import { InsigthWork } from './containers/candidateProfile/CandidatePerformedInsight'
+import CandidateProfile from './containers/candidateProfile/CandidateProfile'
+import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces'
 
 
 export const App = () => {
     const [candidate, setCandidate] = useState<Candidate>({
+        id: 1,
         name: 'Nord nordmann',
         age: 19,
         motherTounge: 'Norsk',
@@ -18,7 +19,7 @@ export const App = () => {
         industry: 'Olje og gass'
     })
 
-    const [performedInsightWork, setPerformedInsightWork] = useState<InsigthWork[]>([
+    const [performedInsightWork, setPerformedInsightWork] = useState<Insight[]>([
         {
             name: 'Arbeidsavklaringspenger',
             insightTechnique: 'Intervju'

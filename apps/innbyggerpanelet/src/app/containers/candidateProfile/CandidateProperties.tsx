@@ -1,7 +1,7 @@
 import { Heading } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 import PropertieValueField from '../../components/misc/propertieValueField/PropertieValueField'
-import { Candidate } from './CandidateProfile'
+import { Candidate } from '@innbyggerpanelet/api-interfaces'
 
 import style from './CandidateProperties.module.scss'
 

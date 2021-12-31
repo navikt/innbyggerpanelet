@@ -1,15 +1,11 @@
+import { Insight } from '@innbyggerpanelet/api-interfaces'
 import { Heading } from '@navikt/ds-react'
 import React, { ReactElement } from 'react'
 import PropertieValueField from '../../components/misc/propertieValueField/PropertieValueField'
 
 import style from './CandidatePerformedInsight.module.scss'
 
-export interface InsigthWork {
-    name: string
-    insightTechnique: 'Intervju' | 'Lydopptak' | 'Videoopptak'
-}
-
-export default function CandidatePerfomedInsight(insightWorks: InsigthWork[]): ReactElement {
+export default function CandidatePerfomedInsight(insightWorks: Insight[]): ReactElement {
     return (
         <div>
             <div className={style.candidatePerfomedInsight}>
