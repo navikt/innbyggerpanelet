@@ -1,13 +1,15 @@
 import React, { ReactElement } from 'react'
 
+import style from './CandidateExperiencePoints.module.scss'
+
 export default function CandidateExperiencePoints(): ReactElement {
     return (
         <div>
-            <div className='experience-points-container'>
-                <div className='experience-bar'></div>
-                <div className='no-experience-bar'></div>
+            <div className={style.experiencePointsContainer}>
+                <div className={style.experienceBar}></div>
+                <div className={style.noExperienceBar}></div>
             </div>
-            <div className='experience-points-info'>
+            <div className={style.experiencePointsInfo}>
                 <span>Level 14</span>
                 <span>70/100</span>
             </div>

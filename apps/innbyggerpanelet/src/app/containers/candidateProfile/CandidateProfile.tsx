@@ -2,8 +2,10 @@ import { Heading } from '@navikt/ds-react'
 import React, { ReactElement, useState } from 'react'
 import CandidateExperiencePoints from '../../components/candidateProfile/CandidateExperiencePoints'
 import CandidateIcon from '../../components/candidateProfile/CandidateIcon'
-import CandidatePerfomedInsightWork, { InsigthWork } from './CandidatePerformedInsightWork'
+import CandidatePerfomedInsight, { InsigthWork } from './CandidatePerformedInsight'
 import CandidateProperties from './CandidateProperties'
+
+import style from './CandidateProfile.module.scss'
 
 export interface Candidate {
     name: string
@@ -29,14 +31,14 @@ export default function CandidateProfile({
 }): ReactElement {
     return (
         <div>
-            <div className='candidate-profile'>
-                <div className='candidate-info'>
+            <div className={style.candidateProfile}>
+                <div className={style.candidateInfo}>
                     <CandidateIcon />
                     <Heading size="medium">{candidate.name}</Heading>
                     <CandidateExperiencePoints />
                 </div>
                 <CandidateProperties {...candidate}/>
-                <CandidatePerfomedInsightWork {...candidatePerformedInsightWork}/>
+                <CandidatePerfomedInsight {...candidatePerformedInsightWork}/>
             </div>
         </div>
     )

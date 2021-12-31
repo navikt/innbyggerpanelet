@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '@navikt/ds-css'
 import CandidateProfile, { Candidate } from './containers/candidateProfile/CandidateProfile'
-import { InsigthWork } from './containers/candidateProfile/CandidatePerformedInsightWork'
+import { InsigthWork } from './containers/candidateProfile/CandidatePerformedInsight'
 
 
 export const App = () => {

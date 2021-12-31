@@ -1,6 +1,8 @@
 import { Heading } from '@navikt/ds-react'
 import React, { ReactElement, useEffect, useState } from 'react'
 
+import style from './PropertieValueField.module.scss'
+
 export default function PropertieValueField(
     {
         propertie,
@@ -17,8 +19,8 @@ export default function PropertieValueField(
     }
 
     return(
-        <div className="propertie-value-field">
-            <Heading size="small">{propertie}</Heading>
+        <div className={style.propertieValueField}>
+            <Heading className={style.propertieHeading} size="small">{propertie}</Heading>
             <p>{propertieValue}</p>
         </div>
     )
