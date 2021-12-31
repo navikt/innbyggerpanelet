@@ -12,7 +12,7 @@ export default function CandidatePerfomedInsightWork(insightWorks: InsigthWork[]
         <div>
             <div className='candidate-performed-insigth-work'>
                 <Heading size='large'>Tidligere innsiktsarbeid</Heading>
-                {insightWorks.map((item, i) => <PropertieValueField key={i} propertie={item.name} value={item.insightTechnique}/>)}
+                {Object.keys(insightWorks).map((item, i) => <PropertieValueField key={i} propertie={insightWorks[i].name} value={insightWorks[i].insightTechnique}/>)}
             </div>
         </div>
     )
