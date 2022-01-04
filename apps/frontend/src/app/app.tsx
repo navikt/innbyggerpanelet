@@ -1,9 +1,13 @@
 import '@navikt/ds-css/index.css';
-import { CreateInsight } from './containers/createInsight/CreateInsight';
-import { CriteriaAdminPanel } from './containers/criteriaAdministration';
+import { Link } from 'react-router-dom';
 
 export const App = () => {
-    return <CriteriaAdminPanel />;
+    return (
+        <>
+            <Link to="/project">Project</Link>
+            <Link to="/Insight">Insight</Link>
+        </>
+    );
 };
 
 export default App;
