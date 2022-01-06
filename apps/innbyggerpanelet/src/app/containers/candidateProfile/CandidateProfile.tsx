@@ -26,7 +26,7 @@ export default function CandidateProfile({
                     <CandidateExperiencePoints />
                 </div>
                 <CandidateProperties {...candidate}/>
-                <CandidatePerfomedInsight {...candidatePerformedInsightWork}/>
+                <CandidatePerfomedInsight insight={candidatePerformedInsightWork}/>
             </div>
         </div>
     );
