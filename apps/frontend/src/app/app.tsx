@@ -4,9 +4,7 @@ import '@navikt/ds-css/index.css';
 
 export const App = () => {
     return (
-        <>
-            <CreateInsight />
-        </>
+        <CreateInsight />
     );
 };
 

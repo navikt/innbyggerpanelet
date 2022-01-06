@@ -14,7 +14,7 @@ export interface Candidate {
     digitalSkills: 'Dårlig' | 'Gjennomsnittelig' | 'Bra';
     employed: boolean;
     industry?: string;
-    traits?: Trait[];
+    traits: Trait[];
 }
 
 export interface Trait {
@@ -30,12 +30,13 @@ export interface Consent {
 type insightTechnique = 'Intervju' | 'Lydopptak' | 'Videoopptak';
 
 export interface Insight {
+    [key: string]: string | number | insightTechnique | Trait[] | Consent[] | Candidate[];
     name: string;
     insightTechnique: insightTechnique;
-    description?: string;
-    starts?: string;
-    ends?: string;
-    candidates?: Candidate[];
-    traits?: Trait[];
-    consents?: Consent[];
+    description: string;
+    starts: string;
+    ends: string;
+    candidates: Candidate[];
+    traits: Trait[];
+    consents: Consent[];
 }

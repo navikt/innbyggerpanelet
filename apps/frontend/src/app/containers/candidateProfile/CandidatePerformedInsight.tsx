@@ -1,7 +1,7 @@
 import { Insight } from '@innbyggerpanelet/api-interfaces';
 import { Heading } from '@navikt/ds-react';
 import React, { ReactElement } from 'react';
-import PropertyValueField from '../../components/misc/propertieValueField/PropertieValueField';
+import PropertyValueField from '../../components/misc/propertyValueField/PropertieValueField';
 
 import style from './CandidatePerformedInsight.module.scss';
 
