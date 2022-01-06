@@ -1,0 +1,35 @@
+.wrapper {
+    background-color: var(--nav-light-gray);
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.header > p {
+    margin: auto 0;
+}
+
+.dropdown {
+    margin: 1rem 0 0 0;
+}
+
+.entryCandidates > li > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.entryCandidates > li > div input {
+    margin: auto 0 0 1rem;
+    left: 0;
+}
+
+.entryCandidates > li > div p {
+    margin: auto 0;
+}

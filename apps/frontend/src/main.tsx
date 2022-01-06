@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import App from './app/app';
 import { CreateInsight } from './app/containers/createInsight/CreateInsight';
-import { Project } from './app/containers/project/Project';
+import { Project } from './app/containers/project';
 
 // Root
 ReactDOM.render(

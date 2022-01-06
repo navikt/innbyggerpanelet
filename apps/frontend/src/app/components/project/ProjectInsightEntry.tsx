@@ -1,8 +1,8 @@
 import { Insight } from '@innbyggerpanelet/api-interfaces';
-import { BodyShort, Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Checkbox, Heading, Label } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 
-import style from './ProjectInsightEntry.module.scss';
+import style from './Project.module.scss';
 
 interface IProps {
     insight: Insight;
@@ -11,12 +11,19 @@ interface IProps {
 export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
     const [open, setOpen] = useState(false);
 
+    const candidatesCompleted = insight.candidates.filter(
+        (c) => c.insightCompleted
+    ).length;
+
     return (
         <div className={style.wrapper}>
             <div className={style.header} onClick={() => setOpen(!open)}>
                 <Heading size="large">{insight.name}</Heading>
-                <BodyShort>{insight.candidates.length} relevans</BodyShort>
-                <BodyShort>0/{insight.candidates.length} gjennomført</BodyShort>
+                <BodyShort>00% relevansgradering</BodyShort>
+                <BodyShort>
+                    {candidatesCompleted}/{insight.candidates.length}{' '}
+                    gjennomført
+                </BodyShort>
             </div>
             {open ? (
                 <div className={style.dropdown}>
@@ -33,9 +40,20 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
                         ))}
                     </ul>
                     <Label>Deltagere:</Label>
-                    <ul>
+                    <ul className={style.entryCandidates}>
                         {insight.candidates.map((candidate, index) => (
-                            <li key={index}>{candidate.name}</li>
+                            <li key={index}>
+                                <div>
+                                    <BodyShort>{candidate.name}</BodyShort>
+                                    <BodyShort>00% relevansgradering</BodyShort>
+                                    <Checkbox
+                                        hideLabel
+                                        id="insightCompleted"
+                                        checked={candidate.insightCompleted}>
+                                        gjennomført
+                                    </Checkbox>
+                                </div>
+                            </li>
                         ))}
                     </ul>
                 </div>

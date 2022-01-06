@@ -9,7 +9,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: lightgrey;
+    background-color: var(--nav-light-gray);
+    border-radius: 4px;
 }
 
 .candidateName {
@@ -40,7 +41,8 @@
     padding: 1rem;
     display: grid;
     grid-template-columns: auto auto auto auto;
-    background-color: lightgrey;
+    background-color: var(--nav-light-gray);
+    border-radius: 4px;
 }
 
 .selected > .header {

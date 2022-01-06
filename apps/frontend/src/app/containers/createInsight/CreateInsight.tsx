@@ -46,18 +46,18 @@ export const CreateInsight = (): ReactElement => {
     const [insight, setInsight] = useState<IInsight>(defaultInsight);
 
     return (
-        <Panel>
-            <div className={style.wrapper}>
-                <div className={style.configHeader}>
-                    <Heading level={'1'} size="2xlarge" spacing>
-                        Nytt innsiktsarbeid
-                    </Heading>
-                    <Button>INVITER</Button>
-                </div>
+        <>
+            <Panel>
+                <Button>INVITER</Button>
+                <Heading level={'1'} size="2xlarge" spacing>
+                    Nytt innsiktsarbeid
+                </Heading>
                 <InsightConfiguration
                     insight={insight}
                     setInsight={setInsight}
                 />
+            </Panel>
+            <Panel>
                 <div className={style.candidatesHeader}>
                     <Heading level={'2'} size="xlarge" spacing>
                         Kandidater
@@ -79,7 +79,7 @@ export const CreateInsight = (): ReactElement => {
                         );
                     })}
                 </div>
-            </div>
-        </Panel>
+            </Panel>
+        </>
     );
 };

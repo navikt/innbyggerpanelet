@@ -1,6 +1,6 @@
 import { ChangeEvent, ReactElement } from 'react';
 import { IProject } from '@innbyggerpanelet/api-interfaces';
-import { BodyShort, Label, Panel, Textarea, TextField } from '@navikt/ds-react';
+import { BodyShort, Label, Textarea, TextField } from '@navikt/ds-react';
 
 interface IProps {
     project: IProject;
@@ -17,7 +17,7 @@ export const ProjectEdit = ({ project, setProject }: IProps): ReactElement => {
     };
 
     return (
-        <Panel>
+        <>
             <TextField
                 id="name"
                 label="Navn:"
@@ -40,6 +40,6 @@ export const ProjectEdit = ({ project, setProject }: IProps): ReactElement => {
             />
             <Label>Teammedlemmer: </Label>
             <BodyShort>TODO</BodyShort>
-        </Panel>
+        </>
     );
 };

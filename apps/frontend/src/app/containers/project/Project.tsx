@@ -17,7 +17,20 @@ const defaultProject: IProject = {
             description: 'beskrivelse',
             starts: 'DD-MM-ÅÅÅÅ',
             ends: 'DD-MM-ÅÅÅÅ',
-            candidates: [{ id: 1, name: 'Ole Brumm', traits: [] }],
+            insightTechnique: 'Intervju',
+            candidates: [
+                {
+                    id: 1,
+                    name: 'Ole Brumm',
+                    age: 24,
+                    motherTounge: 'NORSK',
+                    education: 'Høyskole/Universitet',
+                    digitalSkills: 'Gjennomsnittelig',
+                    employed: true,
+                    traits: [],
+                    insightCompleted: true,
+                },
+            ],
             traits: [{ id: 1, name: ' Må være 25 år ' }],
             consents: [{ id: 1, name: 'Godtar taleopptak' }],
         },
@@ -29,16 +42,18 @@ export const Project = (): ReactElement => {
     const [edit, setEdit] = useState(false);
 
     return (
-        <Panel>
-            <Button onClick={() => setEdit(!edit)}>Rediger</Button>
-            {edit ? (
-                <ProjectEdit project={project} setProject={setProject} />
-            ) : (
-                <ProjectOverview project={project} />
-            )}
+        <>
+            <Panel>
+                <Button onClick={() => setEdit(!edit)}>Rediger</Button>
+                {edit ? (
+                    <ProjectEdit project={project} setProject={setProject} />
+                ) : (
+                    <ProjectOverview project={project} />
+                )}
+            </Panel>
             <Panel>
                 <ProjectInsightEntry insight={project.insights[0]} />
             </Panel>
-        </Panel>
+        </>
     );
 };
