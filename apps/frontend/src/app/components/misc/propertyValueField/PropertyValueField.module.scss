@@ -1,0 +1,14 @@
+.propertieValueField {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: lightgray;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.propertieHeading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+}

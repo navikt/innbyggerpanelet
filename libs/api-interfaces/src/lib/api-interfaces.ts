@@ -1,10 +1,19 @@
 export interface Message {
-    message: string;
+  message: string;
 }
 
 export interface Candidate {
     id: number;
     name: string;
+    age: number;
+    motherTounge: string;
+    education: 'Barneskole' | 'Ungdomsskole' | 'Videregående' | 'Høyskole/Universitet' | 'Ingen';
+    benefits?: string;
+    handicap?: string;
+    assistiveTechnology?: string;
+    digitalSkills: 'Dårlig' | 'Gjennomsnittelig' | 'Bra';
+    employed: boolean;
+    industry?: string;
     traits: Trait[];
 }
 
@@ -18,10 +27,12 @@ export interface Consent {
     name: string;
 }
 
-// Needs Ref to project, and ID.
+type insightTechnique = 'Intervju' | 'Lydopptak' | 'Videoopptak';
+
 export interface Insight {
-    [key: string]: string | number | Date | Trait[] | Consent[] | Candidate[]; // String indexation
+    [key: string]: string | number | insightTechnique | Trait[] | Consent[] | Candidate[];
     name: string;
+    insightTechnique: insightTechnique;
     description: string;
     starts: string;
     ends: string;

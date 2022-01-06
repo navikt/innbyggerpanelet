@@ -1,0 +1,27 @@
+.experiencePointsContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem;
+}
+
+.experienceBar {
+    background-color: #99DEAD;
+    width: 14rem;
+    height: 0.9rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.noExperienceBar {
+    background-color: gray;
+    width: 10rem;
+    height: 0.9rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.experiencePointsInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
