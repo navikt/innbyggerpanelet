@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0 0 0;
+}
+
+.configHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.candidatesHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.candidatesHeader > p {
+    margin: auto 0;
+}

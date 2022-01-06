@@ -5,14 +5,31 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "parallel": "nx run-many --target=serve --projects=api,frontend --parallel",
+    "affected:apps": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE",
+    "affected:libs": "nx affected:libs --base=remotes/origin/main$NX_BASE",
+    "affected:build": "nx affected:build --base=remotes/origin/main$NX_BASE",
+    "affected:test": "nx affected:test --base=remotes/origin/main$NX_BASE",
+    "affected:lint": "nx affected:lint --base=remotes/origin/main$NX_BASE",
+    "affected:dep-graph": "nx affected:dep-graph --base=remotes/origin/main$NX_BASE",
+    "affected": "nx affected",
+    "matrix": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE|tr -d '\\n'|jq -cRs 'split(\" \")'"
   },
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "@navikt/ds-css": "^0.12.0",
     "@navikt/ds-react": "^0.14.0",
+=======
+    "@navikt/ds-css": "^0.12.5",
+    "@navikt/ds-datepicker": "^1.0.4",
+    "@navikt/ds-react": "^0.14.1",
+    "@navikt/ds-tokens": "^0.7.0",
+>>>>>>> main
     "core-js": "^3.6.5",
     "express": "4.17.1",
+    "normalize.css": "^8.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "regenerator-runtime": "0.13.7",

@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1rem;
+    width: 600px;
+}
+
+.result {
+    border: 0.2rem solid var(--navds-text-field-color-border);
+    border-radius: 0.2rem;
+    padding: 1rem;
+}
+
+.result:hover {
+    border-color: var(--navds-text-field-color-border-hover);
+    cursor: pointer;
+}
+
+.result + .result {
+    margin: 0.5rem 0 0;
+}
