@@ -1,7 +1,7 @@
 import { Heading } from '@navikt/ds-react';
 import React, { ReactElement, useState } from 'react';
 import CandidateExperiencePoints from '../../components/candidateProfile/CandidateExperiencePoints';
-import CandidateIcon from '../../components/candidateProfile/CandidateIcon';
+import { People } from '@navikt/ds-icons';
 import CandidatePerfomedInsight from './CandidatePerformedInsight';
 import CandidateProperties from './CandidateProperties';
 import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces';
@@ -21,7 +21,7 @@ export default function CandidateProfile({
         <div>
             <div className={style.candidateProfile}>
                 <div className={style.candidateInfo}>
-                    <CandidateIcon />
+                    <People width={'5rem'} height={'5rem'}/>
                     <Heading size="medium">{candidate.name}</Heading>
                     <CandidateExperiencePoints />
                 </div>
