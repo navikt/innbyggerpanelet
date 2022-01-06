@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import '@navikt/ds-css'
-import CandidateProfile from './containers/candidateProfile/CandidateProfile'
-import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces'
+import React, { useState } from 'react';
+import '@navikt/ds-css';
+import CandidateProfile from './containers/candidateProfile/CandidateProfile';
+import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces';
 
 
 export const App = () => {
@@ -17,7 +17,7 @@ export const App = () => {
         digitalSkills: 'Gjennomsnittelig',
         employed: true,
         industry: 'Olje og gass'
-    })
+    });
 
     const [performedInsightWork, setPerformedInsightWork] = useState<Insight[]>([
         {
@@ -28,11 +28,11 @@ export const App = () => {
             name: 'Dagpenger',
             insightTechnique: 'Lydopptak'
         }
-    ])
+    ]);
 
     return (
         <CandidateProfile candidate={candidate} candidatePerformedInsightWork={performedInsightWork}/>
-    )
-}
+    );
+};
 
-export default App
+export default App;

@@ -1,11 +1,11 @@
-import { Heading } from '@navikt/ds-react'
-import React, { ReactElement, useState } from 'react'
-import CandidateExperiencePoints from '../../components/candidateProfile/CandidateExperiencePoints'
-import CandidateIcon from '../../components/candidateProfile/CandidateIcon'
-import CandidatePerfomedInsight from './CandidatePerformedInsight'
-import CandidateProperties from './CandidateProperties'
-import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces'
-import style from './CandidateProfile.module.scss'
+import { Heading } from '@navikt/ds-react';
+import React, { ReactElement, useState } from 'react';
+import CandidateExperiencePoints from '../../components/candidateProfile/CandidateExperiencePoints';
+import CandidateIcon from '../../components/candidateProfile/CandidateIcon';
+import CandidatePerfomedInsight from './CandidatePerformedInsight';
+import CandidateProperties from './CandidateProperties';
+import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces';
+import style from './CandidateProfile.module.scss';
 
 
 // TODO: Explore the oppertunity to use useContext for a candidate, as 
@@ -29,5 +29,5 @@ export default function CandidateProfile({
                 <CandidatePerfomedInsight {...candidatePerformedInsightWork}/>
             </div>
         </div>
-    )
+    );
 }

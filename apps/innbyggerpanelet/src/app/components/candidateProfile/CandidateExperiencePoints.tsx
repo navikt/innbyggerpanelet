@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement } from 'react';
 
-import style from './CandidateExperiencePoints.module.scss'
+import style from './CandidateExperiencePoints.module.scss';
 
 export default function CandidateExperiencePoints(): ReactElement {
     return (
@@ -14,5 +14,5 @@ export default function CandidateExperiencePoints(): ReactElement {
                 <span>70/100</span>
             </div>
         </div>
-    )
+    );
 }

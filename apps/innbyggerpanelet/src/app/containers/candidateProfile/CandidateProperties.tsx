@@ -1,9 +1,9 @@
-import { Heading } from '@navikt/ds-react'
-import React, { ReactElement } from 'react'
-import PropertieValueField from '../../components/misc/propertieValueField/PropertieValueField'
-import { Candidate } from '@innbyggerpanelet/api-interfaces'
+import { Heading } from '@navikt/ds-react';
+import React, { ReactElement } from 'react';
+import PropertieValueField from '../../components/misc/propertieValueField/PropertieValueField';
+import { Candidate } from '@innbyggerpanelet/api-interfaces';
 
-import style from './CandidateProperties.module.scss'
+import style from './CandidateProperties.module.scss';
 
 export default function CandidateProperties(candidate: Candidate): ReactElement {
     return (
@@ -44,5 +44,5 @@ export default function CandidateProperties(candidate: Candidate): ReactElement 
                 />
             </div>
         </div>
-    )
+    );
 }

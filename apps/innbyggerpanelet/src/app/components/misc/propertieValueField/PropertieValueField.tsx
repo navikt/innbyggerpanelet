@@ -1,7 +1,7 @@
-import { Heading } from '@navikt/ds-react'
-import React, { ReactElement, useEffect, useState } from 'react'
+import { Heading } from '@navikt/ds-react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
-import style from './PropertieValueField.module.scss'
+import style from './PropertieValueField.module.scss';
 
 export default function PropertieValueField(
     {
@@ -12,10 +12,10 @@ export default function PropertieValueField(
         value?: string
     }
 ): ReactElement {
-    const [propertieValue, setPropertieValue] = useState<string | undefined>(value)
+    const [propertieValue, setPropertieValue] = useState<string | undefined>(value);
 
     if (propertieValue === undefined || propertieValue === '') {
-        setPropertieValue('-')
+        setPropertieValue('-');
     }
 
     return(
@@ -23,5 +23,5 @@ export default function PropertieValueField(
             <Heading className={style.propertieHeading} size="small">{propertie}</Heading>
             <p>{propertieValue}</p>
         </div>
-    )
+    );
 }
