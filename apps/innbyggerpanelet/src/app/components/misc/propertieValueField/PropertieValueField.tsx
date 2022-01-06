@@ -1,27 +1,27 @@
 import { Heading } from '@navikt/ds-react';
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import style from './PropertieValueField.module.scss';
+import style from './PropertyValueField.module.scss';
 
-export default function PropertieValueField(
+export default function PropertyValueField(
     {
-        propertie,
+        property,
         value
     } : {
-        propertie: string
+        property: string
         value?: string
     }
 ): ReactElement {
-    const [propertieValue, setPropertieValue] = useState<string | undefined>(value);
+    const [propertyValue, setPropertyValue] = useState<string | undefined>(value);
 
-    if (propertieValue === undefined || propertieValue === '') {
-        setPropertieValue('-');
+    if (propertyValue === undefined || propertyValue === '') {
+        setPropertyValue('-');
     }
 
     return(
         <div className={style.propertieValueField}>
-            <Heading className={style.propertieHeading} size="small">{propertie}</Heading>
-            <p>{propertieValue}</p>
+            <Heading className={style.propertieHeading} size="small">{property}</Heading>
+            <p>{propertyValue}</p>
         </div>
     );
 }

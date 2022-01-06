@@ -1,6 +1,6 @@
 import { Heading } from '@navikt/ds-react';
 import React, { ReactElement } from 'react';
-import PropertieValueField from '../../components/misc/propertieValueField/PropertieValueField';
+import PropertyValueField from '../../components/misc/propertieValueField/PropertieValueField';
 import { Candidate } from '@innbyggerpanelet/api-interfaces';
 
 import style from './CandidateProperties.module.scss';
@@ -10,36 +10,36 @@ export default function CandidateProperties(candidate: Candidate): ReactElement 
         <div>
             <div className={style.candidateProperties}>
                 <Heading size="large">Egenskaper</Heading>
-                <PropertieValueField 
-                    propertie="Alder"
+                <PropertyValueField 
+                    property="Alder"
                     value={candidate.age.toString()}    
                 />
-                <PropertieValueField 
-                    propertie='Morsmål'
+                <PropertyValueField 
+                    property='Morsmål'
                     value={candidate.motherTounge}
                 />
-                <PropertieValueField 
-                    propertie='Utdanning'
+                <PropertyValueField 
+                    property='Utdanning'
                     value={candidate.education}
                 />
-                <PropertieValueField 
-                    propertie='Ytelser'
+                <PropertyValueField 
+                    property='Ytelser'
                     value={candidate.benefits}
                 />
-                <PropertieValueField 
-                    propertie='Funksjonsvariasjon'
+                <PropertyValueField 
+                    property='Funksjonsvariasjon'
                     value={candidate.handicap}
                 />
-                <PropertieValueField 
-                    propertie='Hjelpemiddelteknologi'
+                <PropertyValueField 
+                    property='Hjelpemiddelteknologi'
                     value={candidate.assistiveTechnology}
                 />
-                <PropertieValueField 
-                    propertie='Digitale ferdigheter'
+                <PropertyValueField 
+                    property='Digitale ferdigheter'
                     value={candidate.digitalSkills}
                 />
-                <PropertieValueField 
-                    propertie='Bransje'
+                <PropertyValueField 
+                    property='Bransje'
                     value={candidate.industry}
                 />
             </div>
