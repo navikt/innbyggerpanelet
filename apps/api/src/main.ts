@@ -11,7 +11,7 @@ async function boot() {
     try {
         const server = express();
 
-        const app = await load({ server });
+        await load({ server });
 
         server.listen(process.env.HTTP_PORT, () => {
             console.log(`Listening on ${process.env.HTTP_PORT}`);

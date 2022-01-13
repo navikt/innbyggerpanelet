@@ -6,36 +6,39 @@ import {
     ManyToMany,
     JoinTable,
 } from 'typeorm';
-import { Candidate, Consent, Trait } from '.';
+import { Candidate } from '../candidate/CandidateEntity';
+import { Consent } from '../consent/ConsentEntity';
+import { Criteria } from '../criteria/CriteriaEntity';
+
 
 @Entity()
 export class Insight implements IInsight {
     [key: string]: any;
 
     @PrimaryGeneratedColumn()
-    id: number;
+        id: number;
 
     @Column()
-    name: string;
+        name: string;
 
     @Column()
-    description: string;
+        description: string;
 
     @Column()
-    starts: string;
+        starts: string;
 
     @Column()
-    ends: string;
+        ends: string;
 
     @ManyToMany(() => Candidate)
     @JoinTable()
-    candidates: Candidate[];
+        candidates: Candidate[];
 
-    @ManyToMany(() => Trait)
+    @ManyToMany(() => Criteria)
     @JoinTable()
-    traits: Trait[];
+        traits: Criteria[];
 
     @ManyToMany(() => Consent)
     @JoinTable()
-    consents: Consent[];
+        consents: Consent[];
 }

@@ -1,2 +1,2 @@
 export * from './Candidate';
-export * from './Trait';
+export * from './Criteria';

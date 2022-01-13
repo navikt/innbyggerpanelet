@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import candidateRoutes from '../routes/Candidate';
-import consentRouter from './Consent';
-import insightRouter from './Insight';
-import traitRouter from './Trait';
+import candidateRoutes from './CandidateRoutes';
+import consentRoutes from './ConsentRoutes';
+import insightRoutes from './InsightRoutes';
+import criteriaRoutes from './CriteriaRoutes';
 
 const routes = Router()
     .use('/candidate', candidateRoutes)
-    .use('/consent', consentRouter)
-    .use('/insight', insightRouter)
-    .use('/trait', traitRouter);
+    .use('/consent', consentRoutes)
+    .use('/insight', insightRoutes)
+    .use('/trait', criteriaRoutes);
 
 export default Router().use('/api', routes);

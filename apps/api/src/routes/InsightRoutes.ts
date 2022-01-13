@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
-import { Insight } from '../entities';
+import { Insight } from '../models/insight/InsightEntity';
 
 const insightRouter = Router();
 

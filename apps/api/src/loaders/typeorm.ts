@@ -1,7 +1,4 @@
 import { ConnectionOptions, createConnection } from 'typeorm';
-import { Candidate, Consent, Insight, Trait } from '../entities';
-
-const entities = [Trait, Insight, Consent, Candidate];
 
 export default async () => {
     const typeormConfig: ConnectionOptions = {
@@ -12,7 +9,7 @@ export default async () => {
         password: process.env.POSTGRES_PASSWORD,
         database: process.env.POSTGRES_DB,
         synchronize: true,
-        entities: entities,
+        entities: ['src/models/**/*.{ts,js}'],
     };
 
     const connection = await createConnection(typeormConfig);

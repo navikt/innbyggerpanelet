@@ -1,10 +1,10 @@
 export interface ICandidate {
     id: number;
     name: string;
-    traits: ITrait[];
+    traits: ICriteria[];
 }
 
-export interface ITrait {
+export interface ICriteria {
     id: number;
     name: string;
 }
@@ -20,7 +20,7 @@ export interface IInsight {
         | string
         | number
         | Date
-        | ITrait[]
+        | ICriteria[]
         | IConsent[]
         | ICandidate[]; // String indexation
     name: string;
@@ -28,6 +28,6 @@ export interface IInsight {
     starts: string;
     ends: string;
     candidates: ICandidate[];
-    traits: ITrait[];
+    traits: ICriteria[];
     consents: IConsent[];
 }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
-import { Consent } from '../entities';
+import { Consent } from '../models/consent/ConsentEntity';
 
 const consentRouter = Router();
 

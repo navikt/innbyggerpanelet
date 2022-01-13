@@ -5,18 +5,18 @@ import {
     JoinTable,
     ManyToMany,
 } from 'typeorm';
-import { Trait } from '.';
+import { Criteria } from '../criteria/CriteriaEntity';
 import { ICandidate } from '@innbyggerpanelet/api-interfaces';
 
 @Entity()
 export class Candidate implements ICandidate {
     @PrimaryGeneratedColumn()
-    id: number;
+        id: number;
 
     @Column()
-    name: string;
+        name: string;
 
-    @ManyToMany(() => Trait)
+    @ManyToMany(() => Criteria)
     @JoinTable()
-    traits: Trait[];
+        traits: Criteria[];
 }

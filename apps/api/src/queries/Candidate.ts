@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { Candidate } from '../entities';
+import { Candidate } from '../models/candidate/CandidateEntity';
 
 // Returns candidates sorted after number of traits matching param
 const selectSortedCandidatesByTraits = async (traitIds: string[]) => {
