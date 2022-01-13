@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { traitQuery } from '../queries';
 
-export const traitRouter = Router();
+const traitRouter = Router();
 
 traitRouter.get('/', async (req, res) => {
     const traits = await traitQuery.selectAllTraits();
@@ -15,3 +15,5 @@ traitRouter.post('/', async (req, res) => {
 
     res.send(result);
 });
+
+export default traitRouter;

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { candidateQuery } from '../queries';
 
-export const candidateRouter = Router();
+const candidateRouter = Router();
 
 // Search all candidates ordered by number of matching traits
 // Example. /api/candidate?trait=1&trait=2
@@ -38,3 +38,5 @@ candidateRouter.patch('/:id', async (req, res) => {
 
     res.send(result);
 });
+
+export default candidateRouter;
