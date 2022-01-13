@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as helmet from 'helmet';
+import * as dotenv from 'dotenv';
 import { internalRouter } from './app/internal';
 import { createConnection } from 'typeorm';
 import { Candidate, Consent, Insight, Trait } from './entities';
@@ -10,16 +11,18 @@ import {
     traitRouter,
 } from './routes';
 
+dotenv.config();
+
 const entities = [Trait, Insight, Consent, Candidate];
 
 // Config should make use of env variables.
 createConnection({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'root',
-    password: 'password',
-    database: 'innbyggerpanelet',
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DB,
     synchronize: true,
     entities: entities,
 }).then((connection) => {

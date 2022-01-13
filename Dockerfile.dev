@@ -1,0 +1,16 @@
+FROM node:14.17.0
+
+ENV NODE_ENV=development
+
+WORKDIR /app
+
+COPY package.json .
+COPY yarn.lock .
+
+RUN yarn
+
+COPY . .
+
+EXPOSE 3333
+
+CMD ["yarn", "start", "api"]

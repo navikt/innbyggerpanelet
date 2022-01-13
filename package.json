@@ -23,6 +23,7 @@
     "@navikt/ds-react": "^0.14.1",
     "@navikt/ds-tokens": "^0.7.0",
     "core-js": "^3.6.5",
+    "dotenv": "^11.0.0",
     "express": "4.17.1",
     "helmet": "^4.6.0",
     "normalize.css": "^8.0.1",

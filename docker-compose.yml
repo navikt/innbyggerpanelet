@@ -1,10 +1,31 @@
 services:
+    app:
+        container_name: 'innbyggerpanelet_api'
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        networks:
+            - 'innbyggerpanelet_api'
+        ports:
+            - '2022'
+        depends_on:
+            - 'db'
+        env_file:
+            - '.env'
     db:
+        container_name: 'innbyggerpanelet_database'
         image: postgres
-        restart: always
+        volumes:
+            - innbyggerpanelet_data:/var/lib/postgresql/data
+        networks:
+          - innbyggerpanelet_api
         ports:
             - 5432:5432
-        environment:
-            POSTGRES_USER: root
-            POSTGRES_PASSWORD: password
-            POSTGRES_DB: innbyggerpanelet
+        env_file:
+          - '.env'
+        
+
+volumes:
+    innbyggerpanelet_data:
+networks:
+    innbyggerpanelet_api:

@@ -1,4 +1,6 @@
-*
-!dist
-!apps/**
-apps/**/*.ts
+*.env
+.env.*
+.env
+
+node_modules
+dist
