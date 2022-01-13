@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { Candidate } from '../entities';
+import { Candidate } from '../models/candidate/CandidateEntity';
 
 const selectAllCandidates = async () => {
     return await getRepository(Candidate)
