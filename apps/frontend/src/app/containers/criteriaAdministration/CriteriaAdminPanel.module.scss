@@ -1,0 +1,15 @@
+.accordionBody {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.edit {
+    cursor: pointer;
+}
+
+.editModal {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
