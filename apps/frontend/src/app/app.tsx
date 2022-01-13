@@ -5,7 +5,8 @@ export const App = () => {
     return (
         <>
             <Link to="/project">Project</Link>
-            <Link to="/Insight">Insight</Link>
+            <Link to="/insight">Insight</Link>
+            <Link to="/profile">Profile</Link>
         </>
     );
 };
