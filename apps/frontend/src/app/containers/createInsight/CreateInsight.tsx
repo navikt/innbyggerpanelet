@@ -12,16 +12,27 @@ const candidates: ICandidate[] = [
         id: 1,
         name: 'Ola Nordmann',
         criterias: [{ id: 12, name: 'Hello' }],
+        age: 12,
+        motherTounge: 'Norsk',
+        education: 'Høyskole/Universitet',
+        digitalSkills: 'Dårlig',
+        employed: false
     },
     {
         id: 2,
         name: 'Kari Nordmann',
         criterias: [{ id: 13, name: 'Hello' }],
+        age: 19,
+        motherTounge: 'Norsk',
+        education: 'Videregående',
+        digitalSkills: 'Bra',
+        employed: false
     },
 ];
 
 const defaultInsight: IInsight = {
     name: '',
+    insightTechnique: 'Intervju',
     description: '',
     starts: '',
     ends: '',
@@ -52,7 +63,7 @@ export const CreateInsight = (): ReactElement => {
                         Kandidater
                     </Heading>
                     <Label>
-                        Valgte kandidater: {insight.candidates.length}/
+                        Valgte kandidater: {insight.candidates?.length}/
                         {candidates.length}
                     </Label>
                 </div>

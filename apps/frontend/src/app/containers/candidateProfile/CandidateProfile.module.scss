@@ -1,0 +1,13 @@
+.candidateProfile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 45rem;
+}
+
+.candidateInfo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+}

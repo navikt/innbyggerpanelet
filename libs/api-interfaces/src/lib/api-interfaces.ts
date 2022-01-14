@@ -1,7 +1,20 @@
 export interface ICandidate {
     id: number;
     name: string;
+    age: number;
+    motherTounge: string;
+    education: 'Barneskole' | 'Ungdomsskole' | 'Videregående' | 'Høyskole/Universitet' | 'Ingen';
+    benefits?: string;
+    handicap?: string;
+    assistiveTechnology?: string;
+    digitalSkills: 'Dårlig' | 'Gjennomsnittelig' | 'Bra';
+    employed: boolean;
+    industry?: string;
     criterias: ICriteria[];
+}
+
+export interface Message {
+  message: string;
 }
 
 export interface ICriteria {
@@ -24,6 +37,7 @@ export interface IInsight {
         | IConsent[]
         | ICandidate[]; // String indexation
     name: string;
+    insightTechnique: insightTechnique;
     description: string;
     starts: string;
     ends: string;
@@ -31,3 +45,6 @@ export interface IInsight {
     criterias: ICriteria[];
     consents: IConsent[];
 }
+
+type insightTechnique = 'Intervju' | 'Lydopptak' | 'Videoopptak';
+
