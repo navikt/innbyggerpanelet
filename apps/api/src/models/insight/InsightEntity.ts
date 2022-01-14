@@ -36,7 +36,7 @@ export class Insight implements IInsight {
 
     @ManyToMany(() => Criteria)
     @JoinTable()
-        traits: Criteria[];
+        criterias: Criteria[];
 
     @ManyToMany(() => Consent)
     @JoinTable()

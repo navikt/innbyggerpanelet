@@ -1,7 +1,7 @@
 export interface ICandidate {
     id: number;
     name: string;
-    traits: ICriteria[];
+    criterias: ICriteria[];
 }
 
 export interface ICriteria {
@@ -28,6 +28,6 @@ export interface IInsight {
     starts: string;
     ends: string;
     candidates: ICandidate[];
-    traits: ICriteria[];
+    criterias: ICriteria[];
     consents: IConsent[];
 }

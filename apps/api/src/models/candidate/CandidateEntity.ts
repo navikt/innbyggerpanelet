@@ -18,5 +18,5 @@ export class Candidate implements ICandidate {
 
     @ManyToMany(() => Criteria)
     @JoinTable()
-        traits: Criteria[];
+        criterias: Criteria[];
 }

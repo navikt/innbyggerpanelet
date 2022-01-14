@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { Label, TextField, Textarea, Button } from '@navikt/ds-react';
-import { IConsent, IInsight, ITrait } from '@innbyggerpanelet/api-interfaces';
-import { TraitsSearchModal } from './TraitsSearchModal';
+import { IConsent, IInsight, ICriteria } from '@innbyggerpanelet/api-interfaces';
+import { CriteriasSearchModal } from './CriteriasSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 
 import style from './InsightConfiguration.module.scss';
@@ -15,7 +15,7 @@ export const InsightConfiguration = ({
     insight,
     setInsight,
 }: IProps): ReactElement => {
-    const [openTraits, setOpenTraits] = useState<boolean>(false);
+    const [openCriterias, setOpenCriterias] = useState<boolean>(false);
     const [openConsents, setOpenConsents] = useState<boolean>(false);
 
     const handleInputChange = (
@@ -26,9 +26,9 @@ export const InsightConfiguration = ({
         setInsight(newInsight);
     };
 
-    const addTrait = (trait: ITrait) => {
+    const addcriteria = (criteria: ICriteria) => {
         const newInsight = { ...insight };
-        newInsight.traits = [...newInsight.traits, trait];
+        newInsight.criterias = [...newInsight.criterias, criteria];
 
         setInsight(newInsight);
     };
@@ -40,13 +40,13 @@ export const InsightConfiguration = ({
         setInsight(newInsight);
     };
 
-    const removeTrait = (trait: ITrait) => {
+    const removecriteria = (criteria: ICriteria) => {
         const newInsight = { ...insight };
-        const filteredTraits = newInsight.traits.filter(
-            (item) => item.id !== trait.id
+        const filteredcriterias = newInsight.criterias.filter(
+            (item) => item.id !== criteria.id
         );
 
-        newInsight.traits = filteredTraits;
+        newInsight.criterias = filteredcriterias;
         setInsight(newInsight);
     };
 
@@ -60,7 +60,7 @@ export const InsightConfiguration = ({
         setInsight(newInsight);
     };
 
-    // This block of code is entirely too big, the insightTraits and insightConsent css classes should be separated into components.
+    // This block of code is entirely too big, the insightcriterias and insightConsent css classes should be separated into components.
     // Should also look into using the @navikt/date-picker. Currently the onChange prop does not handle event as a parameter.
     return (
         <>
@@ -96,22 +96,22 @@ export const InsightConfiguration = ({
                     </div>
                 </div>
                 <div className={style.insightSpecs}>
-                    <div className={style.insightTraits}>
+                    <div className={style.insightcriterias}>
                         <Label size="medium" spacing>
                             Kriterier:
                         </Label>
-                        {insight.traits.map((trait, index) => {
+                        {insight.criterias.map((criteria, index) => {
                             return (
                                 <div
                                     key={index}
-                                    onClick={() => removeTrait(trait)}>
-                                    {trait.name}
+                                    onClick={() => removecriteria(criteria)}>
+                                    {criteria.name}
                                 </div>
                             );
                         })}
                         <Button
                             size="small"
-                            onClick={() => setOpenTraits(true)}>
+                            onClick={() => setOpenCriterias(true)}>
                             + Legg til kriterie
                         </Button>
                     </div>
@@ -136,10 +136,10 @@ export const InsightConfiguration = ({
                     </div>
                 </div>
             </div>
-            <TraitsSearchModal
-                open={openTraits}
-                close={() => setOpenTraits(false)}
-                addTrait={addTrait}
+            <CriteriasSearchModal
+                open={openCriterias}
+                close={() => setOpenCriterias(false)}
+                addCriteria={addcriteria}
             />
             <ConsentsSearchModal
                 open={openConsents}

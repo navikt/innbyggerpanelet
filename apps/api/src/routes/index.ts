@@ -8,6 +8,6 @@ const routes = Router()
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
     .use('/insight', insightRoutes)
-    .use('/trait', criteriaRoutes);
+    .use('/criteria', criteriaRoutes);
 
 export default Router().use('/api', routes);

@@ -1,17 +1,17 @@
 import { getRepository } from 'typeorm';
 import { Candidate } from '../models/candidate/CandidateEntity';
 
-// Returns candidates sorted after number of traits matching param
-const selectSortedCandidatesByTraits = async (traitIds: string[]) => {
+// Returns candidates sorted after number of criterias matching param
+const selectSortedCandidatesBycriterias = async (criteriaIds: string[]) => {
     return await getRepository(Candidate)
         .createQueryBuilder('candidate')
         .leftJoinAndSelect(
-            'candidate.traits',
-            'trait',
-            'trait.id IN (:...traitIds)',
-            { traitIds }
+            'candidate.criterias',
+            'criteria',
+            'criteria.id IN (:...criteriaIds)',
+            { criteriaIds }
         )
-        .orderBy('trait', 'DESC')
+        .orderBy('criteria', 'DESC')
         .getMany();
 };
 
@@ -32,17 +32,17 @@ const insertCandidates = async (candidates: Candidate[]) => {
 };
 
 // Replace with all encompassing update function
-const addTrait = async (candidateID: number, traitID: number) => {
+const addcriteria = async (candidateID: number, criteriaID: number) => {
     return await getRepository(Candidate)
         .createQueryBuilder()
-        .relation(Candidate, 'traits')
+        .relation(Candidate, 'criterias')
         .of(candidateID)
-        .add(traitID);
+        .add(criteriaID);
 };
 
 export const candidateQuery = {
-    selectSortedCandidatesByTraits,
+    selectSortedCandidatesBycriterias,
     selectCandidateById,
     insertCandidates,
-    addTrait,
+    addcriteria,
 };

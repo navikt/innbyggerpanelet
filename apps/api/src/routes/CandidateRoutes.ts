@@ -3,13 +3,13 @@ import { candidateQuery } from '../services';
 
 const candidateRouter = Router();
 
-// Search all candidates ordered by number of matching traits
-// Example. /api/candidate?trait=1&trait=2
+// Search all candidates ordered by number of matching criterias
+// Example. /api/candidate?criteria=1&criteria=2
 candidateRouter.get('/', async (req, res) => {
-    const trait = [req.query.trait].flat() as string[];
+    const criteria = [req.query.criteria].flat() as string[];
 
-    const candidates = await candidateQuery.selectSortedCandidatesByTraits(
-        trait
+    const candidates = await candidateQuery.selectSortedCandidatesBycriterias(
+        criteria
     );
 
     res.send(candidates);
@@ -32,9 +32,9 @@ candidateRouter.post('/', async (req, res) => {
 // For testing purposes, should take all candidate fields into account.
 candidateRouter.patch('/:id', async (req, res) => {
     const candidateID = parseInt(req.params.id);
-    const { traitID } = req.body;
+    const { criteriaID } = req.body;
 
-    const result = await candidateQuery.addTrait(candidateID, traitID);
+    const result = await candidateQuery.addcriteria(candidateID, criteriaID);
 
     res.send(result);
 });

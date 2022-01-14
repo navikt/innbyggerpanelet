@@ -4,14 +4,14 @@ import { criteriaQuery } from '../services';
 const criteriaRouter = Router();
 
 criteriaRouter.get('/', async (req, res) => {
-    const traits = await criteriaQuery.selectAllCriteria();
+    const criterias = await criteriaQuery.selectAllCriteria();
 
-    res.send(traits);
+    res.send(criterias);
 });
 
 criteriaRouter.post('/', async (req, res) => {
-    const { traits } = req.body;
-    const result = await criteriaQuery.insertCriteria(traits);
+    const { criterias } = req.body;
+    const result = await criteriaQuery.insertCriteria(criterias);
 
     res.send(result);
 });

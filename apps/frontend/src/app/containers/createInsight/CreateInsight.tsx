@@ -11,12 +11,12 @@ const candidates: ICandidate[] = [
     {
         id: 1,
         name: 'Ola Nordmann',
-        traits: [{ id: 12, name: 'Hello' }],
+        criterias: [{ id: 12, name: 'Hello' }],
     },
     {
         id: 2,
         name: 'Kari Nordmann',
-        traits: [{ id: 13, name: 'Hello' }],
+        criterias: [{ id: 13, name: 'Hello' }],
     },
 ];
 
@@ -26,7 +26,7 @@ const defaultInsight: IInsight = {
     starts: '',
     ends: '',
     candidates: [],
-    traits: [],
+    criterias: [],
     consents: [],
 };
 

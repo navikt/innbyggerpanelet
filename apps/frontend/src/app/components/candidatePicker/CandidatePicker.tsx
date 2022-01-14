@@ -1,4 +1,4 @@
-import { ICandidate, IInsight, ITrait } from '@innbyggerpanelet/api-interfaces';
+import { ICandidate, IInsight, ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { ReactElement } from 'react';
 import { Label, Detail } from '@navikt/ds-react';
 
@@ -20,25 +20,25 @@ export const CandidatePicker = ({
         return exists !== undefined;
     };
 
-    const getRelevantTraits = (): ITrait[] => {
-        const traitIDs = candidate.traits.map((trait) => {
-            return trait.id;
+    const getRelevantcriterias = (): ICriteria[] => {
+        const criteriaIDs = candidate.criterias.map((criteria) => {
+            return criteria.id;
         });
 
-        const relevantTraits = insight.traits.filter((trait) =>
-            traitIDs.includes(trait.id)
+        const relevantcriterias = insight.criterias.filter((criteria) =>
+            criteriaIDs.includes(criteria.id)
         );
 
-        return relevantTraits;
+        return relevantcriterias;
     };
 
     const getRelevancePercentage = (): number => {
-        return ((getRelevantTraits().length / insight.traits.length) * 100) | 0;
+        return ((getRelevantcriterias().length / insight.criterias.length) * 100) | 0;
     };
 
-    const traitIsRelevant = (trait: ITrait): boolean => {
-        const relevantTraits = getRelevantTraits();
-        return relevantTraits.includes(trait);
+    const criteriaIsRelevant = (criteria: ICriteria): boolean => {
+        const relevantcriterias = getRelevantcriterias();
+        return relevantcriterias.includes(criteria);
     };
 
     const toggleCandidate = () => {
@@ -75,17 +75,17 @@ export const CandidatePicker = ({
                     <Detail>{`${getRelevancePercentage()}%`}</Detail>
                 </div>
             </div>
-            <div className={style.traits}>
-                {insight.traits.map((trait, index) => {
+            <div className={style.criterias}>
+                {insight.criterias.map((criteria, index) => {
                     return (
                         <Detail
                             key={index}
                             className={`${
-                                traitIsRelevant(trait)
-                                    ? style.relevantTrait
-                                    : style.irrelevantTrait
+                                criteriaIsRelevant(criteria)
+                                    ? style.relevantcriteria
+                                    : style.irrelevantcriteria
                             }`}>
-                            {trait.name}
+                            {criteria.name}
                         </Detail>
                     );
                 })}
