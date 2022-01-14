@@ -2,6 +2,7 @@ import {
     ICandidate,
     IInsight,
     ICriteria,
+    IUser,
 } from '@innbyggerpanelet/api-interfaces';
 import { ReactElement } from 'react';
 import { Label, Detail } from '@navikt/ds-react';
@@ -9,7 +10,7 @@ import { Label, Detail } from '@navikt/ds-react';
 import style from './CandidatePicker.module.scss';
 
 interface IProps {
-    candidate: ICandidate;
+    candidate: IUser;
     insight: IInsight;
     setInsight: (insight: IInsight) => void;
 }
@@ -20,7 +21,9 @@ export const CandidatePicker = ({
     setInsight,
 }: IProps): ReactElement => {
     const isSelected = (): boolean => {
-        const exists = insight.candidates.find((c) => c.id === candidate.id);
+        const exists = insight.candidates.find(
+            (c) => c.user.id === candidate.id
+        );
         return exists !== undefined;
     };
 
@@ -55,10 +58,14 @@ export const CandidatePicker = ({
         if (exists) {
             const newCandidates = [...newInsight.candidates];
             newInsight.candidates = newCandidates.filter(
-                (c) => c.id !== candidate.id
+                (c) => c.user.id !== candidate.id
             );
         } else {
-            newInsight.candidates.push(candidate);
+            newInsight.candidates.push({
+                user: candidate,
+                insight,
+                relevancyGrading: getRelevancePercentage(),
+            });
         }
 
         setInsight(newInsight);

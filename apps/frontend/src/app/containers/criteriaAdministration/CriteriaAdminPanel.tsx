@@ -1,4 +1,4 @@
-import { CriteriaCategory, Trait } from '@innbyggerpanelet/api-interfaces';
+import { ICriteriaCategory, ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { Add, Edit } from '@navikt/ds-icons';
 import { Accordion, BodyShort, Button, Panel, Table } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
@@ -7,14 +7,14 @@ import style from './CriteriaAdminPanel.module.scss';
 import { CriteriaEditModal } from './CriteriaEditModal';
 
 export const CriteriaAdminPanel = (): ReactElement => {
-    const [editCriteria, setEditCriteria] = useState<Trait>();
+    const [editCriteria, setEditCriteria] = useState<ICriteria>();
 
-    const categories: CriteriaCategory[] = [
+    const categories: ICriteriaCategory[] = [
         {
             id: 1,
             name: 'Alder',
             description: 'Kandidatens aldergruppe.',
-            criteria: [
+            criterias: [
                 { id: 1, name: 'Mellom 18 og 25 år', exclusivitySlug: 'age' },
                 { id: 2, name: 'Mellom 26 og 35 år', exclusivitySlug: 'age' },
             ],
@@ -24,7 +24,7 @@ export const CriteriaAdminPanel = (): ReactElement => {
             name: 'Hjelpemidler',
             description:
                 'Utvalg av mulige hjelpemidler tatt i bruk av kandidat.',
-            criteria: [
+            criterias: [
                 { id: 3, name: 'Skjermoppleser' },
                 { id: 4, name: 'Rullestol' },
             ],
@@ -61,7 +61,7 @@ export const CriteriaAdminPanel = (): ReactElement => {
                                             </Table.Row>
                                         </Table.Header>
                                         <Table.Body>
-                                            {category.criteria.map(
+                                            {category.criterias.map(
                                                 (criteria, index) => (
                                                     <Table.Row key={index}>
                                                         <Table.HeaderCell>

@@ -1,11 +1,11 @@
-import { Trait } from '@innbyggerpanelet/api-interfaces';
+import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 
 import style from './CriteriaAdminPanel.module.scss';
 
 interface IProps {
-    criteria?: Trait;
+    criteria?: ICriteria;
     open: boolean;
     close: () => void;
 }

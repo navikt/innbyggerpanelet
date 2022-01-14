@@ -88,14 +88,14 @@ export const InsightConfiguration = ({
                             label="Startdato"
                             placeholder="DD-MM-ÅÅÅÅ"
                             onChange={handleInputChange}
-                            value={insight.starts}
+                            value={insight.start}
                         />
                         <TextField
                             id="ends"
                             label="Sluttdato"
                             placeholder="DD-MM-ÅÅÅÅ"
                             onChange={handleInputChange}
-                            value={insight.ends}
+                            value={insight.end}
                         />
                     </div>
                 </div>
@@ -128,7 +128,7 @@ export const InsightConfiguration = ({
                                 <div
                                     key={index}
                                     onClick={() => removeConsent(consent)}>
-                                    {consent.name}
+                                    {consent.description}
                                 </div>
                             );
                         })}

@@ -1,41 +1,41 @@
 import { ReactElement, useState } from 'react';
 import { Button, Heading, Label, Panel } from '@navikt/ds-react';
-import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
+import { IInsight, IUser } from '@innbyggerpanelet/api-interfaces';
 import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
 
 import style from './CreateInsight.module.scss';
 
 // Temporary mock data
-const candidates: ICandidate[] = [
+const candidates: IUser[] = [
     {
         id: 1,
+        email: 'ola@example.com',
+        phone: '12312123',
+        latestUpdate: '2022-01-01',
         name: 'Ola Nordmann',
-        criterias: [{ id: 12, name: 'Hello' }],
-        age: 12,
-        motherTounge: 'Norsk',
-        education: 'Høyskole/Universitet',
-        digitalSkills: 'Dårlig',
-        employed: false
+        criterias: [
+            { id: 12, name: 'Mellom 18 og 25 år', exclusivitySlug: 'alder' },
+        ],
     },
     {
         id: 2,
+        email: 'kari@example.com',
+        phone: '32132321',
+        latestUpdate: '2022-01-02',
         name: 'Kari Nordmann',
-        criterias: [{ id: 13, name: 'Hello' }],
-        age: 19,
-        motherTounge: 'Norsk',
-        education: 'Videregående',
-        digitalSkills: 'Bra',
-        employed: false
+        criterias: [
+            { id: 13, name: 'Mellom 26 og 35 år', exclusivitySlug: 'alder ' },
+        ],
     },
 ];
 
 const defaultInsight: IInsight = {
+    id: 0,
     name: '',
-    insightTechnique: 'Intervju',
     description: '',
-    starts: '',
-    ends: '',
+    start: '',
+    end: '',
     candidates: [],
     criterias: [],
     consents: [],
