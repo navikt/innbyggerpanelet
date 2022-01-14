@@ -31,6 +31,7 @@ export interface IConsent {
 export interface IInsight {
     [key: string]:
         | string
+        | insightTechnique
         | number
         | Date
         | ICriteria[]
