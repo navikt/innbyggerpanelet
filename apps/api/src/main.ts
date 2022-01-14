@@ -1,19 +1,26 @@
-import * as express from 'express';
-import { Message } from '@innbyggerpanelet/api-interfaces';
-import { internalRouter } from './app/internal';
+import * as dotenv from 'dotenv';
+import express = require('express');
+import { load } from './loaders';
 
-const app = express();
 
-app.use("/internal", internalRouter);
+console.log('======== BOOTING UP API ========');
 
-const greeting: Message = { message: 'Welcome to api!' };
+dotenv.config();
 
-app.get('/api', (req, res) => {
-  res.send(greeting);
-});
+async function boot() {
+    try {
+        const server = express();
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log('Listening at http://localhost:' + port + '/api');
-});
-server.on('error', console.error);
+        await load({ server });
+
+        server.listen(process.env.HTTP_PORT, () => {
+            console.log(`Listening on ${process.env.HTTP_PORT}`);
+            console.log('======== API STARTED ========');
+        });
+    } catch (error) {
+        console.log('\n\n=========== 💥  TERROR 💥  ============\n\n');
+        console.log(error);
+    }
+}
+
+void boot();

@@ -1,4 +1,4 @@
-import { Trait } from '@innbyggerpanelet/api-interfaces';
+import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { Modal, SearchField } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 
@@ -7,17 +7,17 @@ import style from './SearchModal.module.scss';
 interface IProps {
     open: boolean;
     close: () => void;
-    addTrait: (trait: Trait) => void;
+    addCriteria: (criteria: ICriteria) => void;
 }
 
-export const TraitsSearchModal = ({
+export const CriteriasSearchModal = ({
     open,
     close,
-    addTrait,
+    addCriteria,
 }: IProps): ReactElement => {
     // Query API for results
     // Remove item on click
-    const traits: Trait[] = [
+    const criterias: ICriteria[] = [
         { id: 12, name: 'Under 25 år' },
         { id: 13, name: 'Over 25 år' },
     ];
@@ -32,13 +32,13 @@ export const TraitsSearchModal = ({
                     <SearchField.Button>Søk</SearchField.Button>
                 </SearchField>
                 <div>
-                    {traits.map((trait, index) => {
+                    {criterias.map((criteria, index) => {
                         return (
                             <div
                                 key={index}
                                 className={style.result}
-                                onClick={() => addTrait(trait)}>
-                                + {trait.name}
+                                onClick={() => addCriteria(criteria)}>
+                                + {criteria.name}
                             </div>
                         );
                     })}

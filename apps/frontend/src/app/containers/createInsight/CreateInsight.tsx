@@ -1,17 +1,17 @@
 import { ReactElement, useState } from 'react';
 import { Button, Heading, Label, Panel } from '@navikt/ds-react';
-import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces';
+import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
 import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
 
 import style from './CreateInsight.module.scss';
 
 // Temporary mock data
-const candidates: Candidate[] = [
+const candidates: ICandidate[] = [
     {
         id: 1,
         name: 'Ola Nordmann',
-        traits: [{ id: 12, name: 'Hello' }],
+        criterias: [{ id: 12, name: 'Hello' }],
         age: 12,
         motherTounge: 'Norsk',
         education: 'Høyskole/Universitet',
@@ -21,7 +21,7 @@ const candidates: Candidate[] = [
     {
         id: 2,
         name: 'Kari Nordmann',
-        traits: [{ id: 13, name: 'Hello' }],
+        criterias: [{ id: 13, name: 'Hello' }],
         age: 19,
         motherTounge: 'Norsk',
         education: 'Videregående',
@@ -30,20 +30,20 @@ const candidates: Candidate[] = [
     },
 ];
 
-const defaultInsight: Insight = {
+const defaultInsight: IInsight = {
     name: '',
     insightTechnique: 'Intervju',
     description: '',
     starts: '',
     ends: '',
     candidates: [],
-    traits: [],
+    criterias: [],
     consents: [],
 };
 
 export const CreateInsight = (): ReactElement => {
     // TODO: Look into using context when receipt container is to be made.
-    const [insight, setInsight] = useState<Insight>(defaultInsight);
+    const [insight, setInsight] = useState<IInsight>(defaultInsight);
 
     return (
         <Panel>

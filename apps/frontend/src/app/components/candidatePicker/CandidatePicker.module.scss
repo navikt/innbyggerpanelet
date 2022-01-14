@@ -36,7 +36,7 @@
     height: inherit;
     transition: width 1s;
 }
-.traits {
+.criterias {
     padding: 1rem;
     display: grid;
     grid-template-columns: auto auto auto auto;
@@ -48,11 +48,11 @@
     color: white;
 }
 
-.relevantTrait {
+.relevantcriteria {
     color: green;
 }
 
-.irrelevantTrait {
+.irrelevantcriteria {
     color: red;
 }
 

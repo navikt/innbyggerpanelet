@@ -1,4 +1,4 @@
-import { Consent } from '@innbyggerpanelet/api-interfaces';
+import { IConsent } from '@innbyggerpanelet/api-interfaces';
 import { Modal, SearchField } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 
@@ -7,7 +7,7 @@ import style from './SearchModal.module.scss';
 interface IProps {
     open: boolean;
     close: () => void;
-    addConsent: (consent: Consent) => void;
+    addConsent: (consent: IConsent) => void;
 }
 
 export const ConsentsSearchModal = ({
@@ -17,7 +17,9 @@ export const ConsentsSearchModal = ({
 }: IProps): ReactElement => {
     // Query API for results
     // Remove item on click
-    const consents: Consent[] = [{ id: 1, name: 'Samtykker til skjermopptak' }];
+    const consents: IConsent[] = [
+        { id: 1, name: 'Samtykker til skjermopptak' },
+    ];
 
     return (
         <Modal open={open} onClose={close}>

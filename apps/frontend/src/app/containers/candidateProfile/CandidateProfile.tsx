@@ -4,7 +4,7 @@ import CandidateExperiencePoints from '../../components/candidateProfile/Candida
 import { People } from '@navikt/ds-icons';
 import CandidatePerfomedInsight from './CandidatePerformedInsight';
 import CandidateProperties from './CandidateProperties';
-import { Candidate, Insight } from '@innbyggerpanelet/api-interfaces';
+import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
 import style from './CandidateProfile.module.scss';
 
 
@@ -14,8 +14,8 @@ export default function CandidateProfile({
     candidate,
     candidatePerformedInsightWork
 }: {
-    candidate: Candidate
-    candidatePerformedInsightWork: Insight[]
+    candidate: ICandidate
+    candidatePerformedInsightWork: IInsight[]
 }): ReactElement {
     return (
         <div>

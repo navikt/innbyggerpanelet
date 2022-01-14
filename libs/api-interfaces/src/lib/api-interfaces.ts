@@ -1,8 +1,4 @@
-export interface Message {
-  message: string;
-}
-
-export interface Candidate {
+export interface ICandidate {
     id: number;
     name: string;
     age: number;
@@ -14,29 +10,42 @@ export interface Candidate {
     digitalSkills: 'Dårlig' | 'Gjennomsnittelig' | 'Bra';
     employed: boolean;
     industry?: string;
-    traits: Trait[];
+    criterias: ICriteria[];
 }
 
-export interface Trait {
+export interface Message {
+  message: string;
+}
+
+export interface ICriteria {
     id: number;
     name: string;
 }
 
-export interface Consent {
+export interface IConsent {
     id: number;
     name: string;
 }
 
-type insightTechnique = 'Intervju' | 'Lydopptak' | 'Videoopptak';
-
-export interface Insight {
-    [key: string]: string | number | insightTechnique | Trait[] | Consent[] | Candidate[];
+// Needs Ref to project, and ID.
+export interface IInsight {
+    [key: string]:
+        | string
+        | insightTechnique
+        | number
+        | Date
+        | ICriteria[]
+        | IConsent[]
+        | ICandidate[]; // String indexation
     name: string;
     insightTechnique: insightTechnique;
     description: string;
     starts: string;
     ends: string;
-    candidates: Candidate[];
-    traits: Trait[];
-    consents: Consent[];
+    candidates: ICandidate[];
+    criterias: ICriteria[];
+    consents: IConsent[];
 }
+
+type insightTechnique = 'Intervju' | 'Lydopptak' | 'Videoopptak';
+

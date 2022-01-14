@@ -1,11 +1,11 @@
 import { Heading } from '@navikt/ds-react';
 import React, { ReactElement } from 'react';
 import PropertyValueField from '../../components/misc/propertyValueField/PropertieValueField';
-import { Candidate } from '@innbyggerpanelet/api-interfaces';
+import { ICandidate } from '@innbyggerpanelet/api-interfaces';
 
 import style from './CandidateProperties.module.scss';
 
-export default function CandidateProperties(candidate: Candidate): ReactElement {
+export default function CandidateProperties(candidate: ICandidate): ReactElement {
     return (
         <div>
             <div className={style.candidateProperties}>
