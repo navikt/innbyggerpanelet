@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { criteriaQuery } from '../queries';
+import { criteriaQuery } from '../services';
 
 const criteriaRouter = Router();
 

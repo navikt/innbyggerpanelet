@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { candidateQuery } from '../queries';
+import { candidateQuery } from '../services';
 
 const candidateRouter = Router();
 
