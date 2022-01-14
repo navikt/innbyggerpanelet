@@ -25,7 +25,7 @@ spec:
     max: 2
     cpuThresholdPercentage: 80
   prometheus:
-    true: false
+    enabled: false
     path: /internal/prometheus
   ingresses:
     - https://innbyggerpanelet.dev.nais.io/api

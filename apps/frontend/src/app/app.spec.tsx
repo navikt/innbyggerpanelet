@@ -18,4 +18,8 @@ describe('App', () => {
         const { baseElement } = render(<App />);
         await waitFor(() => getByText(baseElement, 'Nytt innsiktsarbeid'));
     });
+
+    it('should test', () => {
+        expect('innbyggerpanel').toBe('innbyggerpanel');
+    });
 });
