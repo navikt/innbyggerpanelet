@@ -1,7 +1,16 @@
 import { ICriteriaCategory, ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { Add, Edit } from '@navikt/ds-icons';
-import { Accordion, BodyShort, Button, Panel, Table } from '@navikt/ds-react';
+import {
+    Accordion,
+    BodyShort,
+    Button,
+    Loader,
+    Panel,
+    Table,
+} from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
+import { APIError } from '../../components/misc/apiError/APIError';
+import { useCriteriaCategory } from '../../hooks/useCriteriaCategory';
 
 import style from './CriteriaAdminPanel.module.scss';
 import { CriteriaEditModal } from './CriteriaEditModal';
