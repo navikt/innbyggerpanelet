@@ -1,5 +1,7 @@
 name: CI
-#on: push
+on: 
+  push:
+    branches: [main]
 
 env:
   APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
