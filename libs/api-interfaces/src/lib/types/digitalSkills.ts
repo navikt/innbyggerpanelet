@@ -1,1 +1,0 @@
-export type digitalSkills = 'Dårlig' | 'Gjennomsnittelig' | 'Bra';

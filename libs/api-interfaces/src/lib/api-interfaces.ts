@@ -1,36 +1,54 @@
-export interface Message {
-  message: string;
+export interface IUser {
+    name: string
+    latestUpdate: string
+    email: string
+    phone: string
+    candidate: ICandidate
 }
 
-export interface ICriteria {
-    id: number;
-    name: string;
+export interface ICandidate {
+    relevancyGrading: string
 }
 
-export interface IConsent {
-    id: number;
-    name: string;
-}
-
-// Needs Ref to project, and ID.
 export interface IInsight {
     [key: string]:
         | string
-        | insightTechnique
-        | number
         | Date
         | ICriteria[]
         | IConsent[]
         | ICandidate[]; // String indexation
-    name: string;
-    insightTechnique: insightTechnique;
-    description: string;
-    starts: string;
-    ends: string;
-    candidates: ICandidate[];
-    criterias: ICriteria[];
-    consents: IConsent[];
+    name: string
+    description: string
+    start: Date
+    end: Date
+    candidates: ICandidate[]
+    criterias: ICriteria[]
+    consents: IConsent[]
 }
 
-type insightTechnique = 'Intervju' | 'Lydopptak' | 'Videoopptak';
+export interface IInsightProject {
+    name: string
+    description: string
+    start: Date
+    end: Date
+    insights: IInsight[]
+}
 
+export interface IConsent {
+    firstName: string
+    lastName: string
+    email: string
+    haveConsented: boolean
+    soundRecording: boolean
+    videoRecording: boolean
+}
+
+export interface ICriteria {
+    name: string
+    exclusivitySlug: string
+    criteriaCategories: ICriteriaCategory[]
+}
+
+export interface ICriteriaCategory {
+    name: string
+}
