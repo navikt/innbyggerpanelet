@@ -1,13 +1,13 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: nais.io/v1alpha1
+kind: Application
 metadata:
-  name: innbyggerpanelet-api
+  name: inbyggerpanelet-api
   namespace: team-researchops
   labels:
     team: team-researchops
 spec:
-  image: {{image}}
-  port: 2022
+  iamge: {{ image }}
+  port: 3333
   team: team-researchops
   liveness:
     path: /internal/is-alive
@@ -29,5 +29,8 @@ spec:
     path: /internal/prometheus
   ingresses:
     - https://innbyggerpanelet.dev.nais.io/api
-  envFrom:
-    - secret: innbyggerpanelet
+  gcp:
+    sqlInstances:
+      - type: "POSTGRES_12"
+        databases:
+          - name: "innbyggerpanelet-db"
