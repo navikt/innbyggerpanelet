@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '14'
       - name: Install
-        run: npm install:api
+        run: npm install
       - name: Build
         run: npm run build api
       - name: Test
