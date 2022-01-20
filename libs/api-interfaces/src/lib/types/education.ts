@@ -1,0 +1,1 @@
+export type education = 'Barneskole' | 'Ungdomsskole' | 'Videregående' | 'Høyskole/Universitet' | 'Ingen';

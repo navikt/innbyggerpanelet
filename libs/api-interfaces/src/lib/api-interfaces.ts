@@ -1,18 +1,3 @@
-export interface ICandidate {
-    id: number;
-    name: string;
-    age: number;
-    motherTounge: string;
-    education: 'Barneskole' | 'Ungdomsskole' | 'Videregående' | 'Høyskole/Universitet' | 'Ingen';
-    benefits?: string;
-    handicap?: string;
-    assistiveTechnology?: string;
-    digitalSkills: 'Dårlig' | 'Gjennomsnittelig' | 'Bra';
-    employed: boolean;
-    industry?: string;
-    criterias: ICriteria[];
-}
-
 export interface Message {
   message: string;
 }
