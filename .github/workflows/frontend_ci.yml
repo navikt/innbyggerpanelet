@@ -12,13 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-node@v2
         with:
-          python-version: '3.8.0'
-      - uses: borales/actions-yarn@v2.3.0
+          node-version: '14'
       - name: Install
-        run: yarn install
+        run: npm run install
       - name: Build
-        run: yarn run build
+        run: npm run build
       - name: Test
-        run: yarn test
+        run: npm run test
