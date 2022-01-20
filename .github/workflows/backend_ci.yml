@@ -1,8 +1,8 @@
-name: Frontend CI
+name: Backend CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, refactor/workflows-v2]
   pull_request:
     branches: [main]
 
@@ -16,8 +16,8 @@ jobs:
         with:
           node-version: '14'
       - name: Install
-        run: npm install
+        run: npm install:api
       - name: Build
-        run: npm run build
+        run: npm run build:api
       - name: Test
-        run: npm run test
+        run: npm run test:api
