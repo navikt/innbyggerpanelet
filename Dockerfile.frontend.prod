@@ -2,7 +2,7 @@ FROM node:14
 
 COPY . .
 
-RUN npm i
+RUN npm i --force
 RUN npm run build frontend
 
 EXPOSE 2022
