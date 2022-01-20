@@ -23,7 +23,6 @@ jobs:
           docker build . -t ${IMAGE} -f Dockerfile.frotnend.prod
           docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
-        working-directory: ./apps/frontend
   deploy:
     name: Deploy to dev-gcp
     needs: build
