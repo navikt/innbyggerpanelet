@@ -2,12 +2,12 @@ name: Deploy frontend to dev-gcp
 
 on:
   push:
-    branches: [main]
+    branches: [main, refactor/workflows-v2]
 
 env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/innbyggerpanelet-frontend:${{ github.sha }}
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
   CLUSTER: dev-gcp
-  RESOURCE: .nais/frontend_dev.yaml
+  RESOURCE: .nais/backend_dev.yaml
 
 jobs:
   build:
@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Build and publish Docker image
+      - name: Build and publish Docker iamge
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           yarn
-          docker build . -t ${IMAGE} -f Dockerfile.frontend.prod
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker build . -t ${IMAGE} -f Dockerfile.backend.prod
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITYORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
   deploy:
     name: Deploy to dev-gcp
@@ -33,7 +33,7 @@ jobs:
       - name: Deploy to DEV
         uses: nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY}}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/frontend_dev.yaml
+          RESOURCE: .nais/backend_dev.yaml
           VAR: image=${{ env.IMAGE }}
