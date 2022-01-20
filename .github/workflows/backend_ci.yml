@@ -18,6 +18,6 @@ jobs:
       - name: Install
         run: npm install:api
       - name: Build
-        run: npm run build:api
+        run: npm run build api
       - name: Test
-        run: npm run test:api
+        run: npm run test api
