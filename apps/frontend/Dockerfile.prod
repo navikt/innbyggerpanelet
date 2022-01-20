@@ -1,0 +1,9 @@
+FROM navikt/node-express:14-alpine
+
+COPY . .
+
+RUN npm i
+RUN npm run-script build
+
+EXPOSE 2022
+CMD ["node", "server.js"]

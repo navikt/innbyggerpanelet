@@ -2,7 +2,7 @@ name: Backend CI
 
 on:
   push:
-    branches: [main, refactor/workflows-v2]
+    branches: [main]
   pull_request:
     branches: [main]
 
