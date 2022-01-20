@@ -1,0 +1,21 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [main, refactor/workflows-v2]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: borales/actions-yarn@2.3.0
+      - name: Install
+        run: yarn install
+      - name: Build
+        run: yarn run build
+      - name: Test
+        run: yarn test
