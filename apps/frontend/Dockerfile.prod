@@ -1,4 +1,4 @@
-FROM navikt/node-express:14-alpine
+FROM node
 
 COPY . .
 
