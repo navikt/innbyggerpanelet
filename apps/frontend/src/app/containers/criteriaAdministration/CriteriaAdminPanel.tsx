@@ -9,6 +9,7 @@ import {
     Table,
 } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
+import { CriteriaAdminRow } from '../../components/criteriaAdministration';
 import { APIError } from '../../components/misc/apiError/APIError';
 import { useCriteriaCategory } from '../../hooks/useCriteriaCategory';
 
@@ -72,30 +73,11 @@ export const CriteriaAdminPanel = (): ReactElement => {
                                         <Table.Body>
                                             {category.criterias.map(
                                                 (criteria, index) => (
-                                                    <Table.Row key={index}>
-                                                        <Table.HeaderCell>
-                                                            {criteria.id}
-                                                        </Table.HeaderCell>
-                                                        <Table.DataCell>
-                                                            {criteria.name}
-                                                        </Table.DataCell>
-                                                        <Table.DataCell>
-                                                            {criteria.exclusivitySlug ||
-                                                                'none'}
-                                                        </Table.DataCell>
-                                                        <Table.DataCell>
-                                                            <Edit
-                                                                className={
-                                                                    style.edit
-                                                                }
-                                                                onClick={() =>
-                                                                    setEditCriteria(
-                                                                        criteria
-                                                                    )
-                                                                }
-                                                            />
-                                                        </Table.DataCell>
-                                                    </Table.Row>
+                                                    <CriteriaAdminRow
+                                                        key={index}
+                                                        criteria={criteria}
+                                                        edit={setEditCriteria}
+                                                    />
                                                 )
                                             )}
                                         </Table.Body>
