@@ -1,10 +1,12 @@
 FROM node:14
 
 WORKDIR /app
-COPY ./dist/apps/frontend .
+
+COPY package.json yarn.lock ./
+RUN yarn install --production
+
+COPY ./dist/ ./
 
 EXPOSE 2022
 
-RUN npm install --production
-
-CMD node ./server.js
+CMD node apps/frontend/server.js
