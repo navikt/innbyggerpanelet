@@ -2,10 +2,11 @@ FROM node:14
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install --production
 
-COPY ./dist/ ./
+COPY . ./
+
+RUN yarn install
+RUN yarn build
 
 EXPOSE 2022
 
