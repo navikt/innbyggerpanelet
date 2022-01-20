@@ -1,9 +1,10 @@
 FROM node:14
 
-COPY . .
-
-RUN npm i --force
-RUN npm run build frontend
+WORKDIR /app
+COPY ./dist/apps/frontend .
 
 EXPOSE 2022
-CMD ["node", "server.js"]
+
+RUN npm install --production
+
+CMD node ./server.js
