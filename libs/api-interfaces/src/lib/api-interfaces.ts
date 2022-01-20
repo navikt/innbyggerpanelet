@@ -3,11 +3,13 @@ export interface IUser {
     latestUpdate: string
     email: string
     phone: string
-    candidate: ICandidate
+    candidate: ICandidate[]
 }
 
 export interface ICandidate {
     relevancyGrading: string
+    user: IUser
+    insight: IInsight
 }
 
 export interface IInsight {
@@ -51,4 +53,5 @@ export interface ICriteria {
 
 export interface ICriteriaCategory {
     name: string
+    criterias: ICriteria[]
 }
