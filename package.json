@@ -30,6 +30,7 @@
     "express": "^4.17.2",
     "helmet": "^5.0.1",
     "libpq": "^1.8.9",
+    "node-gyp": "^8.4.1",
     "normalize.css": "^8.0.1",
     "pg": "^8.7.1",
     "pg-native": "^3.0.0",
