@@ -9,6 +9,7 @@ import Project from './app/containers/project';
 import CriteriaAdminPanel from './app/containers/criteriaAdministration';
 import Header from './app/components/misc/header';
 import Breadcrumbs from './app/components/misc/breadcrumbs/';
+import NotFound from './app/components/misc/notFound';
 
 // Root
 ReactDOM.render(
@@ -25,6 +26,7 @@ ReactDOM.render(
                     path="/admin/kriterier"
                     element={<CriteriaAdminPanel />}
                 />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     </StrictMode>,
