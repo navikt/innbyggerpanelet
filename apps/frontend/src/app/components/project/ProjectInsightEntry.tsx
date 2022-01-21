@@ -11,6 +11,7 @@ import {
     Label,
 } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
+import { ProjectInsightCandidates } from '.';
 import { mocks } from '../../utils/mocks';
 import { ProgressBar } from '../misc/progressBar';
 
@@ -21,7 +22,6 @@ interface IProps {
 }
 
 export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
-    const [open, setOpen] = useState(false);
     const [candidates, setCandidates] = useState<ICandidate[]>(
         mocks.olaCandidatures
     );
@@ -47,9 +47,7 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
             <Accordion.Item>
                 <Accordion.Header>{insight.name}</Accordion.Header>
                 <Accordion.Content>
-                    <div
-                        className={style.progress}
-                        onClick={() => setOpen(!open)}>
+                    <div className={style.progress}>
                         <ProgressBar
                             label="Relevansgradering"
                             progress={getAvgRelevancyRating()}
@@ -59,48 +57,19 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
                             progress={candidatesCompleted / candidates.length}
                         />
                     </div>
-                    {open ? (
-                        <div className={style.dropdown}>
-                            <Label>Kriterier:</Label>
-                            <ul>
-                                {insight.criterias.map((criteria, index) => (
-                                    <li key={index}>{criteria.name}</li>
-                                ))}
-                            </ul>
-                            <Label>Samtykker:</Label>
-                            <ul>
-                                {insight.consents.map((consent, index) => (
-                                    <li key={index}>{consent.description}</li>
-                                ))}
-                            </ul>
-                            <Label>Deltagere:</Label>
-                            <ul className={style.entryCandidates}>
-                                {candidates.map((candidate, index) => (
-                                    <li key={index}>
-                                        <div>
-                                            <BodyShort>
-                                                {candidate.user.name}
-                                            </BodyShort>
-                                            <ProgressBar
-                                                label="Relevansgradering"
-                                                progress={
-                                                    candidate.relevancyGrading
-                                                }
-                                            />
-                                            <Checkbox
-                                                hideLabel
-                                                id="insightCompleted"
-                                                checked={candidateHasCompleted(
-                                                    candidate
-                                                )}>
-                                                gjennomført
-                                            </Checkbox>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ) : null}
+                    <Label>Kriterier:</Label>
+                    <ul>
+                        {insight.criterias.map((criteria, index) => (
+                            <li key={index}>{criteria.name}</li>
+                        ))}
+                    </ul>
+                    <Label>Samtykker:</Label>
+                    <ul>
+                        {insight.consents.map((consent, index) => (
+                            <li key={index}>{consent.description}</li>
+                        ))}
+                    </ul>
+                    <ProjectInsightCandidates candidates={candidates} />
                 </Accordion.Content>
             </Accordion.Item>
         </Accordion>
