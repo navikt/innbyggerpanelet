@@ -7,18 +7,22 @@ import UserProfile from './app/containers/userProfile';
 import CreateInsight from './app/containers/createInsight/';
 import Project from './app/containers/project';
 import CriteriaAdminPanel from './app/containers/criteriaAdministration';
+import Header from './app/components/misc/header';
+import Breadcrumbs from './app/components/misc/breadcrumbs/';
 
 // Root
 ReactDOM.render(
     <StrictMode>
         <BrowserRouter>
+            <Header />
+            <Breadcrumbs />
             <Routes>
                 <Route path="/" element={<App />} />
-                <Route path="/project" element={<Project />} />
-                <Route path="/insight" element={<CreateInsight />} />
-                <Route path="/profile" element={<UserProfile />} />
+                <Route path="/prosjekt" element={<Project />} />
+                <Route path="/innsikt" element={<CreateInsight />} />
+                <Route path="/profil" element={<UserProfile />} />
                 <Route
-                    path="/admin/criterias"
+                    path="/admin/kriterier"
                     element={<CriteriaAdminPanel />}
                 />
             </Routes>

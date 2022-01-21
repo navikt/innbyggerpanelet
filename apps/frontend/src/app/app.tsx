@@ -8,10 +8,10 @@ export const App = () => {
     return (
         <Panel>
             <div className={style.links}>
-                <Link to="/project">Project</Link>
-                <Link to="/insight">Insight</Link>
-                <Link to="/profile">Profile</Link>
-                <Link to="/admin/criterias">Criteria Admin Panel</Link>
+                <Link to="/prosjekt">Prosjekt</Link>
+                <Link to="/innsikt">Nytt innsiktsarbeid</Link>
+                <Link to="/profil">Brukerprofil</Link>
+                <Link to="/admin/kriterier">Kriterier oversikt</Link>
             </div>
         </Panel>
     );
