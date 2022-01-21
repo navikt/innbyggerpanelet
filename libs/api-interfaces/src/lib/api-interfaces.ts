@@ -4,14 +4,21 @@ export interface IUser {
     latestUpdate: string;
     email: string;
     phone: string;
-    candidatures?: ICandidate[];
     criterias: ICriteria[];
+}
+
+export enum EnumCandidateStatus {
+    Pending = 'PENDING',
+    Completed = 'COMPLETED',
+    Accepted = 'ACCEPTED',
+    Declined = 'DECLINED',
 }
 
 export interface ICandidate {
     relevancyGrading: number;
     user: IUser;
     insight: IInsight;
+    status: EnumCandidateStatus;
 }
 
 export interface IInsight {
@@ -21,24 +28,26 @@ export interface IInsight {
         | Date
         | ICriteria[]
         | IConsent[]
-        | ICandidate[]; // String indexation
+        | ICandidate[]
+        | IInsightProject; // String indexation
     id: number;
     name: string;
     description: string;
     start: string;
     end: string;
-    candidates: ICandidate[];
     criterias: ICriteria[];
     consents: IConsent[];
+    project: IInsightProject;
 }
 
 export interface IInsightProject {
+    [key: string]: string | number | IUser[] | IInsight[];
     id: number;
     name: string;
     description: string;
-    start: Date;
-    end: Date;
-    insights: IInsight[];
+    members: IUser[];
+    start: string;
+    end: string;
 }
 
 export interface IConsent {
@@ -57,11 +66,11 @@ export interface ICriteria {
     id: number;
     name: string;
     exclusivitySlug?: string;
+    category: ICriteriaCategory;
 }
 
 export interface ICriteriaCategory {
     id: number;
     name: string;
     description: string;
-    criterias: ICriteria[];
 }

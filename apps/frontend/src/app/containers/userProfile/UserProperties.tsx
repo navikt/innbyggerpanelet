@@ -5,7 +5,7 @@ import { ICandidate, IUser } from '@innbyggerpanelet/api-interfaces';
 
 import style from './UserProperties.module.scss';
 
-export default function UserProperties(user: IUser): ReactElement {
+export function UserProperties(user: IUser): ReactElement {
     const { criterias } = user;
 
     return (

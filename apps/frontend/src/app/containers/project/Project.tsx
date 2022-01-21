@@ -1,44 +1,22 @@
 import { ReactElement, useState } from 'react';
-import { IProject } from '@innbyggerpanelet/api-interfaces';
-import { Button, Panel } from '@navikt/ds-react';
+import { IInsight, IInsightProject } from '@innbyggerpanelet/api-interfaces';
+import { Button, Label, Panel } from '@navikt/ds-react';
 import {
     ProjectOverview,
     ProjectEdit,
     ProjectInsightEntry,
 } from '../../components/project';
-
-const defaultProject: IProject = {
-    name: 'Prosjekttittel',
-    description: 'Midlertidig beskrivelse',
-    starts: 'DD-MM-ÅÅÅÅ',
-    insights: [
-        {
-            name: 'test',
-            description: 'beskrivelse',
-            starts: 'DD-MM-ÅÅÅÅ',
-            ends: 'DD-MM-ÅÅÅÅ',
-            insightTechnique: 'Intervju',
-            candidates: [
-                {
-                    id: 1,
-                    name: 'Ole Brumm',
-                    age: 24,
-                    motherTounge: 'NORSK',
-                    education: 'Høyskole/Universitet',
-                    digitalSkills: 'Gjennomsnittelig',
-                    employed: true,
-                    traits: [],
-                    insightCompleted: true,
-                },
-            ],
-            traits: [{ id: 1, name: ' Må være 25 år ' }],
-            consents: [{ id: 1, name: 'Godtar taleopptak' }],
-        },
-    ],
-};
+import { mocks } from '../../utils/mocks';
 
 export const Project = (): ReactElement => {
-    const [project, setProject] = useState<IProject>(defaultProject);
+    // Query for project and insights related to project
+    const [project, setProject] = useState<IInsightProject>(
+        mocks.primaryProject
+    );
+    const [insights, setInsights] = useState<IInsight[]>([
+        mocks.primaryInsight,
+    ]);
+
     const [edit, setEdit] = useState(false);
 
     return (
@@ -52,7 +30,10 @@ export const Project = (): ReactElement => {
                 )}
             </Panel>
             <Panel>
-                <ProjectInsightEntry insight={project.insights[0]} />
+                <Label>Antall innsiktsarbeid: {insights.length}</Label>
+                {insights.map((insight, index) => (
+                    <ProjectInsightEntry key={index} insight={insight} />
+                ))}
             </Panel>
         </>
     );

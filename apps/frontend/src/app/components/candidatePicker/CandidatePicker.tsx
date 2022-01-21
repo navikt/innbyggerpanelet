@@ -3,6 +3,7 @@ import {
     IInsight,
     ICriteria,
     IUser,
+    EnumCandidateStatus,
 } from '@innbyggerpanelet/api-interfaces';
 import { ReactElement } from 'react';
 import { Label, Detail } from '@navikt/ds-react';
@@ -10,65 +11,68 @@ import { Label, Detail } from '@navikt/ds-react';
 import style from './CandidatePicker.module.scss';
 
 interface IProps {
-    candidate: IUser;
+    user: IUser;
     insight: IInsight;
-    setInsight: (insight: IInsight) => void;
+    candidates: ICandidate[];
+    setCandidates: (candidates: ICandidate[]) => void;
 }
 
 export const CandidatePicker = ({
-    candidate,
+    user,
     insight,
-    setInsight,
+    candidates,
+    setCandidates,
 }: IProps): ReactElement => {
+    // Does user already exist in selected candidates
     const isSelected = (): boolean => {
-        const exists = insight.candidates.find(
-            (c) => c.user.id === candidate.id
-        );
+        const exists = candidates.find((c) => c.user.id === user.id);
         return exists !== undefined;
     };
 
-    const getRelevantcriterias = (): ICriteria[] => {
-        const criteriaIDs = candidate.criterias.map((criteria) => {
+    // Which criteria required by the insight work does the user posess
+    const getRelevantCriterias = (): ICriteria[] => {
+        const criteriaIDs = user.criterias.map((criteria) => {
             return criteria.id;
         });
 
-        const relevantcriterias = insight.criterias.filter((criteria) =>
+        const relevantCriterias = insight.criterias.filter((criteria) =>
             criteriaIDs.includes(criteria.id)
         );
 
-        return relevantcriterias;
+        return relevantCriterias;
     };
 
     const getRelevancePercentage = (): number => {
         return (
-            ((getRelevantcriterias().length / insight.criterias.length) * 100) |
+            ((getRelevantCriterias().length / insight.criterias.length) * 100) |
             0
         );
     };
 
+    // Does the criteria exist in the insight
     const criteriaIsRelevant = (criteria: ICriteria): boolean => {
-        const relevantcriterias = getRelevantcriterias();
-        return relevantcriterias.includes(criteria);
+        const relevantCriterias = getRelevantCriterias();
+        return relevantCriterias.includes(criteria);
     };
 
+    // Add or remove user from insight candidate list
     const toggleCandidate = () => {
         const exists = isSelected();
-        const newInsight = { ...insight };
+        const newCandidates = [...candidates];
 
         if (exists) {
-            const newCandidates = [...newInsight.candidates];
-            newInsight.candidates = newCandidates.filter(
-                (c) => c.user.id !== candidate.id
-            );
+            setCandidates(newCandidates.filter((c) => c.user.id !== user.id));
         } else {
-            newInsight.candidates.push({
-                user: candidate,
-                insight,
-                relevancyGrading: getRelevancePercentage(),
-            });
+            setCandidates([
+                ...newCandidates,
+                {
+                    user,
+                    insight,
+                    relevancyGrading: getRelevancePercentage(),
+                    status: EnumCandidateStatus.Pending,
+                },
+            ]);
         }
-
-        setInsight(newInsight);
     };
 
     return (
@@ -77,7 +81,7 @@ export const CandidatePicker = ({
             onClick={toggleCandidate}>
             <div className={style.header}>
                 <Label size="medium" className={style.candidateName}>
-                    {candidate.name}
+                    {user.name}
                 </Label>
                 <div className={style.relevanceGrading}>
                     <div className={style.relevanceGradingBar}>

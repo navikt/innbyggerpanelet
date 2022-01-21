@@ -1,34 +1,11 @@
 import { ReactElement, useState } from 'react';
 import { Button, Heading, Label, Panel } from '@navikt/ds-react';
-import { IInsight, IUser } from '@innbyggerpanelet/api-interfaces';
+import { ICandidate, IInsight, IUser } from '@innbyggerpanelet/api-interfaces';
 import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
 
 import style from './CreateInsight.module.scss';
-
-// Temporary mock data
-const candidates: IUser[] = [
-    {
-        id: 1,
-        email: 'ola@example.com',
-        phone: '12312123',
-        latestUpdate: '2022-01-01',
-        name: 'Ola Nordmann',
-        criterias: [
-            { id: 12, name: 'Mellom 18 og 25 år', exclusivitySlug: 'alder' },
-        ],
-    },
-    {
-        id: 2,
-        email: 'kari@example.com',
-        phone: '32132321',
-        latestUpdate: '2022-01-02',
-        name: 'Kari Nordmann',
-        criterias: [
-            { id: 13, name: 'Mellom 26 og 35 år', exclusivitySlug: 'alder ' },
-        ],
-    },
-];
+import { mocks } from '../../utils/mocks';
 
 const defaultInsight: IInsight = {
     id: 0,
@@ -36,7 +13,14 @@ const defaultInsight: IInsight = {
     description: '',
     start: '',
     end: '',
-    candidates: [],
+    project: {
+        id: 1,
+        name: 'test',
+        description: 'heisann',
+        members: [],
+        start: 'now',
+        end: 'sometime',
+    },
     criterias: [],
     consents: [],
 };
@@ -44,6 +28,9 @@ const defaultInsight: IInsight = {
 export const CreateInsight = (): ReactElement => {
     // TODO: Look into using context when receipt container is to be made.
     const [insight, setInsight] = useState<IInsight>(defaultInsight);
+    const [candidates, setCandidates] = useState<ICandidate[]>([]);
+
+    const [users, setUsers] = useState<IUser[]>(mocks.allUsers);
 
     return (
         <>
@@ -63,18 +50,18 @@ export const CreateInsight = (): ReactElement => {
                         Kandidater
                     </Heading>
                     <Label>
-                        Valgte kandidater: {insight.candidates?.length}/
-                        {candidates.length}
+                        Valgte kandidater: {candidates.length}/{users.length}
                     </Label>
                 </div>
                 <div>
-                    {candidates.map((candidate, index) => {
+                    {users.map((user, index) => {
                         return (
                             <CandidatePicker
                                 key={index}
-                                candidate={candidate}
+                                user={user}
                                 insight={insight}
-                                setInsight={setInsight}
+                                candidates={candidates}
+                                setCandidates={setCandidates}
                             />
                         );
                     })}

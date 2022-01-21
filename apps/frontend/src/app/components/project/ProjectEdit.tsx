@@ -1,10 +1,11 @@
 import { ChangeEvent, ReactElement } from 'react';
-import { IProject } from '@innbyggerpanelet/api-interfaces';
+import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Label, Textarea, TextField } from '@navikt/ds-react';
+import { ProjectTeamMember } from '.';
 
 interface IProps {
-    project: IProject;
-    setProject: (project: IProject) => void;
+    project: IInsightProject;
+    setProject: (project: IInsightProject) => void;
 }
 
 export const ProjectEdit = ({ project, setProject }: IProps): ReactElement => {
@@ -30,16 +31,18 @@ export const ProjectEdit = ({ project, setProject }: IProps): ReactElement => {
                 value={project.description}
                 onChange={handleInputChange}
             />
-            <Label>Antall innsiktsarbeid: </Label>
-            <BodyShort>{project.insights.length}</BodyShort>
             <TextField
                 id="starts"
                 label="Startdato:"
-                value={project.starts}
+                value={project.start}
                 onChange={handleInputChange}
             />
             <Label>Teammedlemmer: </Label>
-            <BodyShort>TODO</BodyShort>
+            <div>
+                {project.members.map((member, index) => (
+                    <ProjectTeamMember key={index} member={member} />
+                ))}
+            </div>
         </>
     );
 };

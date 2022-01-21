@@ -9,9 +9,7 @@ interface IProps {
     candidatures?: ICandidate[];
 }
 
-export default function CandidatePerfomedInsight({
-    candidatures,
-}: IProps): ReactElement {
+export function UserPerformedInsight({ candidatures }: IProps): ReactElement {
     if (!candidatures)
         return <BodyShort>Ikke deltatt i innsiktsarbeid</BodyShort>;
 

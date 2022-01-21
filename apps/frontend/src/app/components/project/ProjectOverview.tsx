@@ -1,9 +1,10 @@
 import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import { IProject } from '@innbyggerpanelet/api-interfaces';
+import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
+import { ProjectTeamMember } from './';
 
 interface IProps {
-    project: IProject;
+    project: IInsightProject;
 }
 
 export const ProjectOverview = ({ project }: IProps): ReactElement => {
@@ -11,12 +12,14 @@ export const ProjectOverview = ({ project }: IProps): ReactElement => {
         <>
             <Heading size="2xlarge">{project.name}</Heading>
             <BodyLong>{project.description}</BodyLong>
-            <Label>Antall innsiktsarbeid: </Label>
-            <BodyShort>{project.insights.length}</BodyShort>
             <Label>Startdato: </Label>
-            <BodyShort>{project.starts}</BodyShort>
+            <BodyShort>{project.start}</BodyShort>
             <Label>Teammedlemmer: </Label>
-            <BodyShort>TODO</BodyShort>
+            <div>
+                {project.members.map((member, index) => (
+                    <ProjectTeamMember key={index} member={member} />
+                ))}
+            </div>
         </>
     );
 };

@@ -1,18 +1,30 @@
-import { Insight } from '@innbyggerpanelet/api-interfaces';
+import {
+    EnumCandidateStatus,
+    ICandidate,
+    IInsight,
+} from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Checkbox, Heading, Label } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
+import { mocks } from '../../utils/mocks';
 
 import style from './Project.module.scss';
 
 interface IProps {
-    insight: Insight;
+    insight: IInsight;
 }
 
 export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
     const [open, setOpen] = useState(false);
+    const [candidates, setCandidates] = useState<ICandidate[]>(
+        mocks.olaCandidatures
+    );
 
-    const candidatesCompleted = insight.candidates.filter(
-        (c) => c.insightCompleted
+    const candidateHasCompleted = (candidate: ICandidate) => {
+        return candidate.status === EnumCandidateStatus.Completed;
+    };
+
+    const candidatesCompleted = candidates.filter((c) =>
+        candidateHasCompleted(c)
     ).length;
 
     return (
@@ -21,35 +33,36 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
                 <Heading size="large">{insight.name}</Heading>
                 <BodyShort>00% relevansgradering</BodyShort>
                 <BodyShort>
-                    {candidatesCompleted}/{insight.candidates.length}{' '}
-                    gjennomført
+                    {candidatesCompleted}/{candidates.length} gjennomført
                 </BodyShort>
             </div>
             {open ? (
                 <div className={style.dropdown}>
                     <Label>Kriterier:</Label>
                     <ul>
-                        {insight.traits.map((trait, index) => (
-                            <li key={index}>{trait.name}</li>
+                        {insight.criterias.map((criteria, index) => (
+                            <li key={index}>{criteria.name}</li>
                         ))}
                     </ul>
                     <Label>Samtykker:</Label>
                     <ul>
                         {insight.consents.map((consent, index) => (
-                            <li key={index}>{consent.name}</li>
+                            <li key={index}>{consent.description}</li>
                         ))}
                     </ul>
                     <Label>Deltagere:</Label>
                     <ul className={style.entryCandidates}>
-                        {insight.candidates.map((candidate, index) => (
+                        {candidates.map((candidate, index) => (
                             <li key={index}>
                                 <div>
-                                    <BodyShort>{candidate.name}</BodyShort>
+                                    <BodyShort>{candidate.user.name}</BodyShort>
                                     <BodyShort>00% relevansgradering</BodyShort>
                                     <Checkbox
                                         hideLabel
                                         id="insightCompleted"
-                                        checked={candidate.insightCompleted}>
+                                        checked={candidateHasCompleted(
+                                            candidate
+                                        )}>
                                         gjennomført
                                     </Checkbox>
                                 </div>
