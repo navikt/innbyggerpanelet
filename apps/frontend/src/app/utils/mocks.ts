@@ -43,13 +43,22 @@ const allConsents: IConsent[] = [
     { id: 1, description: 'Samtykker til skjermopptak' },
 ];
 
+const teamMember: IUser = {
+    id: 3,
+    name: 'Terje Navansatt',
+    email: 'terje@nav.no',
+    phone: '45676456',
+    latestUpdate: '21.01.2022',
+    criterias: [],
+};
+
 const primaryProject: IInsightProject = {
     id: 1,
     name: 'Primært prosjekt',
     description: 'Primært prosjektbeskrivelse',
     start: '01.12.2021',
     end: '01.04.2021',
-    members: [],
+    members: [teamMember],
 };
 
 const primaryInsight: IInsight = {
@@ -59,7 +68,7 @@ const primaryInsight: IInsight = {
     project: primaryProject,
     start: '01.01.2022',
     end: '21.01.2022',
-    criterias: [allCriterias[0], allCriterias[1]],
+    criterias: [allCriterias[0], allCriterias[2]],
     consents: [allConsents[0]],
 };
 

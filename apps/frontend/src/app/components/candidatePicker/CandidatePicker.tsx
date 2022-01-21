@@ -9,6 +9,7 @@ import { ReactElement } from 'react';
 import { Label, Detail } from '@navikt/ds-react';
 
 import style from './CandidatePicker.module.scss';
+import { ProgressBar } from '../misc/progressBar';
 
 interface IProps {
     user: IUser;
@@ -38,15 +39,13 @@ export const CandidatePicker = ({
         const relevantCriterias = insight.criterias.filter((criteria) =>
             criteriaIDs.includes(criteria.id)
         );
-
         return relevantCriterias;
     };
 
     const getRelevancePercentage = (): number => {
-        return (
-            ((getRelevantCriterias().length / insight.criterias.length) * 100) |
-            0
-        );
+        const results =
+            getRelevantCriterias().length / insight.criterias.length;
+        return results > 0 ? results : 0;
     };
 
     // Does the criteria exist in the insight
@@ -83,17 +82,15 @@ export const CandidatePicker = ({
                 <Label size="medium" className={style.candidateName}>
                     {user.name}
                 </Label>
-                <div className={style.relevanceGrading}>
-                    <div className={style.relevanceGradingBar}>
-                        <div
-                            style={{
-                                width: `${getRelevancePercentage()}%`,
-                            }}></div>
-                    </div>
-                    <Detail>{`${getRelevancePercentage()}%`}</Detail>
-                </div>
+                <ProgressBar
+                    label="Relevansgradering"
+                    progress={getRelevancePercentage()}
+                />
             </div>
-            <div className={style.criterias}>
+            <div
+                className={`${style.criterias} ${
+                    insight.criterias.length ? '' : style.hidden
+                }`}>
                 {insight.criterias.map((criteria, index) => {
                     return (
                         <Detail

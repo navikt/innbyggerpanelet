@@ -1,12 +1,14 @@
 import { ReactElement, useState } from 'react';
 import { IInsight, IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Button, Label, Panel } from '@navikt/ds-react';
+import { Button, Heading, Label, Panel } from '@navikt/ds-react';
 import {
     ProjectOverview,
     ProjectEdit,
     ProjectInsightEntry,
 } from '../../components/project';
 import { mocks } from '../../utils/mocks';
+
+import style from './Project.module.scss';
 
 export const Project = (): ReactElement => {
     // Query for project and insights related to project
@@ -30,7 +32,10 @@ export const Project = (): ReactElement => {
                 )}
             </Panel>
             <Panel>
-                <Label>Antall innsiktsarbeid: {insights.length}</Label>
+                <div className={style.insightHeader}>
+                    <Heading size="large">Innsiktsarbeid</Heading>
+                    <Label>Antall innsiktsarbeid: {insights.length}</Label>
+                </div>
                 {insights.map((insight, index) => (
                     <ProjectInsightEntry key={index} insight={insight} />
                 ))}

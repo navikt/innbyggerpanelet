@@ -21,7 +21,7 @@ export const CriteriaAdminPanel = (): ReactElement => {
     const categories: ICriteriaCategory[] = mocks.allCriteriaCategories;
 
     return (
-        <Panel>
+        <Panel className={style.wrapper}>
             <Heading size="large">Kriterieoversikt</Heading>
             {categories.map((category, index) => (
                 <Accordion key={index}>

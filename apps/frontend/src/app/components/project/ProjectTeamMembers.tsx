@@ -1,5 +1,5 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
-import { Heading } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
 export const ProjectTeamMember = ({ member }: IProps): ReactElement => {
     return (
         <div>
-            <Heading size="small">{member.name}</Heading>
+            <BodyShort size="small">{member.name}</BodyShort>
         </div>
     );
 };
