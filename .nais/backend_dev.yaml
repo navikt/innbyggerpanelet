@@ -10,9 +10,11 @@ spec:
   port: 3333
   team: team-researchops
   liveness:
-    path: /internal/is-alive
+    path: /isAlive
+    initialDelay: 5
   readiness:
-    path: /internal/is-ready
+    path: /isReady
+    initialDelay: 5
   resources:
     limits:
       cpu: 400m
@@ -28,7 +30,7 @@ spec:
     enabled: false
     path: /internal/prometheus
   ingresses:
-    - https://innbyggerpanelet.dev.nais.io/api
+    - https://innbyggerpanelet-api.dev.intern.nav.no
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
