@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { candidateQuery } from '../services';
+import { candidateService } from '../services';
 
 const candidateRouter = Router();
 
@@ -8,7 +8,7 @@ const candidateRouter = Router();
 candidateRouter.get('/', async (req, res) => {
     const criteria = [req.query.criteria].flat() as string[];
 
-    const candidates = await candidateQuery.selectSortedCandidatesBycriterias(
+    const candidates = await candidateService.selectSortedCandidatesBycriterias(
         criteria
     );
 
@@ -17,14 +17,14 @@ candidateRouter.get('/', async (req, res) => {
 
 candidateRouter.get('/:id', async (req, res) => {
     const candidateID = parseInt(req.params.id);
-    const candidate = await candidateQuery.selectCandidateById(candidateID);
+    const candidate = await candidateService.selectCandidateById(candidateID);
 
     res.send(candidate);
 });
 
 candidateRouter.post('/', async (req, res) => {
     const { candidates } = req.body;
-    const result = await candidateQuery.insertCandidates(candidates);
+    const result = await candidateService.insertCandidates(candidates);
 
     res.send(result);
 });
@@ -34,7 +34,7 @@ candidateRouter.patch('/:id', async (req, res) => {
     const candidateID = parseInt(req.params.id);
     const { criteriaID } = req.body;
 
-    const result = await candidateQuery.addcriteria(candidateID, criteriaID);
+    const result = await candidateService.addCriteria(candidateID, criteriaID);
 
     res.send(result);
 });

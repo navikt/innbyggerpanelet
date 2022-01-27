@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { IInsight } from '@innbyggerpanelet/api-interfaces';
 import {
     Entity,
@@ -5,10 +6,13 @@ import {
     PrimaryGeneratedColumn,
     ManyToMany,
     JoinTable,
+    ManyToOne,
+    OneToMany,
 } from 'typeorm';
 import { Candidate } from '../candidate/CandidateEntity';
 import { Consent } from '../consent/ConsentEntity';
 import { Criteria } from '../criteria/CriteriaEntity';
+import { InsightProject } from '../insightProject/InsightProjectEntity';
 
 @Entity()
 export class Insight implements IInsight {
@@ -17,6 +21,9 @@ export class Insight implements IInsight {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @ManyToOne(() => InsightProject, (project) => project.insights)
+    project: InsightProject;
+
     @Column()
     name: string;
 
@@ -24,13 +31,12 @@ export class Insight implements IInsight {
     description: string;
 
     @Column()
-    starts: string;
+    start: string;
 
     @Column()
-    ends: string;
+    end: string;
 
-    @ManyToMany(() => Candidate)
-    @JoinTable()
+    @OneToMany(() => Candidate, (candidate) => candidate.insight)
     candidates: Candidate[];
 
     @ManyToMany(() => Criteria)

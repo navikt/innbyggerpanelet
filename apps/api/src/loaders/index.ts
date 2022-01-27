@@ -17,9 +17,11 @@ export const load = async ({ server }: { server: Application }) => {
     const loadedTypeOrm = await typeormLoader();
     console.log('------ TYPEORM LOADED');
 
+    database = loadedTypeOrm;
+
     loaded = true;
 
-    return { loadedExpress, loadedTypeOrm};
+    return { loadedExpress, loadedTypeOrm };
 };
 
 export { database };

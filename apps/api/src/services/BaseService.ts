@@ -7,13 +7,13 @@ export default abstract class BaseService<T> {
         this.repository = db.getRepository(target);
     }
 
-    abstract get(): Promise<T[] | undefined>
+    abstract get(): Promise<T[] | undefined>;
 
-    abstract getById(id: number): Promise<T | undefined>
+    abstract getById(id: number): Promise<T | undefined>;
 
-    abstract create(dto: T): Promise<T | undefined>
+    abstract create(dto: T): Promise<T | undefined>;
 
-    abstract update(id: number, dto: T): Promise <T | undefined>
+    abstract update(id: number, dto: T): Promise<T | undefined>;
 
-    abstract delete(id: number): Promise<void>
+    abstract delete(id: number): Promise<void>;
 }
