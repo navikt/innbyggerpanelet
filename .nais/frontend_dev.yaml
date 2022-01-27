@@ -10,9 +10,11 @@ spec:
   port: 2022
   team: team-researchops
   liveness:
-    path: /
+    path: /isAlive
+    initalDelay: 5
   readiness:
-    path: /
+    path: /isReady
+    initialDelay: 5
   resources:
     limits:
       cpu: 200m
