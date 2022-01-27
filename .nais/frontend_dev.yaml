@@ -30,4 +30,4 @@ spec:
     enabled: false
     path: /internal/prometheus
   ingresses:
-    - https://innbyggerpanelet.dev.intern.nais.io/
+    - https://innbyggerpanelet.dev.intern.nav.no
