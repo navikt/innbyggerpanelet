@@ -1,57 +1,76 @@
 export interface IUser {
-    name: string
-    latestUpdate: string
-    email: string
-    phone: string
-    candidate: ICandidate[]
+    id: number;
+    name: string;
+    latestUpdate: string;
+    email: string;
+    phone: string;
+    criterias: ICriteria[];
+}
+
+export enum EnumCandidateStatus {
+    Pending = 'PENDING',
+    Completed = 'COMPLETED',
+    Accepted = 'ACCEPTED',
+    Declined = 'DECLINED',
 }
 
 export interface ICandidate {
-    relevancyGrading: string
-    user: IUser
-    insight: IInsight
+    relevancyGrading: number;
+    user: IUser;
+    insight: IInsight;
+    status: EnumCandidateStatus;
 }
 
 export interface IInsight {
     [key: string]:
         | string
+        | number
         | Date
         | ICriteria[]
         | IConsent[]
-        | ICandidate[]; // String indexation
-    name: string
-    description: string
-    start: Date
-    end: Date
-    candidates: ICandidate[]
-    criterias: ICriteria[]
-    consents: IConsent[]
+        | ICandidate[]
+        | IInsightProject; // String indexation
+    id: number;
+    name: string;
+    description: string;
+    start: string;
+    end: string;
+    criterias: ICriteria[];
+    consents: IConsent[];
+    project: IInsightProject;
 }
 
 export interface IInsightProject {
-    name: string
-    description: string
-    start: Date
-    end: Date
-    insights: IInsight[]
+    [key: string]: string | number | IUser[] | IInsight[];
+    id: number;
+    name: string;
+    description: string;
+    members: IUser[];
+    start: string;
+    end: string;
 }
 
 export interface IConsent {
-    firstName: string
-    lastName: string
-    email: string
-    haveConsented: boolean
-    soundRecording: boolean
-    videoRecording: boolean
+    id: number;
+    description: string;
+    /*
+    firstName: string;
+    lastName: string;
+    email: string;
+    haveConsented: boolean;
+    soundRecording: boolean;
+    videoRecording: boolean;*/
 }
 
 export interface ICriteria {
-    name: string
-    exclusivitySlug: string
-    criteriaCategories: ICriteriaCategory[]
+    id: number;
+    name: string;
+    exclusivitySlug?: string;
+    category: ICriteriaCategory;
 }
 
 export interface ICriteriaCategory {
-    name: string
-    criterias: ICriteria[]
+    id: number;
+    name: string;
+    description: string;
 }

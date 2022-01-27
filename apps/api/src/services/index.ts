@@ -1,2 +1,2 @@
-export * from './Candidate';
-export * from './Criteria';
+export * from './CandidateService';
+export * from './CriteriaService';

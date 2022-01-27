@@ -2,7 +2,6 @@ import * as dotenv from 'dotenv';
 import express = require('express');
 import { load } from './loaders';
 
-
 console.log('======== BOOTING UP API ========');
 
 dotenv.config();

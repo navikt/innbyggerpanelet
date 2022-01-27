@@ -9,38 +9,21 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: lightgrey;
+    background-color: var(--nav-light-gray);
+    border-radius: 4px;
 }
 
 .candidateName {
     flex: 1;
+    margin: auto 0 !important; // Local overwrite for navds-label component
 }
 
-.relevanceGrading {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    height: 1rem;
-    margin: auto 0;
-    gap: 0.5rem;
-}
-
-.relevanceGradingBar {
-    flex: 1;
-    background-color: white;
-    height: inherit;
-}
-
-.relevanceGradingBar > div {
-    background-color: green;
-    height: inherit;
-    transition: width 1s;
-}
 .criterias {
     padding: 1rem;
     display: grid;
     grid-template-columns: auto auto auto auto;
-    background-color: lightgrey;
+    background-color: var(--nav-light-gray);
+    border-radius: 4px;
 }
 
 .selected > .header {
@@ -58,4 +41,8 @@
 
 .wrapper + .wrapper {
     margin-top: 1ch;
+}
+
+.hidden {
+    display: none;
 }

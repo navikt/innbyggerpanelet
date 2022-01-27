@@ -18,7 +18,7 @@ export const ConsentsSearchModal = ({
     // Query API for results
     // Remove item on click
     const consents: IConsent[] = [
-        { id: 1, name: 'Samtykker til skjermopptak' },
+        { id: 1, description: 'Samtykker til skjermopptak' },
     ];
 
     return (
@@ -37,7 +37,7 @@ export const ConsentsSearchModal = ({
                                 key={index}
                                 className={style.result}
                                 onClick={() => addConsent(consent)}>
-                                + {consent.name}
+                                + {consent.description}
                             </div>
                         );
                     })}
