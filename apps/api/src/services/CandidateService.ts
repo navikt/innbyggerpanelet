@@ -40,7 +40,7 @@ const addCriteria = async (candidateID: number, criteriaID: number) => {
         .add(criteriaID);
 };
 
-export const candidateQuery = {
+export const candidateService = {
     selectSortedCandidatesBycriterias,
     selectCandidateById,
     insertCandidates,
