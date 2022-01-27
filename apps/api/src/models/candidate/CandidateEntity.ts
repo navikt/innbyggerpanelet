@@ -1,22 +1,35 @@
+/* eslint-disable indent */
+import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    JoinTable,
-    ManyToMany,
-} from 'typeorm';
-import { Criteria } from '../criteria/CriteriaEntity';
-import { ICandidate } from '@innbyggerpanelet/api-interfaces';
+    EnumCandidateStatus,
+    ICandidate,
+} from '@innbyggerpanelet/api-interfaces';
+import { User } from '../user/UserEntity';
+import { Insight } from '../insight/InsightEntity';
 
 @Entity()
 export class Candidate implements ICandidate {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @ManyToOne(() => User, (user) => user.id, {
+        primary: true,
+        nullable: false,
+    })
+    @JoinColumn()
+    user: User;
+
+    @ManyToOne(() => Insight, (insight) => insight.id, {
+        primary: true,
+        nullable: false,
+    })
+    @JoinColumn()
+    insight: Insight;
 
     @Column()
-    name: string;
+    relevancyGrading: number;
 
-    @ManyToMany(() => Criteria)
-    @JoinTable()
-    criterias: Criteria[];
+    @Column({
+        type: 'enum',
+        enum: EnumCandidateStatus,
+        default: EnumCandidateStatus.Pending,
+    })
+    status: EnumCandidateStatus;
 }

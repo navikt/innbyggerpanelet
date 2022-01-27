@@ -7,7 +7,7 @@ services:
         networks:
             - 'innbyggerpanelet_api'
         ports:
-            - '2022'
+            - 2022:2022
         depends_on:
             - 'db'
         env_file:
@@ -18,12 +18,11 @@ services:
         volumes:
             - innbyggerpanelet_data:/var/lib/postgresql/data
         networks:
-          - innbyggerpanelet_api
+            - innbyggerpanelet_api
         ports:
             - 5432:5432
         env_file:
-          - '.env'
-        
+            - '.env'
 
 volumes:
     innbyggerpanelet_data:
