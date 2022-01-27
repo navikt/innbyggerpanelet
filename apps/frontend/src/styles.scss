@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+    --nav-light-gray: #f1f1f1;
+    --nav-medium-gray: #c4c4c4;
+    --nav-light-green: #99dead;
+    --nav-dark-blue: #00243a;
+}
+
+.navds-panel {
+    width: 60rem;
+    margin: 2rem auto;
+}
+
+// Will not scale to small devices
+.navds-panel > .navds-button {
+    position: absolute;
+    right: 8rem;
+}
+
+body {
+    background-color: var(--nav-light-gray);
+}

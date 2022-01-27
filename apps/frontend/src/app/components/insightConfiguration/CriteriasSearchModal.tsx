@@ -1,6 +1,7 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { Modal, SearchField } from '@navikt/ds-react';
 import { ReactElement } from 'react';
+import { mocks } from '../../utils/mocks';
 
 import style from './SearchModal.module.scss';
 
@@ -17,10 +18,7 @@ export const CriteriasSearchModal = ({
 }: IProps): ReactElement => {
     // Query API for results
     // Remove item on click
-    const criterias: ICriteria[] = [
-        { id: 12, name: 'Under 25 år' },
-        { id: 13, name: 'Over 25 år' },
-    ];
+    const criterias: ICriteria[] = mocks.allCriterias;
 
     return (
         <Modal open={open} onClose={close}>
