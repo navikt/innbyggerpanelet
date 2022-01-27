@@ -32,7 +32,7 @@ const insertCandidates = async (candidates: Candidate[]) => {
 };
 
 // Replace with all encompassing update function
-const addcriteria = async (candidateID: number, criteriaID: number) => {
+const addCriteria = async (candidateID: number, criteriaID: number) => {
     return await getRepository(Candidate)
         .createQueryBuilder()
         .relation(Candidate, 'criterias')
@@ -44,5 +44,5 @@ export const candidateQuery = {
     selectSortedCandidatesBycriterias,
     selectCandidateById,
     insertCandidates,
-    addcriteria,
+    addCriteria,
 };

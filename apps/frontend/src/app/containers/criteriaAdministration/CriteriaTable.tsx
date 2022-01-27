@@ -41,7 +41,7 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
             </Table>
             <CriteriaEditModal
                 criteria={editCriteria}
-                open={editCriteria != undefined}
+                open={editCriteria !== undefined}
                 close={() => setEditCriteria(undefined)}
             />
         </>

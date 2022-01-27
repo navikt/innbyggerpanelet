@@ -30,6 +30,7 @@ export const CriteriaEditModal = ({
                     <TextField
                         label="Eklusivitet slug"
                         value={criteria?.exclusivitySlug}
+                        placeholder="none"
                     />
                     <Button>Bekreft</Button>
                 </div>

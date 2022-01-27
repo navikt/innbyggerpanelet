@@ -11,8 +11,6 @@ export const Breadcrumbs = (): ReactElement => {
         .split('/')
         .filter((link) => link !== '');
 
-    console.log(breadcrumbs);
-
     if (breadcrumbs.length === 0) {
         return <></>;
     }
