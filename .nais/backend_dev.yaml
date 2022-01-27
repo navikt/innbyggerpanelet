@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: inbyggerpanelet-api
+  name: innbyggerpanelet-api
   namespace: team-researchops
   labels:
     team: team-researchops
