@@ -11,7 +11,7 @@ import { ICandidate } from '@innbyggerpanelet/api-interfaces';
 @Entity()
 export class Candidate implements ICandidate {
     @PrimaryGeneratedColumn()
-    id: number;
+        id: number;
 
     @Column()
     name: string;

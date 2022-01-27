@@ -1,17 +1,24 @@
-const express = require('express');
-const app = express();
-const port = process.env.SERVER_PORT || 2022;
-const index = (req, res) => res.sendFile(require('path').join(__dirname, 'dist/index.html'));
-app.use(express.static('dist'));
-// Add routes here
-app.get('/', index);
+const express = require('express')
+const app = express()
+const port = 2022
+const path = require('path')
+
+// Setter static folder
+
+app.use(express.static(path.join(__dirname, 'build')))
+
+// app.get('/', (req, res) => {
+//     res.send('Hello World!')
+// })
 
 app.get('/isalive', (req, res) => {
-    res.sendStatus(200);
-});
+    res.sendStatus(200)
+})
 
 app.get('/isready', (req, res) => {
-    res.sendStatus(200);
-});
+    res.sendStatus(200)
+})
 
-app.listen(port, () => console.log(`Server starting on port ${port}`));
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+})
