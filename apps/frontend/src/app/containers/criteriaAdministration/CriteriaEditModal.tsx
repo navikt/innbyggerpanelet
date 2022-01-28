@@ -23,7 +23,7 @@ export const CriteriaEditModal = ({
                 <div className={style.editModal}>
                     <Heading size="small">Rediger kriterie</Heading>
                     <BodyShort>
-                        Vær obs på at å rediere enkelte kriterier kan få store
+                        Vær obs på at å redigere enkelte kriterier kan få store
                         konsekvenser for kandidatene.
                     </BodyShort>
                     <TextField label="Navn" value={criteria?.name} />

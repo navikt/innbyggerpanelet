@@ -1,19 +1,44 @@
 import { Router } from 'express';
-import { criteriaQuery } from '../services';
+import { database } from '../loaders';
+import { Criteria } from '../models/criteria/CriteriaEntity';
+import { CriteriaService } from '../services';
 
 const criteriaRouter = Router();
 
 criteriaRouter.get('/', async (req, res) => {
-    const criterias = await criteriaQuery.selectAllCriteria();
+    try {
+        const criteriaService = new CriteriaService(database);
+        const result: Criteria[] | undefined = await criteriaService.get();
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+    }
+});
 
-    res.send(criterias);
+// A bit hacky, should be integrated into main get with proper filter/sorting capabilities
+criteriaRouter.get('/byCategory/:id', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const criteriaService = new CriteriaService(database);
+        const result: Criteria[] | undefined =
+            await criteriaService.getByCategoryId(id);
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 criteriaRouter.post('/', async (req, res) => {
-    const { criterias } = req.body;
-    const result = await criteriaQuery.insertCriteria(criterias);
+    try {
+        const criteriaService = new CriteriaService(database);
+        const newCriteriaCategory = req.body as Criteria;
 
-    res.send(result);
+        const result = await criteriaService.create(newCriteriaCategory);
+
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 export default criteriaRouter;

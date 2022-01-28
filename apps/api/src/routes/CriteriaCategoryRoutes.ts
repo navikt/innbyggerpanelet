@@ -8,23 +8,27 @@ const criteriaCategoryRoutes = Router();
 criteriaCategoryRoutes.get('/', async (req, res) => {
     try {
         const criteriaCategoryService = new CriteriaCategoryService(database);
-        const elections: CriteriaCategory[] | undefined =
+        const result: CriteriaCategory[] | undefined =
             await criteriaCategoryService.get();
-        res.json(elections);
+        res.json(result);
     } catch (error) {
         console.error(error);
     }
 });
 
-/*
 criteriaCategoryRoutes.post('/', async (req, res) => {
-    const { categories } = req.body;
-    const result = await CriteriaCategoryService.insertCriteriaCategory(
-        categories
-    );
+    try {
+        const criteriaCategoryService = new CriteriaCategoryService(database);
+        const newCriteriaCategory = req.body as CriteriaCategory;
 
-    res.send(result);
+        const result = await criteriaCategoryService.create(
+            newCriteriaCategory
+        );
+
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+    }
 });
-*/
 
 export default criteriaCategoryRoutes;
