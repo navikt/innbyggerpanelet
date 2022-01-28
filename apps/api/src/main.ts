@@ -12,7 +12,7 @@ async function boot() {
 
         await load({ server });
 
-        server.listen(process.env.HTTP_PORT, () => {
+        server.listen(process.env.HTTP_PORT || 3333, () => {
             console.log(`Listening on ${process.env.HTTP_PORT}`);
             console.log('======== API STARTED ========');
         });
