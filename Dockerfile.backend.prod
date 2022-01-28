@@ -9,4 +9,4 @@ RUN yarn build api
 
 EXPOSE 3333
 
-CMD node apps/api/server.js
+CMD node dist/apps/api/server.js
