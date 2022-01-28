@@ -19,7 +19,7 @@ export const CriteriaCreateModal = ({
     const [criteria, setCriteria] = useState<ICriteria>({
         id: 0,
         name: '',
-        exclusivitySlug: undefined,
+        exclusivitySlug: '',
         category,
     });
 

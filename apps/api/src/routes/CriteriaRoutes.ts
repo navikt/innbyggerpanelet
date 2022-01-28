@@ -1,27 +1,21 @@
 import { Router } from 'express';
 import { database } from '../loaders';
 import { Criteria } from '../models/criteria/CriteriaEntity';
-import { CriteriaService } from '../services';
+import { CriteriaService, ICriteriaSearch } from '../services';
 
 const criteriaRouter = Router();
 
 criteriaRouter.get('/', async (req, res) => {
     try {
-        const criteriaService = new CriteriaService(database);
-        const result: Criteria[] | undefined = await criteriaService.get();
-        res.json(result);
-    } catch (error) {
-        console.error(error);
-    }
-});
+        // Hacky, consider making middleware for query conversion
+        const queries = req.query as unknown as ICriteriaSearch;
 
-// A bit hacky, should be integrated into main get with proper filter/sorting capabilities
-criteriaRouter.get('/byCategory/:id', async (req, res) => {
-    try {
-        const id = parseInt(req.params.id);
+        console.log(queries);
+
         const criteriaService = new CriteriaService(database);
-        const result: Criteria[] | undefined =
-            await criteriaService.getByCategoryId(id);
+        const result: Criteria[] | undefined = await criteriaService.search(
+            queries
+        );
         res.json(result);
     } catch (error) {
         console.error(error);

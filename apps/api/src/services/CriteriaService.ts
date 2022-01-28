@@ -1,6 +1,11 @@
-import { Connection, Repository } from 'typeorm';
+import { Connection, FindOperator, Like, Repository } from 'typeorm';
 import { Criteria } from '../models/criteria/CriteriaEntity';
 import BaseService from './BaseService';
+
+export interface ICriteriaSearch {
+    category?: string | string[];
+    name?: string | string[] | FindOperator<string | string[]>;
+}
 
 export class CriteriaService extends BaseService<Criteria> {
     private _database: Connection;
@@ -17,6 +22,21 @@ export class CriteriaService extends BaseService<Criteria> {
             const criterias = await this._criteriaRepository
                 .createQueryBuilder('criteria')
                 .getMany();
+
+            return criterias;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async search(queries: ICriteriaSearch): Promise<Criteria[] | undefined> {
+        try {
+            if (queries.name) queries.name = Like(queries.name);
+
+            // Currently doesn@t support OR and sorting
+            const criterias = await this._criteriaRepository.find({
+                where: queries,
+            });
 
             return criterias;
         } catch (err) {
