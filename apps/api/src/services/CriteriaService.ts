@@ -31,9 +31,10 @@ export class CriteriaService extends BaseService<Criteria> {
 
     async search(queries: ICriteriaSearch): Promise<Criteria[] | undefined> {
         try {
+            // Case insensitive string search
             if (queries.name) queries.name = ILike(queries.name);
 
-            // Currently doesn@t support OR and sorting
+            // Currently doesn't support OR and sorting
             const criterias = await this._criteriaRepository.find({
                 where: queries,
             });
@@ -46,19 +47,6 @@ export class CriteriaService extends BaseService<Criteria> {
 
     async getById(id: number): Promise<Criteria | undefined> {
         throw new Error('not implemented');
-    }
-
-    async getByCategoryId(id: number): Promise<Criteria[] | undefined> {
-        try {
-            const criterias = await this._criteriaRepository
-                .createQueryBuilder('criteria')
-                .where('criteria.category = :id', { id })
-                .getMany();
-
-            return criterias;
-        } catch (err) {
-            console.error(err);
-        }
     }
 
     async create(dto: Criteria): Promise<Criteria | undefined> {

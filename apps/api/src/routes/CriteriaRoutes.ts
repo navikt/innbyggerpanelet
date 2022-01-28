@@ -7,10 +7,9 @@ const criteriaRouter = Router();
 
 criteriaRouter.get('/', async (req, res) => {
     try {
-        // Hacky, consider making middleware for query conversion
+        // Hacky, consider assigning string | string[] to queries through request and
+        // split into object with where and sort fields.
         const queries = req.query as unknown as ICriteriaSearch;
-
-        console.log(queries);
 
         const criteriaService = new CriteriaService(database);
         const result: Criteria[] | undefined = await criteriaService.search(
