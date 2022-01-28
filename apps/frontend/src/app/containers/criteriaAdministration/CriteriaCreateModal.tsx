@@ -25,9 +25,7 @@ export const CriteriaCreateModal = ({
 
     const [loading, setLoading] = useState(false);
 
-    const handleInputChange = (
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newCriteria = { ...criteria };
         newCriteria[event.target.id] = event.target.value;
         setCriteria(newCriteria);

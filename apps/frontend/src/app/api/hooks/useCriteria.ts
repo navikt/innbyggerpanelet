@@ -13,8 +13,8 @@ export const useCriteriaByCategoryId = (categoryId: number) => {
 };
 
 export const useCriteriaSearchByName = (name: string) => {
-    const { data, error } = useSWR<ICriteria, AxiosError>(
-        `/api/criteria?name=${name}`,
+    const { data, error } = useSWR<ICriteria[], AxiosError>(
+        `/api/criteria?name=%${name}%`,
         fetcher
     );
 

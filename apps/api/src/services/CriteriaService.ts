@@ -1,4 +1,4 @@
-import { Connection, FindOperator, Like, Repository } from 'typeorm';
+import { Connection, FindOperator, ILike, Repository } from 'typeorm';
 import { Criteria } from '../models/criteria/CriteriaEntity';
 import BaseService from './BaseService';
 
@@ -31,7 +31,7 @@ export class CriteriaService extends BaseService<Criteria> {
 
     async search(queries: ICriteriaSearch): Promise<Criteria[] | undefined> {
         try {
-            if (queries.name) queries.name = Like(queries.name);
+            if (queries.name) queries.name = ILike(queries.name);
 
             // Currently doesn@t support OR and sorting
             const criterias = await this._criteriaRepository.find({

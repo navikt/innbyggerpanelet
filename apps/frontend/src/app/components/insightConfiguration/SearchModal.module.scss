@@ -3,11 +3,21 @@
     flex-direction: column;
     padding: 2rem;
     gap: 1rem;
-    width: 600px;
+    width: 40rem;
+    height: 30rem;
+}
+
+.results {
+    overflow-y: scroll;
+    height: 20rem;
+    background-color: var(--nav-light-gray);
+    padding: 1rem;
+    border-radius: 0.2rem;
 }
 
 .result {
     border: 0.2rem solid var(--navds-text-field-color-border);
+    background-color: white;
     border-radius: 0.2rem;
     padding: 1rem;
 }
