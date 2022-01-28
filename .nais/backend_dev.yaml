@@ -30,7 +30,7 @@ spec:
     enabled: false
     path: /internal/prometheus
   ingresses:
-    - https://innbyggerpanelet.dev.intern.nav.no/api
+    - https://innbyggerpanelet-web.dev.intern.nav.no/api
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
