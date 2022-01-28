@@ -1,24 +1,24 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: innbyggerpanelet-web-api
+  name: innbyggerpanelet-webapi
   namespace: team-researchops
   labels:
     team: team-researchops
 spec:
-  iamge: {{ image }}
+  image: {{ image }}
   port: 3333
   team: team-researchops
   liveness:
     path: /isAlive
-    initialDelay: 5
+    initalDelay: 5
   readiness:
     path: /isReady
     initialDelay: 5
   resources:
     limits:
       cpu: 400m
-      memory: 512Mi
+      memory: 256Mi
     requests:
       cpu: 200m
       memory: 256Mi
@@ -30,7 +30,7 @@ spec:
     enabled: false
     path: /internal/prometheus
   ingresses:
-    - https://innbyggerpanelet-web.dev.intern.nav.no/api
+    - https://innbyggerpanelet-web.dev.intern.nav.no
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
