@@ -1,7 +1,9 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
-import { Modal, SearchField } from '@navikt/ds-react';
-import { ReactElement } from 'react';
+import { Loader, Modal, SearchField } from '@navikt/ds-react';
+import { ChangeEvent, ReactElement, useState } from 'react';
+import { useCriteriaSearchByName } from '../../api/hooks/useCriteria';
 import { mocks } from '../../utils/mocks';
+import { APIError } from '../misc/apiError/APIError';
 
 import style from './SearchModal.module.scss';
 
@@ -16,9 +18,14 @@ export const CriteriasSearchModal = ({
     close,
     addCriteria,
 }: IProps): ReactElement => {
-    // Query API for results
-    // Remove item on click
-    const criterias: ICriteria[] = mocks.allCriterias;
+    const [search, setSearch] = useState('');
+    const { criterias, isLoading, isError } = useCriteriaSearchByName(search);
+
+    const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearch(event.target.value);
+    };
+
+    if (isError) return <APIError error={isError} />;
 
     return (
         <Modal open={open} onClose={close}>
@@ -26,21 +33,25 @@ export const CriteriasSearchModal = ({
                 <SearchField
                     label="Kriterier"
                     description={<div>Søk etter kriterier her</div>}>
-                    <SearchField.Input />
+                    <SearchField.Input onChange={handleSearch} value={search} />
                     <SearchField.Button>Søk</SearchField.Button>
                 </SearchField>
-                <div>
-                    {criterias.map((criteria, index) => {
-                        return (
-                            <div
-                                key={index}
-                                className={style.result}
-                                onClick={() => addCriteria(criteria)}>
-                                + {criteria.name}
-                            </div>
-                        );
-                    })}
-                </div>
+                {isLoading || !criterias ? (
+                    <Loader />
+                ) : (
+                    <div className={style.results}>
+                        {criterias.map((criteria, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={style.result}
+                                    onClick={() => addCriteria(criteria)}>
+                                    + {criteria.name}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
             </Modal.Content>
         </Modal>
     );

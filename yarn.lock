@@ -1427,10 +1427,17 @@
   dependencies:
     "uuid" "^8.3.2"
 
-"@navikt/ds-icons@^0.7.0", "@navikt/ds-icons@^0.7.2":
+"@navikt/ds-icons@^0.7.2":
   "integrity" "sha512-uacrYlNo5nVfu+D1ZhTnTpiYCrOIDVk792OdnrUqDSV5fyMF6HFeBi4BenmnoUjRhmQjUl0nth7G4TI+ZfwrGw=="
   "resolved" "https://registry.npmjs.org/@navikt/ds-icons/-/ds-icons-0.7.2.tgz"
   "version" "0.7.2"
+  dependencies:
+    "uuid" "^8.3.2"
+
+"@navikt/ds-icons@^0.7.3":
+  "integrity" "sha512-fixTpRhYWB+DGG7LGsnNeIvHuO95uubaAH9YkSW3AsaoNQMaYtIKRCbGzqNcDTvfYiJvGQe++wIZCLAarCZfMA=="
+  "resolved" "https://registry.npmjs.org/@navikt/ds-icons/-/ds-icons-0.7.3.tgz"
+  "version" "0.7.3"
   dependencies:
     "uuid" "^8.3.2"
 
@@ -1450,12 +1457,12 @@
     "uuid" "^8.3.2"
 
 "@navikt/ds-react@^0.14.1":
-  "integrity" "sha512-ttUidC1CLVXU9R42SBJ9KlTw1chn39Cn/KuEa509nz3oMcsv07hAAqpGi79nrGSCfnOaw0uMRIYfDvvG7bWbjA=="
-  "resolved" "https://registry.npmjs.org/@navikt/ds-react/-/ds-react-0.14.1.tgz"
-  "version" "0.14.1"
+  "integrity" "sha512-LNsBQwAU+DOv70SZuV9gP3avUUgF3XBarbIRDqpJBUR8N1zQeIW91otsCniyHsbISLM29NLdEyfR7VACS7g/YQ=="
+  "resolved" "https://registry.npmjs.org/@navikt/ds-react/-/ds-react-0.14.15.tgz"
+  "version" "0.14.15"
   dependencies:
     "@material-ui/core" "^4.12.3"
-    "@navikt/ds-icons" "^0.7.0"
+    "@navikt/ds-icons" "^0.7.3"
     "@popperjs/core" "^2.10.1"
     "classnames" "^2.2.6"
     "react-collapse" "^5.1.0"

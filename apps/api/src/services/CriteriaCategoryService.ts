@@ -30,7 +30,13 @@ export class CriteriaCategoryService extends BaseService<CriteriaCategory> {
     }
 
     async create(dto: CriteriaCategory): Promise<CriteriaCategory | undefined> {
-        throw new Error('not implemented');
+        try {
+            const category = await this._criteriaCategoryRepository.save(dto);
+
+            return category;
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     async update(
