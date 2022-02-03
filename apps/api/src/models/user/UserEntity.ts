@@ -10,6 +10,7 @@ import {
 import { Criteria } from '../criteria/CriteriaEntity';
 import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Candidate } from '../candidate/CandidateEntity';
+import { InsightProject } from '../insightProject/InsightProjectEntity';
 
 @Entity()
 export class User implements IUser {
@@ -34,4 +35,10 @@ export class User implements IUser {
     @ManyToMany(() => Criteria)
     @JoinColumn()
     criterias: ICriteria[];
+
+    @ManyToMany(
+        () => InsightProject,
+        (insightProject) => insightProject.members
+    )
+    insightProjects: InsightProject[];
 }

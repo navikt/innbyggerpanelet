@@ -9,6 +9,7 @@ criteriaRouter.get('/', async (req, res) => {
     try {
         // Hacky, consider assigning string | string[] to queries through request and
         // split into object with where and sort fields.
+        // TODO: Find better solution for casting queries.
         const queries = req.query as unknown as ICriteriaSearch;
 
         const criteriaService = new CriteriaService(database);

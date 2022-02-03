@@ -1,3 +1,3 @@
-import { Project } from './Project';
+import { InsightProject } from './InsightProject';
 
-export default Project;
+export default InsightProject;

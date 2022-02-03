@@ -3,13 +3,7 @@ import {
     ICandidate,
     IInsight,
 } from '@innbyggerpanelet/api-interfaces';
-import {
-    Accordion,
-    BodyShort,
-    Checkbox,
-    Heading,
-    Label,
-} from '@navikt/ds-react';
+import { Accordion, Label } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { ProjectInsightCandidates } from '.';
 import { mocks } from '../../utils/mocks';
