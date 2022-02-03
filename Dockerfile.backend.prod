@@ -4,8 +4,6 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY . ./
-
 COPY package.json .
 COPY yarn.lock .
 
