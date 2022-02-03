@@ -27,6 +27,6 @@ export default {
         port: port,
         db: db,
         user: user,
-        password: password
+        password: password,
     },
 };
