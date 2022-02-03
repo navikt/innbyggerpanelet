@@ -12,7 +12,7 @@ export const load = async ({ server }: { server: Application }) => {
     
     console.log(config.database.user);
     console.log(config.database.db);
-    console.log(config.database.host);
+    console.log(config.database.password);
 
     console.log('-- loading express... --');
     const loadedExpress = await expressLoader({ server });
