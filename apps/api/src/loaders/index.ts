@@ -10,10 +10,6 @@ let loaded = false;
 export const load = async ({ server }: { server: Application }) => {
     if (loaded) throw new Error('API is already loaded...');
     
-    console.log(config.database.user);
-    console.log(config.database.db);
-    console.log(config.database.password);
-
     console.log('-- loading express... --');
     const loadedExpress = await expressLoader({ server });
     console.log('------ EXPRESS LOADED');
