@@ -1,8 +1,11 @@
 import { ConnectionOptions, createConnection } from 'typeorm';
 import config from '../config';
 import models from '../models';
+import dotenv from 'dotenv'
 
 export default async () => {
+    dotenv.config()
+
     const typeormConfig: ConnectionOptions = {
         type: 'postgres',
         host: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_API_DB_HOST,
