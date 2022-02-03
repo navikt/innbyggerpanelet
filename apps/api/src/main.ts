@@ -4,10 +4,10 @@ import { load } from './loaders';
 
 console.log('======== BOOTING UP API ========');
 
-dotenv.config();
-
 async function boot() {
     try {
+        dotenv.config();
+
         const server = express();
 
         await load({ server });

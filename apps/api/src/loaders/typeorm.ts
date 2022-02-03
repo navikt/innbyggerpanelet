@@ -7,9 +7,9 @@ export default async () => {
         type: 'postgres',
         host: config.database.host,
         port: Number.parseInt(config.database.port!),
+        database: config.database.db,
         username: config.database.user,
         password: config.database.password,
-        database: config.database.db,
         synchronize: true,
         entities: models,
     };
