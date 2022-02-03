@@ -5,7 +5,11 @@ import models from '../models';
 export default async () => {
     const typeormConfig: ConnectionOptions = {
         type: 'postgres',
-        url: config.database.url,
+        host: config.database.host,
+        port: Number.parseInt(config.database.port!),
+        database: config.database.db,
+        username: config.database.user,
+        password: config.database.password,
         synchronize: true,
         entities: models,
     };
