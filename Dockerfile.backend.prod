@@ -1,6 +1,6 @@
 FROM node:14
 
-ENV IS_PROD=true
+ENV IS_PROD=yes
 
 WORKDIR /app
 
