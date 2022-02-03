@@ -1,5 +1,7 @@
 FROM node:14
 
+ENV IS_PROD=true
+
 WORKDIR /app
 
 COPY . ./

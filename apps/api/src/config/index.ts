@@ -1,7 +1,5 @@
 import dotenv from 'dotenv';
 
-const environment = process.env.NODE_ENV;
-
 dotenv.config();
 
 let host;
@@ -9,7 +7,7 @@ let port;
 let db;
 let user;
 let password;
-if (environment === 'production') {
+if (process.env.IS_PROD === 'true') {
     host = process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DB_HOST;
     port = process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DB_PORT;
     db = process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DB_DATABASE;
