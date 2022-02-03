@@ -11,7 +11,7 @@ RUN yarn
 
 COPY . .
 
-RUN yarn
+RUN yarn install
 
 RUN yarn build api
 

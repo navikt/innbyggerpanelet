@@ -26,6 +26,8 @@ services:
             - '${HTTP_PORT}:${HTTP_PORT}'
         depends_on:
             - 'db'
+        environment:
+            - NODE_ENV=development
         env_file:
             - '.env'
     db:
