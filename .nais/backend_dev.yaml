@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: innbyggerpanelet-webapi
+  name: innbyggerpanelet-api
   namespace: team-researchops
   labels:
     team: team-researchops
@@ -30,7 +30,7 @@ spec:
     enabled: false
     path: /internal/prometheus
   ingresses:
-    - https://innbyggerpanelet-webapi.dev.intern.nav.no
+    - https://innbyggerpanelet-api.dev.intern.nav.no
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
