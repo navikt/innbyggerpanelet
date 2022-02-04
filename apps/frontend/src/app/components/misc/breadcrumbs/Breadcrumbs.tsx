@@ -19,16 +19,14 @@ export const Breadcrumbs = (): ReactElement => {
         <div className={style.wrapper}>
             <Link to="/">Hjem</Link>
             {breadcrumbs.map((bc, index) => (
-                <>
+                <span key={index}>
                     <Heading size="xsmall">/</Heading>
                     {breadcrumbs.length !== index + 1 ? (
-                        <Link key={index} to={`/${bc}`}>
-                            {bc}
-                        </Link>
+                        <Link to={`/${bc}`}>{bc}</Link>
                     ) : (
                         <Heading size="xsmall">{bc}</Heading>
                     )}
-                </>
+                </span>
             ))}
         </div>
     );

@@ -3,7 +3,10 @@ import { Insight } from '../models/insight/InsightEntity';
 import BaseService from './BaseService';
 
 export interface IInsightSearch {
-    project: string | string[];
+    where: {
+        project: string | string[];
+    };
+    relations: string | string[];
 }
 
 export class InsightService extends BaseService<Insight> {
@@ -33,7 +36,8 @@ export class InsightService extends BaseService<Insight> {
     async search(queries: IInsightSearch): Promise<Insight[]> {
         try {
             const insights = await this._insightRepository.find({
-                where: queries,
+                where: queries.where,
+                relations: [queries.relations || []].flat(),
             });
 
             return insights;

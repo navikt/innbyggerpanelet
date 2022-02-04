@@ -10,6 +10,7 @@ import { ProjectDetails } from './ProjectDetails';
 import { mocks } from '../../utils/mocks';
 
 import style from './Project.module.scss';
+import { InsightProjectEntryList } from './InsightProjectEntryList';
 
 export const InsightProject = (): ReactElement => {
     const { id } = useParams();
@@ -40,15 +41,7 @@ export const InsightProject = (): ReactElement => {
                     <ProjectDetails project={insightProject} />
                 )}
             </Panel>
-            <Panel>
-                <div className={style.insightHeader}>
-                    <Heading size="large">Innsiktsarbeid</Heading>
-                    <Label>Antall innsiktsarbeid: {insights.length}</Label>
-                </div>
-                {insights.map((insight, index) => (
-                    <ProjectInsightEntry key={index} insight={insight} />
-                ))}
-            </Panel>
+            <InsightProjectEntryList projectId={insightProject.id} />
         </>
     );
 };

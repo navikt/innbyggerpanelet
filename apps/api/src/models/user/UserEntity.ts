@@ -4,8 +4,8 @@ import {
     Column,
     PrimaryGeneratedColumn,
     ManyToMany,
-    JoinColumn,
     OneToMany,
+    JoinTable,
 } from 'typeorm';
 import { Criteria } from '../criteria/CriteriaEntity';
 import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
@@ -33,7 +33,7 @@ export class User implements IUser {
     candidates: Candidate[];
 
     @ManyToMany(() => Criteria)
-    @JoinColumn()
+    @JoinTable()
     criterias: ICriteria[];
 
     @ManyToMany(
