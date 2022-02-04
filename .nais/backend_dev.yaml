@@ -35,4 +35,4 @@ spec:
     sqlInstances:
       - type: "POSTGRES_12"
         databases:
-          - name: "innbyggerpanelet-database"
+          - name: "innbyggerpanelet-db"
