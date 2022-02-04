@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: innbyggerpanelet-api
+  name: innbyggerpanelet-backend
   namespace: team-researchops
   labels:
     team: team-researchops
@@ -35,4 +35,4 @@ spec:
     sqlInstances:
       - type: "POSTGRES_12"
         databases:
-          - name: "innbyggerpanelet-dbs"
+          - name: "innbyggerpanelet-backend-db"
