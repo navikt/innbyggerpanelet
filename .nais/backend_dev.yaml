@@ -10,12 +10,12 @@ spec:
   port: 3333
   team: team-researchops
   liveness:
-    path: /api/isAlive
+    path: /isAlive
     port: 3333
     initialDelay: 20
     timeout: 60
   readiness:
-    path: /api/isReady
+    path: /isReady
     port: 3333
     initialDelay: 20
     timeout: 60
