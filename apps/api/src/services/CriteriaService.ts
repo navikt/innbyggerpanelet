@@ -34,8 +34,9 @@ export class CriteriaService extends BaseService<Criteria> {
 
     async search(queries: ICriteriaSearch): Promise<Criteria[] | undefined> {
         try {
+            // TODO: Make general solution for all special fields
             // Case insensitive string search
-            if (queries.where.name)
+            if (queries.where && queries.where.name)
                 queries.where.name = ILike(queries.where.name);
 
             // Currently doesn't support OR and sorting
