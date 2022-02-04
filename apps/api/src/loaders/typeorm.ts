@@ -4,15 +4,13 @@ import models from '../models';
 import dotenv from 'dotenv'
 
 export default async () => {
-    dotenv.config()
-
     const typeormConfig: ConnectionOptions = {
         type: 'postgres',
-        host: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DATABASE_HOST,
-        port: Number(process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DATABASE_PORT!),
-        database: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DATABASE_DATABASE,
-        username: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DATABASE_USERNAME,
-        password: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DATABASE_PASSWORD,
+        host: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DBS_HOST,
+        port: Number(process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DBS_PORT!),
+        database: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DBS_DATABASE,
+        username: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DBS_USERNAME,
+        password: process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DBS_PASSWORD,
         synchronize: true,
         entities: models,
     };
