@@ -33,6 +33,6 @@ spec:
     - https://innbyggerpanelet-api.dev.intern.nav.no
   gcp:
     sqlInstances:
-      - type: "POSTGRES_13"
+      - type: "POSTGRES_12"
         databases:
           - name: "innbyggerpanelet-dbs"
