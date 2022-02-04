@@ -5,7 +5,7 @@ import { poster } from '../operations';
 export const createCriteria = async (criteria: ICriteria) => {
     const { data, error } = await poster<ICriteria>('/api/criteria', criteria);
 
-    mutate(`/api/criteria?category=${criteria.category.id}`);
+    mutate(`/api/criteria?where[category]=${criteria.category.id}`);
 
     return {
         response: data,

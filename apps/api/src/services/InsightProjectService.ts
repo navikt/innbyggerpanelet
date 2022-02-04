@@ -3,6 +3,13 @@ import { InsightProject } from '../models/insightProject/InsightProjectEntity';
 import { User } from '../models/user/UserEntity';
 import BaseService from './BaseService';
 
+export interface IInsightProjectSearch {
+    where: {
+        id: string | string[];
+    };
+    relations: string | string[];
+}
+
 export class InsightProjectService extends BaseService<InsightProject> {
     private _database: Connection;
     private _insightProjectRepository: Repository<InsightProject>;
@@ -35,17 +42,16 @@ export class InsightProjectService extends BaseService<InsightProject> {
         }
     }
 
-    async getMembers(id: number): Promise<User[]> {
+    async search(
+        queries: IInsightProjectSearch
+    ): Promise<InsightProject[] | undefined> {
         try {
-            const insightProject = await this._insightProjectRepository.findOne(
-                {
-                    relations: ['members'],
-                    where: { id: id },
-                }
-            );
-            const { members } = insightProject;
+            const insightProjects = await this._insightProjectRepository.find({
+                where: queries.where,
+                relations: [queries.relations || []].flat(),
+            });
 
-            return members;
+            return insightProjects;
         } catch (err) {
             console.error(err);
         }

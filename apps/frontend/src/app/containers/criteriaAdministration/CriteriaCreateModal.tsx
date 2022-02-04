@@ -23,7 +23,7 @@ export const CriteriaCreateModal = ({
         category,
     });
 
-    const [loading, setLoading] = useState(false);
+    const [posting, setPosting] = useState(false);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newCriteria = { ...criteria };
@@ -31,14 +31,14 @@ export const CriteriaCreateModal = ({
         setCriteria(newCriteria);
     };
 
-    const submit = async () => {
+    const handleSubmit = async () => {
         const { response, isLoading, isError } = await createCriteria(criteria);
         if (response) {
             close();
         } else if (isLoading) {
-            setLoading(true);
+            setPosting(true);
         } else if (isError) {
-            console.log(isError);
+            console.error(isError);
         }
     };
 
@@ -67,9 +67,9 @@ export const CriteriaCreateModal = ({
                         disabled
                     />
                     <Button
-                        onClick={submit}
+                        onClick={handleSubmit}
                         variant="primary"
-                        loading={loading}>
+                        loading={posting}>
                         Bekreft
                     </Button>
                 </div>

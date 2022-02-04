@@ -26,10 +26,16 @@ export const useInsightProjectMembers = (id: number | string) => {
 };
 
 export const useInsightProjectById = (id: string | number) => {
-    const { data, error } = useSWR<IInsightProject, AxiosError>(
-        `/api/insightProject/${id}`,
+    const { data, error } = useSWR<IInsightProject[], AxiosError>(
+        `/api/insightProject?relations=members&where[id]=${id}`,
         fetcher
     );
 
-    return { insightProject: data, isLoading: !error && !data, isError: error };
+    const reduced = !data ? undefined : data[0];
+
+    return {
+        insightProject: reduced,
+        isLoading: !error && !data,
+        isError: error,
+    };
 };

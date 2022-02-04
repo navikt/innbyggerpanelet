@@ -19,10 +19,6 @@ export const InsightProject = (): ReactElement => {
         id || 0
     );
 
-    const [insights, setInsights] = useState<IInsight[]>([
-        mocks.primaryInsight,
-    ]);
-
     const [edit, setEdit] = useState(false);
 
     if (isError) return <APIError error={isError} />;
@@ -36,6 +32,8 @@ export const InsightProject = (): ReactElement => {
                     <ProjectEdit
                         project={insightProject}
                         setProject={() => null}
+                        submit={() => null}
+                        loading={false}
                     />
                 ) : (
                     <ProjectDetails project={insightProject} />

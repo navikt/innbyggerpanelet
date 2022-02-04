@@ -7,9 +7,11 @@ const userRoutes = Router();
 
 userRoutes.get('/', async (req, res) => {
     try {
+        const queries = req.query as unknown as IUserSearch;
+
         const userService = new UserService(database);
 
-        const result: User[] | undefined = await userService.get();
+        const result: User[] | undefined = await userService.search(queries);
 
         res.json(result);
     } catch (error) {

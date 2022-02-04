@@ -1,9 +1,18 @@
-import { Connection, FindManyOptions, Repository } from 'typeorm';
+import {
+    Connection,
+    FindManyOptions,
+    FindOperator,
+    ILike,
+    Repository,
+} from 'typeorm';
 import { User } from '../models/user/UserEntity';
 import BaseService from './BaseService';
 
 export interface IUserSearch {
-    phone?: string | string[];
+    where: {
+        name?: string | string[] | FindOperator<string | string[]>;
+    };
+    relations: string | string[];
 }
 
 export class UserService extends BaseService<User> {
@@ -30,8 +39,14 @@ export class UserService extends BaseService<User> {
 
     async search(queries: IUserSearch): Promise<User[] | undefined> {
         try {
+            // TODO: Make general solution for all special fields
+            // Case insensitive string search
+            if (queries.where && queries.where.name)
+                queries.where.name = ILike(queries.where.name);
+
             const users = await this._userRepository.find({
-                where: queries,
+                where: queries.where,
+                relations: [queries.relations || []].flat(),
             });
 
             return users;

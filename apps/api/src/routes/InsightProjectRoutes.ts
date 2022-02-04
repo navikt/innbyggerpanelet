@@ -1,29 +1,18 @@
 import { Router } from 'express';
 import { database } from '../loaders';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
-import { InsightProjectService } from '../services/';
+import { IInsightProjectSearch, InsightProjectService } from '../services/';
 
 const insightProjectRoutes = Router();
 
 insightProjectRoutes.get('/', async (req, res) => {
     try {
+        const queries = req.query as unknown as IInsightProjectSearch;
+
         const insightProjectService = new InsightProjectService(database);
 
         const result: InsightProject[] | undefined =
-            await insightProjectService.get();
-        res.json(result);
-    } catch (error) {
-        console.error(error);
-    }
-});
-
-insightProjectRoutes.get('/:id/members', async (req, res) => {
-    try {
-        const id = parseInt(req.params.id);
-
-        const insightProjectService = new InsightProjectService(database);
-        const result = await insightProjectService.getMembers(id);
-
+            await insightProjectService.search(queries);
         res.json(result);
     } catch (error) {
         console.error(error);
