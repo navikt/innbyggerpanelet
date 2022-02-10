@@ -1,5 +1,5 @@
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Loader } from '@navikt/ds-react';
+import { Heading, Loader } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useInsightProjects } from '../../api/hooks/useInsightProject';
 import { APIError } from '../../components/misc/apiError/APIError';

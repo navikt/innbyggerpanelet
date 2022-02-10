@@ -6,7 +6,7 @@
     justify-content: space-between;
 }
 
-/* Project detail view */
+/* Project entry list */
 .insightHeader {
     display: flex;
     flex-direction: row;
@@ -16,4 +16,11 @@
 
 .insightHeader > p {
     font-variant-position: sub;
+}
+
+/* ProjectDetails */
+.detailWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }

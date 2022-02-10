@@ -84,14 +84,14 @@ export const InsightConfiguration = ({
                     />
                     <div className={style.dates}>
                         <TextField
-                            id="starts"
+                            id="start"
                             label="Startdato"
                             placeholder="DD-MM-ÅÅÅÅ"
                             onChange={handleInputChange}
                             value={insight.start}
                         />
                         <TextField
-                            id="ends"
+                            id="end"
                             label="Sluttdato"
                             placeholder="DD-MM-ÅÅÅÅ"
                             onChange={handleInputChange}

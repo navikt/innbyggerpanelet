@@ -1,15 +1,11 @@
 import { ReactElement, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IInsight } from '@innbyggerpanelet/api-interfaces';
-import { Button, Heading, Label, Loader, Panel } from '@navikt/ds-react';
-import { ProjectEdit, ProjectInsightEntry } from '../../components/project';
+import { Button, Loader, Panel } from '@navikt/ds-react';
+import { ProjectEdit } from '../../components/project';
 import { useInsightProjectById } from '../../api/hooks/useInsightProject';
 import { APIError } from '../../components/misc/apiError/APIError';
 import { ProjectDetails } from './ProjectDetails';
 
-import { mocks } from '../../utils/mocks';
-
-import style from './Project.module.scss';
 import { InsightProjectEntryList } from './InsightProjectEntryList';
 
 export const InsightProject = (): ReactElement => {

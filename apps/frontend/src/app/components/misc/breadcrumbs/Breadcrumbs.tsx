@@ -22,7 +22,12 @@ export const Breadcrumbs = (): ReactElement => {
                 <span key={index}>
                     <Heading size="xsmall">/</Heading>
                     {breadcrumbs.length !== index + 1 ? (
-                        <Link to={`/${bc}`}>{bc}</Link>
+                        <Link
+                            to={`/${breadcrumbs
+                                .slice(0, index + 1)
+                                .join('/')}`}>
+                            {bc}
+                        </Link>
                     ) : (
                         <Heading size="xsmall">{bc}</Heading>
                     )}

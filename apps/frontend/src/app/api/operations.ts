@@ -14,9 +14,9 @@ export const poster = async <T>(url: string, data: T) =>
     await axios
         .post(url, data)
         .then((res) => {
-            return { data: res.data as T, error: null };
+            return { data: res.data as T, error: undefined };
         })
         .catch((error: AxiosError) => {
-            return { data: null, error };
+            return { data: undefined, error };
             //throw error;
         });

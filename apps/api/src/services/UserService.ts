@@ -3,6 +3,8 @@ import {
     FindManyOptions,
     FindOperator,
     ILike,
+    In,
+    Raw,
     Repository,
 } from 'typeorm';
 import { User } from '../models/user/UserEntity';
@@ -47,6 +49,38 @@ export class UserService extends BaseService<User> {
             const users = await this._userRepository.find({
                 where: queries.where,
                 relations: [queries.relations || []].flat(),
+            });
+
+            return users;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async prioritizedUsers(criteriaIds: string[]): Promise<User[] | undefined> {
+        try {
+            const users = await this._userRepository
+                .createQueryBuilder('user')
+                .leftJoinAndSelect(
+                    'user.criterias',
+                    'criteria',
+                    'criteria.id IN (:...criteriaIds)',
+                    { criteriaIds }
+                )
+                .getMany();
+
+            // Consider moving sort function somewhere else.
+            users.sort((first, second) => {
+                const firstLength = first.criterias.length;
+                const secondLength = second.criterias.length;
+
+                if (firstLength > secondLength) {
+                    return -1;
+                } else if (firstLength < secondLength) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             });
 
             return users;

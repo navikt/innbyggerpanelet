@@ -19,6 +19,21 @@ userRoutes.get('/', async (req, res) => {
     }
 });
 
+userRoutes.get('/prioritized', async (req, res) => {
+    try {
+        const criterias = req.query.criterias as unknown as string[];
+
+        const userService = new UserService(database);
+        const result: User[] | undefined = await userService.prioritizedUsers(
+            criterias
+        );
+
+        return res.json(result);
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 userRoutes.post('/', async (req, res) => {
     try {
         const userService = new UserService(database);

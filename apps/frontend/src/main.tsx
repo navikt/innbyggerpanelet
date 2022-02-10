@@ -10,6 +10,7 @@ import CriteriaAdminPanel from './app/containers/criteriaAdministration';
 import Header from './app/components/misc/header';
 import Breadcrumbs from './app/components/misc/breadcrumbs/';
 import NotFound from './app/components/misc/notFound';
+import { InsightProjectOverview } from './app/containers/project/InsightProjectOverview';
 
 // Root
 ReactDOM.render(
@@ -19,9 +20,13 @@ ReactDOM.render(
             <Breadcrumbs />
             <Routes>
                 <Route path="/" element={<App />} />
+                <Route path="/prosjekt" element={<InsightProjectOverview />} />
                 <Route path="/prosjekt/ny" element={<InsightProjectNew />} />
                 <Route path="/prosjekt/:id" element={<InsightProject />} />
-                <Route path="/innsikt" element={<CreateInsight />} />
+                <Route
+                    path="/prosjekt/:id/innsikt"
+                    element={<CreateInsight />}
+                />
                 <Route path="/profil" element={<UserProfile />} />
                 <Route
                     path="/admin/kriterier"

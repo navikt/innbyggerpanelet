@@ -26,7 +26,7 @@ export const ProjectInsightCandidates = ({ candidates }: IProps) => {
                                 {candidate.user.name}
                             </Table.DataCell>
                             <Table.DataCell>
-                                {candidate.relevancyGrading * 100}%
+                                {Math.floor(candidate.relevancyGrading * 100)}%
                             </Table.DataCell>
                             <Table.DataCell>{candidate.status}</Table.DataCell>
                         </Table.Row>

@@ -65,19 +65,3 @@ export class CandidateService extends BaseService<Candidate> {
         throw new Error('Method not implemented.');
     }
 }
-
-/*
-// Returns candidates sorted after number of criterias matching param
-const selectSortedCandidatesBycriterias = async (criteriaIds: string[]) => {
-    return await getRepository(Candidate)
-        .createQueryBuilder('candidate')
-        .leftJoinAndSelect(
-            'candidate.criterias',
-            'criteria',
-            'criteria.id IN (:...criteriaIds)',
-            { criteriaIds }
-        )
-        .orderBy('criteria', 'DESC')
-        .getMany();
-};
-*/

@@ -3,7 +3,6 @@ import { Panel } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
 
 import style from './app.module.scss';
-import { PanelNoBackground } from './components/misc/panelNoBackground';
 import { InsightProjectOverview } from './containers/project/InsightProjectOverview';
 
 export const App = () => {
@@ -11,7 +10,7 @@ export const App = () => {
         <>
             <Panel>
                 <div className={style.links}>
-                    <Link to="/innsikt">Nytt innsiktsarbeid</Link>
+                    <Link to="/prosjekt/ny">Nytt prosjekt</Link>
                     <Link to="/profil">Brukerprofil</Link>
                     <Link to="/admin/kriterier">Kriterier oversikt</Link>
                 </div>
