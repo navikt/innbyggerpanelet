@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://innbyggerpanelet-backend.dev.intern.nav.no/api",
-    "secure": false
+    "target": "https://innbyggerpanelet-backend.dev.intern.nav.no",
+    "secure": true
   }
 }
