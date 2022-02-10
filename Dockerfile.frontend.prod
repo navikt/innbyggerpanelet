@@ -1,5 +1,7 @@
 FROM node:14
 
+ENV API_URL=https://innbyggerpanelet-backend.dev.intern.nav.no
+
 WORKDIR /app
 
 COPY . ./
