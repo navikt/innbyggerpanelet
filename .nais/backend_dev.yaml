@@ -37,3 +37,7 @@ spec:
       - type: "POSTGRES_12"
         databases:
           - name: "innbyggerpanelet-backend-db"
+  accessPolicy:
+    inbound:
+      rules:
+        - application: innbyggerpanelet
