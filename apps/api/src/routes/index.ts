@@ -13,10 +13,10 @@ const routes = Router()
     .use('/criteriaCategory', criteriaCategoryRoutes);
 
 export default Router()
-    .use('/api', routes)
     .use('/isAlive', (req, res) => {
         res.status(200)
     })
     .use('/isReady', (req, res) => {
         res.status(200)
-    });
+    })
+    .use('/api', routes);
