@@ -14,9 +14,9 @@ const routes = Router()
 
 export default Router()
     .use('/isAlive', (req, res) => {
-        res.status(200)
+        res.send('Alive').status(200)
     })
     .use('/isReady', (req, res) => {
-        res.status(200)
+        res.send('Ready').status(200)
     })
     .use('/api', routes);
