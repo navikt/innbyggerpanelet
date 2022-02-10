@@ -3,41 +3,12 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
 import CriteriaAdminPanel from '..';
+import { mocks } from '../../../utils/mocks';
 
 // Consider moving mocks to seperate file
 const server = setupServer(
     rest.get('/api/criteriaCategory', (req, res, ctx) => {
-        return res(
-            ctx.json([
-                {
-                    id: 1,
-                    name: 'Alder',
-                    description: 'Kandidatens aldergruppe.',
-                    criteria: [
-                        {
-                            id: 1,
-                            name: 'Mellom 18 og 25 år',
-                            exclusivitySlug: 'age',
-                        },
-                        {
-                            id: 2,
-                            name: 'Mellom 26 og 35 år',
-                            exclusivitySlug: 'age',
-                        },
-                    ],
-                },
-                {
-                    id: 2,
-                    name: 'Hjelpemidler',
-                    description:
-                        'Utvalg av mulige hjelpemidler tatt i bruk av kandidat.',
-                    criteria: [
-                        { id: 3, name: 'Skjermoppleser' },
-                        { id: 4, name: 'Rullestol' },
-                    ],
-                },
-            ])
-        );
+        return res(ctx.json(mocks.allCriteriaCategories));
     })
 );
 
@@ -55,8 +26,6 @@ test('loads and displays all avaiable categories', async () => {
 
     expect(screen.getByText('Alder'));
     expect(screen.getByText('Hjelpemidler'));
-
-    expect(screen.getAllByRole('table')).toHaveLength(1);
 });
 
 test('displays error on status 404', async () => {

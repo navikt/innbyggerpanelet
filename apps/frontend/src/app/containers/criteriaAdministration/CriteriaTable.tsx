@@ -1,8 +1,11 @@
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
-import { Table } from '@navikt/ds-react';
+import { Add } from '@navikt/ds-icons';
+import { Button, Loader, Table } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
-import { CriteriaEditModal } from '.';
+import { CriteriaCreateModal, CriteriaEditModal } from '.';
 import { CriteriaAdminRow } from '../../components/criteriaAdministration';
+import { APIError } from '../../components/misc/apiError/APIError';
+import { useCriteriaByCategoryId } from '../../api/hooks/useCriteria';
 import { mocks } from '../../utils/mocks';
 
 interface IProps {
@@ -11,10 +14,15 @@ interface IProps {
 
 export const CriteriaTable = ({ category }: IProps): ReactElement => {
     const [editCriteria, setEditCriteria] = useState<ICriteria>();
+    const [newCriteria, setNewCriteria] = useState(false);
 
-    const criterias = mocks.allCriterias.filter(
-        (c) => c.category.id === category.id
+    const { criterias, isLoading, isError } = useCriteriaByCategoryId(
+        category.id
     );
+
+    if (isError) return <APIError error={isError} />;
+
+    if (isLoading || !criterias) return <Loader />;
 
     return (
         <>
@@ -39,10 +47,22 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
                     ))}
                 </Table.Body>
             </Table>
+            <Button
+                variant="secondary"
+                size="medium"
+                onClick={() => setNewCriteria(true)}>
+                <Add />
+                Legg til kriterie i gruppe
+            </Button>
             <CriteriaEditModal
                 criteria={editCriteria}
                 open={editCriteria !== undefined}
                 close={() => setEditCriteria(undefined)}
+            />
+            <CriteriaCreateModal
+                category={category}
+                open={newCriteria}
+                close={() => setNewCriteria(false)}
             />
         </>
     );

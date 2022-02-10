@@ -63,6 +63,8 @@ export interface IConsent {
 }
 
 export interface ICriteria {
+    [key: string]: number | string | ICriteriaCategory | undefined;
+
     id: number;
     name: string;
     exclusivitySlug?: string;
