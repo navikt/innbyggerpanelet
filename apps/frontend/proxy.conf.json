@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://localhost:2022",
+    "target": "https://innbyggerpanelet-backend.dev.intern.nav.no",
     "secure": false
   }
 }

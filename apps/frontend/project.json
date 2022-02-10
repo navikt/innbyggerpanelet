@@ -17,8 +17,7 @@
         "assets": ["apps/frontend/src/favicon.ico", "apps/frontend/src/assets"],
         "styles": ["apps/frontend/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack",
-        "proxyConfig": "apps/frontend/proxy.conf.prod.json"
+        "webpackConfig": "@nrwl/react/plugins/webpack"
       },
       "configurations": {
         "production": {
