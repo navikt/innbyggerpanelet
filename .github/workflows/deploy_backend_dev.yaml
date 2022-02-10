@@ -2,7 +2,7 @@ name: Deploy backend to dev-gcp
 
 on:
   push:
-    branches: [main, refactor/workflows-v2]
+    branches: [main]
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
