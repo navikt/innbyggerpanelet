@@ -12,8 +12,8 @@ async function boot() {
 
         await load({ server });
 
-        server.listen(3333, () => {
-            console.log(`Listening on ${3333}`);
+        server.listen(2022, () => {
+            console.log(`Listening on ${2022}`);
             console.log('======== API STARTED ========');
         });
     } catch (error) {

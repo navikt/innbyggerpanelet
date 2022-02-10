@@ -1427,17 +1427,17 @@
   dependencies:
     uuid "^8.3.2"
 
-"@navikt/ds-icons@^0.7.0":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.7.3.tgz#ffe37e32cc5a0b3e640b9db0f95ff4c5f18c4002"
-  integrity sha512-fixTpRhYWB+DGG7LGsnNeIvHuO95uubaAH9YkSW3AsaoNQMaYtIKRCbGzqNcDTvfYiJvGQe++wIZCLAarCZfMA==
-  dependencies:
-    uuid "^8.3.2"
-
 "@navikt/ds-icons@^0.7.2":
   version "0.7.2"
   resolved "https://registry.npmjs.org/@navikt/ds-icons/-/ds-icons-0.7.2.tgz"
   integrity sha512-uacrYlNo5nVfu+D1ZhTnTpiYCrOIDVk792OdnrUqDSV5fyMF6HFeBi4BenmnoUjRhmQjUl0nth7G4TI+ZfwrGw==
+  dependencies:
+    uuid "^8.3.2"
+
+"@navikt/ds-icons@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.8.3.tgz#79c2453146aae07104a3858c4499ee9d61ed4eb4"
+  integrity sha512-M0Q5HkXaQN2m06jo72XJEoStpDoP4TZbc3NMHKowlZ40/kCvSSqvW1uj6pZU7rZqMLZ3cgDRpBPncOfB5rMK+g==
   dependencies:
     uuid "^8.3.2"
 
@@ -1456,13 +1456,13 @@
     react-popper "^2.2.5"
     uuid "^8.3.2"
 
-"@navikt/ds-react@^0.14.1":
-  version "0.14.1"
-  resolved "https://registry.npmjs.org/@navikt/ds-react/-/ds-react-0.14.1.tgz"
-  integrity sha512-ttUidC1CLVXU9R42SBJ9KlTw1chn39Cn/KuEa509nz3oMcsv07hAAqpGi79nrGSCfnOaw0uMRIYfDvvG7bWbjA==
+"@navikt/ds-react@^0.16.4":
+  version "0.16.4"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.16.4.tgz#1aeb8547493aea4ca4a7e67c2689d839f8edd43c"
+  integrity sha512-o4opU+cIBTUYxNAoAxGaYDnhTbVhQnL4Y5ARjKfOTM15BPAoMFfn/lRCIdqAjiLHb7ADEwoWHLdoHCV9Wam2dg==
   dependencies:
     "@material-ui/core" "^4.12.3"
-    "@navikt/ds-icons" "^0.7.0"
+    "@navikt/ds-icons" "^0.8.3"
     "@popperjs/core" "^2.10.1"
     classnames "^2.2.6"
     react-collapse "^5.1.0"
