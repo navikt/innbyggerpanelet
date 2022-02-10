@@ -5,7 +5,7 @@ const path = require('path')
 
 // Setter static folder
 
-app.use(express.static(path.join(__dirname, 'dist/apps/frontend')))
+app.use(express.static(path.join(__dirname, '../../dist/apps/frontend')))
 
 // app.get('/', (req, res) => {
 //     res.send('Hello World!')
@@ -17,6 +17,10 @@ app.get('/isalive', (req, res) => {
 
 app.get('/isready', (req, res) => {
     res.sendStatus(200)
+})
+
+app.get('/', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../../dist/apps/frontend', 'index.html'))
 })
 
 app.listen(port, () => {
