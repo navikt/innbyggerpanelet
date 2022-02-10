@@ -5,7 +5,7 @@ const path = require('path')
 
 // Setter static folder
 
-app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.static(path.join(__dirname, 'dist/apps/frontend')))
 
 // app.get('/', (req, res) => {
 //     res.send('Hello World!')
