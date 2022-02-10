@@ -7,16 +7,16 @@ metadata:
     team: team-researchops
 spec:
   image: {{ image }}
-  port: 3333
+  port: 2022
   team: team-researchops
   liveness:
     path: /isalive
-    port: 3333
+    port: 2022
     initialDelay: 20
     timeout: 60
   readiness:
     path: /isready
-    port: 3333
+    port: 2022
     initialDelay: 20
     timeout: 60
   resources:
