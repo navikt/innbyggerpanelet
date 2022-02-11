@@ -5,7 +5,7 @@ import { fetcher } from '../operations';
 
 export const useInsightsByProjectId = (id: number | string) => {
     const { data, error } = useSWR<IInsight[], AxiosError>(
-        `/api/insight?project=${id}&relations=criterias&relations=consents`,
+        `/api/insight?where[project]=${id}&relations=criterias&relations=consents`,
         fetcher
     );
 

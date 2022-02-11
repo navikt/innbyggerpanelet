@@ -18,15 +18,15 @@ const defaultInsight: IInsight = {
     start: '',
     end: '',
     project: {
-        id: 1,
+        id: 0,
         name: '',
         description: '',
         members: [],
         start: '',
-        end: '',
+        end: ''
     },
     criterias: [],
-    consents: [],
+    consents: []
 };
 
 export const CreateInsight = (): ReactElement => {
@@ -45,15 +45,15 @@ export const CreateInsight = (): ReactElement => {
         if (!id) throw new Error('This project does not exist.');
 
         setPosting(true);
-        setInsight({
+
+        const payload = {
             ...insight,
-            project: { ...insight.project, id: parseInt(id) },
-        });
+            project: { ...insight.project, id: parseInt(id) }
+        };
 
-        const insightMutation = await createInsight(insight);
+        const insightMutation = await createInsight(payload);
 
-        if (!insightMutation.response || insightMutation.isError)
-            throw new Error('Failed to post insight.');
+        if (!insightMutation.response || insightMutation.isError) throw new Error('Failed to post insight.');
 
         const configuredCandidates = candidates.map((c) => {
             return { ...c, insight: insightMutation.response };
@@ -71,24 +71,20 @@ export const CreateInsight = (): ReactElement => {
     return (
         <>
             <Panel>
-                <Button onClick={handleSubmit} loading={posting}>Inviter</Button>
+                <Button onClick={handleSubmit} loading={posting}>
+                    Inviter
+                </Button>
                 <Heading level={'1'} size="2xlarge" spacing>
                     Nytt innsiktsarbeid
                 </Heading>
-                <InsightConfiguration
-                    insight={insight}
-                    setInsight={setInsight}
-                />
+                <InsightConfiguration insight={insight} setInsight={setInsight} />
             </Panel>
             <Panel>
                 <div className={style.candidatesHeader}>
                     <Heading level={'2'} size="xlarge" spacing>
                         Kandidater
                     </Heading>
-                    <Label>
-                        Valgte kandidater:{' '}
-                        {users ? `${candidates.length}/${users.length}` : '0/0'}
-                    </Label>
+                    <Label>Valgte kandidater: {users ? `${candidates.length}/${users.length}` : '0/0'}</Label>
                 </div>
                 <div>
                     {users
