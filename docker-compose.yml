@@ -11,6 +11,8 @@ services:
             - innbyggerpanelet_api
         ports:
             - '4200:4200'
+        links:
+            - 'app:api'
         env_file:
             - '.env'
     app:
@@ -34,12 +36,12 @@ services:
         volumes:
             - innbyggerpanelet_data:/var/lib/postgresql/data
         networks:
-          - innbyggerpanelet_api
+            - innbyggerpanelet_api
         ports:
             - 5432:5432
         env_file:
-          - '.env'
-        
+            - '.env'
+
 volumes:
     innbyggerpanelet_data:
 networks:
