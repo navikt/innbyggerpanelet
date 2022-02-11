@@ -6,11 +6,11 @@ import dotenv from 'dotenv'
 export default async () => {
     const typeormConfig: ConnectionOptions = {
         type: 'postgres',
-        host: process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_HOST,
-        port: Number(process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_PORT),
-        database: process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_DATABASE,
-        username: process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_USERNAME,
-        password: process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_PASSWORD,
+        host: config.database.host,
+        port: Number(config.database.port),
+        database: config.database.db,
+        username: config.database.user,
+        password: config.database.password,
         synchronize: true,
         entities: models,
     };
