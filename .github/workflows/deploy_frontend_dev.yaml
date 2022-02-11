@@ -2,7 +2,7 @@ name: Deploy frontend to dev-gcp
 
 on:
     push:
-        branches: [main, deploy/docker-compose-links]
+        branches: [main]
 
 env:
     IMAGE: docker.pkg.github.com/${{ github.repository }}/innbyggerpanelet-frontend:${{ github.sha }}
