@@ -1,0 +1,43 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: innbyggerpanelet-backend
+  namespace: team-researchops
+  labels:
+    team: team-researchops
+spec:
+  image: {{ image }}
+  port: 2022
+  team: team-researchops
+  liveness:
+    path: /isalive
+    port: 2022
+    initialDelay: 20
+    timeout: 60
+  readiness:
+    path: /isready
+    port: 2022
+    initialDelay: 20
+    timeout: 60
+  resources:
+    limits:
+      cpu: 400m
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 80
+  ingresses:
+    - https://innbyggerpanelet-backend.dev.intern.nav.no
+  gcp:
+    sqlInstances:
+      - type: "POSTGRES_12"
+        databases:
+          - name: "innbyggerpanelet-backend-db"
+  accessPolicy:
+    inbound:
+      rules:
+        - application: innbyggerpanelet

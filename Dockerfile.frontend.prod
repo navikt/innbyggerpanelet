@@ -1,0 +1,14 @@
+FROM node:14
+
+ENV API_URL=https://innbyggerpanelet-backend.dev.intern.nav.no
+
+WORKDIR /app
+
+COPY . ./
+
+RUN yarn install
+RUN yarn build
+
+EXPOSE 2022
+
+CMD node apps/frontend/server.js

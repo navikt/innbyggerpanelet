@@ -1,13 +1,29 @@
+version: '3.9'
 services:
+    web:
+        container_name: 'innbyggerpanelet_frontend'
+        build:
+            context: .
+            dockerfile: Dockerfile.frontend.dev
+        volumes:
+            - './apps/frontend/src:/app/src'
+        networks:
+            - innbyggerpanelet_api
+        ports:
+            - '4200:4200'
+        env_file:
+            - '.env'
     app:
         container_name: 'innbyggerpanelet_api'
         build:
             context: .
-            dockerfile: Dockerfile.dev
+            dockerfile: Dockerfile.backend.dev
+        volumes:
+            - ./apps/api/src:/app/scr
         networks:
             - 'innbyggerpanelet_api'
         ports:
-            - 2022:2022
+            - '${HTTP_PORT}:${HTTP_PORT}'
         depends_on:
             - 'db'
         env_file:
@@ -18,12 +34,12 @@ services:
         volumes:
             - innbyggerpanelet_data:/var/lib/postgresql/data
         networks:
-            - innbyggerpanelet_api
+          - innbyggerpanelet_api
         ports:
             - 5432:5432
         env_file:
-            - '.env'
-
+          - '.env'
+        
 volumes:
     innbyggerpanelet_data:
 networks:
