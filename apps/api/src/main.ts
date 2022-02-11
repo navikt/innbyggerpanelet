@@ -4,16 +4,16 @@ import { load } from './loaders';
 
 console.log('======== BOOTING UP API ========');
 
-dotenv.config();
-
 async function boot() {
     try {
+        dotenv.config();
+
         const server = express();
 
         await load({ server });
 
-        server.listen(process.env.HTTP_PORT, () => {
-            console.log(`Listening on ${process.env.HTTP_PORT}`);
+        server.listen(2022, () => {
+            console.log(`Listening on ${2022}`);
             console.log('======== API STARTED ========');
         });
     } catch (error) {

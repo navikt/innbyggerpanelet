@@ -1,24 +1,26 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: nais.io/v1alpha1
+kind: Application
 metadata:
-  name: innbyggerpanelet-api
+  name: innbyggerpanelet
   namespace: team-researchops
   labels:
     team: team-researchops
 spec:
-  image: {{image}}
+  image: {{ image }}
   port: 2022
   team: team-researchops
   liveness:
-    path: /internal/is-alive
+    path: /isAlive
+    initalDelay: 5
   readiness:
-    path: /internal/is-ready
+    path: /isReady
+    initialDelay: 5
   resources:
     limits:
-      cpu: 400m
-      memory: 512Mi
-    requests:
       cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
       memory: 256Mi
   replicas:
     min: 1
@@ -28,6 +30,4 @@ spec:
     enabled: false
     path: /internal/prometheus
   ingresses:
-    - https://innbyggerpanelet.dev.nais.io/api
-  envFrom:
-    - secret: innbyggerpanelet
+    - https://innbyggerpanelet.dev.intern.nav.no

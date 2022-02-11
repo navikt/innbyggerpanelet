@@ -1,0 +1,14 @@
+FROM node:14
+
+ENV IS_PROD=yes
+
+WORKDIR /app
+
+COPY . ./
+
+RUN yarn install
+RUN yarn build api
+
+EXPOSE 2022
+
+CMD node dist/apps/api/main.js

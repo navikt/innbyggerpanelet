@@ -1,14 +1,16 @@
 import { ConnectionOptions, createConnection } from 'typeorm';
+import config from '../config';
 import models from '../models';
+import dotenv from 'dotenv'
 
 export default async () => {
     const typeormConfig: ConnectionOptions = {
         type: 'postgres',
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        username: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
-        database: process.env.POSTGRES_DB,
+        host: config.database.host,
+        port: Number(config.database.port),
+        database: config.database.db,
+        username: config.database.user,
+        password: config.database.password,
         synchronize: true,
         entities: models,
     };
