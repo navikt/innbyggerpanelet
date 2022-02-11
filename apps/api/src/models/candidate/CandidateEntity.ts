@@ -23,7 +23,7 @@ export class Candidate implements ICandidate {
     @JoinColumn()
     insight: Insight;
 
-    @Column()
+    @Column({ type: 'float' })
     relevancyGrading: number;
 
     @Column({

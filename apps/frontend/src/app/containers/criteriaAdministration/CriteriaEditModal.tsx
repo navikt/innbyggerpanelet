@@ -22,7 +22,7 @@ export const CriteriaEditModal = ({
             <Modal.Content>
                 <div className={style.editModal}>
                     <Heading size="small">Rediger kriterie</Heading>
-                    <BodyShort>
+                    <BodyShort className={style.editWarning}>
                         Vær obs på at å redigere enkelte kriterier kan få store
                         konsekvenser for kandidatene.
                     </BodyShort>

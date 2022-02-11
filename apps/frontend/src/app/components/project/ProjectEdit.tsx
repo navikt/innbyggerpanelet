@@ -1,14 +1,23 @@
 import { ChangeEvent, ReactElement } from 'react';
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { BodyShort, Label, Textarea, TextField } from '@navikt/ds-react';
-import { ProjectTeamMember } from '.';
+import { Button, Textarea, TextField } from '@navikt/ds-react';
+
+import style from './Project.module.scss';
+import ProjectTeam from '../projectTeam';
 
 interface IProps {
     project: IInsightProject;
     setProject: (project: IInsightProject) => void;
+    submit: (project: IInsightProject) => void;
+    loading: boolean;
 }
 
-export const ProjectEdit = ({ project, setProject }: IProps): ReactElement => {
+export const ProjectEdit = ({
+    project,
+    setProject,
+    submit,
+    loading,
+}: IProps): ReactElement => {
     const handleInputChange = (
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -18,7 +27,7 @@ export const ProjectEdit = ({ project, setProject }: IProps): ReactElement => {
     };
 
     return (
-        <>
+        <form className={style.projectEdit}>
             <TextField
                 id="name"
                 label="Navn:"
@@ -32,17 +41,26 @@ export const ProjectEdit = ({ project, setProject }: IProps): ReactElement => {
                 onChange={handleInputChange}
             />
             <TextField
-                id="starts"
+                id="start"
                 label="Startdato:"
                 value={project.start}
                 onChange={handleInputChange}
             />
-            <Label>Teammedlemmer: </Label>
-            <div>
-                {project.members.map((member, index) => (
-                    <ProjectTeamMember key={index} member={member} />
-                ))}
-            </div>
-        </>
+            <TextField
+                id="end"
+                label="Sluttdato:"
+                value={project.end}
+                onChange={handleInputChange}
+            />
+            <ProjectTeam project={project} edit={setProject} />
+            <Button
+                loading={loading}
+                onClick={(e) => {
+                    e.preventDefault();
+                    submit(project);
+                }}>
+                Bekreft
+            </Button>
+        </form>
     );
 };

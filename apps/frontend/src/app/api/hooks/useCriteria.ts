@@ -5,7 +5,7 @@ import { fetcher } from '../operations';
 
 export const useCriteriaByCategoryId = (categoryId: number) => {
     const { data, error } = useSWR<ICriteria[], AxiosError>(
-        `/api/criteria?category=${categoryId}`,
+        `/api/criteria?where[category]=${categoryId}`,
         fetcher
     );
 
@@ -14,7 +14,7 @@ export const useCriteriaByCategoryId = (categoryId: number) => {
 
 export const useCriteriaSearchByName = (name: string) => {
     const { data, error } = useSWR<ICriteria[], AxiosError>(
-        `/api/criteria?name=%${name}%`,
+        `/api/criteria?where[name]=%${name}%`,
         fetcher
     );
 

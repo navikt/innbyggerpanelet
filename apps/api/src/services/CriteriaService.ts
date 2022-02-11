@@ -3,8 +3,11 @@ import { Criteria } from '../models/criteria/CriteriaEntity';
 import BaseService from './BaseService';
 
 export interface ICriteriaSearch {
-    category?: string | string[];
-    name?: string | string[] | FindOperator<string | string[]>;
+    where: {
+        category?: string | string[];
+        name?: string | string[] | FindOperator<string | string[]>;
+    };
+    relations: string | string[];
 }
 
 export class CriteriaService extends BaseService<Criteria> {
@@ -31,12 +34,15 @@ export class CriteriaService extends BaseService<Criteria> {
 
     async search(queries: ICriteriaSearch): Promise<Criteria[] | undefined> {
         try {
+            // TODO: Make general solution for all special fields
             // Case insensitive string search
-            if (queries.name) queries.name = ILike(queries.name);
+            if (queries.where && queries.where.name)
+                queries.where.name = ILike(queries.where.name);
 
             // Currently doesn't support OR and sorting
             const criterias = await this._criteriaRepository.find({
-                where: queries,
+                where: queries.where,
+                relations: [queries.relations || []].flat(),
             });
 
             return criterias;

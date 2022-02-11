@@ -1,48 +1,67 @@
-import { getRepository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { Candidate } from '../models/candidate/CandidateEntity';
+import BaseService from './BaseService';
 
-// Returns candidates sorted after number of criterias matching param
-const selectSortedCandidatesBycriterias = async (criteriaIds: string[]) => {
-    return await getRepository(Candidate)
-        .createQueryBuilder('candidate')
-        .leftJoinAndSelect(
-            'candidate.criterias',
-            'criteria',
-            'criteria.id IN (:...criteriaIds)',
-            { criteriaIds }
-        )
-        .orderBy('criteria', 'DESC')
-        .getMany();
-};
+export interface ICandidateSearch {
+    where: {
+        user: string | string[];
+        insight: string | string[];
+    };
+    relations: string | string[];
+}
 
-const selectCandidateById = async (id: number) => {
-    return await getRepository(Candidate)
-        .createQueryBuilder('candidate')
-        .where('candidate.id = :id', { id })
-        .getOne();
-};
+export class CandidateService extends BaseService<Candidate> {
+    private _database: Connection;
+    private _candidateRepository: Repository<Candidate>;
 
-const insertCandidates = async (candidates: Candidate[]) => {
-    return await getRepository(Candidate)
-        .createQueryBuilder()
-        .insert()
-        .into(Candidate)
-        .values(candidates)
-        .execute();
-};
+    constructor(db: Connection) {
+        super(db, Candidate);
+        this._database = db;
+        this._candidateRepository = this._database.getRepository(Candidate);
+    }
 
-// Replace with all encompassing update function
-const addCriteria = async (candidateID: number, criteriaID: number) => {
-    return await getRepository(Candidate)
-        .createQueryBuilder()
-        .relation(Candidate, 'criterias')
-        .of(candidateID)
-        .add(criteriaID);
-};
+    async get(): Promise<Candidate[]> {
+        try {
+            const candidates = await this._candidateRepository.find();
 
-export const candidateService = {
-    selectSortedCandidatesBycriterias,
-    selectCandidateById,
-    insertCandidates,
-    addCriteria,
-};
+            return candidates;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getById(id: number): Promise<Candidate> {
+        throw new Error('Method not implemented.');
+    }
+
+    async search(queries: ICandidateSearch): Promise<Candidate[]> {
+        try {
+            const candidates = await this._candidateRepository.find({
+                where: queries.where,
+                relations: [queries.relations || []].flat(),
+            });
+
+            return candidates;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async create(dto: Candidate): Promise<Candidate> {
+        try {
+            const candidate = await this._candidateRepository.save(dto);
+
+            return candidate;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async update(id: number, dto: Candidate): Promise<Candidate> {
+        throw new Error('Method not implemented.');
+    }
+
+    async delete(id: number): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+}

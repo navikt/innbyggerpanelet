@@ -5,17 +5,18 @@
     --nav-medium-gray: #c4c4c4;
     --nav-light-green: #99dead;
     --nav-dark-blue: #00243a;
+
+    --body-width: 60rem;
 }
 
 .navds-panel {
-    width: 60rem;
-    margin: 2rem auto;
+    width: var(--body-width);
+    margin: 2.5rem auto;
 }
 
-// Will not scale to small devices
 .navds-panel > .navds-button {
     position: absolute;
-    right: 8rem;
+    left: calc(((100% - 60rem) / 2) + 60rem + 1rem);
 }
 
 body {

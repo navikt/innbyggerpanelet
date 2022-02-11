@@ -30,7 +30,7 @@ export class InsightProject implements IInsightProject {
     @Column()
     end: string;
 
-    @ManyToMany(() => User)
+    @ManyToMany(() => User, (user) => user.insightProjects)
     @JoinTable()
     members: User[];
 

@@ -6,3 +6,9 @@
     margin: 0.5rem;
     position: absolute;
 }
+
+.wrapper > span {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+}

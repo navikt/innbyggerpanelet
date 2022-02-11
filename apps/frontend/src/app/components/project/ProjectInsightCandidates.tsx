@@ -10,13 +10,15 @@ export const ProjectInsightCandidates = ({ candidates }: IProps) => {
         <>
             <Label>Deltagere:</Label>
             <Table>
-                <Table.Row>
-                    <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">
-                        Relevansgradering
-                    </Table.HeaderCell>
-                    <Table.HeaderCell scope="col">Status</Table.HeaderCell>
-                </Table.Row>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">
+                            Relevansgradering
+                        </Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Status</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
                 <Table.Body>
                     {candidates.map((candidate, index) => (
                         <Table.Row key={index}>
@@ -24,7 +26,7 @@ export const ProjectInsightCandidates = ({ candidates }: IProps) => {
                                 {candidate.user.name}
                             </Table.DataCell>
                             <Table.DataCell>
-                                {candidate.relevancyGrading * 100}%
+                                {Math.floor(candidate.relevancyGrading * 100)}%
                             </Table.DataCell>
                             <Table.DataCell>{candidate.status}</Table.DataCell>
                         </Table.Row>

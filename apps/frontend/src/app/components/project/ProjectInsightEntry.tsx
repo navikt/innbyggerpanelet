@@ -3,16 +3,12 @@ import {
     ICandidate,
     IInsight,
 } from '@innbyggerpanelet/api-interfaces';
-import {
-    Accordion,
-    BodyShort,
-    Checkbox,
-    Heading,
-    Label,
-} from '@navikt/ds-react';
+import { Accordion, Label, Loader } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { ProjectInsightCandidates } from '.';
+import { useCandidatesByInsightId } from '../../api/hooks/useCandidate';
 import { mocks } from '../../utils/mocks';
+import { APIError } from '../misc/apiError/APIError';
 import { ProgressBar } from '../misc/progressBar';
 
 import style from './Project.module.scss';
@@ -22,9 +18,12 @@ interface IProps {
 }
 
 export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
-    const [candidates, setCandidates] = useState<ICandidate[]>(
-        mocks.olaCandidatures
+    const { candidates, isLoading, isError } = useCandidatesByInsightId(
+        insight.id
     );
+
+    if (isError) return <APIError error={isError} />;
+    if (isLoading || !candidates) return <Loader />;
 
     const candidateHasCompleted = (candidate: ICandidate) => {
         return candidate.status === EnumCandidateStatus.Completed;

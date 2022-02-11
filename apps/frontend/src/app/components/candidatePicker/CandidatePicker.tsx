@@ -5,7 +5,7 @@ import {
     IUser,
     EnumCandidateStatus,
 } from '@innbyggerpanelet/api-interfaces';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { Label, Detail } from '@navikt/ds-react';
 
 import style from './CandidatePicker.module.scss';
@@ -73,6 +73,11 @@ export const CandidatePicker = ({
             ]);
         }
     };
+
+    useEffect(() => {
+        // Reset candidates on changes in criterias
+        setCandidates([]);
+    }, [insight.criterias]);
 
     return (
         <div

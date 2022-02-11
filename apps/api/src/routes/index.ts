@@ -4,13 +4,17 @@ import consentRoutes from './ConsentRoutes';
 import insightRoutes from './InsightRoutes';
 import criteriaRoutes from './CriteriaRoutes';
 import criteriaCategoryRoutes from './CriteriaCategoryRoutes';
+import insightProjectRoutes from './InsightProjectRoutes';
+import userRoutes from './UserRoutes';
 
 const routes = Router()
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
-    .use('/insight', insightRoutes)
     .use('/criteria', criteriaRoutes)
-    .use('/criteriaCategory', criteriaCategoryRoutes);
+    .use('/criteriaCategory', criteriaCategoryRoutes)
+    .use('/insight', insightRoutes)
+    .use('/insightProject', insightProjectRoutes)
+    .use('/user', userRoutes);
 
 export default Router()
     .use('/isAlive', (req, res) => {

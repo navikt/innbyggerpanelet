@@ -1,3 +1,12 @@
+/* Project grid view */
+.tileWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+/* Project entry list */
 .insightHeader {
     display: flex;
     flex-direction: row;
@@ -7,4 +16,11 @@
 
 .insightHeader > p {
     font-variant-position: sub;
+}
+
+/* ProjectDetails */
+.detailWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }

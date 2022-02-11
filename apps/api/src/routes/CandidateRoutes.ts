@@ -1,42 +1,37 @@
 import { Router } from 'express';
-import { candidateService } from '../services';
+import { database } from '../loaders';
+import { Candidate } from '../models/candidate/CandidateEntity';
+import { CandidateService, ICandidateSearch } from '../services';
 
 const candidateRouter = Router();
 
-// Search all candidates ordered by number of matching criterias
-// Example. /api/candidate?criteria=1&criteria=2
 candidateRouter.get('/', async (req, res) => {
-    const criteria = [req.query.criteria].flat() as string[];
+    try {
+        const queries = req.query as unknown as ICandidateSearch;
 
-    const candidates = await candidateService.selectSortedCandidatesBycriterias(
-        criteria
-    );
+        const candidateService = new CandidateService(database);
 
-    res.send(candidates);
-});
+        const result: Candidate[] | undefined = await candidateService.search(
+            queries
+        );
 
-candidateRouter.get('/:id', async (req, res) => {
-    const candidateID = parseInt(req.params.id);
-    const candidate = await candidateService.selectCandidateById(candidateID);
-
-    res.send(candidate);
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 candidateRouter.post('/', async (req, res) => {
-    const { candidates } = req.body;
-    const result = await candidateService.insertCandidates(candidates);
+    try {
+        const candidateService = new CandidateService(database);
+        const newCandidate = req.body as Candidate;
 
-    res.send(result);
-});
+        const result = await candidateService.create(newCandidate);
 
-// For testing purposes, should take all candidate fields into account.
-candidateRouter.patch('/:id', async (req, res) => {
-    const candidateID = parseInt(req.params.id);
-    const { criteriaID } = req.body;
-
-    const result = await candidateService.addCriteria(candidateID, criteriaID);
-
-    res.send(result);
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 export default candidateRouter;
