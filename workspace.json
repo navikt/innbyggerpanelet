@@ -3,7 +3,6 @@
     "projects": {
         "api": "apps/api",
         "api-interfaces": "libs/api-interfaces",
-        "errors": "libs/errors",
         "frontend": "apps/frontend"
     }
 }
