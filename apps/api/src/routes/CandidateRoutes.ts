@@ -1,4 +1,4 @@
-import e, { Router } from 'express';
+import { Router } from 'express';
 import { database } from '../loaders';
 import { Candidate } from '../models/candidate/CandidateEntity';
 import { CandidateService, ICandidateSearch } from '../services';
