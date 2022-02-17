@@ -1,3 +1,4 @@
 export const ServerErrorMessage = {
-    unexpected: () => 'Unexpected server error'
+    unexpected: () => 'Unexpected server error',
+    invalidData: () => 'Invalid data'
 };
