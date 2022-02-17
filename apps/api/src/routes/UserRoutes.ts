@@ -10,8 +10,20 @@ userRoutes.get('/', async (req, res, next) => {
         const queries = req.query as unknown as IUserSearch;
 
         const userService = new UserService(database);
-
         const result: User[] | undefined = await userService.search(queries);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+userRoutes.get('/:id', async (req, res, next) => {
+    try {
+        const id = parseInt(req.params.id);
+
+        const userService = new UserService(database);
+        const result: User | undefined = await userService.getById(id);
 
         res.json(result);
     } catch (error) {
@@ -24,9 +36,7 @@ userRoutes.get('/prioritized', async (req, res, next) => {
         const criterias = req.query.criterias as unknown as string[];
 
         const userService = new UserService(database);
-        const result: User[] | undefined = await userService.prioritizedUsers(
-            criterias
-        );
+        const result: User[] | undefined = await userService.prioritizedUsers(criterias);
 
         return res.json(result);
     } catch (error) {

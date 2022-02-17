@@ -1,7 +1,4 @@
-import {
-    Connection, FindOperator,
-    ILike, Repository
-} from 'typeorm';
+import { Connection, FindOperator, ILike, Repository } from 'typeorm';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { User } from '../models/user/UserEntity';
@@ -25,28 +22,35 @@ export class UserService extends BaseService<User> {
     }
 
     async get(): Promise<User[] | undefined> {
-        const users = await this._userRepository
-            .createQueryBuilder('user')
-            .getMany();
+        const users = await this._userRepository.createQueryBuilder('user').getMany();
 
-        if (users.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Users')});
+        if (users.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Users') });
 
         return users;
     }
 
     async search(queries: IUserSearch): Promise<User[] | undefined> {
-        // TODO: Make general solution for all special fields
-        // Case insensitive string search
-        if (queries.where && queries.where.name) {
-            queries.where.name = ILike(queries.where.name);
+        try {
+            // TODO: Make general solution for all special fields
+            // Case insensitive string search
+            if (queries.where && queries.where.name) queries.where.name = ILike(queries.where.name);
+
+            const users = await this._userRepository.find({
+                where: queries.where,
+                relations: [queries.relations || []].flat()
+            });
+
+            return users;
+        } catch (err) {
+            console.error(err);
         }
 
         const users = await this._userRepository.find({
             where: queries.where,
-            relations: [queries.relations || []].flat(),
+            relations: [queries.relations || []].flat()
         });
 
-        if (users.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Users')});
+        if (users.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Users') });
 
         return users;
     }
@@ -54,15 +58,10 @@ export class UserService extends BaseService<User> {
     async prioritizedUsers(criteriaIds: string[]): Promise<User[] | undefined> {
         const users = await this._userRepository
             .createQueryBuilder('user')
-            .leftJoinAndSelect(
-                'user.criterias',
-                'criteria',
-                'criteria.id IN (:...criteriaIds)',
-                { criteriaIds }
-            )
+            .leftJoinAndSelect('user.criterias', 'criteria', 'criteria.id IN (:...criteriaIds)', { criteriaIds })
             .getMany();
 
-        if (users.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Prioritized users')});
+        if (users.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Prioritized users') });
 
         // Consider moving sort function somewhere else.
         users.sort((first, second) => {
@@ -82,7 +81,12 @@ export class UserService extends BaseService<User> {
     }
 
     async getById(id: number): Promise<User | undefined> {
-        throw new Error('not implemented');
+        try {
+            const user = await this._userRepository.findOne(id, { relations: ['criterias'] });
+            return user;
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async create(dto: User): Promise<User | undefined> {
