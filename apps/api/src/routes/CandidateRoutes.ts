@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import e, { Router } from 'express';
 import { database } from '../loaders';
 import { Candidate } from '../models/candidate/CandidateEntity';
 import { CandidateService, ICandidateSearch } from '../services';
 
 const candidateRouter = Router();
 
-candidateRouter.get('/', async (req, res) => {
+candidateRouter.get('/', async (req, res, next) => {
     try {
         const queries = req.query as unknown as ICandidateSearch;
 
@@ -17,11 +17,11 @@ candidateRouter.get('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-candidateRouter.post('/', async (req, res) => {
+candidateRouter.post('/', async (req, res, next) => {
     try {
         const candidateService = new CandidateService(database);
         const newCandidate = req.body as Candidate;
@@ -30,7 +30,7 @@ candidateRouter.post('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 });
 
