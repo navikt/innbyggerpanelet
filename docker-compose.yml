@@ -6,7 +6,7 @@ services:
             context: .
             dockerfile: Dockerfile.frontend.dev
         volumes:
-            - './apps/frontend/src:/app/src'
+            - './apps/frontend/src:/src'
         networks:
             - innbyggerpanelet_api
         ports:
@@ -19,7 +19,7 @@ services:
             context: .
             dockerfile: Dockerfile.backend.dev
         volumes:
-            - ./apps/api/src:/app/scr
+            - ./apps/api/src:/scr
         networks:
             - 'innbyggerpanelet_api'
         ports:

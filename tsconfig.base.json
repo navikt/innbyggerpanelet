@@ -1,23 +1,26 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es6",
-    "module": "esnext",
-    "lib": ["es2017", "ES2019", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "esModuleInterop": true,
-    "paths": {
-      "@innbyggerpanelet/api-interfaces": ["libs/api-interfaces/src/index.ts"]
-    }
-  },
-  "exclude": ["node_modules", "tmp"]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es6",
+        "module": "esnext",
+        "lib": ["es2017", "ES2019", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "esModuleInterop": true,
+        "paths": {
+            "@innbyggerpanelet/api-interfaces": [
+                "libs/api-interfaces/src/index.ts"
+            ],
+            "@innbyggerpanelet/errors": ["libs/errors/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"]
 }
