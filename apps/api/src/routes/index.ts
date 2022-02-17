@@ -6,6 +6,7 @@ import criteriaRoutes from './CriteriaRoutes';
 import criteriaCategoryRoutes from './CriteriaCategoryRoutes';
 import insightProjectRoutes from './InsightProjectRoutes';
 import userRoutes from './UserRoutes';
+import { errorHandler } from './middleware/errorHandler';
 
 const routes = Router()
     .use('/candidate', candidateRoutes)
@@ -14,13 +15,14 @@ const routes = Router()
     .use('/criteriaCategory', criteriaCategoryRoutes)
     .use('/insight', insightRoutes)
     .use('/insightProject', insightProjectRoutes)
-    .use('/user', userRoutes);
+    .use('/user', userRoutes)
+    .use(errorHandler);
 
 export default Router()
     .use('/isAlive', (req, res) => {
-        res.send('Alive').status(200)
+        res.send('Alive').status(200);
     })
     .use('/isReady', (req, res) => {
-        res.send('Ready').status(200)
+        res.send('Ready').status(200);
     })
     .use('/api', routes);
