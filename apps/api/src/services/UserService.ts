@@ -1,4 +1,3 @@
-import { useFormField } from '@navikt/ds-react/esm/form/useFormField';
 import { Connection, FindOperator, ILike, Repository } from 'typeorm';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
