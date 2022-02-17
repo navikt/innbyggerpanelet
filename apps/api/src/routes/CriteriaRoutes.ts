@@ -5,7 +5,7 @@ import { CriteriaService, ICriteriaSearch } from '../services';
 
 const criteriaRouter = Router();
 
-criteriaRouter.get('/', async (req, res) => {
+criteriaRouter.get('/', async (req, res, next) => {
     try {
         // Hacky, consider assigning string | string[] to queries through request and
         // split into object with where and sort fields.
@@ -18,11 +18,11 @@ criteriaRouter.get('/', async (req, res) => {
         );
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-criteriaRouter.post('/', async (req, res) => {
+criteriaRouter.post('/', async (req, res, next) => {
     try {
         const criteriaService = new CriteriaService(database);
         const newCriteriaCategory = req.body as Criteria;
@@ -31,7 +31,7 @@ criteriaRouter.post('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 

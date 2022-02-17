@@ -5,18 +5,18 @@ import { CriteriaCategoryService } from '../services';
 
 const criteriaCategoryRoutes = Router();
 
-criteriaCategoryRoutes.get('/', async (req, res) => {
+criteriaCategoryRoutes.get('/', async (req, res, next) => {
     try {
         const criteriaCategoryService = new CriteriaCategoryService(database);
         const result: CriteriaCategory[] | undefined =
             await criteriaCategoryService.get();
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-criteriaCategoryRoutes.post('/', async (req, res) => {
+criteriaCategoryRoutes.post('/', async (req, res, next) => {
     try {
         const criteriaCategoryService = new CriteriaCategoryService(database);
         const newCriteriaCategory = req.body as CriteriaCategory;
@@ -27,7 +27,7 @@ criteriaCategoryRoutes.post('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 

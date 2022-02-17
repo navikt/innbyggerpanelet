@@ -1,4 +1,6 @@
 import { Connection, Repository } from 'typeorm';
+import { NotFoundError } from '../lib/errors/http/NotFoundError';
+import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Candidate } from '../models/candidate/CandidateEntity';
 import BaseService from './BaseService';
 
@@ -21,13 +23,10 @@ export class CandidateService extends BaseService<Candidate> {
     }
 
     async get(): Promise<Candidate[]> {
-        try {
-            const candidates = await this._candidateRepository.find();
-
-            return candidates;
-        } catch (err) {
-            console.error(err);
-        }
+        const candidates = await this._candidateRepository.find();
+        if (candidates.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidates')});
+        
+        return candidates;
     }
 
     async getById(id: number): Promise<Candidate> {
@@ -35,26 +34,20 @@ export class CandidateService extends BaseService<Candidate> {
     }
 
     async search(queries: ICandidateSearch): Promise<Candidate[]> {
-        try {
-            const candidates = await this._candidateRepository.find({
-                where: queries.where,
-                relations: [queries.relations || []].flat(),
-            });
+        const candidates = await this._candidateRepository.find({
+            where: queries.where,
+            relations: [queries.relations || []].flat(),
+        });
 
-            return candidates;
-        } catch (error) {
-            console.log(error);
-        }
+        if (candidates.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidates')});
+
+        return candidates;
     }
 
     async create(dto: Candidate): Promise<Candidate> {
-        try {
-            const candidate = await this._candidateRepository.save(dto);
+        const candidate = await this._candidateRepository.save(dto);
 
-            return candidate;
-        } catch (err) {
-            console.error(err);
-        }
+        return candidate;
     }
 
     async update(id: number, dto: Candidate): Promise<Candidate> {
