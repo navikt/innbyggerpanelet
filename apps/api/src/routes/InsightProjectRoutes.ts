@@ -5,7 +5,7 @@ import { IInsightProjectSearch, InsightProjectService } from '../services/';
 
 const insightProjectRoutes = Router();
 
-insightProjectRoutes.get('/', async (req, res) => {
+insightProjectRoutes.get('/', async (req, res, next) => {
     try {
         const queries = req.query as unknown as IInsightProjectSearch;
 
@@ -15,11 +15,11 @@ insightProjectRoutes.get('/', async (req, res) => {
             await insightProjectService.search(queries);
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-insightProjectRoutes.get('/:id', async (req, res) => {
+insightProjectRoutes.get('/:id', async (req, res, next) => {
     try {
         const id = parseInt(req.params.id);
 
@@ -29,11 +29,11 @@ insightProjectRoutes.get('/:id', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-insightProjectRoutes.post('/', async (req, res) => {
+insightProjectRoutes.post('/', async (req, res, next) => {
     try {
         const insightProjectService = new InsightProjectService(database);
         const newInsightProject = req.body as InsightProject;
@@ -42,7 +42,7 @@ insightProjectRoutes.post('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
