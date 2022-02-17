@@ -2,7 +2,6 @@ import { Connection, Repository } from 'typeorm';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
-import { User } from '../models/user/UserEntity';
 import BaseService from './BaseService';
 
 export interface IInsightProjectSearch {
@@ -65,7 +64,7 @@ export class InsightProjectService extends BaseService<InsightProject> {
     async update(id: number, dto: InsightProject): Promise<InsightProject> {
         throw new Error('Method not implemented.');
     }
-    
+
     async delete(id: number): Promise<void> {
         throw new Error('Method not implemented.');
     }
