@@ -33,8 +33,6 @@ services:
     db:
         container_name: 'innbyggerpanelet_database'
         image: postgres
-        volumes:
-            - innbyggerpanelet_data:/var/lib/postgresql/data
         networks:
             - innbyggerpanelet_api
         ports:
@@ -42,7 +40,5 @@ services:
         env_file:
             - '.env'
 
-volumes:
-    innbyggerpanelet_data:
 networks:
     innbyggerpanelet_api:
