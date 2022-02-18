@@ -57,4 +57,17 @@ userRoutes.post('/', async (req, res, next) => {
     }
 });
 
+userRoutes.put('/', async (req, res, next) => {
+    try {
+        const userService = new UserService(database);
+        const updatedUser = req.body as User;
+
+        const result = await userService.update(updatedUser.id, updatedUser);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default userRoutes;

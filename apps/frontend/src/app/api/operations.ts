@@ -20,3 +20,13 @@ export const poster = async <T>(url: string, data: T) =>
             return { data: undefined, error };
             //throw error;
         });
+
+export const putter = async <T>(url: string, data: T) =>
+    await axios
+        .put(url, data)
+        .then((res) => {
+            return { data: res.data as T, error: undefined };
+        })
+        .catch((error: AxiosError) => {
+            return { data: undefined, error };
+        });

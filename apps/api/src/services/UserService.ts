@@ -96,7 +96,9 @@ export class UserService extends BaseService<User> {
     }
 
     async update(id: number, dto: User): Promise<User | undefined> {
-        throw new Error('not implemented');
+        const user = await this._userRepository.save(dto);
+
+        return user;
     }
 
     async delete(id: number): Promise<void> {

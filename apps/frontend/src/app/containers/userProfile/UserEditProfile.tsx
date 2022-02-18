@@ -1,6 +1,7 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
+import { updateUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
 
 import style from './UserProfile.module.scss';
@@ -20,9 +21,17 @@ export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElem
         setUser(result);
     };
 
-    const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        return 0;
+        setPatching(true);
+
+        const { response, isError } = await updateUser({ ...user, latestUpdate: Date.now().toString() });
+
+        if (response) {
+            toggleEdit();
+        } else if (isError) {
+            console.error(isError);
+        }
     };
 
     const handleCancel = (event: MouseEvent<HTMLButtonElement>) => {
