@@ -4,3 +4,13 @@
     height: 100%;
     align-items: center;
 }
+
+.buttons {
+    display: flex;
+    display: row;
+    gap: 1rem;
+}
+
+.buttons > button {
+    flex: 1;
+}

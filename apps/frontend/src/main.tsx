@@ -11,6 +11,7 @@ import Header from './app/components/misc/header';
 import Breadcrumbs from './app/components/misc/breadcrumbs/';
 import NotFound from './app/components/misc/notFound';
 import { InsightProjectOverview } from './app/containers/project/InsightProjectOverview';
+import SignUp from './app/containers/signUp';
 
 // Root
 ReactDOM.render(
@@ -23,15 +24,10 @@ ReactDOM.render(
                 <Route path="/prosjekt" element={<InsightProjectOverview />} />
                 <Route path="/prosjekt/ny" element={<InsightProjectNew />} />
                 <Route path="/prosjekt/:id" element={<InsightProject />} />
-                <Route
-                    path="/prosjekt/:id/innsikt"
-                    element={<CreateInsight />}
-                />
+                <Route path="/prosjekt/:id/innsikt" element={<CreateInsight />} />
                 <Route path="/profil" element={<UserProfile />} />
-                <Route
-                    path="/admin/kriterier"
-                    element={<CriteriaAdminPanel />}
-                />
+                <Route path="/registrer" element={<SignUp />} />
+                <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>

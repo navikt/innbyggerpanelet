@@ -1,19 +1,13 @@
 /* eslint-disable indent */
-import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    ManyToMany,
-    OneToMany,
-    JoinTable,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany, JoinTable } from 'typeorm';
 import { Criteria } from '../criteria/CriteriaEntity';
-import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
+import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Candidate } from '../candidate/CandidateEntity';
 import { InsightProject } from '../insightProject/InsightProjectEntity';
 
 @Entity()
 export class User implements IUser {
+    [key: string]: any;
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -34,11 +28,8 @@ export class User implements IUser {
 
     @ManyToMany(() => Criteria)
     @JoinTable()
-    criterias: ICriteria[];
+    criterias: Criteria[];
 
-    @ManyToMany(
-        () => InsightProject,
-        (insightProject) => insightProject.members
-    )
+    @ManyToMany(() => InsightProject, (insightProject) => insightProject.members)
     insightProjects: InsightProject[];
 }
