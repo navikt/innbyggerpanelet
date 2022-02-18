@@ -1,4 +1,6 @@
 import { Connection, FindOperator, ILike, Repository } from 'typeorm';
+import { NotFoundError } from '../lib/errors/http/NotFoundError';
+import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Criteria } from '../models/criteria/CriteriaEntity';
 import BaseService from './BaseService';
 
@@ -21,34 +23,34 @@ export class CriteriaService extends BaseService<Criteria> {
     }
 
     async get(): Promise<Criteria[] | undefined> {
-        try {
-            const criterias = await this._criteriaRepository
-                .createQueryBuilder('criteria')
-                .getMany();
+        
+        const criterias = await this._criteriaRepository
+            .createQueryBuilder('criteria')
+            .getMany();
 
-            return criterias;
-        } catch (err) {
-            console.error(err);
-        }
+        if (criterias.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Criteria')});
+
+        return criterias;
     }
 
     async search(queries: ICriteriaSearch): Promise<Criteria[] | undefined> {
-        try {
-            // TODO: Make general solution for all special fields
-            // Case insensitive string search
-            if (queries.where && queries.where.name)
-                queries.where.name = ILike(queries.where.name);
-
-            // Currently doesn't support OR and sorting
-            const criterias = await this._criteriaRepository.find({
-                where: queries.where,
-                relations: [queries.relations || []].flat(),
-            });
-
-            return criterias;
-        } catch (err) {
-            console.error(err);
+        
+        // TODO: Make general solution for all special fields
+        // Case insensitive string search
+        if (queries.where && queries.where.name) {
+            queries.where.name = ILike(queries.where.name);
         }
+
+        // Currently doesn't support OR and sorting
+        const criterias = await this._criteriaRepository.find({
+            where: queries.where,
+            relations: [queries.relations || []].flat(),
+        });
+
+        if (criterias.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Criteria')});
+
+        return criterias;
+        
     }
 
     async getById(id: number): Promise<Criteria | undefined> {
@@ -56,13 +58,9 @@ export class CriteriaService extends BaseService<Criteria> {
     }
 
     async create(dto: Criteria): Promise<Criteria | undefined> {
-        try {
-            const criteria = await this._criteriaRepository.save(dto);
+        const criteria = await this._criteriaRepository.save(dto);
 
-            return criteria;
-        } catch (err) {
-            console.error(err);
-        }
+        return criteria;
     }
 
     async update(id: number, dto: Criteria): Promise<Criteria | undefined> {

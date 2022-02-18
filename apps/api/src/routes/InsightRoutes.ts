@@ -5,7 +5,7 @@ import { IInsightSearch, InsightService } from '../services';
 
 const insightRouter = Router();
 
-insightRouter.get('/', async (req, res) => {
+insightRouter.get('/', async (req, res, next) => {
     try {
         const queries = req.query as unknown as IInsightSearch;
 
@@ -17,11 +17,11 @@ insightRouter.get('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-insightRouter.post('/', async (req, res) => {
+insightRouter.post('/', async (req, res, next) => {
     try {
         const insightService = new InsightService(database);
         const newInsight = req.body as Insight;
@@ -30,7 +30,7 @@ insightRouter.post('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 });
 

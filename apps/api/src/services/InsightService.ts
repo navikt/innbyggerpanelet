@@ -1,4 +1,6 @@
 import { Connection, Repository } from 'typeorm';
+import { NotFoundError } from '../lib/errors/http/NotFoundError';
+import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Insight } from '../models/insight/InsightEntity';
 import BaseService from './BaseService';
 
@@ -20,13 +22,11 @@ export class InsightService extends BaseService<Insight> {
     }
 
     async get(): Promise<Insight[]> {
-        try {
-            const insights = await this._insightRepository.find();
+        const insights = await this._insightRepository.find();
+        
+        if (insights.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Insights')});
 
-            return insights;
-        } catch (err) {
-            console.error(err);
-        }
+        return insights;
     }
 
     async getById(id: number): Promise<Insight> {
@@ -34,26 +34,20 @@ export class InsightService extends BaseService<Insight> {
     }
 
     async search(queries: IInsightSearch): Promise<Insight[]> {
-        try {
-            const insights = await this._insightRepository.find({
-                where: queries.where,
-                relations: [queries.relations || []].flat(),
-            });
+        const insights = await this._insightRepository.find({
+            where: queries.where,
+            relations: [queries.relations || []].flat(),
+        });
 
-            return insights;
-        } catch (error) {
-            console.log(error);
-        }
+        if (insights.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Insights')});
+
+        return insights;
     }
 
     async create(dto: Insight): Promise<Insight> {
-        try {
-            const insight = await this._insightRepository.save(dto);
+        const insight = await this._insightRepository.save(dto);
 
-            return insight;
-        } catch (err) {
-            console.error(err);
-        }
+        return insight;
     }
 
     async update(id: number, dto: Insight): Promise<Insight> {

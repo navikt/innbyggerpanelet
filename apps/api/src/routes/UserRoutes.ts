@@ -5,7 +5,7 @@ import { IUserSearch, UserService } from '../services';
 
 const userRoutes = Router();
 
-userRoutes.get('/', async (req, res) => {
+userRoutes.get('/', async (req, res, next) => {
     try {
         const queries = req.query as unknown as IUserSearch;
 
@@ -15,11 +15,11 @@ userRoutes.get('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-userRoutes.get('/prioritized', async (req, res) => {
+userRoutes.get('/prioritized', async (req, res, next) => {
     try {
         const criterias = req.query.criterias as unknown as string[];
 
@@ -30,11 +30,11 @@ userRoutes.get('/prioritized', async (req, res) => {
 
         return res.json(result);
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-userRoutes.post('/', async (req, res) => {
+userRoutes.post('/', async (req, res, next) => {
     try {
         const userService = new UserService(database);
         const newUser = req.body as User;
@@ -43,7 +43,7 @@ userRoutes.post('/', async (req, res) => {
 
         res.json(result);
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 });
 

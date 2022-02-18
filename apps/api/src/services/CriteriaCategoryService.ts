@@ -1,4 +1,6 @@
 import { Connection, Repository } from 'typeorm';
+import { NotFoundError } from '../lib/errors/http/NotFoundError';
+import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { CriteriaCategory } from '../models/criteriaCategory/CriteriaCategoryEntity';
 import BaseService from './BaseService';
 
@@ -14,15 +16,14 @@ export class CriteriaCategoryService extends BaseService<CriteriaCategory> {
     }
 
     async get(): Promise<CriteriaCategory[] | undefined> {
-        try {
-            const categories = await this._criteriaCategoryRepository
-                .createQueryBuilder('criteriaCategory')
-                .getMany();
+        
+        const categories = await this._criteriaCategoryRepository
+            .createQueryBuilder('criteriaCategory')
+            .getMany();
 
-            return categories;
-        } catch (err) {
-            console.error(err);
-        }
+        if (categories.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Criteria categories')});
+
+        return categories;
     }
 
     async getById(id: number): Promise<CriteriaCategory | undefined> {
@@ -30,13 +31,9 @@ export class CriteriaCategoryService extends BaseService<CriteriaCategory> {
     }
 
     async create(dto: CriteriaCategory): Promise<CriteriaCategory | undefined> {
-        try {
-            const category = await this._criteriaCategoryRepository.save(dto);
+        const category = await this._criteriaCategoryRepository.save(dto);
 
-            return category;
-        } catch (err) {
-            console.error(err);
-        }
+        return category;
     }
 
     async update(

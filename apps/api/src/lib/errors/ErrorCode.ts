@@ -1,0 +1,2 @@
+export type ErrorCode = 
+    | 'UNEXPECTED'
