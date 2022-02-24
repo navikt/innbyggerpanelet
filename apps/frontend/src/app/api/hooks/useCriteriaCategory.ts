@@ -4,19 +4,13 @@ import useSWR from 'swr';
 import { fetcher } from '../operations';
 
 export const useCriteriaCategory = () => {
-    const { data, error } = useSWR<ICriteriaCategory[], AxiosError>(
-        '/api/criteriaCategory',
-        fetcher
-    );
+    const { data, error } = useSWR<ICriteriaCategory[], AxiosError>('/api/criteriaCategory', fetcher);
 
-    return { categories: data, isLoading: !error && !data, isError: error };
+    return { categories: data, loading: !error && !data, error: error };
 };
 
 export const useCriteriaCategoryById = (id: number) => {
-    const { data, error } = useSWR<ICriteriaCategory>(
-        `/api/criteriaCategory/${id}`,
-        fetcher
-    );
+    const { data, error } = useSWR<ICriteriaCategory>(`/api/criteriaCategory/${id}`, fetcher);
 
-    return { category: data, isLoading: !error && !data, isError: error };
+    return { category: data, loading: !error && !data, error: error };
 };

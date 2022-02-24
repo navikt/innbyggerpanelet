@@ -1,12 +1,11 @@
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { Add } from '@navikt/ds-icons';
-import { Button, Loader, Table } from '@navikt/ds-react';
+import { Button, Table } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { CriteriaCreateModal, CriteriaEditModal } from '.';
 import { CriteriaAdminRow } from '../../components/criteriaAdministration';
-import { APIError } from '../../components/misc/apiError/APIError';
 import { useCriteriaByCategoryId } from '../../api/hooks/useCriteria';
-import { mocks } from '../../utils/mocks';
+import { APIHandler } from '../../components/misc/apiHandler';
 
 interface IProps {
     category: ICriteriaCategory;
@@ -16,13 +15,7 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
     const [editCriteria, setEditCriteria] = useState<ICriteria>();
     const [newCriteria, setNewCriteria] = useState(false);
 
-    const { criterias, isLoading, isError } = useCriteriaByCategoryId(
-        category.id
-    );
-
-    if (isError) return <APIError error={isError} />;
-
-    if (isLoading || !criterias) return <Loader />;
+    const { criterias, loading, error } = useCriteriaByCategoryId(category.id);
 
     return (
         <>
@@ -31,26 +24,17 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
                     <Table.Row>
                         <Table.HeaderCell scope="col">ID</Table.HeaderCell>
                         <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">
-                            Eksklusivitet Slug
-                        </Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Eksklusivitet Slug</Table.HeaderCell>
                         <Table.HeaderCell>Rediger</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {criterias.map((criteria, index) => (
-                        <CriteriaAdminRow
-                            key={index}
-                            criteria={criteria}
-                            edit={setEditCriteria}
-                        />
-                    ))}
+                    {criterias?.map((criteria, index) => (
+                        <CriteriaAdminRow key={index} criteria={criteria} edit={setEditCriteria} />
+                    )) || <APIHandler error={error} loading={loading} />}
                 </Table.Body>
             </Table>
-            <Button
-                variant="secondary"
-                size="medium"
-                onClick={() => setNewCriteria(true)}>
+            <Button variant="secondary" size="medium" onClick={() => setNewCriteria(true)}>
                 <Add />
                 Legg til kriterie i gruppe
             </Button>
@@ -59,11 +43,7 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
                 open={editCriteria !== undefined}
                 close={() => setEditCriteria(undefined)}
             />
-            <CriteriaCreateModal
-                category={category}
-                open={newCriteria}
-                close={() => setNewCriteria(false)}
-            />
+            <CriteriaCreateModal category={category} open={newCriteria} close={() => setNewCriteria(false)} />
         </>
     );
 };

@@ -1,22 +1,18 @@
-import { Accordion, BodyShort, Heading, Loader, Panel } from '@navikt/ds-react';
+import { Accordion, BodyShort, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import { APIError } from '../../components/misc/apiError/APIError';
 import { useCriteriaCategory } from '../../api/hooks/useCriteriaCategory';
+import { CriteriaTable } from './';
+import { APIHandler } from '../../components/misc/apiHandler';
 
 import style from './CriteriaAdminPanel.module.scss';
-import { CriteriaTable } from './';
 
 export const CriteriaAdminPanel = (): ReactElement => {
-    const { categories, isLoading, isError } = useCriteriaCategory();
-
-    if (isError) return <APIError error={isError} />;
-
-    if (isLoading || !categories) return <Loader />;
+    const { categories, loading, error } = useCriteriaCategory();
 
     return (
         <Panel className={style.wrapper}>
             <Heading size="large">Kriterieoversikt</Heading>
-            {categories.map((category, index) => (
+            {categories?.map((category, index) => (
                 <Accordion key={index}>
                     <Accordion.Item>
                         <Accordion.Header>{category.name}</Accordion.Header>
@@ -28,7 +24,7 @@ export const CriteriaAdminPanel = (): ReactElement => {
                         </Accordion.Content>
                     </Accordion.Item>
                 </Accordion>
-            ))}
+            )) || <APIHandler error={error} loading={loading} />}
         </Panel>
     );
 };

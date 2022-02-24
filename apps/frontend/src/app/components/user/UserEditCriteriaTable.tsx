@@ -2,6 +2,7 @@ import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Checkbox, Table } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { useCriteriaByCategoryId } from '../../api/hooks/useCriteria';
+import { APIHandler } from '../misc/apiHandler';
 
 interface IProps {
     categoryId: number;
@@ -10,7 +11,7 @@ interface IProps {
 }
 
 export const UserEditCriteriaTable = ({ categoryId, user, setUser }: IProps): ReactElement => {
-    const { criterias, isLoading, isError } = useCriteriaByCategoryId(categoryId);
+    const { criterias, loading, error } = useCriteriaByCategoryId(categoryId);
 
     const exclusiveAlreadyPicked = (criteria: ICriteria) => {
         const exclusiveExists = user.criterias.filter(
@@ -60,7 +61,7 @@ export const UserEditCriteriaTable = ({ categoryId, user, setUser }: IProps): Re
                             </Checkbox>
                         </Table.DataCell>
                     </Table.Row>
-                ))}
+                )) || <APIHandler error={error} loading={loading} />}
             </Table.Body>
         </Table>
     );

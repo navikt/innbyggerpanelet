@@ -9,7 +9,7 @@ export const useCandidatesByInsightId = (id: number | string) => {
         fetcher
     );
 
-    return { candidates: data, isLoading: !data && !error, isError: error };
+    return { candidates: data, loading: !data && !error, error: error };
 };
 
 export const useCandidatesByUserId = (id: number | string) => {
@@ -18,5 +18,5 @@ export const useCandidatesByUserId = (id: number | string) => {
         fetcher
     );
 
-    return { candidatures: data, isLoading: !data && !error, isError: error };
+    return { candidatures: data, loading: !data && !error, error: error };
 };

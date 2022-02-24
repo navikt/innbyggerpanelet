@@ -1,14 +1,9 @@
-import {
-    EnumCandidateStatus,
-    ICandidate,
-    IInsight,
-} from '@innbyggerpanelet/api-interfaces';
-import { Accordion, Label, Loader } from '@navikt/ds-react';
-import { ReactElement, useState } from 'react';
+import { EnumCandidateStatus, ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
+import { Accordion, Label } from '@navikt/ds-react';
+import { ReactElement } from 'react';
 import { ProjectInsightCandidates } from '.';
 import { useCandidatesByInsightId } from '../../api/hooks/useCandidate';
-import { mocks } from '../../utils/mocks';
-import { APIError } from '../misc/apiError/APIError';
+import { APIHandler } from '../misc/apiHandler';
 import { ProgressBar } from '../misc/progressBar';
 
 import style from './Project.module.scss';
@@ -18,20 +13,15 @@ interface IProps {
 }
 
 export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
-    const { candidates, isLoading, isError } = useCandidatesByInsightId(
-        insight.id
-    );
+    const { candidates, loading, error } = useCandidatesByInsightId(insight.id);
 
-    if (isError) return <APIError error={isError} />;
-    if (isLoading || !candidates) return <Loader />;
+    if (!candidates) return <APIHandler error={error} loading={loading} />;
 
     const candidateHasCompleted = (candidate: ICandidate) => {
         return candidate.status === EnumCandidateStatus.Completed;
     };
 
-    const candidatesCompleted = candidates.filter((c) =>
-        candidateHasCompleted(c)
-    ).length;
+    const candidatesCompleted = candidates.filter((c) => candidateHasCompleted(c)).length;
 
     const getAvgRelevancyRating = () => {
         let sum = 0;
@@ -47,10 +37,7 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
                 <Accordion.Header>{insight.name}</Accordion.Header>
                 <Accordion.Content>
                     <div className={style.progress}>
-                        <ProgressBar
-                            label="Relevansgradering"
-                            progress={getAvgRelevancyRating()}
-                        />
+                        <ProgressBar label="Relevansgradering" progress={getAvgRelevancyRating()} />
                         <ProgressBar
                             label="Kandidater gjennomført"
                             progress={candidatesCompleted / candidates.length}

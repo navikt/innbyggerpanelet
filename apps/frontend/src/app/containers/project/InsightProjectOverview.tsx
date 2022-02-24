@@ -1,26 +1,19 @@
-import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Heading, Loader } from '@navikt/ds-react';
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { useInsightProjects } from '../../api/hooks/useInsightProject';
-import { APIError } from '../../components/misc/apiError/APIError';
+import { APIHandler } from '../../components/misc/apiHandler/APIHandler';
 import { PanelNoBackground } from '../../components/misc/panelNoBackground';
 import { InsightProjectTile } from '../../components/project';
-import { mocks } from '../../utils/mocks';
 
 import style from './Project.module.scss';
 
 export const InsightProjectOverview = (): ReactElement => {
-    const { insightProjects, isLoading, isError } = useInsightProjects();
-
-    if (isError) return <APIError error={isError} />;
-
-    if (isLoading || !insightProjects) return <Loader />;
+    const { insightProjects, loading, error } = useInsightProjects();
 
     return (
         <PanelNoBackground className={style.tileWrapper}>
-            {insightProjects.map((project, index) => (
-                <InsightProjectTile key={index} insightProject={project} />
-            ))}
+            {insightProjects?.map((project, index) => <InsightProjectTile key={index} insightProject={project} />) || (
+                <APIHandler loading={loading} error={error} />
+            )}
         </PanelNoBackground>
     );
 };
