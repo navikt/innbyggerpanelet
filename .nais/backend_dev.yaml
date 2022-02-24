@@ -31,7 +31,7 @@ spec:
     max: 2
     cpuThresholdPercentage: 80
   ingresses:
-    - https://innbyggerpanelet-backend.dev.intern.nav.no
+    - https://innbyggerpanelet.dev.intern.nav.no/api
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
