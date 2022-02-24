@@ -9,11 +9,11 @@ transports.push(
         format: winston.format.combine(winston.format.cli(), winston.format.splat())
     }),
     new winston.transports.File({
-        filename: 'logs/error.log',
+        filename: 'error.log',
         level: 'error'
     }),
     new winston.transports.File({
-        filename: 'logs/all.log'
+        filename: 'all.log'
     })
 );
 
