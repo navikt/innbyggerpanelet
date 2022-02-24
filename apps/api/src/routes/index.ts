@@ -7,8 +7,10 @@ import criteriaCategoryRoutes from './CriteriaCategoryRoutes';
 import insightProjectRoutes from './InsightProjectRoutes';
 import userRoutes from './UserRoutes';
 import { errorHandler } from './middleware/errorHandler';
+import morgan from 'morgan';
 
 const routes = Router()
+    .use(morgan('dev'))
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
     .use('/criteria', criteriaRoutes)
