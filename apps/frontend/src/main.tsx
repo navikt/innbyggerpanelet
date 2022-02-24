@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import App from './app/app';
 import UserProfile from './app/containers/userProfile';
@@ -15,7 +15,7 @@ import { InsightProjectOverview } from './app/containers/project/InsightProjectO
 // Root
 ReactDOM.render(
     <StrictMode>
-        <BrowserRouter>
+        <HashRouter>
             <Header />
             <Breadcrumbs />
             <Routes>
@@ -34,7 +34,7 @@ ReactDOM.render(
                 />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     </StrictMode>,
     document.getElementById('root')
 );
