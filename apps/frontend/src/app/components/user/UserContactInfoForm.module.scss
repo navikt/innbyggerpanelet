@@ -1,0 +1,13 @@
+.contactInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.contactInfo > h1 {
+    grid-column: span 2;
+}
+
+.contactName {
+    grid-column: span 2;
+}

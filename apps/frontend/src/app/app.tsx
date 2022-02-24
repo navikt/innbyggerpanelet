@@ -12,6 +12,7 @@ export const App = () => {
                 <div className={style.links}>
                     <Link to="/prosjekt/ny">Nytt prosjekt</Link>
                     <Link to="/profil">Brukerprofil</Link>
+                    <Link to="/registrer">Registrer bruker</Link>
                     <Link to="/admin/kriterier">Kriterier oversikt</Link>
                 </div>
             </Panel>

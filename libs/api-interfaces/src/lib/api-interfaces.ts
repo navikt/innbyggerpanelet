@@ -1,4 +1,5 @@
 export interface IUser {
+    [key: string]: number | string | ICriteria[];
     id: number;
     name: string;
     latestUpdate: string;
