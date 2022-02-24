@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import App from './app/app';
 import UserProfile from './app/containers/userProfile';
 import CreateInsight from './app/containers/createInsight/';
@@ -15,7 +15,7 @@ import RegisterUser from './app/containers/registerUser';
 // Root
 ReactDOM.render(
     <StrictMode>
-        <BrowserRouter>
+        <HashRouter>
             <Header />
             <Breadcrumbs />
             <Routes>
@@ -29,7 +29,7 @@ ReactDOM.render(
                 <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     </StrictMode>,
     document.getElementById('root')
 );
