@@ -16,7 +16,7 @@ const defaultProject: IInsightProject = {
     members: []
 };
 
-export const InsightProjectNew = (): ReactElement => {
+export const CreateInsightProject = (): ReactElement => {
     const [insightProject, setInsightProject] = useState(defaultProject);
     const [posting, setPosting] = useState(false);
 

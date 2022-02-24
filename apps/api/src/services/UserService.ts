@@ -1,3 +1,4 @@
+import { useFormField } from '@navikt/ds-react/esm/form/useFormField';
 import { Connection, FindOperator, ILike, Repository } from 'typeorm';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
@@ -30,20 +31,9 @@ export class UserService extends BaseService<User> {
     }
 
     async search(queries: IUserSearch): Promise<User[] | undefined> {
-        try {
-            // TODO: Make general solution for all special fields
-            // Case insensitive string search
-            if (queries.where && queries.where.name) queries.where.name = ILike(queries.where.name);
-
-            const users = await this._userRepository.find({
-                where: queries.where,
-                relations: [queries.relations || []].flat()
-            });
-
-            return users;
-        } catch (err) {
-            console.error(err);
-        }
+        // TODO: Make general solution for all special fields
+        // Case insensitive string search
+        if (queries.where && queries.where.name) queries.where.name = ILike(queries.where.name);
 
         const users = await this._userRepository.find({
             where: queries.where,
@@ -81,12 +71,11 @@ export class UserService extends BaseService<User> {
     }
 
     async getById(id: number): Promise<User | undefined> {
-        try {
-            const user = await this._userRepository.findOne(id, { relations: ['criterias'] });
-            return user;
-        } catch (error) {
-            console.error(error);
-        }
+        const user = await this._userRepository.findOne(id, { relations: ['criterias'] });
+
+        if (!user) throw new NotFoundError({ message: ServerErrorMessage.notFound('User') });
+
+        return user;
     }
 
     async create(dto: User): Promise<User | undefined> {

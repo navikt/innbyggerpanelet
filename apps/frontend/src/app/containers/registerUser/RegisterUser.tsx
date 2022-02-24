@@ -2,11 +2,10 @@ import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Panel, Table, TextField } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserEditCriterias } from '.';
 import { createUser } from '../../api/mutations/mutateUser';
-import { UserContactInfoForm } from '../../components/user';
+import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
 
-import style from './SignUp.module.scss';
+import style from './RegisterUser.module.scss';
 
 const defaultUser: IUser = {
     id: 0,
@@ -17,7 +16,7 @@ const defaultUser: IUser = {
     criterias: []
 };
 
-export const SignUp = (): ReactElement => {
+export const RegisterUser = (): ReactElement => {
     const [user, setUser] = useState<IUser>(defaultUser);
     const [posting, setPosting] = useState(false);
 
