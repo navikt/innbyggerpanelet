@@ -1,8 +1,8 @@
 import { Application } from 'express';
 import { Connection } from 'typeorm';
-import config from '../config';
 import expressLoader from '../loaders/express';
 import typeormLoader from '../loaders/typeorm';
+import { logger } from './logger';
 
 let database!: Connection;
 
@@ -10,13 +10,13 @@ let loaded = false;
 export const load = async ({ server }: { server: Application }) => {
     if (loaded) throw new Error('API is already loaded...');
     
-    console.log('-- loading express... --');
+    logger.info('-- loading express... --');
     const loadedExpress = await expressLoader({ server });
-    console.log('------ EXPRESS LOADED');
+    logger.info('------ EXPRESS LOADED');
 
-    console.log('-- loading typeORM... --');
+    logger.info('-- loading typeORM... --');
     const loadedTypeOrm = await typeormLoader();
-    console.log('------ TYPEORM LOADED');
+    logger.info('------ TYPEORM LOADED');
 
     database = loadedTypeOrm;
 
