@@ -6,8 +6,6 @@ WORKDIR /app
 
 COPY . ./
 
-RUN mkdir apps/api/src/logs
-
 RUN yarn install
 RUN yarn build api
 
