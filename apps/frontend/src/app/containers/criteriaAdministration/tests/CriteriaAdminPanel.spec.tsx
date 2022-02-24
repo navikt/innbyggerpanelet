@@ -29,7 +29,7 @@ test('loads and displays all avaiable categories', async () => {
 });
 
 test('displays error on status 404', async () => {
-    const statusText = 'Not Found';
+    const statusText = 'Ingen resultater funnet.';
     server.use(
         rest.get('/api/criteriaCategory', (req, res, ctx) => {
             return res(ctx.status(404, statusText));
@@ -43,7 +43,7 @@ test('displays error on status 404', async () => {
         </SWRConfig>
     );
 
-    await waitFor(() => screen.getByText(`404: ${statusText}`));
+    await waitFor(() => screen.getByText(statusText));
 
-    expect(screen.getByText(`404: ${statusText}`));
+    expect(screen.getByText(statusText));
 });
