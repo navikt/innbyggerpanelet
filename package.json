@@ -34,6 +34,7 @@
     "helmet": "^5.0.1",
     "history": "^5.2.0",
     "http-error-codes": "^1.0.1",
+    "http-proxy-middleware": "^2.0.3",
     "msw": "^0.36.4",
     "normalize.css": "^8.0.1",
     "pg": "^8.7.1",
