@@ -1,5 +1,5 @@
-import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
-import { Button, Heading, Panel, Table, TextField } from '@navikt/ds-react';
+import { IUser } from '@innbyggerpanelet/api-interfaces';
+import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserEditCriterias } from '.';

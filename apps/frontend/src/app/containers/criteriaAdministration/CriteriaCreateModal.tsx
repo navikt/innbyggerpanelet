@@ -11,16 +11,12 @@ interface IProps {
     open: boolean;
     close: () => void;
 }
-export const CriteriaCreateModal = ({
-    category,
-    open,
-    close,
-}: IProps): ReactElement => {
+export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactElement => {
     const [criteria, setCriteria] = useState<ICriteria>({
         id: 0,
         name: '',
         exclusivitySlug: '',
-        category,
+        category
     });
 
     const [posting, setPosting] = useState(false);
@@ -44,35 +40,21 @@ export const CriteriaCreateModal = ({
 
     return (
         <Modal open={open} onClose={close}>
-            <Modal.Content>
-                <div className={style.editModal}>
-                    <Heading size="small">Nytt kriterie</Heading>
-                    <BodyShort>Lag nytt kriterie i denne kategorien.</BodyShort>
-                    <TextField
-                        label="Navn"
-                        id="name"
-                        value={criteria.name}
-                        onChange={handleInputChange}
-                    />
-                    <TextField
-                        label="Eklusivitet slug"
-                        id="exclusivitySlug"
-                        value={criteria.exclusivitySlug}
-                        onChange={handleInputChange}
-                        placeholder="none"
-                    />
-                    <TextField
-                        label="Kategori"
-                        value={criteria.category.name}
-                        disabled
-                    />
-                    <Button
-                        onClick={handleSubmit}
-                        variant="primary"
-                        loading={posting}>
-                        Bekreft
-                    </Button>
-                </div>
+            <Modal.Content className={style.editModal}>
+                <Heading size="small">Nytt kriterie</Heading>
+                <BodyShort>Lag nytt kriterie i denne kategorien.</BodyShort>
+                <TextField label="Navn" id="name" value={criteria.name} onChange={handleInputChange} />
+                <TextField
+                    label="Eklusivitet slug"
+                    id="exclusivitySlug"
+                    value={criteria.exclusivitySlug}
+                    onChange={handleInputChange}
+                    placeholder="none"
+                />
+                <TextField label="Kategori" value={criteria.category.name} disabled />
+                <Button onClick={handleSubmit} variant="primary" loading={posting}>
+                    Bekreft
+                </Button>
             </Modal.Content>
         </Modal>
     );
