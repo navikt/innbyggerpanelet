@@ -1,29 +1,30 @@
-import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
-import { BodyShort, Heading } from '@navikt/ds-react';
-import React, { ReactElement } from 'react';
-import PropertyValueField from '../../components/misc/propertyValueField/PropertyValueField';
-
-import style from './UserPerformedInsight.module.scss';
+import { Accordion, BodyShort, Heading, Loader } from '@navikt/ds-react';
+import { ReactElement } from 'react';
+import { useCandidatesByUserId } from '../../api/hooks/useCandidate';
+import { APIError } from '../../components/misc/apiError/APIError';
 
 interface IProps {
-    candidatures?: ICandidate[];
+    id: number;
 }
 
-export function UserPerformedInsight({ candidatures }: IProps): ReactElement {
-    if (!candidatures)
-        return <BodyShort>Ikke deltatt i innsiktsarbeid</BodyShort>;
+export function UserPerformedInsight({ id }: IProps): ReactElement {
+    const { candidatures, isLoading, isError } = useCandidatesByUserId(id);
+
+    if (isError) return <APIError error={isError} />;
+    if (isLoading) return <Loader />;
+    if (!candidatures) return <BodyShort>Ikke deltatt i innsiktsarbeid</BodyShort>;
 
     return (
         <div>
-            <div className={style.candidatePerfomedInsight}>
-                <Heading size="large">Tidligere innsiktsarbeid</Heading>
+            <Heading size="large">Tidligere innsiktsarbeid</Heading>
+            <Accordion>
                 {candidatures.map(({ insight }, i) => (
-                    <>
-                        <Heading size="small">{insight.name}</Heading>
-                        <BodyShort>{insight.description}</BodyShort>
-                    </>
+                    <Accordion.Item key={i}>
+                        <Accordion.Header>{insight.name}</Accordion.Header>
+                        <Accordion.Content>{insight.description}</Accordion.Content>
+                    </Accordion.Item>
                 ))}
-            </div>
+            </Accordion>
         </div>
     );
 }

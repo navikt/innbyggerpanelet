@@ -1,5 +1,5 @@
 import { InsightProject } from './InsightProject';
 
-export * from './InsightProjectNew';
+export * from './CreateInsightProject';
 
 export default InsightProject;

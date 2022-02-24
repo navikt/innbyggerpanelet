@@ -13,22 +13,19 @@ const defaultProject: IInsightProject = {
     description: '',
     start: '',
     end: '',
-    members: [],
+    members: []
 };
 
-export const InsightProjectNew = (): ReactElement => {
+export const CreateInsightProject = (): ReactElement => {
     const [insightProject, setInsightProject] = useState(defaultProject);
     const [posting, setPosting] = useState(false);
 
     const navigate = useNavigate();
 
     const handleSubmit = async (project: IInsightProject) => {
-        const { response, isLoading, isError } = await createInsightProject(
-            project
-        );
+        const { response, isLoading, isError } = await createInsightProject(project);
 
         if (response) {
-            console.log(response);
             navigate(`/prosjekt/${response.id}`);
         } else if (isLoading) {
             setPosting(true);

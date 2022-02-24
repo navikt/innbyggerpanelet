@@ -1,35 +1,25 @@
-import { Heading, Panel } from '@navikt/ds-react';
-import React, { ReactElement, useState } from 'react';
-import CandidateExperiencePoints from '../../components/candidateProfile/CandidateExperiencePoints';
-import { People } from '@navikt/ds-icons';
-import {
-    EnumCandidateStatus,
-    ICandidate,
-    IInsight,
-    IUser,
-} from '@innbyggerpanelet/api-interfaces';
-import style from './UserProfile.module.scss';
-import { mocks } from '../../utils/mocks';
-import { UserProperties, UserPerformedInsight } from '.';
+import { Loader } from '@navikt/ds-react';
+import { ReactElement, useState } from 'react';
+import { useUser } from '../../api/hooks/useUser';
+import { APIError } from '../../components/misc/apiError/APIError';
+import { UserDisplayProfile } from './UserDisplayProfile';
+import { UserEditProfile } from './UserEditProfile';
 
-// TODO: Explore the oppertunity to use useContext for a candidate, as
-// there is now quite alot of prop drilling
-export function UserProfile(): ReactElement {
-    // Query user for info
-    const [user, setUser] = useState<IUser>(mocks.olaUser);
-    const [candidatures, setCandidatures] = useState<ICandidate[]>(
-        mocks.olaCandidatures
-    );
+export const UserProfile = (): ReactElement => {
+    const [edit, setEdit] = useState(false);
 
-    return (
-        <Panel>
-            <div className={style.candidateInfo}>
-                <People width={'5rem'} height={'5rem'} />
-                <Heading size="medium">{user.name}</Heading>
-                <CandidateExperiencePoints />
-            </div>
-            <UserProperties {...user} />
-            <UserPerformedInsight candidatures={candidatures} />
-        </Panel>
+    const { user, isLoading, isError } = useUser();
+
+    const toggleEdit = () => {
+        setEdit(!edit);
+    };
+
+    if (isError) return <APIError error={isError} />;
+    if (isLoading || !user) return <Loader />;
+
+    return edit ? (
+        <UserEditProfile toggleEdit={toggleEdit} originalUser={user} />
+    ) : (
+        <UserDisplayProfile toggleEdit={toggleEdit} user={user} />
     );
-}
+};
