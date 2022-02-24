@@ -1,13 +1,11 @@
-import { Accordion, BodyShort, Button, Heading, Loader, Panel } from '@navikt/ds-react';
+import { Accordion, BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
-import { APIError } from '../../components/misc/apiError/APIError';
 import { useCriteriaCategory } from '../../api/hooks/useCriteriaCategory';
 import { CriteriaTable } from './';
-import { ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
+import { APIHandler } from '../../components/misc/apiHandler';
 
 import style from './CriteriaAdminPanel.module.scss';
 import { CriteriaCategoryCreateModal } from './CriteriaCategoryCreateModal';
-import { APIHandler } from '../../components/misc/apiHandler';
 
 export const CriteriaAdminPanel = (): ReactElement => {
     const { categories, loading, error } = useCriteriaCategory();
