@@ -1,6 +1,5 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
-
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import App from './app/app';
 import UserProfile from './app/containers/userProfile';

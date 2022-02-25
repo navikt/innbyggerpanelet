@@ -73,6 +73,8 @@ export interface ICriteria {
 }
 
 export interface ICriteriaCategory {
+    [key: string]: number | string;
+
     id: number;
     name: string;
     description: string;

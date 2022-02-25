@@ -1,11 +1,9 @@
-import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Heading, Loader } from '@navikt/ds-react';
-import { ReactElement, useState } from 'react';
+import { Loader } from '@navikt/ds-react';
+import { ReactElement } from 'react';
 import { useInsightProjects } from '../../api/hooks/useInsightProject';
 import { APIError } from '../../components/misc/apiError/APIError';
 import { PanelNoBackground } from '../../components/misc/panelNoBackground';
 import { InsightProjectTile } from '../../components/project';
-import { mocks } from '../../utils/mocks';
 
 import style from './Project.module.scss';
 
