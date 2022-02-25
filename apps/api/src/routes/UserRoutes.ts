@@ -18,19 +18,7 @@ userRoutes.get('/', async (req, res, next) => {
     }
 });
 
-userRoutes.get('/:id', async (req, res, next) => {
-    try {
-        const id = parseInt(req.params.id);
-
-        const userService = new UserService(database);
-        const result: User = await userService.getById(id);
-
-        res.json(result);
-    } catch (error) {
-        next(error);
-    }
-});
-
+// Needs to be defined before /:id
 userRoutes.get('/prioritized', async (req, res, next) => {
     try {
         const criterias = req.query.criterias as unknown as string[];
@@ -39,6 +27,19 @@ userRoutes.get('/prioritized', async (req, res, next) => {
         const result: User[] = await userService.prioritizedUsers(criterias);
 
         return res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+userRoutes.get('/:id', async (req, res, next) => {
+    try {
+        const id = parseInt(req.params.id);
+
+        const userService = new UserService(database);
+        const result: User = await userService.getById(id);
+
+        res.json(result);
     } catch (error) {
         next(error);
     }
