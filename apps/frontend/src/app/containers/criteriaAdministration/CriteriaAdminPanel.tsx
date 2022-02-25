@@ -8,10 +8,12 @@ import style from './CriteriaAdminPanel.module.scss';
 import { CriteriaCategoryCreateModal } from './CriteriaCategoryCreateModal';
 
 export const CriteriaAdminPanel = (): ReactElement => {
+
     const { categories, loading, error } = useCriteriaCategory();
 
     const [categoryModal, setCategoryModal] = useState(false);
     const toggleModal = () => setCategoryModal(!categoryModal);
+
 
     return (
         <>
