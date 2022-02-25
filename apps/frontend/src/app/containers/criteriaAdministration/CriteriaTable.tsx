@@ -36,7 +36,7 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
             </Table>
             <Button variant="secondary" size="medium" onClick={() => setNewCriteria(true)}>
                 <Add />
-                Legg til kriterie i gruppe
+                Legg til kriterie i kategorien {category.name}
             </Button>
             <CriteriaEditModal
                 criteria={editCriteria}

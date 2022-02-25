@@ -5,6 +5,8 @@ import { Criteria } from '../criteria/CriteriaEntity';
 
 @Entity()
 export class CriteriaCategory implements ICriteriaCategory {
+    [key: string]: any;
+
     @PrimaryGeneratedColumn()
     id: number;
 
