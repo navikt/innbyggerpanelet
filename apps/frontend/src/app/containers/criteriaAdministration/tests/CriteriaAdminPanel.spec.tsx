@@ -24,6 +24,8 @@ test('loads and displays all avaiable categories', async () => {
     fireEvent.click(screen.getAllByRole('button')[0]);
     fireEvent.click(screen.getAllByRole('button')[1]);
 
+    await waitFor(() => screen.getByText('Alder'));
+
     expect(screen.getByText('Alder'));
     expect(screen.getByText('Hjelpemidler'));
 });
