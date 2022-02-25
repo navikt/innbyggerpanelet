@@ -4,25 +4,19 @@ import useSWR from 'swr';
 import { fetcher } from '../operations';
 
 export const useInsightProjects = () => {
-    const { data, error } = useSWR<IInsightProject[], AxiosError>(
-        '/api/insightProject',
-        fetcher
-    );
+    const { data, error } = useSWR<IInsightProject[], AxiosError>('/api/insightProject', fetcher);
 
     return {
         insightProjects: data,
-        isLoading: !error && !data,
-        isError: error,
+        loading: !error && !data,
+        error: error
     };
 };
 
 export const useInsightProjectMembers = (id: number | string) => {
-    const { data, error } = useSWR<IUser[], AxiosError>(
-        `/api/insightProject/${id}/members`,
-        fetcher
-    );
+    const { data, error } = useSWR<IUser[], AxiosError>(`/api/insightProject/${id}/members`, fetcher);
 
-    return { members: data, isLoading: !error && !data, isError: error };
+    return { members: data, loading: !error && !data, error: error };
 };
 
 export const useInsightProjectById = (id: string | number) => {
@@ -35,7 +29,7 @@ export const useInsightProjectById = (id: string | number) => {
 
     return {
         insightProject: reduced,
-        isLoading: !error && !data,
-        isError: error,
+        loading: !error && !data,
+        error: error
     };
 };

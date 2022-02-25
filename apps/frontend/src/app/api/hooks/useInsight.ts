@@ -9,5 +9,5 @@ export const useInsightsByProjectId = (id: number | string) => {
         fetcher
     );
 
-    return { insights: data, isLoading: !data && !error, isError: error };
+    return { insights: data, loading: !data && !error, error: error };
 };

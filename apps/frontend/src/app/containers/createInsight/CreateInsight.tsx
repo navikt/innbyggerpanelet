@@ -1,15 +1,15 @@
 import { ReactElement, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Heading, Label, Panel } from '@navikt/ds-react';
-import { ICandidate, IInsight, IUser } from '@innbyggerpanelet/api-interfaces';
+import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
 import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
-
-import style from './CreateInsight.module.scss';
-import { mocks } from '../../utils/mocks';
 import { useUserByCriterias } from '../../api/hooks/useUser';
 import { createInsight } from '../../api/mutations/mutateInsight';
 import { createCandidates } from '../../api/mutations/mutateCandidate';
+import { APIHandler } from '../../components/misc/apiHandler';
+
+import style from './CreateInsight.module.scss';
 
 const defaultInsight: IInsight = {
     id: 0,
@@ -38,8 +38,7 @@ export const CreateInsight = (): ReactElement => {
     const [candidates, setCandidates] = useState<ICandidate[]>([]);
     const [posting, setPosting] = useState(false);
 
-    // TODO: implement better handling of API response (isLoading/isError)
-    const { users, isLoading, isError } = useUserByCriterias(insight.criterias);
+    const { users, loading, error } = useUserByCriterias(insight.criterias);
 
     const handleSubmit = async () => {
         if (!id) throw new Error('This project does not exist.');
@@ -87,19 +86,17 @@ export const CreateInsight = (): ReactElement => {
                     <Label>Valgte kandidater: {users ? `${candidates.length}/${users.length}` : '0/0'}</Label>
                 </div>
                 <div>
-                    {users
-                        ? users.map((user, index) => {
-                            return (
-                                <CandidatePicker
-                                    key={index}
-                                    user={user}
-                                    insight={insight}
-                                    candidates={candidates}
-                                    setCandidates={setCandidates}
-                                />
-                            );
-                        })
-                        : null}
+                    {users?.map((user, index) => {
+                        return (
+                            <CandidatePicker
+                                key={index}
+                                user={user}
+                                insight={insight}
+                                candidates={candidates}
+                                setCandidates={setCandidates}
+                            />
+                        );
+                    }) || <APIHandler error={error} loading={loading} />}
                 </div>
             </Panel>
         </>
