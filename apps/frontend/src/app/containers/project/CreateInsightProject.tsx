@@ -4,15 +4,15 @@ import { ProjectEdit } from '../../components/project';
 import { useNavigate } from 'react-router-dom';
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { createInsightProject } from '../../api/mutations/mutateInsightProject';
-
 import style from './Project.module.scss';
+import { isInsightProjectValid } from '../../../validation/insightPoject/validateInsightProject';
 
 const defaultProject: IInsightProject = {
     id: 0,
     name: '',
     description: '',
-    start: '',
-    end: '',
+    start: new Date(),
+    end: new Date(),
     members: []
 };
 
@@ -24,6 +24,8 @@ export const CreateInsightProject = (): ReactElement => {
 
     const handleSubmit = async (project: IInsightProject) => {
         const { response, isLoading, isError } = await createInsightProject(project);
+
+        //isInsightProjectValid(insightProject).isValid
 
         if (response) {
             navigate(`/prosjekt/${response.id}`);

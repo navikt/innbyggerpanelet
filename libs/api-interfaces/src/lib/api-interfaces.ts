@@ -42,13 +42,13 @@ export interface IInsight {
 }
 
 export interface IInsightProject {
-    [key: string]: string | number | IUser[] | IInsight[];
+    [key: string]: string | Date | number | IUser[] | IInsight[];
     id: number;
     name: string;
     description: string;
     members: IUser[];
-    start: string;
-    end: string;
+    start: Date;
+    end: Date;
 }
 
 export interface IConsent {

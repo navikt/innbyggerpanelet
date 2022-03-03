@@ -4,10 +4,9 @@ import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import isEmail from '../../utils/validations/isEmail';
-import isNorwegianPhoneNumber from '../../utils/validations/isNorwegainPhoneNumber';
-
+import isEmail from '../../../validation/utils/isEmail';
 import style from './RegisterUser.module.scss';
+import isNorwegianPhoneNumber from '../../../validation/utils/isNorwegainPhoneNumber';
 
 const defaultUser: IUser = {
     id: 0,
