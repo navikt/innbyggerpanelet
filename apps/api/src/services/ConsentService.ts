@@ -1,4 +1,6 @@
 import { Connection, FindOperator, ILike, Repository } from 'typeorm';
+import { NotFoundError } from '../lib/errors/http/NotFoundError';
+import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Consent } from '../models/consent/ConsentEntity';
 import BaseService from './BaseService';
 
@@ -29,6 +31,8 @@ export class ConsentService extends BaseService<Consent> {
             where: queries.where,
             relations: [queries.relations || []].flat()
         });
+
+        if (consents.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Consents') });
 
         return consents;
     }
