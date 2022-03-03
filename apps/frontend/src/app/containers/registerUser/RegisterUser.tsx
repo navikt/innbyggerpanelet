@@ -61,7 +61,10 @@ export const RegisterUser = (): ReactElement => {
             if (response) {
                 navigate('/profil');
             } else if (isError) {
-                console.error(isError);
+                if (isError.response?.status === 406) {
+                    setEmailErrorMsg('En bruker med denne eposten finnes allerede');
+                    setPosting(false);
+                }
             }
         }
     };
