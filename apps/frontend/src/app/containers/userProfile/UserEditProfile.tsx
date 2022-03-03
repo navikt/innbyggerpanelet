@@ -14,6 +14,7 @@ interface IProps {
 export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElement => {
     const [user, setUser] = useState<IUser>(originalUser);
     const [patching, setPatching] = useState(false);
+    const [isContactFormValid, setIsContactFormValid] = useState<boolean>(false);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...user };
@@ -41,7 +42,12 @@ export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElem
 
     return (
         <>
-            <UserContactInfoForm user={user} handleChange={handleChange} />
+            <UserContactInfoForm 
+                user={user} 
+                handleChange={handleChange}
+                emailErrorMsg=""
+                phoneErrorMsg=""  
+            />
             <UserEditCriterias user={user} setUser={setUser} />
             <Panel>
                 <div className={style.buttons}>
