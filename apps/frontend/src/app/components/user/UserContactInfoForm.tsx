@@ -1,7 +1,6 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Panel, TextField } from '@navikt/ds-react';
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction, useState } from 'react';
-import isEmail from '../../utils/validations/isEmail';
 import isNorwegianPhoneNumber from '../../utils/validations/isNorwegainPhoneNumber';
 
 import style from './UserContactInfoForm.module.scss';

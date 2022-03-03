@@ -1,6 +1,8 @@
 import { Connection, FindOperator, ILike, Repository } from 'typeorm';
+import { NotAcceptableError } from '../lib/errors/http/NotAcceptableError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
+import { ValidationErrorMessage } from '../lib/errors/messages/ValidationErrorMessages';
 import { User } from '../models/user/UserEntity';
 import BaseService from './BaseService';
 
@@ -78,6 +80,14 @@ export class UserService extends BaseService<User> {
     }
 
     async create(dto: User): Promise<User | undefined> {
+        const alreadyExist = await this._userRepository.findOne({
+            where: {email: dto.email}
+        });
+        
+        if (alreadyExist) {
+            throw new NotAcceptableError({message: ValidationErrorMessage.alreadyExists('User')});
+        }
+
         const user = await this._userRepository.save(dto);
 
         return user;
