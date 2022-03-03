@@ -13,21 +13,17 @@ export const ProjectInsightCandidates = ({ candidates }: IProps) => {
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">
-                            Relevansgradering
-                        </Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Relevansgradering</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Samtykker?</Table.HeaderCell>
                         <Table.HeaderCell scope="col">Status</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {candidates.map((candidate, index) => (
                         <Table.Row key={index}>
-                            <Table.DataCell>
-                                {candidate.user.name}
-                            </Table.DataCell>
-                            <Table.DataCell>
-                                {Math.floor(candidate.relevancyGrading * 100)}%
-                            </Table.DataCell>
+                            <Table.DataCell>{candidate.user.name}</Table.DataCell>
+                            <Table.DataCell>{Math.floor(candidate.relevancyGrading * 100)}%</Table.DataCell>
+                            <Table.DataCell>{candidate.hasConsented ? 'Ja' : 'Nei'}</Table.DataCell>
                             <Table.DataCell>{candidate.status}</Table.DataCell>
                         </Table.Row>
                     ))}

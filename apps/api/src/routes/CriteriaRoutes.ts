@@ -13,9 +13,7 @@ criteriaRouter.get('/', async (req, res, next) => {
         const queries = req.query as unknown as ICriteriaSearch;
 
         const criteriaService = new CriteriaService(database);
-        const result: Criteria[] | undefined = await criteriaService.search(
-            queries
-        );
+        const result: Criteria[] = await criteriaService.search(queries);
         res.json(result);
     } catch (error) {
         next(error);

@@ -1,13 +1,21 @@
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
+import { database } from '../loaders';
 import { Consent } from '../models/consent/ConsentEntity';
+import { ConsentService, IConsentSearch } from '../services/ConsentService';
 
 const consentRouter = Router();
 
-consentRouter.get('/', async (req, res) => {
-    const consents = getRepository(Consent).find();
+consentRouter.get('/', async (req, res, next) => {
+    try {
+        const queries = req.query as unknown as IConsentSearch;
 
-    res.send(consents);
+        const consentService = new ConsentService(database);
+        const result: Consent[] = await consentService.search(queries);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
 });
 
 export default consentRouter;

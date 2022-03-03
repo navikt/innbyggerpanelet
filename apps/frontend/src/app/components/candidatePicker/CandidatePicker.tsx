@@ -1,15 +1,8 @@
-import {
-    ICandidate,
-    IInsight,
-    ICriteria,
-    IUser,
-    EnumCandidateStatus,
-} from '@innbyggerpanelet/api-interfaces';
+import { EnumCandidateStatus, ICandidate, ICriteria, IInsight, IUser } from '@innbyggerpanelet/api-interfaces';
+import { Detail, Label } from '@navikt/ds-react';
 import { ReactElement, useEffect } from 'react';
-import { Label, Detail } from '@navikt/ds-react';
-
-import style from './CandidatePicker.module.scss';
 import { ProgressBar } from '../misc/progressBar';
+import style from './CandidatePicker.module.scss';
 
 interface IProps {
     user: IUser;
@@ -18,12 +11,7 @@ interface IProps {
     setCandidates: (candidates: ICandidate[]) => void;
 }
 
-export const CandidatePicker = ({
-    user,
-    insight,
-    candidates,
-    setCandidates,
-}: IProps): ReactElement => {
+export const CandidatePicker = ({ user, insight, candidates, setCandidates }: IProps): ReactElement => {
     // Does user already exist in selected candidates
     const isSelected = (): boolean => {
         const exists = candidates.find((c) => c.user.id === user.id);
@@ -36,15 +24,12 @@ export const CandidatePicker = ({
             return criteria.id;
         });
 
-        const relevantCriterias = insight.criterias.filter((criteria) =>
-            criteriaIDs.includes(criteria.id)
-        );
+        const relevantCriterias = insight.criterias.filter((criteria) => criteriaIDs.includes(criteria.id));
         return relevantCriterias;
     };
 
     const getRelevancePercentage = (): number => {
-        const results =
-            getRelevantCriterias().length / insight.criterias.length;
+        const results = getRelevantCriterias().length / insight.criterias.length;
         return results > 0 ? results : 0;
     };
 
@@ -67,9 +52,10 @@ export const CandidatePicker = ({
                 {
                     user,
                     insight,
+                    hasConsented: false,
                     relevancyGrading: getRelevancePercentage(),
-                    status: EnumCandidateStatus.Pending,
-                },
+                    status: EnumCandidateStatus.Pending
+                }
             ]);
         }
     };
@@ -80,31 +66,22 @@ export const CandidatePicker = ({
     }, [insight.criterias]);
 
     return (
-        <div
-            className={`${style.wrapper} ${isSelected() ? style.selected : ''}`}
-            onClick={toggleCandidate}>
+        <div className={`${style.wrapper} ${isSelected() ? style.selected : ''}`} onClick={toggleCandidate}>
             <div className={style.header}>
                 <Label size="medium" className={style.candidateName}>
                     {user.name}
                 </Label>
-                <ProgressBar
-                    label="Relevansgradering"
-                    progress={getRelevancePercentage()}
-                />
+                <ProgressBar label="Relevansgradering" progress={getRelevancePercentage()} />
             </div>
-            <div
-                className={`${style.criterias} ${
-                    insight.criterias.length ? '' : style.hidden
-                }`}>
+            <div className={`${style.criterias} ${insight.criterias.length ? '' : style.hidden}`}>
                 {insight.criterias.map((criteria, index) => {
                     return (
                         <Detail
                             key={index}
                             className={`${
-                                criteriaIsRelevant(criteria)
-                                    ? style.relevantcriteria
-                                    : style.irrelevantcriteria
-                            }`}>
+                                criteriaIsRelevant(criteria) ? style.relevantcriteria : style.irrelevantcriteria
+                            }`}
+                        >
                             {criteria.name}
                         </Detail>
                     );

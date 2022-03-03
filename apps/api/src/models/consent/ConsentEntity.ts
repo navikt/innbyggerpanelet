@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { IConsent } from '@innbyggerpanelet/api-interfaces';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Consent implements IConsent {
