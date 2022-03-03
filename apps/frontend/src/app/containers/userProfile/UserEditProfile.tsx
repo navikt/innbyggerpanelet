@@ -45,6 +45,7 @@ export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElem
             <UserContactInfoForm 
                 user={user} 
                 handleChange={handleChange}
+                nameErrorMsg=""
                 emailErrorMsg=""
                 phoneErrorMsg=""  
             />

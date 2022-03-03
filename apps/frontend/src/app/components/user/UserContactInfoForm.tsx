@@ -8,11 +8,18 @@ import style from './UserContactInfoForm.module.scss';
 interface IProps {
     user: IUser;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    nameErrorMsg: string;
     emailErrorMsg: string;
     phoneErrorMsg: string;
 }
 
-export const UserContactInfoForm = ({ user, handleChange, emailErrorMsg, phoneErrorMsg}: IProps): ReactElement => {
+export const UserContactInfoForm = ({ 
+    user, 
+    handleChange,
+    nameErrorMsg,
+    emailErrorMsg, 
+    phoneErrorMsg
+}: IProps): ReactElement => {
     const { name, email, phone } = user;
 
     return (
@@ -25,6 +32,7 @@ export const UserContactInfoForm = ({ user, handleChange, emailErrorMsg, phoneEr
                 name="name"
                 value={name}
                 onChange={handleChange}
+                error={nameErrorMsg}
             />
             <TextField 
                 label="E-Post" 

@@ -23,17 +23,22 @@ export const RegisterUser = (): ReactElement => {
     const [posting, setPosting] = useState(false);
     
     const [isContactFormValid, setIsContactFormValid] = useState<boolean>(false);
+    const [nameErrorMsg, setNameErrorMsg] = useState<string>('');
     const [emailErrorMsg, setEmailErrorMsg] = useState<string>('');
     const [phoneErrorMsg, setPhoneErrorMsg] = useState<string>('');
 
     const navigate = useNavigate();
 
     const validateContactInfoForm = () => {
-        if (isEmail(user.email) && isNorwegianPhoneNumber(user.phone)) {
+        if (user.name !== '' && isEmail(user.email) && isNorwegianPhoneNumber(user.phone)) {
+            setNameErrorMsg('');
             setEmailErrorMsg('');
             setPhoneErrorMsg('');
             setIsContactFormValid(true);
         } else {
+            if (user.name === '') {
+                setNameErrorMsg('Du må gi brukeren et navn');
+            }
             if (!isEmail(user.email)) {
                 setEmailErrorMsg('Eposten er ikke på riktig format');
             }
@@ -74,6 +79,7 @@ export const RegisterUser = (): ReactElement => {
             <UserContactInfoForm 
                 user={user} 
                 handleChange={handleChange}
+                nameErrorMsg={nameErrorMsg}
                 emailErrorMsg={emailErrorMsg}
                 phoneErrorMsg={phoneErrorMsg}
             />
