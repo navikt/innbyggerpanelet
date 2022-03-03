@@ -28,10 +28,10 @@ export const ProjectEdit = ({ project, setProject, submit, loading }: IProps): R
 
     return (
         <form className={style.projectEdit}>
-            <TextField id="name" label="Navn:" value={project.name} onChange={handleInputChange} />
-            <Textarea id="description" label="Beskrivelse:" value={project.description} onChange={handleInputChange} />
+            <TextField id="name" label="Navn" value={project.name} onChange={handleInputChange} />
+            <Textarea id="description" label="Beskrivelse" value={project.description} onChange={handleInputChange} />
             <div>
-                <Label>Innsiktsperiode</Label>
+                <Label>Prosjektperiode</Label>
                 <div className={style.dates}>
                     <Datepicker value={project.start} onChange={(value) => handleDateChange(value, 'start')} />
                     <BodyShort>til</BodyShort>
