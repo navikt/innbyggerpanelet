@@ -9029,7 +9029,7 @@
   "resolved" "https://registry.npmjs.org/react-collapse/-/react-collapse-5.1.1.tgz"
   "version" "5.1.1"
 
-"react-day-picker@^7.4.x":
+"react-day-picker@^7.4.10", "react-day-picker@^7.4.x":
   "integrity" "sha512-/QkK75qLKdyLmv0kcVzhL7HoJPazoZXS8a6HixbVoK6vWey1Od1WRLcxfyEiUsRfccAlIlf6oKHShqY2SM82rA=="
   "resolved" "https://registry.npmjs.org/react-day-picker/-/react-day-picker-7.4.10.tgz"
   "version" "7.4.10"
