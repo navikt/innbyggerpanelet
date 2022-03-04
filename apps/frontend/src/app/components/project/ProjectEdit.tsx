@@ -1,6 +1,7 @@
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { Datepicker } from '@navikt/ds-datepicker';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
+import '@navikt/ds-datepicker/lib/index.css';
 import { BodyShort, Button, Label, Textarea, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement } from 'react';
 import ProjectTeam from '../projectTeam';
