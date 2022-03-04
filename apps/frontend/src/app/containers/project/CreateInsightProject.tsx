@@ -11,8 +11,8 @@ const defaultProject: IInsightProject = {
     id: 0,
     name: '',
     description: '',
-    start: new Date(),
-    end: new Date(),
+    start: '',
+    end: '',
     members: []
 };
 

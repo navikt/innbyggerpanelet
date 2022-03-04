@@ -1,9 +1,12 @@
 import { ChangeEvent, ReactElement } from 'react';
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Button, Textarea, TextField } from '@navikt/ds-react';
-
+import { Button, Label, Textarea, TextField } from '@navikt/ds-react';
+import { Datepicker } from '@navikt/ds-datepicker';
+import '@navikt/ds-datepicker/lib/index.css';
 import style from './Project.module.scss';
 import ProjectTeam from '../projectTeam';
+import { format, toDate } from 'date-fns';
+import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 
 interface IProps {
     project: IInsightProject;
@@ -18,6 +21,12 @@ export const ProjectEdit = ({
     submit,
     loading,
 }: IProps): ReactElement => {
+    const handleDateChange = (value: DatepickerValue, id: string) => {
+        const newProject = { ...project};
+        newProject[id] = value;
+        setProject(newProject);
+    };
+    
     const handleInputChange = (
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -40,17 +49,15 @@ export const ProjectEdit = ({
                 value={project.description}
                 onChange={handleInputChange}
             />
-            <TextField
-                id="start"
-                label="Startdato:"
+            <Label >Startdato:</Label>
+            <Datepicker
                 value={project.start}
-                onChange={handleInputChange}
+                onChange={(value) => handleDateChange(value, 'start')}
             />
-            <TextField
-                id="end"
-                label="Sluttdato:"
+            <Label >Sluttdato:</Label>
+            <Datepicker
                 value={project.end}
-                onChange={handleInputChange}
+                onChange={(value) => handleDateChange(value, 'end')}
             />
             <ProjectTeam project={project} edit={setProject} />
             <Button
