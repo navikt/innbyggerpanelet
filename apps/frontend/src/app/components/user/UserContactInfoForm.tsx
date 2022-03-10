@@ -1,5 +1,6 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Panel, TextField } from '@navikt/ds-react';
+import { IRegisterUserErrors } from '../../../validation/registerUser/IRegisterUserErrors';
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction, useState } from 'react';
 
 import style from './UserContactInfoForm.module.scss';
@@ -7,17 +8,13 @@ import style from './UserContactInfoForm.module.scss';
 interface IProps {
     user: IUser;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    nameErrorMsg: string;
-    emailErrorMsg: string;
-    phoneErrorMsg: string;
+    errorMessages: IRegisterUserErrors
 }
 
 export const UserContactInfoForm = ({ 
     user, 
     handleChange,
-    nameErrorMsg,
-    emailErrorMsg, 
-    phoneErrorMsg
+    errorMessages
 }: IProps): ReactElement => {
     const { name, email, phone } = user;
 
@@ -31,7 +28,7 @@ export const UserContactInfoForm = ({
                 name="name"
                 value={name}
                 onChange={handleChange}
-                error={nameErrorMsg}
+                error={errorMessages.nameErrorMsg}
             />
             <TextField 
                 label="E-Post" 
@@ -39,7 +36,7 @@ export const UserContactInfoForm = ({
                 name="email" 
                 value={email} 
                 onChange={handleChange} 
-                error={emailErrorMsg}
+                error={errorMessages.emailErrorMsg}
             />
             <TextField 
                 label="Telefonnummer" 
@@ -47,7 +44,7 @@ export const UserContactInfoForm = ({
                 name="phone" 
                 value={phone} 
                 onChange={handleChange}
-                error={phoneErrorMsg} 
+                error={errorMessages.phoneErrorMsg} 
             />
         </Panel>
     );

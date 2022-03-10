@@ -1,5 +1,6 @@
 import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
 import { isBefore, parse } from 'date-fns';
+import { isFieldEmpty } from '../utils/isFieldEmpty';
 import { IInsightPojectErrors } from './IInsightProjectErrors';
 
 export function validateInsightProject(
@@ -36,18 +37,6 @@ export function validateInsightProject(
     return { isValid, errorMesseges};
 }
 
-function isFieldEmpty(field: string, fieldName?: string): { isEmpty: boolean, errorMsg: string} {
-    let isEmpty = true;
-    let errorMsg = '';
-
-    if (field === '') {
-        errorMsg = `Prosjektet må inneholde et/en ${fieldName}`;
-        isEmpty = false;
-    }
-
-    return { isEmpty, errorMsg};
-}
-
 function validateDates(startDate: string, endDate: string): { isValid: boolean, errorMsgs: string[]} {
     let isValid = true;
     const errorMsgs: string[] = [];
@@ -67,6 +56,7 @@ function validateDates(startDate: string, endDate: string): { isValid: boolean, 
 
     return { isValid, errorMsgs };
 }
+
 function validateTeam(team: IUser[]): { isValid: boolean, errorMsg: string} {
     let isValid = true;
     let errorMsg = '';

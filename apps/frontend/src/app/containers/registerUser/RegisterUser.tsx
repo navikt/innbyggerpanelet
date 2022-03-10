@@ -7,6 +7,8 @@ import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
 import isEmail from '../../../validation/utils/isEmail';
 import style from './RegisterUser.module.scss';
 import isNorwegianPhoneNumber from '../../../validation/utils/isNorwegainPhoneNumber';
+import { IRegisterUserErrors } from '../../../validation/registerUser/IRegisterUserErrors';
+import { validateRegisterUser } from '../../../validation/registerUser/validateRegisterUser';
 
 const defaultUser: IUser = {
     id: 0,
@@ -21,31 +23,15 @@ export const RegisterUser = (): ReactElement => {
     const [user, setUser] = useState<IUser>(defaultUser);
     const [posting, setPosting] = useState(false);
     
-    const [isContactFormValid, setIsContactFormValid] = useState<boolean>(false);
-    const [nameErrorMsg, setNameErrorMsg] = useState<string>('');
-    const [emailErrorMsg, setEmailErrorMsg] = useState<string>('');
-    const [phoneErrorMsg, setPhoneErrorMsg] = useState<string>('');
+    const [errorMessages, setErrorMessages] = useState<IRegisterUserErrors>(
+        {
+            nameErrorMsg: '',
+            emailErrorMsg: '',
+            phoneErrorMsg: ''
+        }
+    );
 
     const navigate = useNavigate();
-
-    const validateContactInfoForm = () => {
-        if (user.name !== '' && isEmail(user.email) && isNorwegianPhoneNumber(user.phone)) {
-            setNameErrorMsg('');
-            setEmailErrorMsg('');
-            setPhoneErrorMsg('');
-            setIsContactFormValid(true);
-        } else {
-            if (user.name === '') {
-                setNameErrorMsg('Du må gi brukeren et navn');
-            }
-            if (!isEmail(user.email)) {
-                setEmailErrorMsg('Eposten er ikke på riktig format');
-            }
-            if (!isNorwegianPhoneNumber(user.phone)) {
-                setPhoneErrorMsg('Telefonnummeret er ikke på riktig format');
-            }
-        }
-    };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...user };
@@ -55,10 +41,8 @@ export const RegisterUser = (): ReactElement => {
 
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        
-        validateContactInfoForm();
 
-        if (isContactFormValid) {
+        if (validateRegisterUser(user).isValid) {
             setPosting(true);
             const { response, isError } = await createUser(user);
 
@@ -66,10 +50,16 @@ export const RegisterUser = (): ReactElement => {
                 navigate('/profil');
             } else if (isError) {
                 if (isError.response?.status === 406) {
-                    setEmailErrorMsg('En bruker med denne eposten finnes allerede');
+                    setErrorMessages({
+                        nameErrorMsg: errorMessages.nameErrorMsg,
+                        emailErrorMsg: 'En bruker med denne eposten finnes allerede',
+                        phoneErrorMsg: errorMessages.phoneErrorMsg
+                    });
                     setPosting(false);
                 }
             }
+        } else {
+            setErrorMessages(validateRegisterUser(user).errorMessages);
         }
     };
 
@@ -78,9 +68,7 @@ export const RegisterUser = (): ReactElement => {
             <UserContactInfoForm 
                 user={user} 
                 handleChange={handleChange}
-                nameErrorMsg={nameErrorMsg}
-                emailErrorMsg={emailErrorMsg}
-                phoneErrorMsg={phoneErrorMsg}
+                errorMessages={errorMessages}
             />
             <UserEditCriterias user={user} setUser={setUser} />
             <Panel>
