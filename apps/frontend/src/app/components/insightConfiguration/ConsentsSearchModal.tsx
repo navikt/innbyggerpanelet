@@ -22,7 +22,7 @@ export const ConsentsSearchModal = ({ open, close, addConsent }: IProps): ReactE
     return (
         <Modal open={open} onClose={close}>
             <Modal.Content className={style.wrapper}>
-                <SearchField label="Kriterier" description={<div>Søk etter samtykker her</div>}>
+                <SearchField label="Samtykker" description={<div>Søk etter samtykker her</div>}>
                     <SearchField.Input onChange={handleSearch} value={search} />
                     <SearchField.Button>Søk</SearchField.Button>
                 </SearchField>
