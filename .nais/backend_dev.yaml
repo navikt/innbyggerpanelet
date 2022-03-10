@@ -37,6 +37,9 @@ spec:
       - type: "POSTGRES_12"
         databases:
           - name: "innbyggerpanelet-backend-db"
+  azure: 
+    application:
+      enabled: true
   accessPolicy:
     inbound:
       rules:
