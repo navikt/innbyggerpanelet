@@ -57,14 +57,12 @@ function validateDates(startDate: string, endDate: string): { isValid: boolean, 
         isValid = false;
     }
     if (!isFieldEmpty(endDate).isEmpty) {
-        console.log('aoishf');
         errorMsgs.push(isFieldEmpty(endDate, 'sluttdato').errorMsg);
         isValid = false;
     }
-    if (isBefore(parse(endDate, 'dd.MM.YYYY', new Date()), parse(startDate, 'dd.MM.YYYY', new Date()))) {
+    if (isBefore(parse(endDate, 'yyyy-MM-dd', new Date()), parse(startDate, 'yyyy-MM-dd', new Date()))) {
         errorMsgs.push('Sluttdato er før startdato');
         isValid = false;
-
     }
 
     return { isValid, errorMsgs };
@@ -74,7 +72,7 @@ function validateTeam(team: IUser[]): { isValid: boolean, errorMsg: string} {
     let errorMsg = '';
 
     if (team.length === 0) {
-        errorMsg = 'Prosjektet må inneholdet et team medlem';
+        errorMsg = 'Prosjektet må inneholdet et teammedlem';
         isValid = false;
     }
 

@@ -10,6 +10,7 @@ import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 import { IInsightPojectErrors } from '../../../validation/insightPoject/IInsightProjectErrors';
 import { validateInsightProject } from '../../../validation/insightPoject/validateInsightProject';
 import ErrorList from '../misc/validation/ErrorList';
+import ErrorField from '../misc/validation/ErrorField';
 
 interface IProps {
     project: IInsightProject;
@@ -85,6 +86,9 @@ export const ProjectEdit = ({
                 <ErrorList errorMessages={errorMessages.datesErrorMsg}/>
             )}
             <ProjectTeam project={project} edit={setProject} />
+            {errorMessages.projectTeamErrorMsg && (
+                <ErrorField errorMsg={errorMessages.projectTeamErrorMsg}/>
+            )}
             <Button
                 loading={loading}
                 onClick={(e) => {
