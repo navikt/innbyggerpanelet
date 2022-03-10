@@ -1,6 +1,6 @@
 export interface IInsightPojectErrors {
     nameErrorMsg: string
     descriptionErrorMsg: string
-    datesErrorMsg: string
+    datesErrorMsg: string[]
     projectTeamErrorMsg: string
 }

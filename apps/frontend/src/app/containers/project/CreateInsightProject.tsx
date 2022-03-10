@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { createInsightProject } from '../../api/mutations/mutateInsightProject';
 import style from './Project.module.scss';
-import { isInsightProjectValid } from '../../../validation/insightPoject/validateInsightProject';
 
 const defaultProject: IInsightProject = {
     id: 0,

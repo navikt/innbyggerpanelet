@@ -1,8 +1,8 @@
-import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
+import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
 import { isBefore, parse } from 'date-fns';
 import { IInsightPojectErrors } from './IInsightProjectErrors';
 
-export function isInsightProjectValid(
+export function validateInsightProject(
     insightProject: IInsightProject
 ): { 
     isValid: boolean, 
@@ -12,7 +12,7 @@ export function isInsightProjectValid(
     const errorMesseges: IInsightPojectErrors = {
         nameErrorMsg: '',
         descriptionErrorMsg: '',
-        datesErrorMsg: '',
+        datesErrorMsg: [],
         projectTeamErrorMsg: ''
     };
 
@@ -25,7 +25,11 @@ export function isInsightProjectValid(
         isValid = false;
     }
     if (!validateDates(insightProject.start, insightProject.end).isValid) {
-        errorMesseges.datesErrorMsg = validateDates(insightProject.start, insightProject.end).errorMsg;
+        errorMesseges.datesErrorMsg = validateDates(insightProject.start, insightProject.end).errorMsgs;
+        isValid = false;
+    }
+    if (!validateTeam(insightProject.members).isValid) {
+        errorMesseges.projectTeamErrorMsg = validateTeam(insightProject.members).errorMsg;
         isValid = false;
     }
 
@@ -36,7 +40,7 @@ function isFieldEmpty(field: string, fieldName?: string): { isEmpty: boolean, er
     let isEmpty = true;
     let errorMsg = '';
 
-    if (field !== '') {
+    if (field === '') {
         errorMsg = `Prosjektet må inneholde et/en ${fieldName}`;
         isEmpty = false;
     }
@@ -44,20 +48,33 @@ function isFieldEmpty(field: string, fieldName?: string): { isEmpty: boolean, er
     return { isEmpty, errorMsg};
 }
 
-function validateDates(startDate: string, endDate: string): { isValid: boolean, errorMsg: string} {
+function validateDates(startDate: string, endDate: string): { isValid: boolean, errorMsgs: string[]} {
+    let isValid = true;
+    const errorMsgs: string[] = [];
+
+    if (!isFieldEmpty(startDate).isEmpty) {
+        errorMsgs.push(isFieldEmpty(startDate, 'startdato').errorMsg);
+        isValid = false;
+    }
+    if (!isFieldEmpty(endDate).isEmpty) {
+        console.log('aoishf');
+        errorMsgs.push(isFieldEmpty(endDate, 'sluttdato').errorMsg);
+        isValid = false;
+    }
+    if (isBefore(parse(endDate, 'dd.MM.YYYY', new Date()), parse(startDate, 'dd.MM.YYYY', new Date()))) {
+        errorMsgs.push('Sluttdato er før startdato');
+        isValid = false;
+
+    }
+
+    return { isValid, errorMsgs };
+}
+function validateTeam(team: IUser[]): { isValid: boolean, errorMsg: string} {
     let isValid = true;
     let errorMsg = '';
 
-    if (!isFieldEmpty(startDate).isEmpty) {
-        errorMsg = isFieldEmpty(startDate).errorMsg + '\n';
-        isValid = false;
-    }
-    if (!isFieldEmpty(endDate)) {
-        errorMsg = errorMsg + isFieldEmpty(endDate).errorMsg + '\n';
-        isValid = false;
-    }
-    if (isBefore(parse(endDate, 'DD.MM.YYYY', new Date()), parse(startDate, 'DD.MM.YYYY', new Date()))) {
-        errorMsg = errorMsg + 'Sluttdato er før startdato';
+    if (team.length === 0) {
+        errorMsg = 'Prosjektet må inneholdet et team medlem';
         isValid = false;
     }
 
