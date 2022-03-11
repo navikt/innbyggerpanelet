@@ -40,6 +40,9 @@ spec:
   azure: 
     application:
       enabled: true
+          claims:
+              groups:
+                - id: "05b12878-6da7-409d-95f5-31139ce4eea8"
   accessPolicy:
     inbound:
       rules:
