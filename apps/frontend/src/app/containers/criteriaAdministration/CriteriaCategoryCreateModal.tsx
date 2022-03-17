@@ -45,8 +45,18 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
             <Modal.Content className={style.editModal}>
                 <Heading size="small">Ny kategori</Heading>
                 <BodyShort>Lag en ny kategori.</BodyShort>
-                <TextField label="Navn" id="name" value={category.name} onChange={handleChange} />
-                <TextField label="Beskrivelse" id="description" value={category.description} onChange={handleChange} />
+                <TextField 
+                    label="Navn" 
+                    id="name" 
+                    value={category.name} 
+                    onChange={handleChange} 
+                />
+                <TextField 
+                    label="Beskrivelse" 
+                    id="description" 
+                    value={category.description} 
+                    onChange={handleChange} 
+                />
                 <Button onClick={handleSubmit} loading={posting}>
                     Opprett
                 </Button>
