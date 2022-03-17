@@ -1,10 +1,10 @@
 import { ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
-import { validateCriteriaCategory } from '../../../validation/criteria/validateCriteriaCategory';
+import { validateCriteriaCategory } from '../../../validation/criteriaCategory/validateCriteriaCategory';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { createCriteriaCategory } from '../../api/mutations/mutateCriteriaCategory';
 import style from './CriteriaAdminPanel.module.scss';
-import { ICriteriaCategoryErrors } from '../../../validation/criteria/ICrtieriaCategoryErrors';
+import { ICriteriaCategoryErrors } from '../../../validation/criteriaCategory/ICrtieriaCategoryErrors';
 
 interface IProps {
     open: boolean;

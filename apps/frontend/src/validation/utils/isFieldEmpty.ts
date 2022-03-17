@@ -3,7 +3,7 @@ export function isFieldEmpty(field: string, fieldName?: string): { isEmpty: bool
     let errorMsg = '';
 
     if (field === '') {
-        errorMsg = `Prosjektet må inneholde et/en ${fieldName}`;
+        errorMsg = `Feltet må inneholde et/en ${fieldName}`;
         isEmpty = false;
     }
 
