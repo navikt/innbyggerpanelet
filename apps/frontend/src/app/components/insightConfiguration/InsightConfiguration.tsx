@@ -145,6 +145,9 @@ export const InsightConfiguration = ({
                 close={() => setOpenCriterias(false)}
                 addCriteria={addcriteria}
             />
+            {
+                // TODO Devide if it only should be possible to add a single consent?
+            }
             <ConsentsSearchModal
                 open={openConsents}
                 close={() => setOpenConsents(false)}
