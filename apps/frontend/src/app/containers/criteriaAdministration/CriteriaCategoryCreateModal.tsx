@@ -1,9 +1,10 @@
 import { ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
+import { validateCriteriaCategory } from '../../../validation/criteria/validateCriteriaCategory';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { createCriteriaCategory } from '../../api/mutations/mutateCriteriaCategory';
-
 import style from './CriteriaAdminPanel.module.scss';
+import { ICriteriaCategoryErrors } from '../../../validation/criteria/ICrtieriaCategoryErrors';
 
 interface IProps {
     open: boolean;
@@ -20,6 +21,11 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
     const [category, setCategory] = useState<ICriteriaCategory>(defaultCategory);
     const [posting, setPosting] = useState(false);
 
+    const [errorMessages, setErrorMessages] = useState<ICriteriaCategoryErrors>({
+        nameErrorMsg: '',
+        descriptionErrorMsg: ''
+    });
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...category };
         result[event.target.id] = event.target.value;
@@ -28,15 +34,20 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
 
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        setPosting(true);
 
-        const { response, isError } = await createCriteriaCategory(category);
+        if (validateCriteriaCategory(category).isValid) {
+            setPosting(true);
 
-        if (response) {
-            setPosting(false);
-            close();
-        } else if (isError) {
-            console.error(isError);
+            const { response, isError } = await createCriteriaCategory(category);
+
+            if (response) {
+                setPosting(false);
+                close();
+            } else if (isError) {
+                console.error(isError);
+            }
+        } else {
+            setErrorMessages(validateCriteriaCategory(category).errorMessages);
         }
     };
 
@@ -49,13 +60,15 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
                     label="Navn" 
                     id="name" 
                     value={category.name} 
-                    onChange={handleChange} 
+                    onChange={handleChange}
+                    error={errorMessages.nameErrorMsg}
                 />
                 <TextField 
                     label="Beskrivelse" 
                     id="description" 
                     value={category.description} 
                     onChange={handleChange} 
+                    error={errorMessages.descriptionErrorMsg}
                 />
                 <Button onClick={handleSubmit} loading={posting}>
                     Opprett

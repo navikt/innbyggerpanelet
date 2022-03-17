@@ -15,7 +15,7 @@ export function validateCriteriaCategory(
     };
 
     if (!isFieldEmpty(criteriaCategory.name).isEmpty) {
-        errorMessages.descriptionErrorMsg = isFieldEmpty(criteriaCategory.name, 'navn').errorMsg;
+        errorMessages.nameErrorMsg = isFieldEmpty(criteriaCategory.name, 'navn').errorMsg;
         isValid = false;
     }
     if (!isFieldEmpty(criteriaCategory.description).isEmpty) {
