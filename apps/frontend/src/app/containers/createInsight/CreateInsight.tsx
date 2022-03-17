@@ -71,7 +71,7 @@ export const CreateInsight = (): ReactElement => {
         <>
             <Panel>
                 <Button onClick={handleSubmit} loading={posting}>
-                    Inviter
+                    Opprett
                 </Button>
                 <Heading level={'1'} size="2xlarge" spacing>
                     Nytt innsiktsarbeid

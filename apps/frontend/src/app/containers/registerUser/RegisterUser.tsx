@@ -41,7 +41,7 @@ export const RegisterUser = (): ReactElement => {
 
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-
+        
         if (validateRegisterUser(user).isValid) {
             setPosting(true);
             const { response, isError } = await createUser(user);
