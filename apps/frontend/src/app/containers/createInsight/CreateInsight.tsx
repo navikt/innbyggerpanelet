@@ -11,6 +11,8 @@ import { APIHandler } from '../../components/misc/apiHandler';
 
 import style from './CreateInsight.module.scss';
 import { IInsightErrors } from '../../../validation/insight/IInsightErrors';
+import ErrorField from '../../components/misc/validation/ErrorField';
+import { validateInsight } from '../../..//validation/insight/validateInsight';
 
 const defaultInsight: IInsight = {
     id: 0,
@@ -52,28 +54,40 @@ export const CreateInsight = (): ReactElement => {
     const handleSubmit = async () => {
         if (!id) throw new Error('This project does not exist.');
 
-        setPosting(true);
 
         const payload = {
             ...insight,
             project: { ...insight.project, id: parseInt(id) }
         };
 
-        const insightMutation = await createInsight(payload);
+        // I know this "any" is dirty, but i could not find insightMutation's type
+        let insightMutation: any = undefined;
 
-        if (!insightMutation.response || insightMutation.isError) throw new Error('Failed to post insight.');
+        if (validateInsight(insight, candidates).isValid) {
+            setPosting(true);
+            
+            insightMutation = await createInsight(payload);
+            
+            if (!insightMutation.response || insightMutation.isError) {
+                throw new Error('Failed to post insight.');   
+            }
+            
+            const configuredCandidates = candidates.map((c) => {
+                return { ...c, insight: insightMutation.response };
+            }) as ICandidate[];
+        
+        
+            const candidatesMutation = await createCandidates(configuredCandidates);
 
-        const configuredCandidates = candidates.map((c) => {
-            return { ...c, insight: insightMutation.response };
-        }) as ICandidate[];
-
-        const candidatesMutation = await createCandidates(configuredCandidates);
-
-        if (candidatesMutation.response) {
-            navigate(`/prosjekt/${id}`);
-        } else if (candidatesMutation.isError) {
-            throw new Error('Failed to post candidates');
+            if (candidatesMutation.response) {
+                navigate(`/prosjekt/${id}`);
+            } else if (candidatesMutation.isError) {
+                throw new Error('Failed to post candidates');
+            }
+        } else {
+            setErrorMesages(validateInsight(insight, candidates).errorMesseges);
         }
+
     };
 
     return (
@@ -110,6 +124,9 @@ export const CreateInsight = (): ReactElement => {
                             />
                         );
                     }) || <APIHandler error={error} loading={loading} />}
+                    {errorMessages.candidatesErrorMsg && (
+                        <ErrorField errorMsg={errorMessages.candidatesErrorMsg}/>
+                    )}
                 </div>
             </Panel>
         </>

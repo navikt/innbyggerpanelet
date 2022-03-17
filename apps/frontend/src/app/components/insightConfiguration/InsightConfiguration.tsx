@@ -150,14 +150,14 @@ export const InsightConfiguration = ({
                                 </div>
                             );
                         })}
-                        {errorMessages.consentsErrorMsg && (
-                            <ErrorField errorMsg={errorMessages.consentsErrorMsg}/>
-                        )}
                         <Button
                             size="small"
                             onClick={() => setOpenConsents(true)}>
                             + Legg til samtykke
                         </Button>
+                        {errorMessages.consentsErrorMsg && (
+                            <ErrorField errorMsg={errorMessages.consentsErrorMsg}/>
+                        )}
                     </div>
                 </div>
             </div>
