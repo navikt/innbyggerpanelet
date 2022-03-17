@@ -9,18 +9,29 @@ import { CriteriasSearchModal } from './CriteriasSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 
 import style from './InsightConfiguration.module.scss';
+import { IInsightErrors } from '../../../validation/insight/IInsightErrors';
+import { Datepicker } from '@navikt/ds-datepicker';
+import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 
 interface IProps {
     insight: IInsight;
     setInsight: (insight: IInsight) => void;
+    errorMessages: IInsightErrors
 }
 
 export const InsightConfiguration = ({
     insight,
     setInsight,
+    errorMessages
 }: IProps): ReactElement => {
     const [openCriterias, setOpenCriterias] = useState<boolean>(false);
     const [openConsents, setOpenConsents] = useState<boolean>(false);
+
+    const handleDateChange = (value: DatepickerValue, id: string) => {
+        const newProject = { ...insight};
+        newProject[id] = value;
+        setInsight(newProject);
+    };
 
     const handleInputChange = (
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -75,28 +86,30 @@ export const InsightConfiguration = ({
                         label="Navn"
                         onChange={handleInputChange}
                         value={insight.name}
+                        error={errorMessages.nameErrorMsg}
                     />
                     <Textarea
                         id="description"
                         label="Beskrivelse"
                         onChange={handleInputChange}
                         value={insight.description}
+                        error={errorMessages.descriptionErrorMsg}
                     />
                     <div className={style.dates}>
-                        <TextField
-                            id="start"
-                            label="Startdato"
-                            placeholder="DD-MM-ÅÅÅÅ"
-                            onChange={handleInputChange}
-                            value={insight.start}
-                        />
-                        <TextField
-                            id="end"
-                            label="Sluttdato"
-                            placeholder="DD-MM-ÅÅÅÅ"
-                            onChange={handleInputChange}
-                            value={insight.end}
-                        />
+                        <div>
+                            <Label >Startdato:</Label>
+                            <Datepicker
+                                value={insight.start}
+                                onChange={(value) => handleDateChange(value, 'start')}
+                            />
+                        </div>
+                        <div>
+                            <Label >Sluttdato:</Label>
+                            <Datepicker
+                                value={insight.end}
+                                onChange={(value) => handleDateChange(value, 'end')}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className={style.insightSpecs}>
@@ -146,7 +159,7 @@ export const InsightConfiguration = ({
                 addCriteria={addcriteria}
             />
             {
-                // TODO Devide if it only should be possible to add a single consent?
+                // TODO Decide if it only should be possible to add a single consent?
             }
             <ConsentsSearchModal
                 open={openConsents}

@@ -10,6 +10,7 @@ import { createCandidates } from '../../api/mutations/mutateCandidate';
 import { APIHandler } from '../../components/misc/apiHandler';
 
 import style from './CreateInsight.module.scss';
+import { IInsightErrors } from '../../../validation/insight/IInsightErrors';
 
 const defaultInsight: IInsight = {
     id: 0,
@@ -39,6 +40,14 @@ export const CreateInsight = (): ReactElement => {
     const [posting, setPosting] = useState(false);
 
     const { users, loading, error } = useUserByCriterias(insight.criterias);
+
+    const [errorMessages, setErrorMesages] = useState<IInsightErrors>({
+        nameErrorMsg: '',
+        descriptionErrorMsg: '',
+        datesErrorMsg: [],
+        consentsErrorMsg: '',
+        candidatesErrorMsg: ''
+    });
 
     const handleSubmit = async () => {
         if (!id) throw new Error('This project does not exist.');
@@ -76,7 +85,11 @@ export const CreateInsight = (): ReactElement => {
                 <Heading level={'1'} size="2xlarge" spacing>
                     Nytt innsiktsarbeid
                 </Heading>
-                <InsightConfiguration insight={insight} setInsight={setInsight} />
+                <InsightConfiguration 
+                    insight={insight} 
+                    setInsight={setInsight} 
+                    errorMessages={errorMessages}
+                />
             </Panel>
             <Panel>
                 <div className={style.candidatesHeader}>
