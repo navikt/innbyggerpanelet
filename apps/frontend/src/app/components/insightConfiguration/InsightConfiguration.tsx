@@ -12,6 +12,8 @@ import style from './InsightConfiguration.module.scss';
 import { IInsightErrors } from '../../../validation/insight/IInsightErrors';
 import { Datepicker } from '@navikt/ds-datepicker';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
+import ErrorList from '../misc/validation/ErrorList';
+import ErrorField from '../misc/validation/ErrorField';
 
 interface IProps {
     insight: IInsight;
@@ -111,6 +113,9 @@ export const InsightConfiguration = ({
                             />
                         </div>
                     </div>
+                    {errorMessages.datesErrorMsg.length > 0 && (
+                        <ErrorList errorMessages={errorMessages.datesErrorMsg}/>
+                    )}
                 </div>
                 <div className={style.insightSpecs}>
                     <div className={style.insightcriterias}>
@@ -145,6 +150,9 @@ export const InsightConfiguration = ({
                                 </div>
                             );
                         })}
+                        {errorMessages.consentsErrorMsg && (
+                            <ErrorField errorMsg={errorMessages.consentsErrorMsg}/>
+                        )}
                         <Button
                             size="small"
                             onClick={() => setOpenConsents(true)}>
