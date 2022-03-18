@@ -80,12 +80,12 @@ export class UserService extends BaseService<User> {
     }
 
     async create(dto: User): Promise<User | undefined> {
-        const alreadyExist = await this._userRepository.findOne({
-            where: {email: dto.email}
+        const alreadyExists = await this._userRepository.findOne({
+            where: { email: dto.email }
         });
         
-        if (alreadyExist) {
-            throw new NotAcceptableError({message: ValidationErrorMessage.alreadyExists('User')});
+        if (alreadyExists) {
+            throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User')} );
         }
 
         const user = await this._userRepository.save(dto);
@@ -94,6 +94,14 @@ export class UserService extends BaseService<User> {
     }
 
     async update(id: number, dto: User): Promise<User | undefined> {
+        const alreadyExists = await this._userRepository.findOne({
+            where: { email: dto.email }
+        });
+
+        if (alreadyExists) {
+            throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User')});
+        }
+
         const user = await this._userRepository.save(dto);
 
         return user;
