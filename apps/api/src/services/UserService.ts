@@ -99,7 +99,7 @@ export class UserService extends BaseService<User> {
         });
 
         if (alreadyExists) {
-            throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User')});
+            throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User') });
         }
 
         const user = await this._userRepository.save(dto);
