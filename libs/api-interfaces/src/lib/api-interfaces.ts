@@ -47,7 +47,7 @@ export interface IInsightProject {
     name: string;
     description: string;
     members: IUser[];
-    start: string
+    start: string;
     end: string;
 }
 
