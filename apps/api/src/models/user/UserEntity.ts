@@ -17,7 +17,9 @@ export class User implements IUser {
     @Column()
     latestUpdate: string;
 
-    @Column()
+    @Column({
+        unique: true
+    })
     email: string;
 
     @Column()

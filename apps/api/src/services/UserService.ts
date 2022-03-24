@@ -1,4 +1,4 @@
-import { Connection, FindOperator, ILike, Repository } from 'typeorm';
+import { Connection, FindOperator, ILike, QueryFailedError, Repository } from 'typeorm';
 import { NotAcceptableError } from '../lib/errors/http/NotAcceptableError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
@@ -80,31 +80,29 @@ export class UserService extends BaseService<User> {
     }
 
     async create(dto: User): Promise<User | undefined> {
-        const alreadyExists = await this._userRepository.findOne({
-            where: { email: dto.email }
-        });
-        
-        if (alreadyExists) {
-            throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User')} );
+        try {
+            return await this._userRepository.save(dto);
+        } catch (error) {
+            if (error instanceof QueryFailedError) {
+                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User')} );
+            }
+                
         }
 
-        const user = await this._userRepository.save(dto);
-
-        return user;
+        return undefined;
     }
 
     async update(id: number, dto: User): Promise<User | undefined> {
-        const alreadyExists = await this._userRepository.findOne({
-            where: { email: dto.email }
-        });
-
-        if (alreadyExists) {
-            throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User') });
+        try {
+            return await this._userRepository.save(dto);
+        } catch (error) {
+            if (error instanceof QueryFailedError) {
+                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User')} );
+            }
+                
         }
 
-        const user = await this._userRepository.save(dto);
-
-        return user;
+        return undefined;
     }
 
     async delete(id: number): Promise<void> {

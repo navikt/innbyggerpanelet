@@ -1,9 +1,9 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Panel, TextField } from '@navikt/ds-react';
+import { ChangeEvent, ReactElement } from 'react';
 import { IRegisterUserErrors } from '../../../validation/registerUser/IRegisterUserErrors';
-import { ChangeEvent, Dispatch, ReactElement, SetStateAction, useState } from 'react';
-
 import style from './UserContactInfoForm.module.scss';
+
 
 interface IProps {
     user: IUser;
