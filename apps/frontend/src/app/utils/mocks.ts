@@ -6,20 +6,20 @@ import {
     ICriteriaCategory,
     IInsight,
     IInsightProject,
-    IUser,
+    IUser
 } from '@innbyggerpanelet/api-interfaces';
 
 const allCriteriaCategories: ICriteriaCategory[] = [
     {
         id: 1,
         name: 'Alder',
-        description: 'Kandidatens aldergruppe.',
+        description: 'Kandidatens aldergruppe.'
     },
     {
         id: 2,
         name: 'Hjelpemidler',
-        description: 'Utvalg av mulige hjelpemidler tatt i bruk av kandidat.',
-    },
+        description: 'Utvalg av mulige hjelpemidler tatt i bruk av kandidat.'
+    }
 ];
 
 const allCriterias: ICriteria[] = [
@@ -27,21 +27,19 @@ const allCriterias: ICriteria[] = [
         id: 1,
         name: 'Mellom 18 og 25 år',
         category: allCriteriaCategories[0],
-        exclusivitySlug: 'age',
+        exclusivitySlug: 'age'
     },
     {
         id: 2,
         name: 'Mellom 26 og 35 år',
         category: allCriteriaCategories[0],
-        exclusivitySlug: 'age',
+        exclusivitySlug: 'age'
     },
     { id: 3, name: 'Skjermoppleser', category: allCriteriaCategories[1] },
-    { id: 4, name: 'Rullestol', category: allCriteriaCategories[1] },
+    { id: 4, name: 'Rullestol', category: allCriteriaCategories[1] }
 ];
 
-const allConsents: IConsent[] = [
-    { id: 1, description: 'Samtykker til skjermopptak' },
-];
+const allConsents: IConsent[] = [{ id: 1, description: 'Samtykker til skjermopptak' }];
 
 const teamMember: IUser = {
     id: 3,
@@ -49,7 +47,7 @@ const teamMember: IUser = {
     email: 'terje@nav.no',
     phone: '45676456',
     latestUpdate: '21.01.2022',
-    criterias: [],
+    criterias: []
 };
 
 const primaryProject: IInsightProject = {
@@ -58,7 +56,7 @@ const primaryProject: IInsightProject = {
     description: 'Primært prosjektbeskrivelse',
     start: '01.12.2021',
     end: '01.04.2021',
-    members: [teamMember],
+    members: [teamMember]
 };
 
 const primaryInsight: IInsight = {
@@ -69,7 +67,7 @@ const primaryInsight: IInsight = {
     start: '01.01.2022',
     end: '21.01.2022',
     criterias: [allCriterias[0], allCriterias[2]],
-    consents: [allConsents[0]],
+    consents: [allConsents[0]]
 };
 
 const olaUser: IUser = {
@@ -78,16 +76,17 @@ const olaUser: IUser = {
     email: 'ola@nordmann.no',
     phone: '12332123',
     latestUpdate: '21.01.2022',
-    criterias: [allCriterias[0], allCriterias[2]],
+    criterias: [allCriterias[0], allCriterias[2]]
 };
 
 const olaCandidatures: ICandidate[] = [
     {
         user: olaUser,
         insight: primaryInsight,
+        hasConsented: true,
         relevancyGrading: 0.8,
-        status: EnumCandidateStatus.Completed,
-    },
+        status: EnumCandidateStatus.Completed
+    }
 ];
 
 const kariUser: IUser = {
@@ -96,7 +95,7 @@ const kariUser: IUser = {
     phone: '32132321',
     latestUpdate: '2022-01-02',
     name: 'Kari Nordmann',
-    criterias: [allCriterias[1], allCriterias[3]],
+    criterias: [allCriterias[1], allCriterias[3]]
 };
 
 const allUsers: IUser[] = [olaUser, kariUser];
@@ -110,5 +109,5 @@ export const mocks = {
     olaUser,
     olaCandidatures,
     kariUser,
-    allUsers,
+    allUsers
 };

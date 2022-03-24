@@ -48,6 +48,10 @@ export class UserService extends BaseService<User> {
         const users = await this._userRepository
             .createQueryBuilder('user')
             .leftJoinAndSelect('user.criterias', 'criteria', 'criteria.id IN (:...criteriaIds)', { criteriaIds })
+            .groupBy('user.id')
+            .addGroupBy('criteria.id')
+            .having('COUNT(criteria.id) > 0')
+            // .orderBy('COUNT(criteria.id)', 'DESC') Why doesn't this work?
             .getMany();
 
         if (users.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Prioritized users') });

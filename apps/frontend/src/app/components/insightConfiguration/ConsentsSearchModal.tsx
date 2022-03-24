@@ -1,7 +1,8 @@
 import { IConsent } from '@innbyggerpanelet/api-interfaces';
 import { Modal, SearchField } from '@navikt/ds-react';
-import { ReactElement } from 'react';
-
+import { ChangeEvent, ReactElement, useState } from 'react';
+import { useConsentSearchByDescription } from '../../api/hooks';
+import { APIHandler } from '../misc/apiHandler';
 import style from './SearchModal.module.scss';
 
 interface IProps {
@@ -10,37 +11,29 @@ interface IProps {
     addConsent: (consent: IConsent) => void;
 }
 
-export const ConsentsSearchModal = ({
-    open,
-    close,
-    addConsent,
-}: IProps): ReactElement => {
-    // Query API for results
-    // Remove item on click
-    const consents: IConsent[] = [
-        { id: 1, description: 'Samtykker til skjermopptak' },
-    ];
+export const ConsentsSearchModal = ({ open, close, addConsent }: IProps): ReactElement => {
+    const [search, setSearch] = useState('');
+    const { consents, loading, error } = useConsentSearchByDescription(search);
+
+    const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearch(event.target.value);
+    };
 
     return (
         <Modal open={open} onClose={close}>
             <Modal.Content className={style.wrapper}>
-                <SearchField
-                    label="Kriterier"
-                    description={<div>Søk etter samtykker her</div>}>
-                    <SearchField.Input />
+                <SearchField label="Samtykker" description={<div>Søk etter samtykker her</div>}>
+                    <SearchField.Input onChange={handleSearch} value={search} />
                     <SearchField.Button>Søk</SearchField.Button>
                 </SearchField>
                 <div>
-                    {consents.map((consent, index) => {
+                    {consents?.map((consent, index) => {
                         return (
-                            <div
-                                key={index}
-                                className={style.result}
-                                onClick={() => addConsent(consent)}>
+                            <div key={index} className={style.result} onClick={() => addConsent(consent)}>
                                 + {consent.description}
                             </div>
                         );
-                    })}
+                    }) || <APIHandler error={error} loading={loading} />}
                 </div>
             </Modal.Content>
         </Modal>

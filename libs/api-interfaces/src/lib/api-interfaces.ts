@@ -19,6 +19,7 @@ export interface ICandidate {
     relevancyGrading: number;
     user: IUser;
     insight: IInsight;
+    hasConsented: boolean;
     status: EnumCandidateStatus;
 }
 
