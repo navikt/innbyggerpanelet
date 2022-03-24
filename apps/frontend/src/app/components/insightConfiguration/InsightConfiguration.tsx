@@ -9,7 +9,7 @@ import { CriteriasSearchModal } from './CriteriasSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 
 import style from './InsightConfiguration.module.scss';
-import { IInsightErrors } from '../../../validation/insight/IInsightErrors';
+import { IInsightErrors } from '../../../validation/insight';
 import { Datepicker } from '@navikt/ds-datepicker';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 import ErrorList from '../misc/validation/ErrorList';

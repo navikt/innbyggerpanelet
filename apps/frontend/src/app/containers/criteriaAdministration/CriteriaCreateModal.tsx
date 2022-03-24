@@ -1,11 +1,9 @@
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
-import { ICriteriaErrors } from '../../../validation/criteria/ICriteriaErrors';
-import { permittedCrossDomainPolicies } from 'helmet';
 import { ChangeEvent, ReactElement, useState } from 'react';
+import { ICriteriaErrors, validateCriteria } from '../../../validation/criteria';
 import { createCriteria } from '../../api/mutations/mutateCriteria';
 import style from './CriteriaAdminPanel.module.scss';
-import { validateCriteria } from '../../../validation/criteria/validateCriteria';
 
 interface IProps {
     category: ICriteriaCategory;

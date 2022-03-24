@@ -1,10 +1,9 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Panel } from '@navikt/ds-react';
-import { IRegisterUserErrors } from '../../../validation/registerUser/IRegisterUserErrors';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { updateUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import { validateRegisterUser } from '../../../validation/registerUser/validateRegisterUser';
+import { validateRegisterUser, IRegisterUserErrors } from '../../../validation/registerUser';
 import style from './UserProfile.module.scss';
 
 interface IProps {

@@ -1,14 +1,11 @@
-import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
-import { Button, Heading, Panel, Table, TextField } from '@navikt/ds-react';
+import { IUser } from '@innbyggerpanelet/api-interfaces';
+import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { validateRegisterUser, IRegisterUserErrors } from '../../../validation/registerUser';
 import { createUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import isEmail from '../../../validation/utils/isEmail';
 import style from './RegisterUser.module.scss';
-import isNorwegianPhoneNumber from '../../../validation/utils/isNorwegainPhoneNumber';
-import { IRegisterUserErrors } from '../../../validation/registerUser/IRegisterUserErrors';
-import { validateRegisterUser } from '../../../validation/registerUser/validateRegisterUser';
 
 const defaultUser: IUser = {
     id: 0,
