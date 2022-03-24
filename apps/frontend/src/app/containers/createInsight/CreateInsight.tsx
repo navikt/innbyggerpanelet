@@ -13,6 +13,7 @@ import style from './CreateInsight.module.scss';
 import { IInsightErrors } from '../../../validation/insight/IInsightErrors';
 import { validateInsight } from '../../..//validation/insight/validateInsight';
 import ErrorList from '../../components/misc/validation/ErrorList';
+import { IMutation } from '../../api/mutations/IMutation';
 
 const defaultInsight: IInsight = {
     id: 0,
@@ -60,8 +61,7 @@ export const CreateInsight = (): ReactElement => {
             project: { ...insight.project, id: parseInt(id) }
         };
 
-        // I know this "any" is dirty, but i could not find insightMutation's type
-        let insightMutation: any = undefined;
+        let insightMutation: IMutation<IInsight> | undefined = undefined;
 
         if (validateInsight(insight, candidates).isValid) {
             setPosting(true);
@@ -73,7 +73,7 @@ export const CreateInsight = (): ReactElement => {
             }
             
             const configuredCandidates = candidates.map((c) => {
-                return { ...c, insight: insightMutation.response };
+                return { ...c, insight: insightMutation?.response };
             }) as ICandidate[];
         
         
