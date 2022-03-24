@@ -1,10 +1,9 @@
-import { ReactElement, useState } from 'react';
-import { Panel } from '@navikt/ds-react';
-import { ProjectEdit } from '../../components/project';
-import { useNavigate } from 'react-router-dom';
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
+import { Panel } from '@navikt/ds-react';
+import { ReactElement, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createInsightProject } from '../../api/mutations/mutateInsightProject';
-import style from './Project.module.scss';
+import { ProjectEdit } from '../../components/project';
 
 const defaultProject: IInsightProject = {
     id: 0,
@@ -23,8 +22,6 @@ export const CreateInsightProject = (): ReactElement => {
 
     const handleSubmit = async (project: IInsightProject) => {
         const { response, isLoading, isError } = await createInsightProject(project);
-
-        //isInsightProjectValid(insightProject).isValid
 
         if (response) {
             navigate(`/prosjekt/${response.id}`);
