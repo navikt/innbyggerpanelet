@@ -1,16 +1,14 @@
-import { ChangeEvent, ReactElement, useState } from 'react';
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Button, Label, Textarea, TextField } from '@navikt/ds-react';
 import { Datepicker } from '@navikt/ds-datepicker';
-import '@navikt/ds-datepicker/lib/index.css';
-import style from './Project.module.scss';
-import ProjectTeam from '../projectTeam';
-import { format, toDate } from 'date-fns';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
+import '@navikt/ds-datepicker/lib/index.css';
+import { Button, Label, Textarea, TextField } from '@navikt/ds-react';
+import { ChangeEvent, ReactElement, useState } from 'react';
 import { IInsightPojectErrors } from '../../../validation/insightPoject/IInsightProjectErrors';
 import { validateInsightProject } from '../../../validation/insightPoject/validateInsightProject';
 import ErrorList from '../misc/validation/ErrorList';
-import ErrorField from '../misc/validation/ErrorField';
+import ProjectTeam from '../projectTeam';
+import style from './Project.module.scss';
 
 interface IProps {
     project: IInsightProject;
@@ -87,7 +85,7 @@ export const ProjectEdit = ({
             )}
             <ProjectTeam project={project} edit={setProject} />
             {errorMessages.projectTeamErrorMsg && (
-                <ErrorField errorMsg={errorMessages.projectTeamErrorMsg}/>
+                <ErrorList errorMessages={[errorMessages.projectTeamErrorMsg]}/>
             )}
             <Button
                 loading={loading}

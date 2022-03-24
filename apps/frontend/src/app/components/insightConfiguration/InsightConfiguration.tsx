@@ -13,7 +13,6 @@ import { IInsightErrors } from '../../../validation/insight/IInsightErrors';
 import { Datepicker } from '@navikt/ds-datepicker';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 import ErrorList from '../misc/validation/ErrorList';
-import ErrorField from '../misc/validation/ErrorField';
 
 interface IProps {
     insight: IInsight;
@@ -156,7 +155,7 @@ export const InsightConfiguration = ({
                             + Legg til samtykke
                         </Button>
                         {errorMessages.consentsErrorMsg && (
-                            <ErrorField errorMsg={errorMessages.consentsErrorMsg}/>
+                            <ErrorList errorMessages={[errorMessages.consentsErrorMsg]}/>
                         )}
                     </div>
                 </div>

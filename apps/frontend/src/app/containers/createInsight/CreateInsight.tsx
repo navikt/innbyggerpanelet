@@ -11,8 +11,8 @@ import { APIHandler } from '../../components/misc/apiHandler';
 
 import style from './CreateInsight.module.scss';
 import { IInsightErrors } from '../../../validation/insight/IInsightErrors';
-import ErrorField from '../../components/misc/validation/ErrorField';
 import { validateInsight } from '../../..//validation/insight/validateInsight';
+import ErrorList from '../../components/misc/validation/ErrorList';
 
 const defaultInsight: IInsight = {
     id: 0,
@@ -125,7 +125,7 @@ export const CreateInsight = (): ReactElement => {
                         );
                     }) || <APIHandler error={error} loading={loading} />}
                     {errorMessages.candidatesErrorMsg && (
-                        <ErrorField errorMsg={errorMessages.candidatesErrorMsg}/>
+                        <ErrorList errorMessages={[errorMessages.candidatesErrorMsg]}/>
                     )}
                 </div>
             </Panel>
