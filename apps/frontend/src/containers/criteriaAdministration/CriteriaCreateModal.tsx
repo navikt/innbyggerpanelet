@@ -1,7 +1,7 @@
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { ICriteriaErrors, validateCriteria } from '../../../validation/criteria';
+import { ICriteriaErrors, validateCriteria } from '../../validation/criteria';
 import { createCriteria } from '../../api/mutations/mutateCriteria';
 import style from './CriteriaAdminPanel.module.scss';
 

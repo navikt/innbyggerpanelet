@@ -2,7 +2,7 @@ import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { validateRegisterUser, IRegisterUserErrors } from '../../../validation/registerUser';
+import { validateRegisterUser, IRegisterUserErrors } from '../../validation/registerUser';
 import { createUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
 import style from './RegisterUser.module.scss';

@@ -3,7 +3,7 @@ import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { updateUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import { validateRegisterUser, IRegisterUserErrors } from '../../../validation/registerUser';
+import { validateRegisterUser, IRegisterUserErrors } from '../../validation/registerUser';
 import style from './UserProfile.module.scss';
 
 interface IProps {

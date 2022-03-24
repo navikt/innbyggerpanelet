@@ -4,7 +4,7 @@ import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 import '@navikt/ds-datepicker/lib/index.css';
 import { Button, Label, Textarea, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { validateInsightProject, IInsightPojectErrors } from '../../../validation/insightPoject';
+import { validateInsightProject, IInsightPojectErrors } from '../../validation/insightPoject';
 import ErrorList from '../misc/validation/ErrorList';
 import ProjectTeam from '../projectTeam';
 import style from './Project.module.scss';

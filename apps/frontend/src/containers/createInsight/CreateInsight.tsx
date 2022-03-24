@@ -9,7 +9,7 @@ import { createInsight } from '../../api/mutations/mutateInsight';
 import { createCandidates } from '../../api/mutations/mutateCandidate';
 import { APIHandler } from '../../components/misc/apiHandler';
 import style from './CreateInsight.module.scss';
-import { validateInsight, IInsightErrors  } from '../../../validation/insight';
+import { validateInsight, IInsightErrors  } from '../../validation/insight';
 import ErrorList from '../../components/misc/validation/ErrorList';
 import { IMutation } from '../../api/mutations/IMutation';
 
