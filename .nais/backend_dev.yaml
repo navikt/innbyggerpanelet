@@ -40,6 +40,13 @@ spec:
   azure: 
     application:
       enabled: true
+
+      tenant: nav.no
+
+      replyURLs:
+        - "https://innbyggerpanelet-backend.dev.intern.nav.no/oauth2/callback"
+        - "http://localhost/oauth2/callback"
+
       claims: 
         groups: 
           - id: '05b12878-6da7-409d-95f5-31139ce4eea8'
