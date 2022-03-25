@@ -1,8 +1,8 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
-import isEmail from '../utils/isEmail';
 import { isFieldEmpty } from '../utils/isFieldEmpty';
 import isNorwegianPhoneNumber from '../utils/isNorwegainPhoneNumber';
 import { IRegisterUserErrors } from './IRegisterUserErrors';
+import validator from 'validator';
 
 export function validateRegisterUser(user: IUser): { isValid: boolean, errorMessages: IRegisterUserErrors} {
     let isValid = true;
@@ -32,7 +32,7 @@ function validateEmail(email: string): { isValid: boolean, errorMsg: string} {
     let isValid = true;
     let errorMsg = '';
 
-    if (!isEmail(email)) {
+    if (!validator.isEmail(email)) {
         errorMsg = 'Eposten er ikke på riktig format';
         isValid = false;
     }
