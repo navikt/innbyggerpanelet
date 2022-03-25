@@ -51,6 +51,7 @@
         "swr": "^1.1.2",
         "tslib": "^2.0.0",
         "typeorm": "^0.2.41",
+        "validator": "^13.7.0",
         "winston": "^3.6.0"
     },
     "devDependencies": {
