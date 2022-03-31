@@ -9,13 +9,14 @@ export interface IErrorMessages<T> {
     otherErrorMessages: T | undefined
 } 
 
-export const errorMessageState: IErrorMessages<
+export const errorMessageState: IErrorMessages<errorMessageTypes> = {
+    nameErrorMessages: '',
+    otherErrorMessages: undefined
+};
+
+export type errorMessageTypes = 
     ICriteriaErrors | 
     ICriteriaCategoryErrors |
     IInsightErrors |
     IInsightPojectErrors |
     IRegisterUserErrors
-> = {
-    nameErrorMessages: '',
-    otherErrorMessages: undefined
-};

@@ -11,25 +11,28 @@ import Breadcrumbs from './components/misc/breadcrumbs/';
 import NotFound from './components/misc/notFound';
 import { InsightProjectOverview } from './containers/project/InsightProjectOverview';
 import RegisterUser from './containers/registerUser';
+import { ProvideErrorMessageContext } from './core/context/ErrorMessageContext';
 
 // Root
 ReactDOM.render(
     <StrictMode>
-        <HashRouter>
-            <Header />
-            <Breadcrumbs />
-            <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/prosjekt" element={<InsightProjectOverview />} />
-                <Route path="/prosjekt/ny" element={<CreateInsightProject />} />
-                <Route path="/prosjekt/:id" element={<InsightProject />} />
-                <Route path="/prosjekt/:id/innsikt" element={<CreateInsight />} />
-                <Route path="/profil" element={<UserProfile />} />
-                <Route path="/registrer" element={<RegisterUser />} />
-                <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </HashRouter>
+        <ProvideErrorMessageContext>
+            <HashRouter>
+                <Header />
+                <Breadcrumbs />
+                <Routes>
+                    <Route path="/" element={<App />} />
+                    <Route path="/prosjekt" element={<InsightProjectOverview />} />
+                    <Route path="/prosjekt/ny" element={<CreateInsightProject />} />
+                    <Route path="/prosjekt/:id" element={<InsightProject />} />
+                    <Route path="/prosjekt/:id/innsikt" element={<CreateInsight />} />
+                    <Route path="/profil" element={<UserProfile />} />
+                    <Route path="/registrer" element={<RegisterUser />} />
+                    <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </HashRouter>
+        </ProvideErrorMessageContext>
     </StrictMode>,
     document.getElementById('root')
 );
