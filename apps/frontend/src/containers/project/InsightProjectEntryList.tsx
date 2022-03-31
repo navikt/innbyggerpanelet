@@ -1,11 +1,9 @@
-import { Button, Heading, Label, Loader, Panel } from '@navikt/ds-react';
+import { Button, Heading, Label, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInsightsByProjectId } from '../../api/hooks/useInsight';
-import { APIError } from '../../components/misc/apiError/APIError';
 import { APIHandler } from '../../components/misc/apiHandler/APIHandler';
 import { ProjectInsightEntry } from '../../components/project';
-
 import style from './Project.module.scss';
 
 interface IProps {

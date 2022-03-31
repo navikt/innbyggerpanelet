@@ -21,7 +21,8 @@ userRoutes.get('/', async (req, res, next) => {
 // Needs to be defined before /:id
 userRoutes.get('/prioritized', async (req, res, next) => {
     try {
-        const criterias = req.query.criterias as unknown as string[];
+        // If list is undefined, make it empty
+        const criterias = (req.query.criterias as unknown as string[]) || [];
 
         const userService = new UserService(database);
         const result: User[] = await userService.prioritizedUsers(criterias);

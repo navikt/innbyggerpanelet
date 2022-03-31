@@ -22,6 +22,9 @@ export const APIHandler = ({ loading, error }: IProps): ReactElement => {
             case 403:
                 element = <Heading size="medium">Du har ikke tilgang til denne siden.</Heading>;
                 break;
+            case 400:
+                element = <Heading size="medium">Sjekk at alle feltene er utfylt.</Heading>;
+                break;
             default:
                 element = <Heading size="medium">Det har skjedd en feil...</Heading>;
         }
