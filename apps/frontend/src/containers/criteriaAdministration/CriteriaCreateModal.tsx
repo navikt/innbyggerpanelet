@@ -1,9 +1,10 @@
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { ICriteriaErrors, validateCriteria } from '../../validation/criteria';
+import { validateCriteria } from '../../validation/criteria';
 import { createCriteria } from '../../api/mutations/mutateCriteria';
 import style from './CriteriaAdminPanel.module.scss';
+import { IErrorMessage } from '../../validation/IErrorMessage';
 
 interface IProps {
     category: ICriteriaCategory;
@@ -20,7 +21,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
 
     const [posting, setPosting] = useState(false);
 
-    const [errorMessages, setErrorMessages] = useState<ICriteriaErrors>({
+    const [errorMessages, setErrorMessages] = useState<IErrorMessage>({
         nameErrorMsg: ''
     });
 

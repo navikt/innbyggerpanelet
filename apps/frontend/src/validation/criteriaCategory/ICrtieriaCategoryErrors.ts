@@ -1,4 +1,5 @@
-export interface ICriteriaCategoryErrors {
-    nameErrorMsg: string
+import { IErrorMessage } from '../IErrorMessage';
+
+export interface ICriteriaCategoryErrors extends IErrorMessage {
     descriptionErrorMsg: string
 }

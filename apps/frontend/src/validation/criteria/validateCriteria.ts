@@ -1,15 +1,15 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
+import { IErrorMessage } from '../IErrorMessage';
 import { isFieldEmpty } from '../utils/isFieldEmpty';
-import { ICriteriaErrors } from './ICriteriaErrors';
 
 export function validateCriteria(
     criteria: ICriteria
 ): {
     isValid: boolean,
-    errorMessages: ICriteriaErrors
+    errorMessages: IErrorMessage
 } {
     let isValid = true;
-    const errorMessages: ICriteriaErrors = {
+    const errorMessages: IErrorMessage = {
         nameErrorMsg: ''
     };
 

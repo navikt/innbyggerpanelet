@@ -3,7 +3,8 @@ import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { updateUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import { validateRegisterUser, IRegisterUserErrors } from '../../validation/registerUser';
+import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
+import { validateRegisterUser } from '../../validation/registerUser';
 import style from './UserProfile.module.scss';
 
 interface IProps {
@@ -15,11 +16,8 @@ export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElem
     const [user, setUser] = useState<IUser>(originalUser);
     const [patching, setPatching] = useState(false);
     
-    const [errorMessages, setErrorMessages] = useState<IRegisterUserErrors>({
-        nameErrorMsg: '',
-        emailErrorMsg: '',
-        phoneErrorMsg: ''
-    });
+    const errorMessageDispatch = useErrorMessageDispatcher();
+    const errorMessages = useErrorMessageState();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...user };
@@ -35,15 +33,20 @@ export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElem
             if (response) {
                 toggleEdit();
             } else if (isError?.response?.status === 406) {
-                setErrorMessages({
+                errorMessageDispatch.setErrorMessages({
                     nameErrorMsg: errorMessages.nameErrorMsg,
-                    emailErrorMsg: 'En bruker med denne eposten finnes allerede',
+                    emailErrorMsg: validateRegisterUser(user).errorMessages.emailErrorMsg,
                     phoneErrorMsg: errorMessages.phoneErrorMsg
                 });
+                // setErrorMessages({
+                //     nameErrorMsg: errorMessages.otherErrorMessages?.nameErrorMsg,
+                //     emailErrorMsg: 'En bruker med denne eposten finnes allerede',
+                //     phoneErrorMsg: errorMessages.otherErrorMessages?.phoneErrorMsg
+                // });
                 setPatching(false);
             }
         } else {
-            setErrorMessages(validateRegisterUser(user).errorMessages);
+            errorMessageDispatch.setErrorMessages(validateRegisterUser(user).errorMessages);
         }
 
 

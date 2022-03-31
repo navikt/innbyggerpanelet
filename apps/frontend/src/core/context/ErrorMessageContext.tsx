@@ -1,11 +1,13 @@
 import { createContext, ReactElement, useContext, useState } from 'react';
-import { errorMessageState, errorMessageTypes, IErrorMessages } from './errorMessageState';
+import { IErrorMessage } from '../../validation/IErrorMessage';
 
 export interface IErrorMessageDispatcher {
-    setErrorMessages: (errorMessages: IErrorMessages<errorMessageTypes>) => void
+    setErrorMessages: (errorMessages: IErrorMessage) => void
 }
 
-const errorMessageContext = createContext(errorMessageState);
+const errorMsgState = {nameErrorMsg: ''};
+
+const errorMessageContext = createContext(errorMsgState);
 const errorMessageDispatch = createContext({} as IErrorMessageDispatcher);
 
 function ProvideErrorMessageContext({
@@ -14,10 +16,10 @@ function ProvideErrorMessageContext({
     children: Array<ReactElement> | ReactElement
 }): ReactElement {
 
-    const [state, setState] = useState({...errorMessageState});
+    const [state, setState] = useState<IErrorMessage>({...errorMsgState});
 
     const dispatcher: IErrorMessageDispatcher = {
-        setErrorMessages: (errorMessages: IErrorMessages<errorMessageTypes>) => {
+        setErrorMessages: (errorMessages: IErrorMessage) => {
             setState(errorMessages);
         }
     };
@@ -29,7 +31,7 @@ function ProvideErrorMessageContext({
     );
 }
 
-const useErrorMessageState = (): IErrorMessages<errorMessageTypes> => {
+const useErrorMessageState = (): IErrorMessage => {
     return useContext(errorMessageContext);
 };
 
@@ -37,4 +39,4 @@ const useErrorMessageDispatcher = (): IErrorMessageDispatcher => {
     return useContext(errorMessageDispatch);
 };
 
-export {ProvideErrorMessageContext, useErrorMessageState, useErrorMessageDispatcher };
+export { ProvideErrorMessageContext, useErrorMessageState, useErrorMessageDispatcher };

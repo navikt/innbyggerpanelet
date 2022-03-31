@@ -1,14 +1,14 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Panel, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement } from 'react';
-import { IRegisterUserErrors } from '../../validation/registerUser';
+import { IErrorMessage } from '../../validation/IErrorMessage';
 import style from './UserContactInfoForm.module.scss';
 
 
 interface IProps {
     user: IUser;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    errorMessages: IRegisterUserErrors
+    errorMessages: IErrorMessage
 }
 
 export const UserContactInfoForm = ({ 
