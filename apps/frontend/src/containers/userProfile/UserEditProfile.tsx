@@ -31,18 +31,14 @@ export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElem
             setPatching(true);
             const { response, isError } = await updateUser({ ...user, latestUpdate: Date.now().toString() });
             if (response) {
+                errorMessageDispatch.clearErrorMessages();
                 toggleEdit();
-            } else if (isError?.response?.status === 406) {
+            } else if (isError && isError.response?.status === 406) {
                 errorMessageDispatch.setErrorMessages({
                     nameErrorMsg: errorMessages.nameErrorMsg,
                     emailErrorMsg: validateRegisterUser(user).errorMessages.emailErrorMsg,
                     phoneErrorMsg: errorMessages.phoneErrorMsg
                 });
-                // setErrorMessages({
-                //     nameErrorMsg: errorMessages.otherErrorMessages?.nameErrorMsg,
-                //     emailErrorMsg: 'En bruker med denne eposten finnes allerede',
-                //     phoneErrorMsg: errorMessages.otherErrorMessages?.phoneErrorMsg
-                // });
                 setPatching(false);
             }
         } else {

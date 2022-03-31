@@ -1,12 +1,12 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { isFieldEmpty } from '../utils/isFieldEmpty';
 import isNorwegianPhoneNumber from '../utils/isNorwegainPhoneNumber';
-import { IRegisterUserErrors } from './IRegisterUserErrors';
 import validator from 'validator';
+import { IErrorMessage } from '../IErrorMessage';
 
-export function validateRegisterUser(user: IUser): { isValid: boolean, errorMessages: IRegisterUserErrors} {
+export function validateRegisterUser(user: IUser): { isValid: boolean, errorMessages: IErrorMessage} {
     let isValid = true;
-    const errorMessages: IRegisterUserErrors = {
+    const errorMessages: IErrorMessage = {
         nameErrorMsg: '',
         emailErrorMsg: '',
         phoneErrorMsg: ''

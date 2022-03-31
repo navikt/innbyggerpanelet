@@ -1,16 +1,16 @@
 import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
+import { IErrorMessage } from '../IErrorMessage';
 import { isFieldEmpty } from '../utils/isFieldEmpty';
 import { validateStartEndDates } from '../validateStartEndDates';
-import { IInsightPojectErrors } from './IInsightProjectErrors';
 
 export function validateInsightProject(
     insightProject: IInsightProject
 ): { 
     isValid: boolean, 
-    errorMesseges: IInsightPojectErrors 
+    errorMesseges: IErrorMessage 
 } {
     let isValid = true;
-    const errorMesseges: IInsightPojectErrors = {
+    const errorMesseges: IErrorMessage = {
         nameErrorMsg: '',
         descriptionErrorMsg: '',
         datesErrorMsg: [],

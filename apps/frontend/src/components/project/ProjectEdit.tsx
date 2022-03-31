@@ -3,8 +3,9 @@ import { Datepicker } from '@navikt/ds-datepicker';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 import '@navikt/ds-datepicker/lib/index.css';
 import { Button, Label, Textarea, TextField } from '@navikt/ds-react';
-import { ChangeEvent, ReactElement, useState } from 'react';
-import { validateInsightProject, IInsightPojectErrors } from '../../validation/insightPoject';
+import { ChangeEvent, ReactElement } from 'react';
+import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
+import { validateInsightProject } from '../../validation/insightPoject';
 import ErrorList from '../misc/validation/ErrorList';
 import ProjectTeam from '../projectTeam';
 import style from './Project.module.scss';
@@ -22,14 +23,9 @@ export const ProjectEdit = ({
     submit,
     loading,
 }: IProps): ReactElement => {
-    const [errorMessages, setErrorMessages] = useState<IInsightPojectErrors>(
-        {
-            nameErrorMsg: '',
-            descriptionErrorMsg: '',
-            datesErrorMsg: [],
-            projectTeamErrorMsg: ''
-        }
-    );
+    
+    const errorMessageDispatch = useErrorMessageDispatcher();
+    const errorMessages = useErrorMessageState();
     
     const handleDateChange = (value: DatepickerValue, id: string) => {
         const newProject = { ...project};
@@ -47,9 +43,10 @@ export const ProjectEdit = ({
     
     const onProjectSubmit = () => {
         if (validateInsightProject(project).isValid) {
+            errorMessageDispatch.clearErrorMessages();
             submit(project);
         } else {
-            setErrorMessages(validateInsightProject(project).errorMesseges);
+            errorMessageDispatch.setErrorMessages(validateInsightProject(project).errorMesseges);
         }
     };
 

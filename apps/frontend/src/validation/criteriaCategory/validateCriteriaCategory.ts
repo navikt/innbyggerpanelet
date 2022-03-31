@@ -1,15 +1,15 @@
 import { ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
+import { IErrorMessage } from '../IErrorMessage';
 import { isFieldEmpty } from '../utils/isFieldEmpty';
-import { ICriteriaCategoryErrors } from './ICrtieriaCategoryErrors';
 
 export function validateCriteriaCategory(
     criteriaCategory: ICriteriaCategory
 ): {
     isValid: boolean,
-    errorMessages: ICriteriaCategoryErrors
+    errorMessages: IErrorMessage
 } {
     let isValid = true;
-    const errorMessages: ICriteriaCategoryErrors = {
+    const errorMessages: IErrorMessage = {
         nameErrorMsg: '',
         descriptionErrorMsg: ''
     };
@@ -20,6 +20,7 @@ export function validateCriteriaCategory(
     }
     if (!isFieldEmpty(criteriaCategory.description).isEmpty) {
         errorMessages.descriptionErrorMsg = isFieldEmpty(criteriaCategory.description, 'beskrivelse').errorMsg;
+        isValid = false;
     }
 
     return { isValid, errorMessages };

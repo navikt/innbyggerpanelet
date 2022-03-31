@@ -9,15 +9,15 @@ import { CriteriasSearchModal } from './CriteriasSearchModal';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 
 import style from './InsightConfiguration.module.scss';
-import { IInsightErrors } from '../../validation/insight';
 import { Datepicker } from '@navikt/ds-datepicker';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 import ErrorList from '../misc/validation/ErrorList';
+import { IErrorMessage } from '../../validation/IErrorMessage';
 
 interface IProps {
     insight: IInsight;
     setInsight: (insight: IInsight) => void;
-    errorMessages: IInsightErrors
+    errorMessages: IErrorMessage
 }
 
 export const InsightConfiguration = ({
@@ -112,8 +112,8 @@ export const InsightConfiguration = ({
                             />
                         </div>
                     </div>
-                    {errorMessages.datesErrorMsg.length > 0 && (
-                        <ErrorList errorMessages={errorMessages.datesErrorMsg}/>
+                    {errorMessages.datesErrorMsg!.length > 0 && (
+                        <ErrorList errorMessages={errorMessages.datesErrorMsg!}/>
                     )}
                 </div>
                 <div className={style.insightSpecs}>

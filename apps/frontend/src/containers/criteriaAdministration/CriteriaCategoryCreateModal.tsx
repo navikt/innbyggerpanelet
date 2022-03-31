@@ -1,9 +1,10 @@
 import { ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
-import { validateCriteriaCategory, ICriteriaCategoryErrors } from '../../validation/criteriaCategory';
+import { validateCriteriaCategory } from '../../validation/criteriaCategory';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { createCriteriaCategory } from '../../api/mutations/mutateCriteriaCategory';
 import style from './CriteriaAdminPanel.module.scss';
+import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
 
 interface IProps {
     open: boolean;
@@ -20,10 +21,8 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
     const [category, setCategory] = useState<ICriteriaCategory>(defaultCategory);
     const [posting, setPosting] = useState(false);
 
-    const [errorMessages, setErrorMessages] = useState<ICriteriaCategoryErrors>({
-        nameErrorMsg: '',
-        descriptionErrorMsg: ''
-    });
+    const errorMessageDispatch = useErrorMessageDispatcher();
+    const errorMessages = useErrorMessageState();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...category };
@@ -41,12 +40,13 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
 
             if (response) {
                 setPosting(false);
+                errorMessageDispatch.clearErrorMessages();
                 close();
             } else if (isError) {
                 console.error(isError);
             }
         } else {
-            setErrorMessages(validateCriteriaCategory(category).errorMessages);
+            errorMessageDispatch.setErrorMessages(validateCriteriaCategory(category).errorMessages);
         }
     };
 

@@ -2,10 +2,11 @@ import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { validateRegisterUser, IRegisterUserErrors } from '../../validation/registerUser';
+import { validateRegisterUser } from '../../validation/registerUser';
 import { createUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
 import style from './RegisterUser.module.scss';
+import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
 
 const defaultUser: IUser = {
     id: 0,
@@ -20,13 +21,8 @@ export const RegisterUser = (): ReactElement => {
     const [user, setUser] = useState<IUser>(defaultUser);
     const [posting, setPosting] = useState(false);
     
-    const [errorMessages, setErrorMessages] = useState<IRegisterUserErrors>(
-        {
-            nameErrorMsg: '',
-            emailErrorMsg: '',
-            phoneErrorMsg: ''
-        }
-    );
+    const errorMessageDispatch = useErrorMessageDispatcher();
+    const errorMessages = useErrorMessageState();
 
     const navigate = useNavigate();
 
@@ -44,19 +40,18 @@ export const RegisterUser = (): ReactElement => {
             const { response, isError } = await createUser(user);
 
             if (response) {
+                errorMessageDispatch.clearErrorMessages();
                 navigate('/profil');
-            } else if (isError) {
-                if (isError.response?.status === 406) {
-                    setErrorMessages({
-                        nameErrorMsg: errorMessages.nameErrorMsg,
-                        emailErrorMsg: 'En bruker med denne eposten finnes allerede',
-                        phoneErrorMsg: errorMessages.phoneErrorMsg
-                    });
-                    setPosting(false);
-                }
+            } else if (isError && isError.response?.status === 406) {
+                errorMessageDispatch.setErrorMessages({
+                    nameErrorMsg: errorMessages.nameErrorMsg,
+                    emailErrorMsg: validateRegisterUser(user).errorMessages.emailErrorMsg,
+                    phoneErrorMsg: errorMessages.phoneErrorMsg
+                });
+                setPosting(false);
             }
         } else {
-            setErrorMessages(validateRegisterUser(user).errorMessages);
+            errorMessageDispatch.setErrorMessages(validateRegisterUser(user).errorMessages);
         }
     };
 

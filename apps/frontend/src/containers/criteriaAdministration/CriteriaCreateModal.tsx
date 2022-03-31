@@ -4,7 +4,7 @@ import { ChangeEvent, ReactElement, useState } from 'react';
 import { validateCriteria } from '../../validation/criteria';
 import { createCriteria } from '../../api/mutations/mutateCriteria';
 import style from './CriteriaAdminPanel.module.scss';
-import { IErrorMessage } from '../../validation/IErrorMessage';
+import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
 
 interface IProps {
     category: ICriteriaCategory;
@@ -21,9 +21,8 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
 
     const [posting, setPosting] = useState(false);
 
-    const [errorMessages, setErrorMessages] = useState<IErrorMessage>({
-        nameErrorMsg: ''
-    });
+    const errorMessageDispatch = useErrorMessageDispatcher();
+    const errorMessages = useErrorMessageState();
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newCriteria = { ...criteria };
@@ -35,6 +34,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
         if (validateCriteria(criteria).isValid) {
             const { response, isLoading, isError } = await createCriteria(criteria);
             if (response) {
+                errorMessageDispatch.clearErrorMessages();
                 close();
             } else if (isLoading) {
                 setPosting(true);
@@ -42,7 +42,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
                 console.error(isError);
             }
         } else {
-            setErrorMessages(validateCriteria(criteria).errorMessages);
+            errorMessageDispatch.setErrorMessages(validateCriteria(criteria).errorMessages);
         }
     };
 

@@ -1,17 +1,17 @@
 import { ICandidate, IConsent, IInsight } from '@innbyggerpanelet/api-interfaces';
+import { IErrorMessage } from '../IErrorMessage';
 import { isFieldEmpty } from '../utils/isFieldEmpty';
 import { validateStartEndDates } from '../validateStartEndDates';
-import { IInsightErrors } from './IInsightErrors';
 
 export function validateInsight(
     insight: IInsight,
     candidates: ICandidate[]
 ): {
     isValid: boolean,
-    errorMesseges: IInsightErrors
+    errorMesseges: IErrorMessage
 } {
     let isValid = true;
-    const errorMesseges: IInsightErrors = {
+    const errorMesseges: IErrorMessage = {
         nameErrorMsg: '',
         descriptionErrorMsg: '',
         datesErrorMsg: [],

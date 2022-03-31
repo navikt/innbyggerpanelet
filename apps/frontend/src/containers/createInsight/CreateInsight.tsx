@@ -9,9 +9,10 @@ import { createInsight } from '../../api/mutations/mutateInsight';
 import { createCandidates } from '../../api/mutations/mutateCandidate';
 import { APIHandler } from '../../components/misc/apiHandler';
 import style from './CreateInsight.module.scss';
-import { validateInsight, IInsightErrors  } from '../../validation/insight';
+import { validateInsight } from '../../validation/insight';
 import ErrorList from '../../components/misc/validation/ErrorList';
 import { IMutation } from '../../api/mutations/IMutation';
+import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
 
 const defaultInsight: IInsight = {
     id: 0,
@@ -42,13 +43,8 @@ export const CreateInsight = (): ReactElement => {
 
     const { users, loading, error } = useUserByCriterias(insight.criterias);
 
-    const [errorMessages, setErrorMesages] = useState<IInsightErrors>({
-        nameErrorMsg: '',
-        descriptionErrorMsg: '',
-        datesErrorMsg: [],
-        consentsErrorMsg: '',
-        candidatesErrorMsg: ''
-    });
+    const errorMessageDispatch = useErrorMessageDispatcher();
+    const errorMessages = useErrorMessageState();
 
     const handleSubmit = async () => {
         if (!id) throw new Error('This project does not exist.');
@@ -78,12 +74,13 @@ export const CreateInsight = (): ReactElement => {
             const candidatesMutation = await createCandidates(configuredCandidates);
 
             if (candidatesMutation.response) {
+                errorMessageDispatch.clearErrorMessages();
                 navigate(`/prosjekt/${id}`);
             } else if (candidatesMutation.isError) {
                 throw new Error('Failed to post candidates');
             }
         } else {
-            setErrorMesages(validateInsight(insight, candidates).errorMesseges);
+            errorMessageDispatch.setErrorMessages(validateInsight(insight, candidates).errorMesseges);
         }
 
     };

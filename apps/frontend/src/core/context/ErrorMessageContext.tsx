@@ -3,9 +3,10 @@ import { IErrorMessage } from '../../validation/IErrorMessage';
 
 export interface IErrorMessageDispatcher {
     setErrorMessages: (errorMessages: IErrorMessage) => void
+    clearErrorMessages: () => void
 }
 
-const errorMsgState = {nameErrorMsg: ''};
+const errorMsgState: IErrorMessage = { nameErrorMsg: '', datesErrorMsg: [] };
 
 const errorMessageContext = createContext(errorMsgState);
 const errorMessageDispatch = createContext({} as IErrorMessageDispatcher);
@@ -21,6 +22,18 @@ function ProvideErrorMessageContext({
     const dispatcher: IErrorMessageDispatcher = {
         setErrorMessages: (errorMessages: IErrorMessage) => {
             setState(errorMessages);
+        },
+        clearErrorMessages: () => {
+            setState({
+                nameErrorMsg: '',
+                descriptionErrorMsg: '',
+                emailErrorMsg: '',
+                datesErrorMsg: [],
+                projectTeamErrorMsg: '',
+                phoneErrorMsg: '',
+                consentsErrorMsg: '',
+                candidatesErrorMsg: ''
+            });
         }
     };
 
