@@ -47,6 +47,10 @@ export class UserService extends BaseService<User> {
     }
 
     async prioritizedUsers(criteriaIds: string[]): Promise<User[] | undefined> {
+        if (criteriaIds.length === 0) {
+            throw new NotFoundError({ message: ServerErrorMessage.invalidData()});
+        }
+
         const users = await this._userRepository
             .createQueryBuilder('user')
             .leftJoinAndSelect('user.criterias', 'criteria', 'criteria.id IN (:...criteriaIds)', { criteriaIds })
