@@ -45,7 +45,7 @@ spec:
 
       replyURLs:
         - "https://innbyggerpanelet-backend.dev.intern.nav.no/oauth2/callback"
-        - "http://localhost/oauth2/callback"
+        - "http://localhost/api/azure/oauth2/callback"
 
   accessPolicy:
     inbound:
