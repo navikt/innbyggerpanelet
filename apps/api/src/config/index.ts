@@ -11,8 +11,7 @@ let password;
 const azureAd = {
     clientId: process.env.AZURE_APP_CLIENT_ID,
     secret: process.env.AZURE_APP_CLIENT_SECRET,
-    tenantId: process.env.AZURE_APP_TENANT_ID,
-    jwks: JSON.parse(process.env.AZURE_APP_JWKS)
+    tenantId: process.env.AZURE_APP_TENANT_ID
 };
 
 const frontend = {

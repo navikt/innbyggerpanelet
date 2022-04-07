@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import morgan from 'morgan';
-import authRoutes from './AuthRoutes';
 import azureADRoutes from './AzureADRoutes';
 import candidateRoutes from './CandidateRoutes';
 import consentRoutes from './ConsentRoutes';
@@ -13,7 +12,6 @@ import userRoutes from './UserRoutes';
 
 const routes = Router()
     .use(morgan('dev'))
-    .use('/auth', authRoutes)
     .use('/azure', azureADRoutes)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)

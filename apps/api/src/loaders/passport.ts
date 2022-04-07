@@ -1,9 +1,20 @@
+import session from 'express-session';
 import { Issuer, Strategy, TokenSet } from 'openid-client';
 import passport from 'passport';
 import { database } from '.';
 import config from '../config';
 import { User } from '../models/user/UserEntity';
 import { UserService } from '../services';
+
+export interface IPassportSession extends session.Session {
+    passport: {
+        user: {
+            claims: {
+                oid: string;
+            };
+        };
+    };
+}
 
 const passportLoader = async () => {
     const azureADIssuer = await Issuer.discover(
