@@ -11,9 +11,9 @@ export function errorHandler(error: Error, request: Request, response: Response,
     }
 
     if (error instanceof QueryFailedError) {
-        const error = new BadRequestError({ message: ServerErrorMessage.invalidData()});
+        const error = new BadRequestError({ message: ServerErrorMessage.invalidData() });
         return response.status(error.httpStatus).json(error.toResponse());
     }
 
-    return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json('Something went wrong.. Try again alter');
+    return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json('Something went wrong.. Try again later.' + error);
 }

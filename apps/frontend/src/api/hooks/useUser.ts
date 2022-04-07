@@ -5,7 +5,7 @@ import { fetcher } from '../operations';
 
 export const useUser = () => {
     // TODO auth, get actual user and not id = 1
-    const { data, error } = useSWR<IUser, AxiosError>('/api/user/1', fetcher);
+    const { data, error } = useSWR<IUser, AxiosError>('/api/user/me', fetcher);
 
     return { user: data, loading: !data && !error, error: error };
 };

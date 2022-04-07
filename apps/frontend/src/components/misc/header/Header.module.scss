@@ -1,12 +1,25 @@
-.wrapper {
-    display: block;
+.banner {
     width: 100%;
-    background-color: var(--nav-dark-blue);
-    text-align: center;
-    padding: 1rem;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #fefefe;
+    padding: 3rem;
 }
 
-.wrapper a {
-    color: white;
+.banner > a {
+    color: black;
     text-decoration: none;
+}
+
+.banner > .buttonGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 0.3;
+
+    > a {
+        margin: auto 0;
+    }
 }

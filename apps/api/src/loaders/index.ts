@@ -3,13 +3,14 @@ import { Connection } from 'typeorm';
 import expressLoader from '../loaders/express';
 import typeormLoader from '../loaders/typeorm';
 import { logger } from './logger';
+import passportLoader from './passport';
 
 let database!: Connection;
 
 let loaded = false;
 export const load = async ({ server }: { server: Application }) => {
     if (loaded) throw new Error('API is already loaded...');
-    
+
     logger.info('-- loading express... --');
     const loadedExpress = await expressLoader({ server });
     logger.info('------ EXPRESS LOADED');
@@ -20,9 +21,13 @@ export const load = async ({ server }: { server: Application }) => {
 
     database = loadedTypeOrm;
 
+    logger.info('-- loading passport... --');
+    const loadedPassport = await passportLoader();
+    logger.info('------ PASSPORT LOADED');
+
     loaded = true;
 
-    return { loadedExpress, loadedTypeOrm };
+    return { loadedExpress, loadedPassport, loadedTypeOrm };
 };
 
 export { database };

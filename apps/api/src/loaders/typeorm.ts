@@ -1,7 +1,6 @@
 import { ConnectionOptions, createConnection } from 'typeorm';
 import config from '../config';
 import models from '../models';
-import dotenv from 'dotenv'
 
 export default async () => {
     const typeormConfig: ConnectionOptions = {
@@ -12,7 +11,7 @@ export default async () => {
         username: config.database.user,
         password: config.database.password,
         synchronize: true,
-        entities: models,
+        entities: models
     };
 
     const connection = await createConnection(typeormConfig);
