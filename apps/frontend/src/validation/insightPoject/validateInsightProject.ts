@@ -7,10 +7,10 @@ export function validateInsightProject(
     insightProject: IInsightProject
 ): { 
     isValid: boolean, 
-    errorMesseges: IErrorMessage 
+    errorMessages: IErrorMessage 
 } {
     let isValid = true;
-    const errorMesseges: IErrorMessage = {
+    const errorMessages: IErrorMessage = {
         nameErrorMsg: '',
         descriptionErrorMsg: '',
         datesErrorMsg: [],
@@ -18,23 +18,23 @@ export function validateInsightProject(
     };
 
     if (!isFieldEmpty(insightProject.name).isEmpty) {
-        errorMesseges.nameErrorMsg = isFieldEmpty(insightProject.name, 'navn').errorMsg;
+        errorMessages.nameErrorMsg = isFieldEmpty(insightProject.name, 'navn').errorMsg;
         isValid = false;
     }
     if (!isFieldEmpty(insightProject.description).isEmpty) {
-        errorMesseges.descriptionErrorMsg = isFieldEmpty(insightProject.description, 'beskrivelse').errorMsg;
+        errorMessages.descriptionErrorMsg = isFieldEmpty(insightProject.description, 'beskrivelse').errorMsg;
         isValid = false;
     }
     if (!validateStartEndDates(insightProject.start, insightProject.end).isValid) {
-        errorMesseges.datesErrorMsg = validateStartEndDates(insightProject.start, insightProject.end).errorMsgs;
+        errorMessages.datesErrorMsg = validateStartEndDates(insightProject.start, insightProject.end).errorMsgs;
         isValid = false;
     }
     if (!validateTeam(insightProject.members).isValid) {
-        errorMesseges.projectTeamErrorMsg = validateTeam(insightProject.members).errorMsg;
+        errorMessages.projectTeamErrorMsg = validateTeam(insightProject.members).errorMsg;
         isValid = false;
     }
 
-    return { isValid, errorMesseges};
+    return { isValid, errorMessages};
 }
 
 function validateTeam(team: IUser[]): { isValid: boolean, errorMsg: string} {
