@@ -21,8 +21,6 @@ const passportLoader = async () => {
         `https://login.microsoftonline.com/${config.azureAd.tenantId}/v2.0/.well-known/openid-configuration`
     );
 
-    console.log(config.backend.url);
-
     const client = new azureADIssuer.Client({
         client_id: config.azureAd.clientId,
         client_secret: config.azureAd.secret,
