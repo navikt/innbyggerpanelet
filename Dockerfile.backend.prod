@@ -2,6 +2,7 @@ FROM node:14
 
 ENV IS_PROD=yes
 ENV CLIENT_URL=https://innbyggerpanelet.dev.intern.nav.no
+ENV API_URL=https://innbyggerpanelet-backend.dev.intern.nav.no
 
 
 WORKDIR /app
