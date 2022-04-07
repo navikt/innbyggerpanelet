@@ -18,6 +18,10 @@ const frontend = {
     url: process.env.CLIENT_URL
 };
 
+const backend = {
+    url: process.env.API_URL
+};
+
 if (process.env.IS_PROD === 'yes') {
     host = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_HOST;
     port = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_PORT;
@@ -41,5 +45,6 @@ export default {
         password: password
     },
     azureAd,
-    frontend
+    frontend,
+    backend
 };
