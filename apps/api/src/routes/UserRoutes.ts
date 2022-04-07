@@ -20,7 +20,7 @@ userRoutes.get('/', async (req, res, next) => {
     }
 });
 
-userRoutes.get('/me', ensureAuthentication, async (req, res, next) => {
+userRoutes.get('/currentUser', ensureAuthentication, async (req, res, next) => {
     try {
         // Need interface for this or possibly find typings?
         const me: string = (req.session as IPassportSession).passport.user.claims.oid;

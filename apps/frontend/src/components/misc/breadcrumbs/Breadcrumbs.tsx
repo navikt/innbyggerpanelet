@@ -8,8 +8,6 @@ export const Breadcrumbs = (): ReactElement => {
 
     const breadcrumbs = location.pathname.split('/').filter((link) => link !== '');
 
-    console.log(breadcrumbs);
-
     if (breadcrumbs.length === 0 || breadcrumbs[0] === 'hjem') {
         return <></>;
     }
