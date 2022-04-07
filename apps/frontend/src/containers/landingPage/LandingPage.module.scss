@@ -1,0 +1,14 @@
+.backgroundImage {
+    width: 100%;
+    height: calc(100vh - 6rem - 50px);
+    object-fit: cover;
+}
+
+.introduction {
+    background-color: #fefefe;
+    padding: 3rem;
+    width: 45rem;
+    position: absolute;
+    top: 20rem;
+    left: 10rem;
+}

@@ -1,7 +1,6 @@
 import '@navikt/ds-css/index.css';
 import { Panel } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
-
 import style from './app.module.scss';
 import { InsightProjectOverview } from './containers/project/InsightProjectOverview';
 

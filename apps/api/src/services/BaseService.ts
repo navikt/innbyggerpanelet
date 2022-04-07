@@ -9,11 +9,11 @@ export default abstract class BaseService<T> {
 
     abstract get(): Promise<T[] | undefined>;
 
-    abstract getById(id: number): Promise<T | undefined>;
+    abstract getById(id: number | string): Promise<T | undefined>;
 
     abstract create(dto: T): Promise<T | undefined>;
 
-    abstract update(id: number, dto: T): Promise<T | undefined>;
+    abstract update(id: number | string, dto: T): Promise<T | undefined>;
 
-    abstract delete(id: number): Promise<void>;
+    abstract delete(id: number | string): Promise<void>;
 }

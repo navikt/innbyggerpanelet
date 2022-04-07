@@ -1,15 +1,17 @@
 /* eslint-disable indent */
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany, JoinTable } from 'typeorm';
-import { Criteria } from '../criteria/CriteriaEntity';
 import { IUser } from '@innbyggerpanelet/api-interfaces';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
 import { Candidate } from '../candidate/CandidateEntity';
+import { Criteria } from '../criteria/CriteriaEntity';
 import { InsightProject } from '../insightProject/InsightProjectEntity';
 
 @Entity()
 export class User implements IUser {
     [key: string]: any;
-    @PrimaryGeneratedColumn()
-    id: number;
+
+    // OID from OIDC token_id
+    @PrimaryColumn()
+    id: string;
 
     @Column()
     name: string;
