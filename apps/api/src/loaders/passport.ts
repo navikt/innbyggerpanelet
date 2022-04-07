@@ -46,8 +46,6 @@ const passportLoader = async () => {
             // Verify AUD in claim
             if (user.claims.aud !== config.azureAd.clientId) return done(null, false);
 
-            console.log(user.claims);
-
             const userService = new UserService(database);
             const result: User = await userService
                 .getById(user.claims.oid as string)
