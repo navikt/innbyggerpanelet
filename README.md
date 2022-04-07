@@ -4,7 +4,7 @@
 
 In order for this project to run in a local development environment you will have to configure an `.env` file. Most of the fields can be configured as you see fit, however there are OIDC keys which requires you to be a part of the @team-researchops namespace in order to obtain.
 
-Please post in #innbyggerpanelet for more information/help.
+Please post in #researchops for more information/help.
 
 ## Commit naming conventions
 
