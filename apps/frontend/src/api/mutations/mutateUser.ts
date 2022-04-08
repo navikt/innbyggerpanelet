@@ -15,7 +15,7 @@ export const createUser = async (user: IUser) => {
 export const updateUser = async (user: IUser) => {
     const { data, error } = await putter<IUser>('/api/user', user);
 
-    mutate(`/api/user/${user.id}`);
+    mutate('/api/user/currentUser');
 
     return {
         response: data,
