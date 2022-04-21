@@ -1,7 +1,7 @@
 import { IInsight } from '@innbyggerpanelet/api-interfaces';
 import { Heading, LinkPanel } from '@navikt/ds-react';
 import React, { ReactElement } from 'react';
-import style from './OngoingInsightWork.module.scss';
+import style from './OngoingInsight.module.scss';
 import { isWithinInterval, parse } from 'date-fns';
 
 export interface IInsightWorkLink {
@@ -63,7 +63,7 @@ const insightMock: IInsight[] = [{
     } 
 }];
 
-export default function OngoingInsightWork(): ReactElement {
+export default function OngoingInsight(): ReactElement {
 
     const filterForOngoingInsightWork = (insights: IInsight[]): IInsightWorkLink[] => {
         const filtered: IInsightWorkLink[] = [];

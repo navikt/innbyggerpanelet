@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import CurrentProjects from '../../components/employeeLanding/CurrentProjects';
 import EmployeeInfo from '../../components/employeeLanding/EmployeeInfo';
 import EmployeeNavbar from '../../components/employeeLanding/EmployeeNavbar';
-import OngoingInsightWork from '../../components/employeeLanding/OngoingInsightWork';
+import OngoingInsight from '../../components/employeeLanding/OngoingInsight';
 import style from './EmployeeLandingPage.module.scss';
 
 export default function EmployeeLandingPage(): ReactElement {
@@ -11,7 +11,7 @@ export default function EmployeeLandingPage(): ReactElement {
             <EmployeeNavbar />
             <div className={style.employeeLandingPageContainer}>
                 <EmployeeInfo name='Emil Elton Nilsen'/>
-                <OngoingInsightWork />
+                <OngoingInsight />
                 <CurrentProjects />
             </div>
         </div>
