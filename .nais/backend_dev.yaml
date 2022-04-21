@@ -51,3 +51,6 @@ spec:
     inbound:
       rules:
         - application: innbyggerpanelet
+    outbound:
+      rules: 
+        - application: innbyggerpanelet
