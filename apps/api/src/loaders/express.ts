@@ -7,7 +7,7 @@ import config from '../config';
 import routes from '../routes';
 export default ({ server }: { server: Application }) => {
     server.use(helmet());
-    server.use(cors({ origin: [config.frontend.url, config.backend.url] }));
+    server.use(cors({ origin: config.frontend.url }));
     server.use(json());
     server.set('trust proxy', 1);
     // TODO: Secure version for prod (https)
@@ -17,7 +17,11 @@ export default ({ server }: { server: Application }) => {
             resave: false,
             saveUninitialized: false,
             unset: 'destroy',
-            cookie: { sameSite: 'lax', secure: config.backend.prod }
+            cookie: {
+                sameSite: 'lax',
+                secure: config.backend.prod,
+                domain: config.backend.prod ? 'nav.no' : 'localhost'
+            }
         })
     );
     server.use(passport.initialize());
