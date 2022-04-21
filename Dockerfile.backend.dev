@@ -2,7 +2,7 @@ FROM node:14.17.0
 
 ENV NODE_ENV=development
 ENV CLIENT_URL=http://localhost:4200
-
+ENV API_URL=http://localhost:2022
 
 WORKDIR /app
 

@@ -24,7 +24,7 @@ const passportLoader = async () => {
     const client = new azureADIssuer.Client({
         client_id: config.azureAd.clientId,
         client_secret: config.azureAd.secret,
-        redirect_uris: ['http://localhost:2022/api/azure/oauth2/callback'],
+        redirect_uris: [`${config.backend.url}/api/azure/oauth2/callback`],
         response_types: ['code'],
         token_endpoint_auth_method: 'client_secret_post'
     });
