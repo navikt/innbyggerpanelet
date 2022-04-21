@@ -5,4 +5,22 @@
     border-radius: 0.5rem;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 1.5rem;
+
+    h1 {
+        text-decoration: underline;
+    }
+}
+
+.cardContainer:hover {
+    background: #CCF1D6;
+    transition: all 0.25s ease;
+
+    h1 {
+        text-decoration: none;
+    }
+}
+
+.dateDetail {
+    margin-top: auto;
+    color: gray;
 }

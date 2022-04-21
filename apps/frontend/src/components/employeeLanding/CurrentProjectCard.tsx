@@ -10,7 +10,9 @@ export default function CurrentProjectCard({ insightProject }: { insightProject:
                 {insightProject.name}
             </Heading>
             <p>{insightProject.description}</p>
-            <Detail size='small'>{`${insightProject.start} - ${insightProject.end}`}</Detail>
+            <div className={style.dateDetail} >
+                <Detail size='small'>{`${insightProject.start} - ${insightProject.end}`}</Detail>
+            </div>
         </div>
     );
 }
