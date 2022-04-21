@@ -59,6 +59,14 @@ const insightMock: IInsight[] = [{
 
 const projectMock: IInsightProject[] = [{
     id: 1,
+    name: 'Justerbart kjøkken',
+    description: 'Et tilltak for de som sliter med normale høyder på kjøkkeninstalasjoner',
+    members: [],
+    start: '01.01.2022',
+    end: '23.03.2022'
+},
+{
+    id: 1,
     name: 'Utvidet barnetrygd',
     description: 'Et tillig til ordinær barnetrygd når du er alene med barn under 18 år',
     members: [],
