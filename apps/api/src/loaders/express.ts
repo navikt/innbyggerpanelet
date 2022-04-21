@@ -17,11 +17,13 @@ export default ({ server }: { server: Application }) => {
             resave: false,
             saveUninitialized: false,
             unset: 'destroy',
-            cookie: {
-                sameSite: 'lax',
-                secure: config.backend.prod,
-                domain: config.backend.prod ? 'nav.no' : 'localhost'
-            }
+            cookie: config.backend.prod
+                ? {
+                    sameSite: 'none',
+                    secure: true,
+                    domain: 'nav.no'
+                }
+                : { sameSite: 'lax', secure: false, domain: 'localhost' }
         })
     );
     server.use(passport.initialize());
