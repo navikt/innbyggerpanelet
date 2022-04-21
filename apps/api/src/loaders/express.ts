@@ -7,7 +7,12 @@ import config from '../config';
 import routes from '../routes';
 export default ({ server }: { server: Application }) => {
     server.use(helmet());
-    server.use(cors({ origin: config.backend.url }));
+    server.use(
+        cors({
+            origin: [config.backend.url, config.frontend.url],
+            exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With']
+        })
+    );
     server.use(json());
     server.set('trust proxy', 1);
     // TODO: Secure version for prod (https)
