@@ -11,59 +11,7 @@ export interface IInsightWorkLink {
     end: string
 }
 
-const insightMock: IInsight[] = [{
-    id: 1,
-    name: 'Skjermleser for blinde',
-    description: 'Testy testy descriptioni',
-    start: '02.02.2022',
-    end: '23.04.2022',
-    criterias: [],
-    consents: [],
-    project: {
-        id: 1,
-        name: 'Veldig stor prosjekt',
-        description: 'Desipt testu',
-        members: [],
-        start: '',
-        end: ''
-    }
-},
-{
-    id: 1,
-    name: 'Testing av ny dagpengeløsning',
-    description: 'Testy testy descriptioni',
-    start: '22.06.2022',
-    end: '30.08.2022',
-    criterias: [],
-    consents: [],
-    project: {
-        id: 1,
-        name: 'Veldig stor prosjekt',
-        description: 'Desipt testu',
-        members: [],
-        start: '',
-        end: ''
-    } 
-},
-{
-    id: 1,
-    name: 'Testing av ny foreldrepengeløsning',
-    description: 'Testy testy descriptioni',
-    start: '02.02.2022',
-    end: '23.04.2022',
-    criterias: [],
-    consents: [],
-    project: {
-        id: 1,
-        name: 'Veldig stor prosjekt',
-        description: 'Desipt testu',
-        members: [],
-        start: '',
-        end: ''
-    } 
-}];
-
-export default function OngoingInsight(): ReactElement {
+export default function OngoingInsight({ userInsight }: { userInsight: IInsight[]}): ReactElement {
 
     const filterForOngoingInsightWork = (insights: IInsight[]): IInsightWorkLink[] => {
         const filtered: IInsightWorkLink[] = [];
@@ -90,7 +38,7 @@ export default function OngoingInsight(): ReactElement {
     return (
         <div className={style.ongoingInsightWorkContainer}>
             <Heading size="xlarge">Pågående innsiktsarbeid</Heading>
-            {filterForOngoingInsightWork(insightMock).map((item, i) => {
+            {filterForOngoingInsightWork(userInsight).map((item, i) => {
                 return (
                     <LinkPanel key={i} href={item.path}>
                         <LinkPanel.Title>{item.title}</LinkPanel.Title>
