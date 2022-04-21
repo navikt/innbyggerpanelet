@@ -30,6 +30,9 @@ spec:
     min: 1
     max: 2
     cpuThresholdPercentage: 80
+  env:
+    - name: REDIS_HOST
+      value: ${appname}.${namespace}.svc.cluster.local
   ingresses:
     - https://innbyggerpanelet-backend.dev.intern.nav.no
   gcp:
@@ -53,4 +56,4 @@ spec:
         - application: innbyggerpanelet
     outbound:
       rules: 
-        - application: innbyggerpanelet
+        - application: innbyggerpanelet-redis
