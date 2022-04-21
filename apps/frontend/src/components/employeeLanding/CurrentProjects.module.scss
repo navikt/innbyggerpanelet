@@ -3,3 +3,9 @@
     flex-direction: column;
     margin-top: 2rem;
 }
+
+.projectsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+}

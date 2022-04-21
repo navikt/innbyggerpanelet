@@ -1,4 +1,4 @@
-import { IInsight } from '@innbyggerpanelet/api-interfaces';
+import { IInsight, IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import React, { ReactElement } from 'react';
 import CurrentProjects from '../../components/employeeLanding/CurrentProjects';
 import EmployeeInfo from '../../components/employeeLanding/EmployeeInfo';
@@ -58,6 +58,39 @@ const insightMock: IInsight[] = [{
     } 
 }];
 
+const projectMock: IInsightProject[] = [{
+    id: 1,
+    name: 'Utvidet barnetrygd',
+    description: 'Et tillig til ordinær barnetrygd når du er alene med barn under 18 år',
+    members: [],
+    start: '02.02.2022',
+    end: '23.04.2022'
+},
+{
+    id: 1,
+    name: 'Pleiepenger i livets sluttfase',
+    description: 'Sikrer deg inntekt når du må være borte fra jobb for å ta vare på en person som er i livets siste fase',
+    members: [],
+    start: '02.02.2022',
+    end: '23.04.2022'
+},
+{
+    id: 1,
+    name: 'Alderspensjon',
+    description: 'Alderspensjon fra folketrygden er en ordning som sikrer deg inntekt når du blir pensjonist',
+    members: [],
+    start: '22.06.2022',
+    end: '30.08.2022'
+},
+{
+    id: 1,
+    name: 'Bidrag til særlige utgifter',
+    description: 'Den andre forelderen betaler sin del av utgifter som tannregulering, konfirmasjon og briller',
+    members: [],
+    start: '02.02.2022',
+    end: '23.04.2022'
+}];
+
 export default function EmployeeLandingPage(): ReactElement {
     return (
         <div>
@@ -65,7 +98,7 @@ export default function EmployeeLandingPage(): ReactElement {
             <div className={style.employeeLandingPageContainer}>
                 <EmployeeInfo name='Emil Elton Nilsen'/>
                 <OngoingInsight userInsight={insightMock}/>
-                <CurrentProjects />
+                <CurrentProjects projects={projectMock}/>
             </div>
         </div>
     );
