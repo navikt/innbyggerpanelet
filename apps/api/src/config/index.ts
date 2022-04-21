@@ -19,7 +19,8 @@ const frontend = {
 };
 
 const backend = {
-    url: process.env.API_URL
+    url: process.env.API_URL,
+    prod: process.env.IS_PROD === 'yes'
 };
 
 if (process.env.IS_PROD === 'yes') {
