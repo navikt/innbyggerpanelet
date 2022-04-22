@@ -2,6 +2,8 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import App from './app';
+import Breadcrumbs from './components/misc/breadcrumbs';
+import Header from './components/misc/header';
 import NotFound from './components/misc/notFound';
 import CreateInsight from './containers/createInsight/';
 import CriteriaAdminPanel from './containers/criteriaAdministration';
@@ -11,14 +13,15 @@ import { InsightProjectOverview } from './containers/project/InsightProjectOverv
 import RegisterUser from './containers/registerUser';
 import UserProfile from './containers/userProfile';
 import { ProvideErrorMessageContext } from './core/context/ErrorMessageContext';
+import EmployeeLandingPage from './views/employeeLanding/EmployeeLandingPage';
 
 // Root
 ReactDOM.render(
     <StrictMode>
         <ProvideErrorMessageContext>
             <HashRouter>
-                {/* <Header />
-                <Breadcrumbs /> */}
+                <Header />
+                <Breadcrumbs />
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/hjem" element={<App />} />
@@ -29,6 +32,7 @@ ReactDOM.render(
                     <Route path="/profil" element={<UserProfile />} />
                     <Route path="/registrer" element={<RegisterUser />} />
                     <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
+                    <Route path='/ansatt' element={<EmployeeLandingPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </HashRouter>
