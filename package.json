@@ -23,6 +23,7 @@
         "@navikt/ds-icons": "^0.7.2",
         "@navikt/ds-react": "^0.14.10",
         "@navikt/ds-tokens": "^0.7.0",
+        "@types/connect-redis": "^0.0.18",
         "@types/cors": "^2.8.12",
         "@types/helmet": "^4.0.0",
         "@types/http-status-codes": "^1.2.0",

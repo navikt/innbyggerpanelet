@@ -1,8 +1,10 @@
+import redisStore from 'connect-redis';
 import cors from 'cors';
 import { Application, json } from 'express';
-import expressSession from 'express-session';
+import expressSession, { MemoryStore } from 'express-session';
 import helmet from 'helmet';
 import passport from 'passport';
+import redis from 'redis';
 import config from '../config';
 import routes from '../routes';
 export default ({ server }: { server: Application }) => {
@@ -14,6 +16,7 @@ export default ({ server }: { server: Application }) => {
     server.use(
         expressSession({
             secret: 'dan borge',
+            store: setupStore(),
             resave: false,
             saveUninitialized: false,
             unset: 'destroy',
@@ -29,4 +32,19 @@ export default ({ server }: { server: Application }) => {
     server.use(passport.initialize());
     server.use(passport.session());
     server.use(routes);
+};
+
+const setupStore = () => {
+    if (!config.backend.prod) return new MemoryStore();
+
+    const client = redis.createClient({
+        legacyMode: true,
+        url: `redis://${config.redis.host}`
+    });
+
+    client.connect().catch((error) => console.log(error));
+
+    const store = redisStore(expressSession);
+
+    return new store({ client });
 };

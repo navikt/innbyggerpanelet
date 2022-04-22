@@ -32,7 +32,7 @@ spec:
     cpuThresholdPercentage: 80
   env:
     - name: REDIS_HOST
-      value: ${appname}.${namespace}.svc.cluster.local
+      value: innbyggerpanelet-redis.team-researchops.svc.cluster.local
   ingresses:
     - https://innbyggerpanelet-backend.dev.intern.nav.no
   gcp:
