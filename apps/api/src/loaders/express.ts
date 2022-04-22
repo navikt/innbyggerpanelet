@@ -42,7 +42,9 @@ const setupStore = () => {
         url: `redis://${config.redis.host}:${config.redis.port}`
     });
 
-    client.connect().catch((error) => console.log(error));
+    client.on('error', (err) => console.log('Redis Client Error', err));
+
+    client.connect().catch(console.error);
 
     const store = redisStore(expressSession);
 
