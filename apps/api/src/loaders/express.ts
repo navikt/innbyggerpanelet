@@ -39,7 +39,7 @@ const setupStore = () => {
 
     const client = createClient({
         legacyMode: true,
-        url: `redis://${config.redis.host}`
+        url: `redis://${config.redis.host}:${config.redis.port}`
     });
 
     client.connect().catch((error) => console.log(error));
