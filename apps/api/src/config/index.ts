@@ -25,7 +25,7 @@ const backend = {
 
 const redis = {
     host: process.env.REDIS_HOST,
-    port: 6397
+    port: 6379
 };
 
 if (process.env.IS_PROD === 'yes') {
