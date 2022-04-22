@@ -4,7 +4,7 @@ import { Application, json } from 'express';
 import expressSession, { MemoryStore } from 'express-session';
 import helmet from 'helmet';
 import passport from 'passport';
-import redis from 'redis';
+import { createClient } from 'redis';
 import config from '../config';
 import routes from '../routes';
 export default ({ server }: { server: Application }) => {
@@ -37,7 +37,7 @@ export default ({ server }: { server: Application }) => {
 const setupStore = () => {
     if (!config.backend.prod) return new MemoryStore();
 
-    const client = redis.createClient({
+    const client = createClient({
         legacyMode: true,
         url: `redis://${config.redis.host}`
     });
