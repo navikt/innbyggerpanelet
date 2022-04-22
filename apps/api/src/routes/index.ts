@@ -1,16 +1,18 @@
 import { Router } from 'express';
+import morgan from 'morgan';
+import azureADRoutes from './AzureADRoutes';
 import candidateRoutes from './CandidateRoutes';
 import consentRoutes from './ConsentRoutes';
-import insightRoutes from './InsightRoutes';
-import criteriaRoutes from './CriteriaRoutes';
 import criteriaCategoryRoutes from './CriteriaCategoryRoutes';
+import criteriaRoutes from './CriteriaRoutes';
 import insightProjectRoutes from './InsightProjectRoutes';
-import userRoutes from './UserRoutes';
+import insightRoutes from './InsightRoutes';
 import { errorHandler } from './middleware/errorHandler';
-import morgan from 'morgan';
+import userRoutes from './UserRoutes';
 
 const routes = Router()
     .use(morgan('dev'))
+    .use('/azure', azureADRoutes)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
     .use('/criteria', criteriaRoutes)

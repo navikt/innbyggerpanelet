@@ -2,14 +2,14 @@ import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { validateRegisterUser } from '../../validation/registerUser';
 import { createUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import style from './RegisterUser.module.scss';
 import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
+import { validateRegisterUser } from '../../validation/registerUser';
+import style from './RegisterUser.module.scss';
 
 const defaultUser: IUser = {
-    id: 0,
+    id: '0',
     name: '',
     email: '',
     phone: '',
@@ -20,7 +20,7 @@ const defaultUser: IUser = {
 export const RegisterUser = (): ReactElement => {
     const [user, setUser] = useState<IUser>(defaultUser);
     const [posting, setPosting] = useState(false);
-    
+
     const errorMessageDispatch = useErrorMessageDispatcher();
     const errorMessages = useErrorMessageState();
 
@@ -34,7 +34,7 @@ export const RegisterUser = (): ReactElement => {
 
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        
+
         if (validateRegisterUser(user).isValid) {
             setPosting(true);
             const { response, isError } = await createUser(user);
@@ -57,11 +57,7 @@ export const RegisterUser = (): ReactElement => {
 
     return (
         <>
-            <UserContactInfoForm 
-                user={user} 
-                handleChange={handleChange}
-                errorMessages={errorMessages}
-            />
+            <UserContactInfoForm user={user} handleChange={handleChange} errorMessages={errorMessages} />
             <UserEditCriterias user={user} setUser={setUser} />
             <Panel>
                 <div className={style.submit}>

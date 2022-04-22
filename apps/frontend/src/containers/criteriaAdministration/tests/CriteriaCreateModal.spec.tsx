@@ -1,5 +1,6 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { ProvideErrorMessageContext } from '../../../core/context/ErrorMessageContext';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
@@ -24,13 +25,15 @@ const setup = () => {
     const handleClose = jest.fn();
 
     const utils = render(
-        <SWRConfig value={{ provider: () => new Map() }}>
-            <CriteriaCreateModal
-                open={true}
-                close={handleClose}
-                category={mockedPost.category}
-            />
-        </SWRConfig>
+        <ProvideErrorMessageContext>
+            <SWRConfig value={{ provider: () => new Map() }}>
+                <CriteriaCreateModal
+                    open={true}
+                    close={handleClose}
+                    category={mockedPost.category}
+                />
+            </SWRConfig>
+        </ProvideErrorMessageContext>
     );
     const nameInput = utils.getByLabelText('Navn') as HTMLInputElement;
     const exInput = utils.getByLabelText(

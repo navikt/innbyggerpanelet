@@ -1,7 +1,5 @@
-import { Loader } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useUser } from '../../api/hooks/useUser';
-import { APIError } from '../../components/misc/apiError/APIError';
 import { APIHandler } from '../../components/misc/apiHandler';
 import { UserDisplayProfile } from './UserDisplayProfile';
 import { UserEditProfile } from './UserEditProfile';

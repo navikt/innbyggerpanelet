@@ -1,4 +1,5 @@
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { ProvideErrorMessageContext } from '../../../core/context/ErrorMessageContext';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
@@ -17,7 +18,11 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test('loads and displays all avaiable categories', async () => {
-    render(<CriteriaAdminPanel />);
+    render(
+        <ProvideErrorMessageContext>
+            <CriteriaAdminPanel />
+        </ProvideErrorMessageContext>
+    );
 
     await waitFor(() => screen.getAllByRole('button'));
 
@@ -40,9 +45,11 @@ test('displays error on status 404', async () => {
 
     // Make sure to disable SWRConfig when creating new tests with differing queries
     render(
-        <SWRConfig value={{ provider: () => new Map() }}>
-            <CriteriaAdminPanel />
-        </SWRConfig>
+        <ProvideErrorMessageContext>
+            <SWRConfig value={{ provider: () => new Map() }}>
+                <CriteriaAdminPanel />
+            </SWRConfig>
+        </ProvideErrorMessageContext>
     );
 
     await waitFor(() => screen.getByText(statusText));

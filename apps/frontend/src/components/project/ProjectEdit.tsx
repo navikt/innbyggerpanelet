@@ -46,7 +46,7 @@ export const ProjectEdit = ({
             errorMessageDispatch.clearErrorMessages();
             submit(project);
         } else {
-            errorMessageDispatch.setErrorMessages(validateInsightProject(project).errorMesseges);
+            errorMessageDispatch.setErrorMessages(validateInsightProject(project).errorMessages);
         }
     };
 

@@ -1,6 +1,6 @@
 export interface IUser {
     [key: string]: number | string | ICriteria[];
-    id: number;
+    id: string;
     name: string;
     latestUpdate: string;
     email: string;

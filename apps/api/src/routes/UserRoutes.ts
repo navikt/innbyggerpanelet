@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import { database } from '../loaders';
+import { IPassportSession } from '../loaders/passport';
 import { User } from '../models/user/UserEntity';
 import { IUserSearch, UserService } from '../services';
+import { ensureAuthentication } from './middleware/authenticationHandler';
 
 const userRoutes = Router();
 
@@ -11,6 +13,20 @@ userRoutes.get('/', async (req, res, next) => {
 
         const userService = new UserService(database);
         const result: User[] = await userService.search(queries);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+userRoutes.get('/currentUser', ensureAuthentication, async (req, res, next) => {
+    try {
+        // Need interface for this or possibly find typings?
+        const me: string = (req.session as IPassportSession).passport.user.claims.oid;
+
+        const userService = new UserService(database);
+        const result: User = await userService.getById(me);
 
         res.json(result);
     } catch (error) {
@@ -35,7 +51,7 @@ userRoutes.get('/prioritized', async (req, res, next) => {
 
 userRoutes.get('/:id', async (req, res, next) => {
     try {
-        const id = parseInt(req.params.id);
+        const id = req.params.id;
 
         const userService = new UserService(database);
         const result: User = await userService.getById(id);

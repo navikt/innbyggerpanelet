@@ -48,7 +48,7 @@ export class UserService extends BaseService<User> {
 
     async prioritizedUsers(criteriaIds: string[]): Promise<User[] | undefined> {
         if (criteriaIds.length === 0) {
-            throw new NotFoundError({ message: ServerErrorMessage.invalidData()});
+            throw new NotFoundError({ message: ServerErrorMessage.invalidData() });
         }
 
         const users = await this._userRepository
@@ -79,7 +79,7 @@ export class UserService extends BaseService<User> {
         return users;
     }
 
-    async getById(id: number): Promise<User | undefined> {
+    async getById(id: string): Promise<User | undefined> {
         const user = await this._userRepository.findOne(id, { relations: ['criterias'] });
 
         if (!user) throw new NotFoundError({ message: ServerErrorMessage.notFound('User') });
@@ -92,28 +92,26 @@ export class UserService extends BaseService<User> {
             return await this._userRepository.save(dto);
         } catch (error) {
             if (error instanceof QueryFailedError) {
-                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User')} );
+                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User') });
             }
-                
         }
 
         return undefined;
     }
 
-    async update(id: number, dto: User): Promise<User | undefined> {
+    async update(id: string, dto: User): Promise<User | undefined> {
         try {
             return await this._userRepository.save(dto);
         } catch (error) {
             if (error instanceof QueryFailedError) {
-                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User')} );
+                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User') });
             }
-                
         }
 
         return undefined;
     }
 
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
         throw new Error('not implemented');
     }
 }

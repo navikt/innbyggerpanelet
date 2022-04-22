@@ -1,15 +1,36 @@
-import { Heading } from '@navikt/ds-react';
+import { Button, Heading, Link } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link as RouterLink } from 'react-router-dom';
+import { useUser } from '../../../api/hooks';
 import style from './Header.module.scss';
 
 export const Header = (): ReactElement => {
+    const { user, loading, error } = useUser();
+
     return (
-        <div className={style.wrapper}>
-            <Heading size="2xlarge">
-                <Link to="/">NAVs Innbyggerpanel</Link>
-            </Heading>
+        <div className={style.banner}>
+            <RouterLink to="/">
+                <Heading size="2xlarge">Innbyggerpanelet</Heading>
+            </RouterLink>
+            <div className={style.buttonGroup}>
+                <RouterLink to="#">Hva skjer</RouterLink>
+                <RouterLink to="#">Mer informasjon</RouterLink>
+
+                {user ? (
+                    <>
+                        <RouterLink to="/hjem">
+                            <Button>Hjem</Button>
+                        </RouterLink>
+                        <Link href="/api/azure/logout">
+                            <Button>Logg ut</Button>
+                        </Link>
+                    </>
+                ) : (
+                    <Link href="/api/azure/login">
+                        <Button>Logg inn</Button>
+                    </Link>
+                )}
+            </div>
         </div>
     );
 };

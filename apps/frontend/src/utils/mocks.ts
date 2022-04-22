@@ -42,7 +42,7 @@ const allCriterias: ICriteria[] = [
 const allConsents: IConsent[] = [{ id: 1, description: 'Samtykker til skjermopptak' }];
 
 const teamMember: IUser = {
-    id: 3,
+    id: '3',
     name: 'Terje Navansatt',
     email: 'terje@nav.no',
     phone: '45676456',
@@ -71,7 +71,7 @@ const primaryInsight: IInsight = {
 };
 
 const olaUser: IUser = {
-    id: 1,
+    id: '1',
     name: 'Ola Nordmann',
     email: 'ola@nordmann.no',
     phone: '12332123',
@@ -90,7 +90,7 @@ const olaCandidatures: ICandidate[] = [
 ];
 
 const kariUser: IUser = {
-    id: 2,
+    id: '2',
     email: 'kari@example.com',
     phone: '32132321',
     latestUpdate: '2022-01-02',
