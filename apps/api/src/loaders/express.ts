@@ -44,7 +44,13 @@ const setupStore = () => {
 
     client.on('error', (err) => console.log('Redis Client Error', err));
 
-    client.connect().catch(console.error);
+    client
+        .connect()
+        .catch(console.error)
+        .then((value) => {
+            console.log('Success');
+            console.log(value);
+        });
 
     const store = redisStore(expressSession);
 
