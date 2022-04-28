@@ -10,7 +10,7 @@ import routes from '../routes';
 export default async ({ server }: { server: Application }) => {
     server.use(helmet());
     server.use(
-        cors({ origin: config.frontend.url, exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With'] })
+        cors({ origin: config.backend.url, exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With'] })
     );
     server.use(json());
     server.set('trust proxy', 1);
