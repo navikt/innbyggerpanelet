@@ -8,19 +8,19 @@ import { createClient } from 'redis';
 import config from '../config';
 import routes from '../routes';
 export default async ({ server }: { server: Application }) => {
+    server.set('trust proxy', 1);
     server.use(
         expressSession({
             secret: 'dan borge',
             store: await setupStore(),
             resave: false,
             saveUninitialized: false,
-            unset: 'destroy',
             cookie: config.backend.prod
                 ? {
-                    sameSite: 'lax',
-                    secure: true,
-                    httpOnly: true
-                }
+                      sameSite: 'lax',
+                      secure: true,
+                      httpOnly: true
+                  }
                 : { sameSite: 'lax', secure: false, httpOnly: true }
         })
     );
