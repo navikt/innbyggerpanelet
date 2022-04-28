@@ -1,13 +1,13 @@
 import redisStore from 'connect-redis';
 import cors from 'cors';
 import { Application, json } from 'express';
-import expressSession, { MemoryStore } from 'express-session';
+import expressSession from 'express-session';
 import helmet from 'helmet';
 import passport from 'passport';
 import { createClient } from 'redis';
 import config from '../config';
 import routes from '../routes';
-export default ({ server }: { server: Application }) => {
+export default async ({ server }: { server: Application }) => {
     server.use(helmet());
     server.use(cors());
     server.use(json());
@@ -16,7 +16,7 @@ export default ({ server }: { server: Application }) => {
     server.use(
         expressSession({
             secret: 'dan borge',
-            store: setupStore(),
+            store: await setupStore(),
             resave: false,
             saveUninitialized: false,
             unset: 'destroy',
@@ -34,19 +34,20 @@ export default ({ server }: { server: Application }) => {
     server.use(routes);
 };
 
-const setupStore = () => {
-    if (!config.backend.prod) return new MemoryStore();
-
+const setupStore = async () => {
     const client = createClient({
         legacyMode: true,
-        url: `redis://${config.redis.host}:${config.redis.port}`
+        socket: {
+            host: config.redis.host,
+            port: config.redis.port
+        }
     });
 
     client.on('error', (err) => console.log('Redis Client Error', err));
 
-    client.connect().catch(console.error);
+    await client.connect();
 
     const store = redisStore(expressSession);
 
-    return new store({ client });
+    return new store({ client, disableTouch: true });
 };
