@@ -22,11 +22,11 @@ export default ({ server }: { server: Application }) => {
             unset: 'destroy',
             cookie: config.backend.prod
                 ? {
-                    sameSite: 'none',
+                    sameSite: 'lax',
                     secure: true,
-                    domain: 'nav.no'
+                    httpOnly: true
                 }
-                : { sameSite: 'lax', secure: false, domain: 'localhost' }
+                : { sameSite: 'lax', secure: false, httpOnly: true }
         })
     );
     server.use(passport.initialize());
@@ -44,13 +44,7 @@ const setupStore = () => {
 
     client.on('error', (err) => console.log('Redis Client Error', err));
 
-    client
-        .connect()
-        .catch(console.error)
-        .then((value) => {
-            console.log('Success');
-            console.log(value);
-        });
+    client.connect().catch(console.error);
 
     const store = redisStore(expressSession);
 
