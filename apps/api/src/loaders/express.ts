@@ -9,7 +9,9 @@ import config from '../config';
 import routes from '../routes';
 export default async ({ server }: { server: Application }) => {
     server.use(helmet());
-    server.use(cors({ exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With'] }));
+    server.use(
+        cors({ origin: config.frontend.url, exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With'] })
+    );
     server.use(json());
     server.set('trust proxy', 1);
     // TODO: Secure version for prod (https)
