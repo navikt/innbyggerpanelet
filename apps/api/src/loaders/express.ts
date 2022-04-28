@@ -15,13 +15,12 @@ export default async ({ server }: { server: Application }) => {
             store: await setupStore(),
             resave: false,
             saveUninitialized: false,
-            cookie: config.backend.prod
-                ? {
-                      sameSite: 'lax',
-                      secure: true,
-                      httpOnly: true
-                  }
-                : { sameSite: 'lax', secure: false, httpOnly: true }
+            unset: 'destroy',
+            cookie: {
+                sameSite: 'lax',
+                secure: config.backend.prod,
+                httpOnly: true
+            }
         })
     );
     server.use(helmet());
