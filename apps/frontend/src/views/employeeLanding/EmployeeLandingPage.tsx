@@ -1,5 +1,6 @@
 import { IInsight, IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import React, { ReactElement } from 'react';
+import { useUser } from '../../api/hooks';
 import CurrentProjects from '../../components/employeeLanding/CurrentProjects';
 import EmployeeInfo from '../../components/employeeLanding/EmployeeInfo';
 import OngoingInsight from '../../components/employeeLanding/OngoingInsight';
@@ -101,6 +102,7 @@ const projectMock: IInsightProject[] = [{
 export default function EmployeeLandingPage(): ReactElement {
     return (
         <div>
+            {console.log(useUser())}
             <div className={style.employeeLandingPageContainer}>
                 <EmployeeInfo name='Emil Elton Nilsen'/>
                 <OngoingInsight userInsight={insightMock}/>

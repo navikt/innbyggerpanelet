@@ -46,4 +46,12 @@ insightProjectRoutes.post('/', async (req, res, next) => {
     }
 });
 
+insightProjectRoutes.get('/userId', async (req, res, next) => {
+    try {
+        console.log ('Do some nice api calls');
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default insightProjectRoutes;

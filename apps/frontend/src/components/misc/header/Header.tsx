@@ -7,6 +7,16 @@ import style from './Header.module.scss';
 export const Header = (): ReactElement => {
     const { user, loading, error } = useUser();
 
+    const verifyTypeScriptTypeOfUser = (user: any): boolean => {
+        if (user === undefined) {
+            return false;
+        } else if (user instanceof String) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
     return (
         <div className={style.banner}>
             <RouterLink to="/">
@@ -16,7 +26,7 @@ export const Header = (): ReactElement => {
                 <RouterLink to="#">Hva skjer</RouterLink>
                 <RouterLink to="#">Mer informasjon</RouterLink>
 
-                {user ? (
+                {!verifyTypeScriptTypeOfUser(user) ? (
                     <>
                         <RouterLink to="/hjem">
                             <Button>Hjem</Button>
