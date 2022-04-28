@@ -46,9 +46,15 @@ insightProjectRoutes.post('/', async (req, res, next) => {
     }
 });
 
-insightProjectRoutes.get('/userId', async (req, res, next) => {
+insightProjectRoutes.get('/:userId', async (req, res, next) => {
     try {
-        console.log ('Do some nice api calls');
+        const userId = req.params.userId;
+
+        const insightProjectService = new InsightProjectService(database);
+
+        const result: InsightProject[] | undefined = await insightProjectService.getByUserId(userId);
+        
+        res.json(result);
     } catch (error) {
         next(error);
     }

@@ -2,6 +2,7 @@ import { Connection, Repository } from 'typeorm';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
+import { User } from '../models/user/UserEntity';
 import BaseService from './BaseService';
 
 export interface IInsightProjectSearch {
@@ -59,6 +60,17 @@ export class InsightProjectService extends BaseService<InsightProject> {
         );
 
         return insightProject;
+    }
+
+    async getByUserId(userId: string): Promise<InsightProject[]> {
+        const insightProjects = await this._insightProjectRepository
+            .createQueryBuilder('insightProject')
+            .leftJoinAndSelect(User, 'user','user.userId = :userId', {userId})
+            .getMany();
+
+        if (insightProjects.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Insight projects')});
+
+        return insightProjects;
     }
 
     async update(id: number, dto: InsightProject): Promise<InsightProject> {

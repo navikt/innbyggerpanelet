@@ -1,6 +1,6 @@
-import { IInsight, IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import React, { ReactElement } from 'react';
-import { useUser } from '../../api/hooks';
+import { IInsight, IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
+import React, { ReactElement, useState } from 'react';
+import { useInsightProjectByUserId, useUser } from '../../api/hooks';
 import CurrentProjects from '../../components/employeeLanding/CurrentProjects';
 import EmployeeInfo from '../../components/employeeLanding/EmployeeInfo';
 import OngoingInsight from '../../components/employeeLanding/OngoingInsight';
@@ -100,13 +100,19 @@ const projectMock: IInsightProject[] = [{
 }];
 
 export default function EmployeeLandingPage(): ReactElement {
+    
+    const [user, setUser] = useState<IUser | undefined>(useUser().user);
+    
+    const { insightProjects, loading, error} = useInsightProjectByUserId(user?.id);
+    //const { insightProjects, loading, error} = useInsightProjects();
+
     return (
         <div>
-            {console.log(useUser())}
+            {console.log(insightProjects)}
             <div className={style.employeeLandingPageContainer}>
-                <EmployeeInfo name='Emil Elton Nilsen'/>
+                <EmployeeInfo name={user?.name}/>
                 <OngoingInsight userInsight={insightMock}/>
-                <CurrentProjects projects={projectMock}/>
+                <CurrentProjects projects={insightProjects!}/>
             </div>
         </div>
     );

@@ -38,14 +38,18 @@ export default function OngoingInsight({ userInsight }: { userInsight: IInsight[
     return (
         <div className={style.ongoingInsightWorkContainer}>
             <Heading size="xlarge">Pågående innsiktsarbeid</Heading>
-            {filterForOngoingInsightWork(userInsight).map((item, i) => {
-                return (
-                    <LinkPanel key={i} href={item.path}>
-                        <LinkPanel.Title>{item.title}</LinkPanel.Title>
-                        <LinkPanel.Description>{`${item.start} - ${item.end}`}</LinkPanel.Description>
-                    </LinkPanel>
-                );
-            })}
+            {userInsight.length === 0 ? (
+                filterForOngoingInsightWork(userInsight).map((item, i) => {
+                    return (
+                        <LinkPanel key={i} href={item.path}>
+                            <LinkPanel.Title>{item.title}</LinkPanel.Title>
+                            <LinkPanel.Description>{`${item.start} - ${item.end}`}</LinkPanel.Description>
+                        </LinkPanel>
+                    );
+                })
+            ) : (
+                <p>Du har ingen pågående innsiktsarbeid...</p>
+            )}
         </div>
     );
 }

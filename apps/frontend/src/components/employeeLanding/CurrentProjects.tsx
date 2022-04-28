@@ -15,20 +15,22 @@ export default function CurrentProjects({ projects }: { projects: IInsightProjec
         const onGoingProjects: IInsightProject[] = [];
         const futureProjects: IInsightProject[] = [];
         const completedProjects: IInsightProject[] = [];
-
-        for (const project of projects) {
-            if (isWithinInterval(
-                new Date(),
-                {
-                    start: parse(project.start, 'dd.MM.yyyy', new Date()),
-                    end: parse(project.end, 'dd.MM.yyyy', new Date())
+        
+        if (projects !== undefined) {
+            for (const project of projects) {
+                if (isWithinInterval(
+                    new Date(),
+                    {
+                        start: parse(project.start, 'dd.MM.yyyy', new Date()),
+                        end: parse(project.end, 'dd.MM.yyyy', new Date())
+                    }
+                )) {
+                    onGoingProjects.push(project);
+                } else if (isFuture(parse(project.start, 'dd.MM.yyyy', new Date()))) {
+                    futureProjects.push(project);
+                } else {
+                    completedProjects.push(project);
                 }
-            )) {
-                onGoingProjects.push(project);
-            } else if (isFuture(parse(project.start, 'dd.MM.yyyy', new Date()))) {
-                futureProjects.push(project);
-            } else {
-                completedProjects.push(project);
             }
         }
 
@@ -40,21 +42,35 @@ export default function CurrentProjects({ projects }: { projects: IInsightProjec
             <Heading size="xlarge">Mine prosjekter</Heading>
             <Heading size="large">Pågående</Heading>
             <div className={style.projectsContainer}>
-                {filterProjects(projects).onGoingProjects.map((item, i) => {
-                    return <CurrentProjectCard key={i} insightProject={item} />;
-                })}
+                {filterProjects(projects).onGoingProjects.length !== 0 ? (
+                    filterProjects(projects).onGoingProjects.map((item, i) => {
+                        return (
+                            <CurrentProjectCard key={i} insightProject={item} />
+                        );
+                    })
+                ) : (
+                    <p>Du har ingen pågående prosjekter...</p>
+                )}
             </div>
             <Heading size="large">Fremtidige</Heading>
             <div className={style.projectsContainer}>
-                {filterProjects(projects).futureProjects.map((item, i) => {
-                    return <CurrentProjectCard key={i} insightProject={item} />;
-                })}
+                {filterProjects(projects).futureProjects.length !== 0 ? (
+                    filterProjects(projects).futureProjects.map((item, i) => {
+                        return <CurrentProjectCard key={i} insightProject={item} />;
+                    })
+                ) : (
+                    <p>Du har ingen fremtidige prosjekter...</p>
+                )}
             </div>
             <Heading size='large'>Gjennomførte</Heading>
             <div className={style.projectsContainer}>
-                {filterProjects(projects).completedProjects.map((item, i) => {
-                    return <CurrentProjectCard key={i} insightProject={item} />;
-                })}
+                {filterProjects(projects).completedProjects.length !== 0 ? (
+                    filterProjects(projects).completedProjects.map((item, i) => {
+                        return <CurrentProjectCard key={i} insightProject={item} />;
+                    })
+                ) : (
+                    <p>Du har ingen gjennomførte prosjekter...</p>
+                )}
             </div>
         </div>
     );

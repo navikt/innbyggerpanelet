@@ -14,8 +14,8 @@ export default ({ server }: { server: Application }) => {
     server.use(
         expressSession({
             secret: 'dan borge',
-            resave: false,
             saveUninitialized: false,
+            resave: false,
             unset: 'destroy',
             cookie: { sameSite: 'lax', secure: config.backend.prod }
         })
