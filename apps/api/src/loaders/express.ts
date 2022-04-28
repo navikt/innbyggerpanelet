@@ -8,13 +8,6 @@ import { createClient } from 'redis';
 import config from '../config';
 import routes from '../routes';
 export default async ({ server }: { server: Application }) => {
-    server.use(helmet());
-    server.use(
-        cors({ origin: config.backend.url, exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With'] })
-    );
-    server.use(json());
-    server.set('trust proxy', 1);
-    // TODO: Secure version for prod (https)
     server.use(
         expressSession({
             secret: 'dan borge',
@@ -31,6 +24,11 @@ export default async ({ server }: { server: Application }) => {
                 : { sameSite: 'lax', secure: false, httpOnly: true }
         })
     );
+    server.use(helmet());
+    server.use(
+        cors({ origin: config.backend.url, exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With'] })
+    );
+    server.use(json());
     server.use(passport.initialize());
     server.use(passport.session());
     server.use(routes);
