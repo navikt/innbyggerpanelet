@@ -1,4 +1,4 @@
-import { Heading, Loader } from '@navikt/ds-react';
+import { Heading, Loader, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ReactElement } from 'react';
 
@@ -30,5 +30,5 @@ export const APIHandler = ({ loading, error }: IProps): ReactElement => {
         }
     }
 
-    return element;
+    return <Panel>{element}</Panel>;
 };

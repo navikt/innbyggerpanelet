@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { IUser } from '@innbyggerpanelet/api-interfaces';
+import { EnumUserRole, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
 import { Candidate } from '../candidate/CandidateEntity';
 import { Criteria } from '../criteria/CriteriaEntity';
@@ -26,6 +26,9 @@ export class User implements IUser {
 
     @Column()
     phone: string;
+
+    @Column({ type: 'enum', enum: EnumUserRole, default: EnumUserRole.Citizen })
+    role: EnumUserRole;
 
     @OneToMany(() => Candidate, (candidate) => candidate.user)
     candidates: Candidate[];

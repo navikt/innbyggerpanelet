@@ -1,5 +1,6 @@
 import {
     EnumCandidateStatus,
+    EnumUserRole,
     ICandidate,
     IConsent,
     ICriteria,
@@ -46,6 +47,7 @@ const teamMember: IUser = {
     name: 'Terje Navansatt',
     email: 'terje@nav.no',
     phone: '45676456',
+    role: EnumUserRole.NAV,
     latestUpdate: '21.01.2022',
     criterias: []
 };
@@ -75,6 +77,7 @@ const olaUser: IUser = {
     name: 'Ola Nordmann',
     email: 'ola@nordmann.no',
     phone: '12332123',
+    role: EnumUserRole.Citizen,
     latestUpdate: '21.01.2022',
     criterias: [allCriterias[0], allCriterias[2]]
 };
@@ -93,6 +96,7 @@ const kariUser: IUser = {
     id: '2',
     email: 'kari@example.com',
     phone: '32132321',
+    role: EnumUserRole.Citizen,
     latestUpdate: '2022-01-02',
     name: 'Kari Nordmann',
     criterias: [allCriterias[1], allCriterias[3]]

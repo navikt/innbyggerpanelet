@@ -1,3 +1,4 @@
+import { EnumUserRole } from '@innbyggerpanelet/api-interfaces';
 import session from 'express-session';
 import { Issuer, Strategy, TokenSet } from 'openid-client';
 import passport from 'passport';
@@ -60,6 +61,7 @@ const passportLoader = async () => {
                         name: user.claims.name,
                         email: user.claims.preferred_username,
                         phone: 'temporary',
+                        role: EnumUserRole.NAV,
                         latestUpdate: new Date().toDateString(),
                         candidates: [],
                         criterias: [],

@@ -3,11 +3,11 @@ import { database } from '../loaders';
 import { IPassportSession } from '../loaders/passport';
 import { User } from '../models/user/UserEntity';
 import { IUserSearch, UserService } from '../services';
-import { ensureAuthentication } from './middleware/authenticationHandler';
+import { adminAuthenticated, authenticated, navAuthenticated } from './middleware/authenticationHandler';
 
 const userRoutes = Router();
 
-userRoutes.get('/', async (req, res, next) => {
+userRoutes.get('/', adminAuthenticated, async (req, res, next) => {
     try {
         const queries = req.query as unknown as IUserSearch;
 
@@ -20,7 +20,7 @@ userRoutes.get('/', async (req, res, next) => {
     }
 });
 
-userRoutes.get('/currentUser', ensureAuthentication, async (req, res, next) => {
+userRoutes.get('/currentUser', authenticated, async (req, res, next) => {
     try {
         // Need interface for this or possibly find typings?
         const me: string = (req.session as IPassportSession).passport.user.claims.oid;
@@ -35,7 +35,7 @@ userRoutes.get('/currentUser', ensureAuthentication, async (req, res, next) => {
 });
 
 // Needs to be defined before /:id
-userRoutes.get('/prioritized', async (req, res, next) => {
+userRoutes.get('/prioritized', navAuthenticated, async (req, res, next) => {
     try {
         // If list is undefined, make it empty
         const criterias = (req.query.criterias as unknown as string[]) || [];
@@ -49,7 +49,7 @@ userRoutes.get('/prioritized', async (req, res, next) => {
     }
 });
 
-userRoutes.get('/:id', async (req, res, next) => {
+userRoutes.get('/:id', navAuthenticated, async (req, res, next) => {
     try {
         const id = req.params.id;
 
@@ -62,7 +62,7 @@ userRoutes.get('/:id', async (req, res, next) => {
     }
 });
 
-userRoutes.post('/', async (req, res, next) => {
+userRoutes.post('/', adminAuthenticated, async (req, res, next) => {
     try {
         const userService = new UserService(database);
         const newUser = req.body as User;
@@ -75,7 +75,7 @@ userRoutes.post('/', async (req, res, next) => {
     }
 });
 
-userRoutes.put('/', async (req, res, next) => {
+userRoutes.put('/', authenticated, async (req, res, next) => {
     try {
         const userService = new UserService(database);
         const updatedUser = req.body as User;
