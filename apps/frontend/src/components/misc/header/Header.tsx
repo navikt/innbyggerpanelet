@@ -11,8 +11,8 @@ export const Header = (): ReactElement => {
     // Get subpath
     const subPath = location.pathname.split('/')[1];
 
-    const adminStyle = subPath === 'admin' ? style.admin : style.noUnderline;
-    const homeStyle = subPath === 'hjem' ? style.home : style.noUnderline;
+    const adminStyle = subPath === 'admin' ? style.admin : '';
+    const homeStyle = subPath === 'hjem' ? style.home : '';
 
     const { user, loading, error } = useUser();
 
