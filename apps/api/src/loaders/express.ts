@@ -26,7 +26,11 @@ export default async ({ server }: { server: Application }) => {
     );
     server.use(helmet());
     server.use(
-        cors({ origin: config.backend.url, exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With'] })
+        cors({
+            origin: '*',
+            exposedHeaders: ['Origin', 'Content-Type', 'Accept', 'X-Requested-With'],
+            credentials: true
+        })
     );
     server.use(json());
     server.use(passport.initialize());
@@ -49,5 +53,5 @@ const setupStore = async () => {
 
     const store = redisStore(expressSession);
 
-    return new store({ client, disableTouch: true });
+    return new store({ client, disableTouch: false });
 };
