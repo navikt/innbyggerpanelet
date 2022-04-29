@@ -19,7 +19,8 @@ export default async ({ server }: { server: Application }) => {
             cookie: {
                 sameSite: 'lax',
                 secure: config.backend.prod,
-                httpOnly: true
+                httpOnly: true,
+                domain: config.backend.prod ? 'nav.no' : 'localhost'
             }
         })
     );
