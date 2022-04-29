@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { database } from '../loaders';
-import { IPassportSession } from '../loaders/passport';
 import { User } from '../models/user/UserEntity';
 import { IUserSearch, UserService } from '../services';
 import { adminAuthenticated, authenticated, navAuthenticated } from './middleware/authenticationHandler';
@@ -22,11 +21,10 @@ userRoutes.get('/', adminAuthenticated, async (req, res, next) => {
 
 userRoutes.get('/currentUser', authenticated, async (req, res, next) => {
     try {
-        // Need interface for this or possibly find typings?
-        const me: string = (req.session as IPassportSession).passport.user.claims.oid;
+        const { id } = req.user;
 
         const userService = new UserService(database);
-        const result: User = await userService.getById(me);
+        const result: User = await userService.getById(id);
 
         res.json(result);
     } catch (error) {
