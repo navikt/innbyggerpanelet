@@ -1,6 +1,6 @@
 import { IInsight, IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
 import React, { ReactElement, useState } from 'react';
-import { useInsightProjectByUserId, useUser } from '../../api/hooks';
+import { useInsightProjectByCurrentUser, useUser } from '../../api/hooks';
 import CurrentProjects from '../../components/employeeLanding/CurrentProjects';
 import EmployeeInfo from '../../components/employeeLanding/EmployeeInfo';
 import OngoingInsight from '../../components/employeeLanding/OngoingInsight';
@@ -103,7 +103,7 @@ export default function EmployeeLandingPage(): ReactElement {
     
     const [user, setUser] = useState<IUser | undefined>(useUser().user);
     
-    const { insightProjects, loading, error} = useInsightProjectByUserId(user?.id);
+    const { insightProjects, loading, error} = useInsightProjectByCurrentUser(user?.id);
     //const { insightProjects, loading, error} = useInsightProjects();
 
     return (

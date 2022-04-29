@@ -19,6 +19,20 @@ insightProjectRoutes.get('/', async (req, res, next) => {
     }
 });
 
+insightProjectRoutes.get('/currentUser/:userId', async (req, res, next) => {
+    try {
+        const id = req.params.userId;
+
+        const insightProjectService = new InsightProjectService(database);
+
+        const result: InsightProject[] | undefined = await insightProjectService.getByCurrentUser(id);
+        
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
 insightProjectRoutes.get('/:id', async (req, res, next) => {
     try {
         const id = parseInt(req.params.id);
@@ -40,20 +54,6 @@ insightProjectRoutes.post('/', async (req, res, next) => {
 
         const result = await insightProjectService.create(newInsightProject);
 
-        res.json(result);
-    } catch (error) {
-        next(error);
-    }
-});
-
-insightProjectRoutes.get('/:userId', async (req, res, next) => {
-    try {
-        const userId = req.params.userId;
-
-        const insightProjectService = new InsightProjectService(database);
-
-        const result: InsightProject[] | undefined = await insightProjectService.getByUserId(userId);
-        
         res.json(result);
     } catch (error) {
         next(error);
