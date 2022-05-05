@@ -1,6 +1,6 @@
 import { EnumUserRole } from '@innbyggerpanelet/api-interfaces';
 import { NextFunction, Request, Response } from 'express';
-import { ForbiddenError } from '../../lib/errors/http/NotFoundError';
+import { ForbiddenError } from '../../lib/errors/http/ForbiddenError';
 import { ServerErrorMessage } from '../../lib/errors/messages/ServerErrorMessages';
 import { database } from '../../loaders';
 import { IPassportSession } from '../../loaders/passport';
