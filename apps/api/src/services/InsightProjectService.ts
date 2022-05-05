@@ -1,6 +1,7 @@
 import { Connection, Repository } from 'typeorm';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
+import { Insight } from '../models/insight/InsightEntity';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
 import BaseService from './BaseService';
 
@@ -71,6 +72,14 @@ export class InsightProjectService extends BaseService<InsightProject> {
         if (insightProjects.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Insight projects')});
 
         return insightProjects;
+    }
+
+    async getInsightsInProject(projectId: number): Promise<Insight[]> {
+        const insights = await this._insightProjectRepository.findOne(projectId);
+
+        if (insights.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Insight')});
+
+        return insights.insights;
     }
 
     async update(id: number, dto: InsightProject): Promise<InsightProject> {

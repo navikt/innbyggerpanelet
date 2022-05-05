@@ -57,12 +57,4 @@ export class InsightService extends BaseService<Insight> {
     async delete(id: number): Promise<void> {
         throw new Error('Method not implemented.');
     }
-
-    async getByProjectId(projectId: number): Promise<Insight[]> {
-        const insights = [];
-
-        if (insights.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Insights')});
-
-        return insights;
-    }
 }
