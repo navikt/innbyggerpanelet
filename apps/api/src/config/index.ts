@@ -23,6 +23,11 @@ const backend = {
     prod: process.env.IS_PROD === 'yes'
 };
 
+const redis = {
+    host: process.env.REDIS_HOST,
+    port: 6379
+};
+
 if (process.env.IS_PROD === 'yes') {
     host = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_HOST;
     port = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_PORT;
@@ -47,5 +52,6 @@ export default {
     },
     azureAd,
     frontend,
-    backend
+    backend,
+    redis
 };
