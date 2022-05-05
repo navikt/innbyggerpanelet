@@ -102,16 +102,17 @@ const projectMock: IInsightProject[] = [{
 export default function EmployeeLandingPage(): ReactElement {
     
     const [user, setUser] = useState<IUser | undefined>(useUser().user);
-    
     const { insightProjects, loading, error} = useInsightProjectByCurrentUser(user?.id);
-    //const { insightProjects, loading, error} = useInsightProjects();
+    
+    const [userInsight, setUserInsight] = useState<IInsight[]>([]);
+
+    
 
     return (
         <div>
-            {console.log(insightProjects)}
             <div className={style.employeeLandingPageContainer}>
                 <EmployeeInfo name={user?.name}/>
-                <OngoingInsight userInsight={insightMock}/>
+                <OngoingInsight userInsight={userInsight}/>
                 <CurrentProjects projects={insightProjects!}/>
             </div>
         </div>

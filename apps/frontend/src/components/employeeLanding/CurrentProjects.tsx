@@ -15,18 +15,17 @@ export default function CurrentProjects({ projects }: { projects: IInsightProjec
         const onGoingProjects: IInsightProject[] = [];
         const futureProjects: IInsightProject[] = [];
         const completedProjects: IInsightProject[] = [];
-        
         if (projects !== undefined) {
             for (const project of projects) {
                 if (isWithinInterval(
                     new Date(),
                     {
-                        start: parse(project.start, 'dd.MM.yyyy', new Date()),
-                        end: parse(project.end, 'dd.MM.yyyy', new Date())
+                        start: parse(project.start, 'yyyy-MM-dd', new Date()),
+                        end: parse(project.end, 'yyyy-MM-dd', new Date())
                     }
                 )) {
                     onGoingProjects.push(project);
-                } else if (isFuture(parse(project.start, 'dd.MM.yyyy', new Date()))) {
+                } else if (isFuture(parse(project.start, 'yyyy-MM-dd', new Date()))) {
                     futureProjects.push(project);
                 } else {
                     completedProjects.push(project);

@@ -34,4 +34,18 @@ insightRouter.post('/', async (req, res, next) => {
     }
 });
 
+insightRouter.get('/project/:id', async(req, res, next) => {
+    try {
+        const id = parseInt(req.params.id);
+
+        const insightService = new InsightService(database);
+
+        const result: Insight[] | undefined = await insightService.getByProjectId(id);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default insightRouter;

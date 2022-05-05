@@ -38,7 +38,7 @@ export default function OngoingInsight({ userInsight }: { userInsight: IInsight[
     return (
         <div className={style.ongoingInsightWorkContainer}>
             <Heading size="xlarge">Pågående innsiktsarbeid</Heading>
-            {userInsight.length === 0 ? (
+            {userInsight.length !== 0 ? (
                 filterForOngoingInsightWork(userInsight).map((item, i) => {
                     return (
                         <LinkPanel key={i} href={item.path}>
