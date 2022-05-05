@@ -1,4 +1,4 @@
-import { IInsight, IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
+import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
 import { AxiosError } from 'axios';
 import useSWR from 'swr';
 import { fetcher } from '../operations';
@@ -46,15 +46,3 @@ export const useInsightProjectByCurrentUser = (userId: string | number | undefin
     };
 };
 
-/*
-* TODO: MOVE THIS FROM INSIGHT PROJECT TO INSIGHT
-*/
-export const useInsightByInsightProject = (projectId: number) => {
-    const { data, error } = useSWR<IInsight[], AxiosError>(`api/insightProject/insights/${projectId}`, fetcher);
-
-    return {
-        insights: data,
-        loading: !error && !data,
-        error
-    };
-};
