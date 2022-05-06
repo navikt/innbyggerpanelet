@@ -21,9 +21,7 @@ export default function CurrentProjects({
             <div className={style.projectsContainer}>
                 {filteredProjects.onGoingProjects.length !== 0 ? (
                     filteredProjects.onGoingProjects.map((item, i) => {
-                        return (
-                            <CurrentProjectCard key={i} insightProject={item} />
-                        );
+                        <CurrentProjectCard insightProject={item} id={item.id} />;
                     })
                 ) : (
                     <p>Du har ingen pågående prosjekter...</p>
@@ -33,7 +31,7 @@ export default function CurrentProjects({
             <div className={style.projectsContainer}>
                 {filteredProjects.futureProjects.length !== 0 ? (
                     filteredProjects.futureProjects.map((item, i) => {
-                        return <CurrentProjectCard key={i} insightProject={item} />;
+                        return <CurrentProjectCard insightProject={item} id={item.id} />;
                     })
                 ) : (
                     <p>Du har ingen fremtidige prosjekter...</p>
@@ -43,7 +41,7 @@ export default function CurrentProjects({
             <div className={style.projectsContainer}>
                 {filteredProjects.completedProjects.length !== 0 ? (
                     filteredProjects.completedProjects.map((item, i) => {
-                        return <CurrentProjectCard key={i} insightProject={item} />;
+                        return <CurrentProjectCard insightProject={item} id={item.id} />;
                     })
                 ) : (
                     <p>Du har ingen gjennomførte prosjekter...</p>
