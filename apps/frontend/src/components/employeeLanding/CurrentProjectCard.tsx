@@ -1,7 +1,8 @@
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Detail, Heading, Link } from '@navikt/ds-react';
+import { Detail, Heading } from '@navikt/ds-react';
 import React, { ReactElement } from 'react';
 import style from './CurrentProjectCard.module.scss';
+import { Link } from 'react-router-dom';
 
 export default function CurrentProjectCard({ 
     insightProject,
@@ -11,7 +12,7 @@ export default function CurrentProjectCard({
     id: number
 }): ReactElement {
     return (
-        <Link href={`/#/prosjekt/${id}`} className={style.cardContainer}>
+        <Link to={`/prosjekt/${id}`} className={style.cardContainer}>
             <Heading size='medium'>
                 {insightProject.name}
             </Heading>
