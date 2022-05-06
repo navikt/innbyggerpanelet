@@ -1,4 +1,5 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
+import { Button, Link } from '@navikt/ds-react';
 import React, { ReactElement, useState } from 'react';
 import { useUser } from '../../api/hooks';
 import CurrentProjects from '../../components/employeeLanding/CurrentProjects';
@@ -16,6 +17,11 @@ export default function EmployeeLandingPage(): ReactElement {
         <div>
             <div className={style.employeeLandingPageContainer}>
                 <EmployeeInfo name={user?.name}/>
+                <div className={style.newProjectButtonContaner}>
+                    <Link href='/#/prosjekt/ny'>
+                        <Button variant='primary' size='medium'>Opprett nytt prosjekt</Button>
+                    </Link>
+                </div>
                 {/* <OngoingInsight userInsight={insights!}/> */}
                 <CurrentProjects filteredProjects={{ onGoingProjects, futureProjects, completedProjects }}/>
             </div>
