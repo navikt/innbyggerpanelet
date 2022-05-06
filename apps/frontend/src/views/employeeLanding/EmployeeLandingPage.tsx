@@ -22,7 +22,6 @@ export default function EmployeeLandingPage(): ReactElement {
                         <Button variant='primary' size='medium'>Opprett nytt prosjekt</Button>
                     </Link>
                 </div>
-                {/* <OngoingInsight userInsight={insights!}/> */}
                 <CurrentProjects filteredProjects={{ onGoingProjects, futureProjects, completedProjects }}/>
             </div>
         </div>

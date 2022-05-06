@@ -1,5 +1,5 @@
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Heading } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { ReactElement } from 'react';
 import CurrentProjectCard from './CurrentProjectCard';
 import style from './CurrentProjects.module.scss';
@@ -24,7 +24,7 @@ export default function CurrentProjects({
                         <CurrentProjectCard insightProject={item} id={item.id} />;
                     })
                 ) : (
-                    <p>Du har ingen pågående prosjekter...</p>
+                    <BodyShort>Du har ingen pågående prosjekter...</BodyShort>
                 )}
             </div>
             <Heading size="large">Fremtidige</Heading>
@@ -34,7 +34,7 @@ export default function CurrentProjects({
                         return <CurrentProjectCard insightProject={item} id={item.id} />;
                     })
                 ) : (
-                    <p>Du har ingen fremtidige prosjekter...</p>
+                    <BodyShort>Du har ingen fremtidige prosjekter...</BodyShort>
                 )}
             </div>
             <Heading size='large'>Gjennomførte</Heading>
@@ -44,7 +44,7 @@ export default function CurrentProjects({
                         return <CurrentProjectCard insightProject={item} id={item.id} />;
                     })
                 ) : (
-                    <p>Du har ingen gjennomførte prosjekter...</p>
+                    <BodyShort>Du har ingen gjennomførte prosjekter...</BodyShort>
                 )}
             </div>
         </div>
