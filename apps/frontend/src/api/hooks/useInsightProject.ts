@@ -33,3 +33,16 @@ export const useInsightProjectById = (id: string | number) => {
         error: error
     };
 };
+
+export const useInsightProjectByCurrentUser = (userId: string | number | undefined) => {
+    const { data, error } = useSWR<IInsightProject[], AxiosError>(
+        `/api/insightProject/currentUser/${userId}`, fetcher
+    );
+
+    return {
+        insightProjects: data,
+        loading: !error && !data,
+        error
+    };
+};
+

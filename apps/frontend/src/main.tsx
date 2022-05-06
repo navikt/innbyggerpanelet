@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import App from './app';
-import Breadcrumbs from './components/misc/breadcrumbs/';
+import Breadcrumbs from './components/misc/breadcrumbs';
 import Header from './components/misc/header';
 import NotFound from './components/misc/notFound';
 import AdminPanel from './containers/adminPanel';
@@ -14,6 +14,7 @@ import { InsightProjectOverview } from './containers/project/InsightProjectOverv
 import RegisterUser from './containers/registerUser';
 import UserProfile from './containers/userProfile';
 import { ProvideErrorMessageContext } from './core/context/ErrorMessageContext';
+import EmployeeLandingPage from './views/employeeLanding/EmployeeLandingPage';
 
 // Root
 ReactDOM.render(
@@ -33,6 +34,7 @@ ReactDOM.render(
                     <Route path="/registrer" element={<RegisterUser />} />
                     <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
+                    <Route path='/ansatt' element={<EmployeeLandingPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </HashRouter>
