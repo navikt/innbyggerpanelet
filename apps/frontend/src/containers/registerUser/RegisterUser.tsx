@@ -1,4 +1,4 @@
-import { IUser } from '@innbyggerpanelet/api-interfaces';
+import { EnumUserRole, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ const defaultUser: IUser = {
     name: '',
     email: '',
     phone: '',
+    role: EnumUserRole.Citizen,
     latestUpdate: Date.now().toString(),
     criterias: []
 };

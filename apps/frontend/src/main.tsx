@@ -5,6 +5,7 @@ import App from './app';
 import Breadcrumbs from './components/misc/breadcrumbs';
 import Header from './components/misc/header';
 import NotFound from './components/misc/notFound';
+import AdminPanel from './containers/adminPanel';
 import CreateInsight from './containers/createInsight/';
 import CriteriaAdminPanel from './containers/criteriaAdministration';
 import LandingPage from './containers/landingPage';
@@ -31,6 +32,7 @@ ReactDOM.render(
                     <Route path="/prosjekt/:id/innsikt" element={<CreateInsight />} />
                     <Route path="/profil" element={<UserProfile />} />
                     <Route path="/registrer" element={<RegisterUser />} />
+                    <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
                     <Route path='/ansatt' element={<EmployeeLandingPage />} />
                     <Route path="*" element={<NotFound />} />

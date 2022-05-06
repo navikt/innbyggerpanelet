@@ -1,3 +1,9 @@
+export enum EnumUserRole {
+    Citizen = 'CITIZEN',
+    NAV = 'NAV',
+    Admin = 'ADMIN',
+}
+
 export interface IUser {
     [key: string]: number | string | ICriteria[];
     id: string;
@@ -5,6 +11,7 @@ export interface IUser {
     latestUpdate: string;
     email: string;
     phone: string;
+    role: EnumUserRole;
     criterias: ICriteria[];
 }
 

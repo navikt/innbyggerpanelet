@@ -35,3 +35,7 @@ spec:
     path: /internal/prometheus
   ingresses:
     - https://innbyggerpanelet.dev.intern.nav.no
+  accessPolicy:
+    outbound:
+      rules:
+        - application: innbyggerpanelet-backend
