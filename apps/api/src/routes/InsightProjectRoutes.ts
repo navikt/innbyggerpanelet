@@ -1,3 +1,4 @@
+import { IInsight } from '@innbyggerpanelet/api-interfaces';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
@@ -13,6 +14,34 @@ insightProjectRoutes.get('/', async (req, res, next) => {
 
         const result: InsightProject[] | undefined =
             await insightProjectService.search(queries);
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+insightProjectRoutes.get('/currentUser/:userId', async (req, res, next) => {
+    try {
+        const id = req.params.userId;
+
+        const insightProjectService = new InsightProjectService(database);
+
+        const result: InsightProject[] | undefined = await insightProjectService.getByCurrentUser(id);
+        
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+insightProjectRoutes.get('/insights/:projectId', async (req, res, next) => {
+    try {
+        const id = parseInt(req.params.projectId);
+    
+        const insightProjectService = new InsightProjectService(database);
+
+        const result: IInsight[] | undefined = await insightProjectService.getInsightsInProject(id);
+
         res.json(result);
     } catch (error) {
         next(error);

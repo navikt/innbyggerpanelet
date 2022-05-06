@@ -12,9 +12,11 @@ export const App = () => {
                     <Link to="/prosjekt/ny">Nytt prosjekt</Link>
                     <Link to="/profil">Brukerprofil</Link>
                     <Link to="/registrer">Registrer bruker</Link>
+                    <Link to="/admin/kriterier">Kriterier oversikt</Link>
+                    <Link to="/ansatt">Ansatt hjem</Link>
                 </div>
             </Panel>
-            <InsightProjectOverview />
+            <InsightProjectOverview />   
         </>
     );
 };
