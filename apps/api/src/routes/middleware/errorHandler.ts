@@ -15,5 +15,5 @@ export function errorHandler(error: Error, request: Request, response: Response,
         return response.status(error.httpStatus).json(error.toResponse());
     }
 
-    return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json('Something went wrong.. Try again later.');
+    return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json('Something went wrong.. Try again later.' + error);
 }

@@ -12,6 +12,7 @@ import LandingPage from './containers/landingPage';
 import InsightProject, { CreateInsightProject } from './containers/project';
 import { InsightProjectOverview } from './containers/project/InsightProjectOverview';
 import RegisterUser from './containers/registerUser';
+import { UserAdministration } from './containers/userAdministration/UserAdministration';
 import UserProfile from './containers/userProfile';
 import { ProvideErrorMessageContext } from './core/context/ErrorMessageContext';
 import EmployeeLandingPage from './views/employeeLanding/EmployeeLandingPage';
@@ -32,9 +33,10 @@ ReactDOM.render(
                     <Route path="/prosjekt/:id/innsikt" element={<CreateInsight />} />
                     <Route path="/profil" element={<UserProfile />} />
                     <Route path="/registrer" element={<RegisterUser />} />
+                    <Route path="/ansatt" element={<EmployeeLandingPage />} />
                     <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
-                    <Route path='/ansatt' element={<EmployeeLandingPage />} />
+                    <Route path="/admin/brukere" element={<UserAdministration />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </HashRouter>
