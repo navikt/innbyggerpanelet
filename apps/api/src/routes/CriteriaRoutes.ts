@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { database } from '../loaders';
 import { Criteria } from '../models/criteria/CriteriaEntity';
 import { CriteriaService, ICriteriaSearch } from '../services';
+import { authenticated } from './middleware/authenticationHandler';
 
 const criteriaRouter = Router();
 
@@ -26,6 +27,19 @@ criteriaRouter.post('/', async (req, res, next) => {
         const newCriteriaCategory = req.body as Criteria;
 
         const result = await criteriaService.create(newCriteriaCategory);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+criteriaRouter.put('/', authenticated, async (req, res, next) => {
+    try {
+        const criteriaService = new CriteriaService(database);
+        const updatedCriteria = req.body as Criteria;
+
+        const result = await criteriaService.update(updatedCriteria.id, updatedCriteria);
 
         res.json(result);
     } catch (error) {

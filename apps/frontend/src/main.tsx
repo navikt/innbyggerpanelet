@@ -1,7 +1,7 @@
+import '@navikt/ds-css/index.css';
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import App from './app';
 import Breadcrumbs from './components/misc/breadcrumbs';
 import Header from './components/misc/header';
 import NotFound from './components/misc/notFound';
@@ -26,14 +26,13 @@ ReactDOM.render(
                 <Breadcrumbs />
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
-                    <Route path="/hjem" element={<App />} />
+                    <Route path="/hjem" element={<EmployeeLandingPage />} />
                     <Route path="/prosjekt" element={<InsightProjectOverview />} />
                     <Route path="/prosjekt/ny" element={<CreateInsightProject />} />
                     <Route path="/prosjekt/:id" element={<InsightProject />} />
                     <Route path="/prosjekt/:id/innsikt" element={<CreateInsight />} />
                     <Route path="/profil" element={<UserProfile />} />
                     <Route path="/registrer" element={<RegisterUser />} />
-                    <Route path="/ansatt" element={<EmployeeLandingPage />} />
                     <Route path="/admin" element={<AdminPanel />} />
                     <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
                     <Route path="/admin/brukere" element={<UserAdministration />} />

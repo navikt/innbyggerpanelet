@@ -3,11 +3,11 @@
     flex-direction: column;
     margin-top: 2rem;
 
-    > * {
-        margin-top: 1rem;
-    }
-    
     h1 {
+        margin: 0 0 .5rem;
+    }
+
+    > * {
         margin-top: 1rem;
     }
 }
@@ -16,4 +16,5 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
+    margin: 0 0 2rem;
 }

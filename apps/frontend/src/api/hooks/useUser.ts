@@ -3,8 +3,8 @@ import { AxiosError } from 'axios';
 import useSWR from 'swr';
 import { fetcher } from '../operations';
 
+// Gets currently authenticated user
 export const useUser = () => {
-    // TODO auth, get actual user and not id = 1
     const { data, error } = useSWR<IUser, AxiosError>('/api/user/currentUser', fetcher);
 
     return { user: data, loading: !data && !error, error: error };

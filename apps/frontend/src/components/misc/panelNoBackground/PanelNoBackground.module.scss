@@ -2,3 +2,8 @@
     width: 60rem;
     margin: 2rem auto;
 }
+
+.wrapper > button {
+    position: absolute;
+    left: calc(((100% - 60rem) / 2) + 60rem + 1rem);
+}
