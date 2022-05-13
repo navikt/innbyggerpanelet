@@ -16,7 +16,7 @@ export class User implements IUser {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ type: 'date', default: new Date().toISOString().slice(0, 10) })
     latestUpdate: string;
 
     @Column({

@@ -1,14 +1,6 @@
 /* eslint-disable indent */
 import { IInsight } from '@innbyggerpanelet/api-interfaces';
-import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    ManyToMany,
-    JoinTable,
-    ManyToOne,
-    OneToMany,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Candidate } from '../candidate/CandidateEntity';
 import { Consent } from '../consent/ConsentEntity';
 import { Criteria } from '../criteria/CriteriaEntity';
@@ -30,10 +22,10 @@ export class Insight implements IInsight {
     @Column()
     description: string;
 
-    @Column()
+    @Column({ type: 'date', default: new Date().toISOString().slice(0, 10) })
     start: string;
 
-    @Column()
+    @Column({ type: 'date', default: new Date().toISOString().slice(0, 10) })
     end: string;
 
     @OneToMany(() => Candidate, (candidate) => candidate.insight)

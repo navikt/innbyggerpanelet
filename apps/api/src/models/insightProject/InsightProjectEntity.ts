@@ -1,13 +1,6 @@
 /* eslint-disable indent */
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    OneToMany,
-    ManyToMany,
-    JoinTable,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Insight } from '../insight/InsightEntity';
 import { User } from '../user/UserEntity';
 
@@ -24,10 +17,10 @@ export class InsightProject implements IInsightProject {
     @Column()
     description: string;
 
-    @Column()
+    @Column({ type: 'date', default: new Date().toISOString().slice(0, 10) })
     start: string;
 
-    @Column()
+    @Column({ type: 'date', default: new Date().toISOString().slice(0, 10) })
     end: string;
 
     @JoinTable()
