@@ -28,6 +28,12 @@ const redis = {
     port: 6379
 };
 
+const kafka = {
+    clientId: process.env.KAFKA_CLIENT_ID,
+    brokerId: process.env.KAFKA_BROKER_ID,
+    brokerPort: process.env.KAFKA_BROKER_PORT
+};
+
 if (process.env.IS_PROD === 'yes') {
     host = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_HOST;
     port = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_PORT;
@@ -53,5 +59,6 @@ export default {
     azureAd,
     frontend,
     backend,
-    redis
+    redis,
+    kafka
 };

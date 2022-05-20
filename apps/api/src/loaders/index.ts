@@ -4,6 +4,7 @@ import expressLoader from '../loaders/express';
 import typeormLoader from '../loaders/typeorm';
 import { logger } from './logger';
 import passportLoader from './passport';
+import kafkaLoader from './kafka';
 
 let database!: Connection;
 
@@ -25,9 +26,12 @@ export const load = async ({ server }: { server: Application }) => {
     const loadedPassport = await passportLoader();
     logger.info('------ PASSPORT LOADED');
 
+    logger.info('-- loading kafka... --');
+    const loadedKafka = kafkaLoader;
+
     loaded = true;
 
-    return { loadedExpress, loadedPassport, loadedTypeOrm };
+    return { loadedExpress, loadedPassport, loadedTypeOrm, loadedKafka };
 };
 
 export { database };
