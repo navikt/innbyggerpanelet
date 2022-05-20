@@ -10,6 +10,15 @@ export const createCriteria = async (criteria: ICriteria) => {
     return {
         response: data,
         isLoading: !error && !data,
-        isError: error,
+        isError: error
+    };
+};
+
+export const updateCriteria = async (criteria: ICriteria) => {
+    const { data, error } = await poster<ICriteria>('/api/criteria', criteria);
+
+    return {
+        response: data,
+        error: error
     };
 };

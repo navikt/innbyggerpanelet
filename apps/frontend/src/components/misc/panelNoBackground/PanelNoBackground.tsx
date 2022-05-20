@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-
 import style from './PanelNoBackground.module.scss';
 
 interface IProps {
@@ -7,9 +6,6 @@ interface IProps {
     className?: string;
 }
 
-export const PanelNoBackground = ({
-    children,
-    className = '',
-}: IProps): ReactElement => {
+export const PanelNoBackground = ({ children, className = '' }: IProps): ReactElement => {
     return <div className={`${style.wrapper} ${className}`}>{children}</div>;
 };

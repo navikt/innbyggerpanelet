@@ -1,17 +1,23 @@
-import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
+import { EnumUserRole, ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
 import { AxiosError } from 'axios';
 import useSWR from 'swr';
 import { fetcher } from '../operations';
 
+// Gets currently authenticated user
 export const useUser = () => {
-    // TODO auth, get actual user and not id = 1
     const { data, error } = useSWR<IUser, AxiosError>('/api/user/currentUser', fetcher);
 
     return { user: data, loading: !data && !error, error: error };
 };
 
-export const useUserByName = (name: string) => {
-    const { data, error } = useSWR<IUser[], AxiosError>(`/api/user?where[name]=%${name}%`, fetcher);
+export const useUsersByNameAndRole = (name: string, role: EnumUserRole) => {
+    const { data, error } = useSWR<IUser[], AxiosError>(`/api/user?where[name]=%${name}%&where[role]=${role}`, fetcher);
+
+    return { users: data, loading: !data && !error, error: error };
+};
+
+export const useTeamMemberByName = (name: string) => {
+    const { data, error } = useSWR<IUser[], AxiosError>(`/api/user/teamMember?name=${name}`, fetcher);
 
     return { users: data, loading: !data && !error, error: error };
 };

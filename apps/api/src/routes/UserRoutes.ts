@@ -39,9 +39,22 @@ userRoutes.get('/prioritized', navAuthenticated, async (req, res, next) => {
         const criterias = (req.query.criterias as unknown as string[]) || [];
 
         const userService = new UserService(database);
-        const result: User[] = await userService.prioritizedUsers(criterias);
+        const result: User[] = await userService.getPrioritizedCitizens(criterias);
 
         return res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+userRoutes.get('/teamMember', navAuthenticated, async (req, res, next) => {
+    try {
+        const name = req.query.name || '';
+
+        const userService = new UserService(database);
+        const result: User[] = await userService.getNAVEmployeesByName(name);
+
+        res.json(result);
     } catch (error) {
         next(error);
     }

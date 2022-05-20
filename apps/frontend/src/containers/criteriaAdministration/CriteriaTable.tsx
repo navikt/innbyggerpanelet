@@ -2,9 +2,10 @@ import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { Add } from '@navikt/ds-icons';
 import { Button, Table } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
+import { mutate } from 'swr';
 import { CriteriaCreateModal, CriteriaEditModal } from '.';
-import { CriteriaAdminRow } from '../../components/criteriaAdministration';
 import { useCriteriaByCategoryId } from '../../api/hooks/useCriteria';
+import { CriteriaAdminRow } from '../../components/criteriaAdministration';
 import { APIHandler } from '../../components/misc/apiHandler';
 
 interface IProps {
@@ -16,6 +17,11 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
     const [newCriteria, setNewCriteria] = useState(false);
 
     const { criterias, loading, error } = useCriteriaByCategoryId(category.id);
+
+    const handleEditModalClose = () => {
+        mutate(`/api/criteria?where[category]=${category.id}`);
+        setEditCriteria(undefined);
+    };
 
     return (
         <>
@@ -38,11 +44,14 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
                 <Add />
                 Legg til kriterie i kategorien {category.name}
             </Button>
-            <CriteriaEditModal
-                criteria={editCriteria}
-                open={editCriteria !== undefined}
-                close={() => setEditCriteria(undefined)}
-            />
+            {!editCriteria || (
+                <CriteriaEditModal
+                    criteria={editCriteria}
+                    open={editCriteria !== undefined}
+                    close={handleEditModalClose}
+                    setCriteria={setEditCriteria}
+                />
+            )}
             <CriteriaCreateModal category={category} open={newCriteria} close={() => setNewCriteria(false)} />
         </>
     );

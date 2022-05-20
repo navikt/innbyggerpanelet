@@ -1,10 +1,10 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
-import { isFieldEmpty } from '../utils/isFieldEmpty';
-import isNorwegianPhoneNumber from '../utils/isNorwegainPhoneNumber';
 import validator from 'validator';
 import { IErrorMessage } from '../IErrorMessage';
+import { isFieldEmpty } from '../utils/isFieldEmpty';
+import isNorwegianPhoneNumber from '../utils/isNorwegainPhoneNumber';
 
-export function validateRegisterUser(user: IUser): { isValid: boolean, errorMessages: IErrorMessage} {
+export function validateRegisterUser(user: IUser): { isValid: boolean; errorMessages: IErrorMessage } {
     let isValid = true;
     const errorMessages: IErrorMessage = {
         nameErrorMsg: '',
@@ -25,10 +25,15 @@ export function validateRegisterUser(user: IUser): { isValid: boolean, errorMess
         isValid = false;
     }
 
-    return { isValid, errorMessages};
+    if (!isFieldEmpty(user.role).isEmpty) {
+        errorMessages.roleErrorMsg = isFieldEmpty(user.role, 'rolle').errorMsg;
+        isValid = false;
+    }
+
+    return { isValid, errorMessages };
 }
 
-function validateEmail(email: string): { isValid: boolean, errorMsg: string} {
+function validateEmail(email: string): { isValid: boolean; errorMsg: string } {
     let isValid = true;
     let errorMsg = '';
 
@@ -44,7 +49,7 @@ function validateEmail(email: string): { isValid: boolean, errorMsg: string} {
     return { isValid, errorMsg };
 }
 
-function validatePhone(phone: string): { isValid: boolean, errorMsg: string} {
+function validatePhone(phone: string): { isValid: boolean; errorMsg: string } {
     let isValid = true;
     let errorMsg = '';
 

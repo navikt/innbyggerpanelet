@@ -1,9 +1,8 @@
 import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Modal, SearchField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { useUserByName } from '../../api/hooks/useUser';
+import { useTeamMemberByName } from '../../api/hooks';
 import { APIHandler } from '../misc/apiHandler';
-
 import style from './ProjectTeam.module.scss';
 
 interface IProps {
@@ -15,7 +14,7 @@ interface IProps {
 
 export const ProjectTeamSearchModal = ({ project, setProject, open, close }: IProps): ReactElement => {
     const [search, setSearch] = useState('');
-    const { users, loading, error } = useUserByName(search);
+    const { users, loading, error } = useTeamMemberByName(search);
 
     const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
