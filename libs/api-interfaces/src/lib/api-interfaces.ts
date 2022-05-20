@@ -87,3 +87,7 @@ export interface ICriteriaCategory {
     name: string;
     description: string;
 }
+
+export interface ISMS {
+    text: string
+}

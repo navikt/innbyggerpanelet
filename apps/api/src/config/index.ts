@@ -31,7 +31,8 @@ const redis = {
 const kafka = {
     clientId: process.env.KAFKA_CLIENT_ID,
     brokerId: process.env.KAFKA_BROKER_ID,
-    brokerPort: process.env.KAFKA_BROKER_PORT
+    brokerPort: process.env.KAFKA_BROKER_PORT,
+    smsTopic: process.env.KAFKA_SMS_TOPIC
 };
 
 if (process.env.IS_PROD === 'yes') {
