@@ -38,7 +38,7 @@ criteriaRouter.post('/', async (req, res, next) => {
 criteriaRouter.put('/', authenticated, async (req, res, next) => {
     try {
         const criteriaService = new CriteriaService(database);
-        const updatedCriteria = req.body as Criteria;
+        const updatedCriteria = plainToInstance(Criteria, req.body);
 
         const result = await criteriaService.update(updatedCriteria.id, updatedCriteria);
 

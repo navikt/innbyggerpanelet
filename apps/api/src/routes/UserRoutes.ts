@@ -1,4 +1,4 @@
-import { plainToClass } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { User } from '../models/user/UserEntity';
@@ -77,7 +77,7 @@ userRoutes.get('/:id', navAuthenticated, async (req, res, next) => {
 userRoutes.post('/', adminAuthenticated, async (req, res, next) => {
     try {
         const userService = new UserService(database);
-        const newUser = plainToClass(User, req.body);
+        const newUser = plainToInstance(User, req.body);
 
         const result = await userService.create(newUser);
 
@@ -90,7 +90,7 @@ userRoutes.post('/', adminAuthenticated, async (req, res, next) => {
 userRoutes.put('/', authenticated, async (req, res, next) => {
     try {
         const userService = new UserService(database);
-        const updatedUser = plainToClass(User, req.body);
+        const updatedUser = plainToInstance(User, req.body);
 
         const result = await userService.update(updatedUser.id, updatedUser);
 
