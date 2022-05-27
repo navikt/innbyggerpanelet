@@ -24,7 +24,7 @@ export const UserEditModal = ({ open, close, user, setUser }: IProps): ReactElem
     const handleSubmit = async () => {
         const { response, error, validationErrors } = await updateUser(user);
         if (error) throw new Error('Failed to PUT user.');
-        if (validationErrors) setUserValidationErrors(validationErrors);
+        if (validationErrors) return setUserValidationErrors(validationErrors);
         if (response) close();
     };
 
