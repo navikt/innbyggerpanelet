@@ -60,7 +60,7 @@ const passportLoader = async () => {
                         id: user.claims.oid as string,
                         name: user.claims.name,
                         email: user.claims.preferred_username,
-                        phone: 'temporary',
+                        phone: '12345678',
                         role: EnumUserRole.NAV,
                         latestUpdate: new Date().toISOString().slice(0, 10),
                         candidates: [],
