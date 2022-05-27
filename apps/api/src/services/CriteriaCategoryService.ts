@@ -1,4 +1,6 @@
+import { validate } from 'class-validator';
 import { Connection, Repository } from 'typeorm';
+import { NotAcceptableError } from '../lib/errors/http/NotAcceptableError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { CriteriaCategory } from '../models/criteriaCategory/CriteriaCategoryEntity';
@@ -11,17 +13,14 @@ export class CriteriaCategoryService extends BaseService<CriteriaCategory> {
     constructor(db: Connection) {
         super(db, CriteriaCategory);
         this._database = db;
-        this._criteriaCategoryRepository =
-            this._database.getRepository(CriteriaCategory);
+        this._criteriaCategoryRepository = this._database.getRepository(CriteriaCategory);
     }
 
     async get(): Promise<CriteriaCategory[] | undefined> {
-        
-        const categories = await this._criteriaCategoryRepository
-            .createQueryBuilder('criteriaCategory')
-            .getMany();
+        const categories = await this._criteriaCategoryRepository.createQueryBuilder('criteriaCategory').getMany();
 
-        if (categories.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Criteria categories')});
+        if (categories.length === 0)
+            throw new NotFoundError({ message: ServerErrorMessage.notFound('Criteria categories') });
 
         return categories;
     }
@@ -31,15 +30,15 @@ export class CriteriaCategoryService extends BaseService<CriteriaCategory> {
     }
 
     async create(dto: CriteriaCategory): Promise<CriteriaCategory | undefined> {
+        const errors = await validate(dto);
+        if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
+
         const category = await this._criteriaCategoryRepository.save(dto);
 
         return category;
     }
 
-    async update(
-        id: number,
-        dto: CriteriaCategory
-    ): Promise<CriteriaCategory | undefined> {
+    async update(id: number, dto: CriteriaCategory): Promise<CriteriaCategory | undefined> {
         throw new Error('not implemented');
     }
 

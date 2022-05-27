@@ -12,7 +12,7 @@ export function errorHandler(error: Error, request: Request, response: Response,
     }
 
     if (error instanceof QueryFailedError) {
-        const error = new BadRequestError({ message: ServerErrorMessage.invalidData() });
+        const error = new BadRequestError({ message: ServerErrorMessage.invalidQuery() });
         return response.status(error.httpStatus).json(error.toResponse());
     }
 

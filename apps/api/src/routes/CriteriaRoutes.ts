@@ -1,3 +1,4 @@
+import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { Criteria } from '../models/criteria/CriteriaEntity';
@@ -24,7 +25,7 @@ criteriaRouter.get('/', async (req, res, next) => {
 criteriaRouter.post('/', async (req, res, next) => {
     try {
         const criteriaService = new CriteriaService(database);
-        const newCriteriaCategory = req.body as Criteria;
+        const newCriteriaCategory = plainToInstance(Criteria, req.body);
 
         const result = await criteriaService.create(newCriteriaCategory);
 

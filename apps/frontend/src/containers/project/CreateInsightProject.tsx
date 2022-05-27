@@ -4,6 +4,7 @@ import { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createInsightProject } from '../../api/mutations/mutateInsightProject';
 import { ProjectEdit } from '../../components/project';
+import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 
 const defaultProject: IInsightProject = {
     id: 0,
@@ -15,21 +16,17 @@ const defaultProject: IInsightProject = {
 };
 
 export const CreateInsightProject = (): ReactElement => {
-    const [insightProject, setInsightProject] = useState(defaultProject);
-    const [posting, setPosting] = useState(false);
-
     const navigate = useNavigate();
 
-    const handleSubmit = async (project: IInsightProject) => {
-        const { response, isLoading, isError } = await createInsightProject(project);
+    const [insightProject, setInsightProject] = useState(defaultProject);
+    const [insightProjectValidationErrors, setInsightProjectValidationErrors] = useValidationErrors();
 
-        if (response) {
-            navigate(`/prosjekt/${response.id}`);
-        } else if (isLoading) {
-            setPosting(true);
-        } else if (isError) {
-            console.error(isError);
-        }
+    const handleSubmit = async (project: IInsightProject) => {
+        const { response, error, validationErrors } = await createInsightProject(project);
+        if (error) throw new Error('Failed to post insight project.');
+        if (validationErrors) return setInsightProjectValidationErrors(validationErrors);
+
+        if (response) navigate(`/prosjekt/${response.id}`);
     };
 
     return (
@@ -38,7 +35,7 @@ export const CreateInsightProject = (): ReactElement => {
                 project={insightProject}
                 setProject={setInsightProject}
                 submit={handleSubmit}
-                loading={posting}
+                validationErrors={insightProjectValidationErrors}
             />
         </Panel>
     );

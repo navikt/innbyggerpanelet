@@ -1,16 +1,16 @@
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { validateCriteria } from '../../validation/criteria';
 import { createCriteria } from '../../api/mutations/mutateCriteria';
+import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 import style from './CriteriaAdminPanel.module.scss';
-import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
 
 interface IProps {
     category: ICriteriaCategory;
     open: boolean;
     close: () => void;
 }
+
 export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactElement => {
     const [criteria, setCriteria] = useState<ICriteria>({
         id: 0,
@@ -18,11 +18,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
         exclusivitySlug: '',
         category
     });
-
-    const [posting, setPosting] = useState(false);
-
-    const errorMessageDispatch = useErrorMessageDispatcher();
-    const errorMessages = useErrorMessageState();
+    const [criteriaValidationErrors, setCriteriaValidationErrors] = useValidationErrors();
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newCriteria = { ...criteria };
@@ -31,19 +27,10 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
     };
 
     const handleSubmit = async () => {
-        if (validateCriteria(criteria).isValid) {
-            const { response, isLoading, isError } = await createCriteria(criteria);
-            if (response) {
-                errorMessageDispatch.clearErrorMessages();
-                close();
-            } else if (isLoading) {
-                setPosting(true);
-            } else if (isError) {
-                console.error(isError);
-            }
-        } else {
-            errorMessageDispatch.setErrorMessages(validateCriteria(criteria).errorMessages);
-        }
+        const { response, error, validationErrors } = await createCriteria(criteria);
+        if (error) throw new Error('Failed to post criteria');
+        if (validationErrors) return setCriteriaValidationErrors(validationErrors);
+        if (response) close();
     };
 
     return (
@@ -51,12 +38,12 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
             <Modal.Content className={style.editModal}>
                 <Heading size="small">Nytt kriterie</Heading>
                 <BodyShort>Lag nytt kriterie i denne kategorien.</BodyShort>
-                <TextField 
-                    label="Navn" 
-                    id="name" 
-                    value={criteria.name} 
+                <TextField
+                    label="Navn"
+                    id="name"
+                    value={criteria.name}
                     onChange={handleInputChange}
-                    error={errorMessages.nameErrorMsg}
+                    error={criteriaValidationErrors.name}
                 />
                 <TextField
                     label="Eklusivitet slug"
@@ -66,7 +53,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
                     placeholder="none"
                 />
                 <TextField label="Kategori" value={criteria.category.name} disabled />
-                <Button onClick={handleSubmit} variant="primary" loading={posting}>
+                <Button onClick={handleSubmit} variant="primary">
                     Bekreft
                 </Button>
             </Modal.Content>

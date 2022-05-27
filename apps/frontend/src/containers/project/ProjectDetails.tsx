@@ -1,8 +1,7 @@
-import { BodyLong, BodyShort, Heading, Label, Loader } from '@navikt/ds-react';
-import { ReactElement } from 'react';
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
+import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
+import { ReactElement } from 'react';
 import ProjectTeam from '../../components/projectTeam';
-
 import style from './Project.module.scss';
 
 interface IProps {
@@ -16,6 +15,8 @@ export const ProjectDetails = ({ project }: IProps): ReactElement => {
             <BodyLong>{project.description}</BodyLong>
             <Label>Startdato: </Label>
             <BodyShort>{project.start}</BodyShort>
+            <Label>Startdato: </Label>
+            <BodyShort>{project.end}</BodyShort>
             <ProjectTeam project={project} />
         </div>
     );

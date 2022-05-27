@@ -1,4 +1,5 @@
 import { IInsight } from '@innbyggerpanelet/api-interfaces';
+import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
@@ -64,7 +65,7 @@ insightProjectRoutes.get('/:id', async (req, res, next) => {
 insightProjectRoutes.post('/', async (req, res, next) => {
     try {
         const insightProjectService = new InsightProjectService(database);
-        const newInsightProject = req.body as InsightProject;
+        const newInsightProject = plainToInstance(InsightProject, req.body);
 
         const result = await insightProjectService.create(newInsightProject);
 

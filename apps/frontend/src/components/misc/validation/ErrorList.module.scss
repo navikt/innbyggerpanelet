@@ -1,8 +1,13 @@
 .errorList {
     color: #BA3A26;
     font-weight: bold;
+    margin-bottom: 0;
 
     > * {
         margin: 0.5rem 0;
     }
+}
+
+.errorList + .errorList {
+    margin-top: 0;
 }

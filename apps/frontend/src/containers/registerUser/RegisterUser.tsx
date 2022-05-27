@@ -4,8 +4,7 @@ import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
-import { validateRegisterUser } from '../../validation/registerUser';
+import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 import style from './RegisterUser.module.scss';
 
 const defaultUser: IUser = {
@@ -19,13 +18,10 @@ const defaultUser: IUser = {
 };
 
 export const RegisterUser = (): ReactElement => {
-    const [user, setUser] = useState<IUser>(defaultUser);
-    const [posting, setPosting] = useState(false);
-
-    const errorMessageDispatch = useErrorMessageDispatcher();
-    const errorMessages = useErrorMessageState();
-
     const navigate = useNavigate();
+
+    const [user, setUser] = useState<IUser>(defaultUser);
+    const [userValidationErrors, setUserValidationErrors] = useValidationErrors();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...user };
@@ -35,36 +31,19 @@ export const RegisterUser = (): ReactElement => {
 
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-
-        if (validateRegisterUser(user).isValid) {
-            setPosting(true);
-            const { response, isError } = await createUser(user);
-
-            if (response) {
-                errorMessageDispatch.clearErrorMessages();
-                navigate('/profil');
-            } else if (isError && isError.response?.status === 406) {
-                errorMessageDispatch.setErrorMessages({
-                    nameErrorMsg: errorMessages.nameErrorMsg,
-                    emailErrorMsg: validateRegisterUser(user).errorMessages.emailErrorMsg,
-                    phoneErrorMsg: errorMessages.phoneErrorMsg
-                });
-                setPosting(false);
-            }
-        } else {
-            errorMessageDispatch.setErrorMessages(validateRegisterUser(user).errorMessages);
-        }
+        const { response, error, validationErrors } = await createUser(user);
+        if (error) throw new Error('Failed to post user');
+        if (validationErrors) return setUserValidationErrors(validationErrors);
+        if (response) navigate('/profil');
     };
 
     return (
         <>
-            <UserContactInfoForm user={user} handleChange={handleChange} errorMessages={errorMessages} />
-            <UserEditCriterias user={user} setUser={setUser} />
+            <UserContactInfoForm user={user} handleChange={handleChange} validationErrors={userValidationErrors} />
+            <UserEditCriterias user={user} setUser={setUser} validationErrors={userValidationErrors} />
             <Panel>
                 <div className={style.submit}>
-                    <Button onClick={handleSubmit} loading={posting}>
-                        Opprett
-                    </Button>
+                    <Button onClick={handleSubmit}>Opprett</Button>
                 </div>
             </Panel>
         </>

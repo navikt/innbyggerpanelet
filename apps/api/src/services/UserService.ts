@@ -1,9 +1,9 @@
 import { EnumUserRole } from '@innbyggerpanelet/api-interfaces';
-import { Connection, FindOperator, ILike, QueryFailedError, Repository } from 'typeorm';
+import { validate } from 'class-validator';
+import { Connection, FindOperator, ILike, Repository } from 'typeorm';
 import { NotAcceptableError } from '../lib/errors/http/NotAcceptableError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
-import { ValidationErrorMessage } from '../lib/errors/messages/ValidationErrorMessages';
 import { User } from '../models/user/UserEntity';
 import BaseService from './BaseService';
 
@@ -63,7 +63,7 @@ export class UserService extends BaseService<User> {
 
     async getPrioritizedCitizens(criteriaIds: string[]): Promise<User[] | undefined> {
         if (criteriaIds.length === 0) {
-            throw new NotFoundError({ message: ServerErrorMessage.invalidData() });
+            throw new NotFoundError({ message: ServerErrorMessage.invalidData([]) });
         }
 
         const users = await this._userRepository
@@ -105,27 +105,15 @@ export class UserService extends BaseService<User> {
     }
 
     async create(dto: User): Promise<User | undefined> {
-        try {
-            return await this._userRepository.save(dto);
-        } catch (error) {
-            if (error instanceof QueryFailedError) {
-                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User') });
-            }
-        }
-
-        return undefined;
+        const errors = await validate(dto);
+        if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
+        return await this._userRepository.save(dto);
     }
 
     async update(id: string, dto: User): Promise<User | undefined> {
-        try {
-            return await this._userRepository.save(dto);
-        } catch (error) {
-            if (error instanceof QueryFailedError) {
-                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User') });
-            }
-        }
-
-        return undefined;
+        const errors = await validate(dto);
+        if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
+        return await this._userRepository.save(dto);
     }
 
     async delete(id: string): Promise<void> {

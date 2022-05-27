@@ -1,3 +1,4 @@
+import { validate } from 'class-validator';
 import { Connection, FindOperator, ILike, QueryFailedError, Repository } from 'typeorm';
 import { NotAcceptableError } from '../lib/errors/http/NotAcceptableError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
@@ -55,6 +56,9 @@ export class CriteriaService extends BaseService<Criteria> {
     }
 
     async create(dto: Criteria): Promise<Criteria | undefined> {
+        const errors = await validate(dto);
+        if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
+
         const criteria = await this._criteriaRepository.save(dto);
 
         return criteria;

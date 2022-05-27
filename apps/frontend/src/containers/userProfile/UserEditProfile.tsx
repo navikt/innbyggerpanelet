@@ -3,8 +3,7 @@ import { Button, Panel } from '@navikt/ds-react';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { updateUser } from '../../api/mutations/mutateUser';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
-import { validateRegisterUser } from '../../validation/registerUser';
+import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 import style from './UserProfile.module.scss';
 
 interface IProps {
@@ -14,10 +13,7 @@ interface IProps {
 
 export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElement => {
     const [user, setUser] = useState<IUser>(originalUser);
-    const [patching, setPatching] = useState(false);
-    
-    const errorMessageDispatch = useErrorMessageDispatcher();
-    const errorMessages = useErrorMessageState();
+    const [userValidationErrors, setUserValidationErrors] = useValidationErrors();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...user };
@@ -27,25 +23,10 @@ export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElem
 
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        if (validateRegisterUser(user).isValid) {
-            setPatching(true);
-            const { response, isError } = await updateUser({ ...user, latestUpdate: Date.now().toString() });
-            if (response) {
-                errorMessageDispatch.clearErrorMessages();
-                toggleEdit();
-            } else if (isError && isError.response?.status === 406) {
-                errorMessageDispatch.setErrorMessages({
-                    nameErrorMsg: errorMessages.nameErrorMsg,
-                    emailErrorMsg: validateRegisterUser(user).errorMessages.emailErrorMsg,
-                    phoneErrorMsg: errorMessages.phoneErrorMsg
-                });
-                setPatching(false);
-            }
-        } else {
-            errorMessageDispatch.setErrorMessages(validateRegisterUser(user).errorMessages);
-        }
-
-
+        const { response, error, validationErrors } = await updateUser(user);
+        if (error) throw new Error('Failed to PUT user.');
+        if (validationErrors) return setUserValidationErrors(validationErrors);
+        if (response) toggleEdit();
     };
 
     const handleCancel = (event: MouseEvent<HTMLButtonElement>) => {
@@ -55,18 +36,12 @@ export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElem
 
     return (
         <>
-            <UserContactInfoForm 
-                user={user} 
-                handleChange={handleChange}
-                errorMessages={errorMessages}
-            />
-            <UserEditCriterias user={user} setUser={setUser} />
+            <UserContactInfoForm user={user} handleChange={handleChange} validationErrors={userValidationErrors} />
+            <UserEditCriterias user={user} setUser={setUser} validationErrors={userValidationErrors} />
             <Panel>
                 <div className={style.buttons}>
-                    <Button onClick={handleSubmit} loading={patching}>
-                        Oppdater
-                    </Button>
-                    <Button variant="danger" onClick={handleCancel} loading={patching}>
+                    <Button onClick={handleSubmit}>Oppdater</Button>
+                    <Button variant="danger" onClick={handleCancel}>
                         Avbryt
                     </Button>
                 </div>

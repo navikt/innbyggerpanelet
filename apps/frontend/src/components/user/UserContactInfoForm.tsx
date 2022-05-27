@@ -1,21 +1,16 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Panel, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement } from 'react';
-import { IErrorMessage } from '../../validation/IErrorMessage';
+import { IValidationError } from '../../core/hooks/useValidationErrors';
 import style from './UserContactInfoForm.module.scss';
-
 
 interface IProps {
     user: IUser;
     handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    errorMessages: IErrorMessage
+    validationErrors: IValidationError;
 }
 
-export const UserContactInfoForm = ({ 
-    user, 
-    handleChange,
-    errorMessages
-}: IProps): ReactElement => {
+export const UserContactInfoForm = ({ user, handleChange, validationErrors }: IProps): ReactElement => {
     const { name, email, phone } = user;
 
     return (
@@ -28,23 +23,23 @@ export const UserContactInfoForm = ({
                 name="name"
                 value={name}
                 onChange={handleChange}
-                error={errorMessages.nameErrorMsg}
+                error={validationErrors.name}
             />
-            <TextField 
-                label="E-Post" 
-                id="email" 
-                name="email" 
-                value={email} 
-                onChange={handleChange} 
-                error={errorMessages.emailErrorMsg}
-            />
-            <TextField 
-                label="Telefonnummer" 
-                id="phone" 
-                name="phone" 
-                value={phone} 
+            <TextField
+                label="E-Post"
+                id="email"
+                name="email"
+                value={email}
                 onChange={handleChange}
-                error={errorMessages.phoneErrorMsg} 
+                error={validationErrors.email}
+            />
+            <TextField
+                label="Telefonnummer"
+                id="phone"
+                name="phone"
+                value={phone}
+                onChange={handleChange}
+                error={validationErrors.phone}
             />
         </Panel>
     );
