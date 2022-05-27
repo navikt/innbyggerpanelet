@@ -1,7 +1,9 @@
 import { ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
+import { AxiosError } from 'axios';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { createCriteriaCategory } from '../../api/mutations/mutateCriteriaCategory';
+import { APIHandler } from '../../components/misc/apiHandler';
 import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 import style from './CriteriaAdminPanel.module.scss';
 
@@ -19,6 +21,7 @@ const defaultCategory: ICriteriaCategory = {
 export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactElement => {
     const [category, setCategory] = useState<ICriteriaCategory>(defaultCategory);
     const [categoryValidationErrors, setCategoryValidationErrors] = useValidationErrors();
+    const [postError, setPostError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...category };
@@ -30,7 +33,7 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
         event.preventDefault();
 
         const { response, error, validationErrors } = await createCriteriaCategory(category);
-        if (error) throw new Error('Failed to post criteria category.');
+        if (error) return setPostError(error);
         if (validationErrors) return setCategoryValidationErrors(validationErrors);
         if (response) close();
     };
@@ -54,6 +57,7 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
                     onChange={handleChange}
                     error={categoryValidationErrors.description}
                 />
+                {postError && <APIHandler loading={false} error={postError} />}
                 <Button onClick={handleSubmit}>Opprett</Button>
             </Modal.Content>
         </Modal>

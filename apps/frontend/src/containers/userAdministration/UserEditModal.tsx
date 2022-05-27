@@ -1,7 +1,9 @@
 import { EnumUserRole, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Modal, Select } from '@navikt/ds-react';
-import { ChangeEvent, ReactElement } from 'react';
+import { AxiosError } from 'axios';
+import { ChangeEvent, ReactElement, useState } from 'react';
 import { updateUser } from '../../api/mutations/mutateUser';
+import { APIHandler } from '../../components/misc/apiHandler';
 import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 import style from './UserAdministration.module.scss';
 
@@ -14,6 +16,7 @@ interface IProps {
 
 export const UserEditModal = ({ open, close, user, setUser }: IProps): ReactElement => {
     const [userValidationErrors, setUserValidationErrors] = useValidationErrors();
+    const [putError, setPutError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const newUser = { ...user };
@@ -23,7 +26,7 @@ export const UserEditModal = ({ open, close, user, setUser }: IProps): ReactElem
 
     const handleSubmit = async () => {
         const { response, error, validationErrors } = await updateUser(user);
-        if (error) throw new Error('Failed to PUT user.');
+        if (error) return setPutError(error);
         if (validationErrors) return setUserValidationErrors(validationErrors);
         if (response) close();
     };
@@ -42,6 +45,7 @@ export const UserEditModal = ({ open, close, user, setUser }: IProps): ReactElem
                     <option value={EnumUserRole.NAV}>NAV ansatt</option>
                     <option value={EnumUserRole.Admin}>Administrator</option>
                 </Select>
+                {putError && <APIHandler loading={false} error={putError} />}
                 <Button onClick={handleSubmit}>Oppdater</Button>
             </Modal.Content>
         </Modal>

@@ -1,7 +1,9 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
-import { ChangeEvent, ReactElement } from 'react';
+import { AxiosError } from 'axios';
+import { ChangeEvent, ReactElement, useState } from 'react';
 import { updateCriteria } from '../../api/mutations/mutateCriteria';
+import { APIHandler } from '../../components/misc/apiHandler';
 import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 import style from './CriteriaAdminPanel.module.scss';
 
@@ -16,6 +18,8 @@ interface IProps {
 // by turning heading and body into react children and adding a submit function prop.
 export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps): ReactElement => {
     const [criteriaValidationErrors, setCriteriaValidationErrors] = useValidationErrors();
+    const [putError, setPutError] = useState<AxiosError>();
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newCriteria = { ...criteria };
         newCriteria[event.target.id] = event.target.value;
@@ -24,7 +28,7 @@ export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps
 
     const handleSubmit = async () => {
         const { response, error, validationErrors } = await updateCriteria(criteria);
-        if (error) throw new Error('Failed to PUT criteria');
+        if (error) return setPutError(error);
         if (validationErrors) return setCriteriaValidationErrors(validationErrors);
         if (response) close();
     };
@@ -50,6 +54,7 @@ export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps
                     placeholder="none"
                     onChange={handleChange}
                 />
+                {putError && <APIHandler loading={false} error={putError} />}
                 <Button onClick={handleSubmit}>Bekreft</Button>
             </Modal.Content>
         </Modal>

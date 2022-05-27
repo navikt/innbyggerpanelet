@@ -1,6 +1,5 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
-import { render, waitFor, screen, fireEvent } from '@testing-library/react';
-import { ProvideErrorMessageContext } from '../../../core/context/ErrorMessageContext';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
@@ -18,27 +17,19 @@ const mockedPost: ICriteria = {
     id: 0,
     name: 'Hygienehjelpemidler',
     exclusivitySlug: undefined,
-    category: mocks.allCriteriaCategories[0],
+    category: mocks.allCriteriaCategories[0]
 };
 
 const setup = () => {
     const handleClose = jest.fn();
 
     const utils = render(
-        <ProvideErrorMessageContext>
-            <SWRConfig value={{ provider: () => new Map() }}>
-                <CriteriaCreateModal
-                    open={true}
-                    close={handleClose}
-                    category={mockedPost.category}
-                />
-            </SWRConfig>
-        </ProvideErrorMessageContext>
+        <SWRConfig value={{ provider: () => new Map() }}>
+            <CriteriaCreateModal open={true} close={handleClose} category={mockedPost.category} />
+        </SWRConfig>
     );
     const nameInput = utils.getByLabelText('Navn') as HTMLInputElement;
-    const exInput = utils.getByLabelText(
-        'Eklusivitet slug'
-    ) as HTMLInputElement;
+    const exInput = utils.getByLabelText('Eklusivitet slug') as HTMLInputElement;
     const submit = utils.getAllByRole('button')[0] as HTMLButtonElement;
 
     return {
@@ -46,7 +37,7 @@ const setup = () => {
         exInput,
         submit,
         handleClose,
-        ...utils,
+        ...utils
     };
 };
 
@@ -59,7 +50,7 @@ test('post new criteria successfully', async () => {
 
     fireEvent.change(nameInput, { target: { value: mockedPost.name } });
     fireEvent.change(exInput, {
-        target: { value: mockedPost.exclusivitySlug },
+        target: { value: mockedPost.exclusivitySlug }
     });
 
     expect(nameInput.value).toBe(mockedPost.name);
@@ -80,7 +71,7 @@ test('post new criteria unsuccessfully', async () => {
 
     fireEvent.change(nameInput, { target: { value: mockedPost.name } });
     fireEvent.change(exInput, {
-        target: { value: mockedPost.exclusivitySlug },
+        target: { value: mockedPost.exclusivitySlug }
     });
 
     expect(nameInput.value).toBe(mockedPost.name);
@@ -88,21 +79,4 @@ test('post new criteria unsuccessfully', async () => {
     fireEvent.click(submit);
 
     await waitFor(() => expect(handleClose).toHaveBeenCalledTimes(0));
-});
-
-test('post new criteria is loading', async () => {
-    const { nameInput, exInput, submit, handleClose } = setup();
-
-    fireEvent.change(nameInput, { target: { value: mockedPost.name } });
-    fireEvent.change(exInput, {
-        target: { value: mockedPost.exclusivitySlug },
-    });
-
-    fireEvent.click(screen.getAllByRole('button')[0]);
-
-    // Disabled while loading (no waitFor)
-    waitFor(() => expect(submit.disabled).toBeTruthy());
-
-    // Is closed on successful load
-    await waitFor(() => expect(handleClose).toHaveBeenCalledTimes(1));
 });

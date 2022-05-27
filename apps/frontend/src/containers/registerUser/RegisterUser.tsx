@@ -1,8 +1,10 @@
 import { EnumUserRole, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Button, Panel } from '@navikt/ds-react';
+import { AxiosError } from 'axios';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/mutations/mutateUser';
+import { APIHandler } from '../../components/misc/apiHandler';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
 import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 import style from './RegisterUser.module.scss';
@@ -22,6 +24,7 @@ export const RegisterUser = (): ReactElement => {
 
     const [user, setUser] = useState<IUser>(defaultUser);
     const [userValidationErrors, setUserValidationErrors] = useValidationErrors();
+    const [postError, setPostError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...user };
@@ -32,7 +35,7 @@ export const RegisterUser = (): ReactElement => {
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         const { response, error, validationErrors } = await createUser(user);
-        if (error) throw new Error('Failed to post user');
+        if (error) return setPostError(error);
         if (validationErrors) return setUserValidationErrors(validationErrors);
         if (response) navigate('/profil');
     };
@@ -42,6 +45,8 @@ export const RegisterUser = (): ReactElement => {
             <UserContactInfoForm user={user} handleChange={handleChange} validationErrors={userValidationErrors} />
             <UserEditCriterias user={user} setUser={setUser} validationErrors={userValidationErrors} />
             <Panel>
+                {postError && <APIHandler loading={false} error={postError} />}
+
                 <div className={style.submit}>
                     <Button onClick={handleSubmit}>Opprett</Button>
                 </div>

@@ -1,7 +1,9 @@
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
+import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { createCriteria } from '../../api/mutations/mutateCriteria';
+import { APIHandler } from '../../components/misc/apiHandler';
 import { useValidationErrors } from '../../core/hooks/useValidationErrors';
 import style from './CriteriaAdminPanel.module.scss';
 
@@ -19,6 +21,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
         category
     });
     const [criteriaValidationErrors, setCriteriaValidationErrors] = useValidationErrors();
+    const [postError, setPostError] = useState<AxiosError>();
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newCriteria = { ...criteria };
@@ -28,7 +31,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
 
     const handleSubmit = async () => {
         const { response, error, validationErrors } = await createCriteria(criteria);
-        if (error) throw new Error('Failed to post criteria');
+        if (error) return setPostError(error);
         if (validationErrors) return setCriteriaValidationErrors(validationErrors);
         if (response) close();
     };
@@ -53,6 +56,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
                     placeholder="none"
                 />
                 <TextField label="Kategori" value={criteria.category.name} disabled />
+                {postError && <APIHandler loading={false} error={postError} />}
                 <Button onClick={handleSubmit} variant="primary">
                     Bekreft
                 </Button>
