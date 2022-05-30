@@ -51,6 +51,8 @@ spec:
         - "http://localhost/api/azure/oauth2/callback"
 
   accessPolicy:
+    tokenx:
+      enabled: true
     inbound:
       rules:
         - application: innbyggerpanelet

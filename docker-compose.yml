@@ -56,22 +56,12 @@ services:
     kafka:
         container_name: 'innbyggerpanelet_kafka'
         image: 'ghcr.io/navikt/tms-event-test-producer/tms-event-test-producer:latest'
-        environment:
-            - NAIS_NAMESPACE=team-researchops
-            - OPEN_INPUT_BESKJED_TOPIC=aapen-brukernotifikasjon-beskjed-v1
-            - OPEN_INPUT_OPPGAVE_TOPIC=aapen-brukernotifikasjon-oppgave-v1
-            - OPEN_INPUT_INNBOKS_TOPIC=aapen-brukernotifikasjon-innboks-v1
-            - OPEN_INPUT_STATUSOPPDATERING_TOPIC=aapen-brukernotifikasjon-statusoppdatering-v1
-            - OPEN_INPUT_DONE_TOPIC=aapen-brukernotifikasjon-done-v1
-            - KAFKA_BROKERS=tms-event-test-producer
-            - KAFKA_SCHEMA_REGISTRY=kafka_schema
-            - EVENT_HANDLER_URL=http://localhost:8064
-            - EVENTHANDLER_CLIENT_ID=innbyggerpanelet_api
-            - CORS_ALLOWED_ORIGINS=*
         networks:
             - innbyggerpanelet_api
         ports:
             - 8064:8064
+        env_file:
+            - '.env'
 
 volumes:
     innbyggerpanelet_data:
