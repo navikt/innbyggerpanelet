@@ -53,15 +53,6 @@ services:
             - innbyggerpanelet_api
         ports:
             - 6379:6379
-    kafka:
-        container_name: 'innbyggerpanelet_kafka'
-        image: 'ghcr.io/navikt/tms-event-test-producer/tms-event-test-producer:latest'
-        networks:
-            - innbyggerpanelet_api
-        ports:
-            - 8064:8064
-        env_file:
-            - '.env'
 
 volumes:
     innbyggerpanelet_data:

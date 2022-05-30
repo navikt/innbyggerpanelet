@@ -14,7 +14,8 @@
         "affected:lint": "nx affected:lint --base=remotes/origin/main$NX_BASE",
         "affected:dep-graph": "nx affected:dep-graph --base=remotes/origin/main$NX_BASE",
         "affected": "nx affected",
-        "matrix": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE|tr -d '\\n'|jq -cRs 'split(\" \")'"
+        "matrix": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE|tr -d '\\n'|jq -cRs 'split(\" \")'",
+        "docker": "sudo docker-compose -f docker-compose-sms.yml -f docker-compose.yml up --build"
     },
     "private": true,
     "dependencies": {
