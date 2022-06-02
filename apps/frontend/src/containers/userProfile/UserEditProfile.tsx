@@ -5,7 +5,7 @@ import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { updateUser } from '../../api/mutations/mutateUser';
 import { APIHandler } from '../../components/misc/apiHandler';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import style from './UserProfile.module.scss';
 
 interface IProps {
@@ -15,7 +15,7 @@ interface IProps {
 
 export const UserEditProfile = ({ originalUser, toggleEdit }: IProps): ReactElement => {
     const [user, setUser] = useState<IUser>(originalUser);
-    const [userValidationErrors, setUserValidationErrors] = useValidationErrors();
+    const [userValidationErrors, setUserValidationErrors] = useFormatValidationErrors();
     const [putError, setPutError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

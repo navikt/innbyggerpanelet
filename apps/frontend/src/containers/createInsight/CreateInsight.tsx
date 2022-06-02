@@ -9,7 +9,7 @@ import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
 import { APIHandler } from '../../components/misc/apiHandler';
 import ErrorList from '../../components/misc/validation/ErrorList';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import style from './CreateInsight.module.scss';
 
 const defaultInsight: IInsight = {
@@ -36,10 +36,10 @@ export const CreateInsight = (): ReactElement => {
 
     // TODO: Look into using context when receipt container is to be made.
     const [insight, setInsight] = useState<IInsight>(defaultInsight);
-    const [insightValidationErrors, setInsightValidationErrors] = useValidationErrors();
+    const [insightValidationErrors, setInsightValidationErrors] = useFormatValidationErrors();
 
     const [candidates, setCandidates] = useState<ICandidate[]>([]);
-    const [candidateValidationErrors, setCandidateValidationErrors] = useValidationErrors();
+    const [candidateValidationErrors, setCandidateValidationErrors] = useFormatValidationErrors();
 
     const { users, loading, error } = useUserByCriterias(insight.criterias);
 

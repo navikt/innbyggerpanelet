@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { createCriteriaCategory } from '../../api/mutations/mutateCriteriaCategory';
 import { APIHandler } from '../../components/misc/apiHandler';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import style from './CriteriaAdminPanel.module.scss';
 
 interface IProps {
@@ -20,7 +20,7 @@ const defaultCategory: ICriteriaCategory = {
 
 export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactElement => {
     const [category, setCategory] = useState<ICriteriaCategory>(defaultCategory);
-    const [categoryValidationErrors, setCategoryValidationErrors] = useValidationErrors();
+    const [categoryValidationErrors, setCategoryValidationErrors] = useFormatValidationErrors();
     const [postError, setPostError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

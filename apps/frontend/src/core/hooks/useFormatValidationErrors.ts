@@ -5,7 +5,7 @@ export interface IValidationError {
     [key: string]: string | string[];
 }
 
-export const useValidationErrors = (): [IValidationError, (errors: ValidationError[]) => void] => {
+export const useFormatValidationErrors = (): [IValidationError, (errors: ValidationError[]) => void] => {
     const [validationMessages, setValidationMessages] = useState<IValidationError>({});
 
     // Map ValidationError to format more easily consumed in components.
