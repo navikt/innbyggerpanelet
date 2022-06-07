@@ -13,7 +13,6 @@ export default function CurrentProjects({
         completedProjects: IInsightProject[]
     }
 }): ReactElement {
-
     return (
         <div className={style.currentProjectsContainer}>
             <Heading size="xlarge">Mine prosjekter</Heading>
@@ -21,7 +20,7 @@ export default function CurrentProjects({
             <div className={style.projectsContainer}>
                 {filteredProjects.onGoingProjects.length !== 0 ? (
                     filteredProjects.onGoingProjects.map((item, i) => {
-                        <CurrentProjectCard insightProject={item} id={item.id} />;
+                        return <CurrentProjectCard insightProject={item} id={item.id} />;
                     })
                 ) : (
                     <BodyShort>Du har ingen pågående prosjekter...</BodyShort>
