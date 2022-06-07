@@ -59,6 +59,17 @@ services:
             - innbyggerpanelet_api
         ports:
             - 6379:6379
+    sms:
+        container_name: 'innbyggerpanelet_sms'
+        build:
+            context: .
+            dockerfile: Dockerfile.sms.dev
+        volumes:
+            - ./apps/sms/src:/app/apps/sms/src
+        networks:
+            - 'innbyggerpanelet_api'
+        ports:
+            - 8080:8080
 
 volumes:
     innbyggerpanelet_data:
