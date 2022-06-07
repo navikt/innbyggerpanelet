@@ -1,0 +1,62 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/sms/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nxrocks/nx-spring-boot:build",
+      "options": {
+        "root": "apps/sms"
+      }
+    },
+    "test": {
+      "executor": "@nxrocks/nx-spring-boot:test",
+      "options": {
+        "root": "apps/sms"
+      }
+    },
+    "clean": {
+      "executor": "@nxrocks/nx-spring-boot:clean",
+      "options": {
+        "root": "apps/sms"
+      }
+    },
+    "format": {
+      "executor": "@nxrocks/nx-spring-boot:format",
+      "options": {
+        "root": "apps/sms"
+      }
+    },
+    "format-check": {
+      "executor": "@nxrocks/nx-spring-boot:format-check",
+      "options": {
+        "root": "apps/sms"
+      }
+    },
+    "run": {
+      "executor": "@nxrocks/nx-spring-boot:run",
+      "options": {
+        "root": "apps/sms"
+      }
+    },
+    "serve": {
+      "executor": "@nxrocks/nx-spring-boot:serve",
+      "options": {
+        "root": "apps/sms"
+      }
+    },
+    "buildImage": {
+      "executor": "@nxrocks/nx-spring-boot:buildImage",
+      "options": {
+        "root": "apps/sms"
+      }
+    },
+    "buildInfo": {
+      "executor": "@nxrocks/nx-spring-boot:buildInfo",
+      "options": {
+        "root": "apps/sms"
+      }
+    }
+  },
+  "tags": []
+}
