@@ -15,6 +15,7 @@ java.sourceCompatibility = JavaVersion.VERSION_16
 repositories {
 	mavenCentral()
     maven ("https://jitpack.io")
+    maven ("https://packages.confluent.io/maven/")
 }
 
 dependencies {
@@ -25,6 +26,7 @@ dependencies {
     implementation("org.apache.kafka:kafka_2.12:3.2.0")
     implementation("org.springframework.kafka:spring-kafka:2.8.6")
     implementation("com.github.navikt:brukernotifikasjon-schemas:v2.5.1")
+    implementation("io.confluent:kafka-avro-serializer:5.3.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

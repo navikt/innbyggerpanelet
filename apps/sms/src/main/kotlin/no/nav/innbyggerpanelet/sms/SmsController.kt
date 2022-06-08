@@ -10,6 +10,6 @@ internal class SmsController {
 
     @PostMapping("/sms")
     fun sms(@RequestBody sms: Sms) {
-        DittNavService()
+        println("hello")
     }
 }
