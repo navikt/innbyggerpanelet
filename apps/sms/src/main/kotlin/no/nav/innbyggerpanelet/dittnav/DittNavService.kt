@@ -7,6 +7,9 @@ import no.nav.innbyggerpanelet.sms.Sms
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.springframework.stereotype.Service
 import org.springframework.kafka.core.KafkaOperations
+import java.time.LocalDateTime
+import java.time.ZoneOffset.UTC
+import java.util.*
 
 @Service
 class DittNavService(
@@ -25,12 +28,15 @@ class DittNavService(
         BeskjedInputBuilder()
             .withEksternVarsling(true)
             .withSmsVarslingstekst(message)
+            .withTidspunkt(LocalDateTime.now(UTC))
+            .withTekst(message)
+            .withSikkerhetsnivaa(3)
             .build()
 
     private fun keyInput(birthNumber: String, groupingId: String, eventId: String) =
         NokkelInputBuilder()
             .withFodselsnummer(birthNumber)
-            .withEventId(eventId)
+            .withEventId(UUID.randomUUID().toString())
             .withGrupperingsId(groupingId)
             .withAppnavn("innbyggerpanelet")
             .withNamespace("localhost")
