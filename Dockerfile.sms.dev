@@ -1,15 +1,5 @@
 FROM node:14.17.0
 
-# RUN apt-get update && \
-#     apt-get install -y openjdk-17-jdk && \
-#     apt-get install -y ant && \
-#     apt-get clean;
-
-# RUN apt-get update && \
-#     apt-get install ca-certificates-java && \
-#     apt-get clean && \
-#     update-ca-certificates -f;
-
 RUN apt update
 RUN wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.deb
 RUN apt install ./jdk-17_linux-x64_bin.deb -y
