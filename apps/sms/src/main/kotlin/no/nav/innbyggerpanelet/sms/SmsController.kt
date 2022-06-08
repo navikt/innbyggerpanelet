@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-internal class SmsController {
+internal class SmsController(private val router: Router) {
 
     @PostMapping("/sms")
-    fun sms(@RequestBody sms: Sms) {
-        println("hello")
-    }
+    fun sms(@RequestBody sms: Sms) = router.route(sms)
 }
