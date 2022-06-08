@@ -14,6 +14,7 @@ java.sourceCompatibility = JavaVersion.VERSION_16
 
 repositories {
 	mavenCentral()
+    maven ("https://jitpack.io")
 }
 
 dependencies {
@@ -21,6 +22,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.0")
+    implementation("org.apache.kafka:kafka_2.12:3.2.0")
+    implementation("org.springframework.kafka:spring-kafka:2.8.6")
+    implementation("com.github.navikt:brukernotifikasjon-schemas:v2.5.1")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
