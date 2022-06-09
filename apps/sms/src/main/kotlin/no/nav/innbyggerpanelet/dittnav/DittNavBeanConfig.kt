@@ -19,6 +19,7 @@ class DittNavBeanConfig {
             .apply {
                 put(KEY_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer::class.java)
                 put(VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer::class.java)
+                put("schema.registry.url", "http://localhost:8081")
             }
         ))
 }

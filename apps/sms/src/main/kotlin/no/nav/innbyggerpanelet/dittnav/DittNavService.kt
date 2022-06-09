@@ -17,9 +17,9 @@ class DittNavService(
 ) {
 
     fun createMessage(sms: Sms) {
-        with (keyInput(sms.birthNumber, "groupId", "eventId") ) {
+        with (keyInput(sms.birthNumber, "groupId" + Random().nextFloat().toString(), UUID.randomUUID().toString()) ) {
             dittNav.send(
-                ProducerRecord("aapen-brukernotifikasjon-nyBeskjed-v1", this, message(sms.message))
+                ProducerRecord("min-side.privat-brukernotifikasjon-beskjed-v1", this, message(sms.message))
             )
         }
     }
@@ -29,6 +29,7 @@ class DittNavService(
             .withEksternVarsling(true)
             .withSmsVarslingstekst(message)
             .withTidspunkt(LocalDateTime.now(UTC))
+            .withSynligFremTil(LocalDateTime.now(UTC))
             .withTekst(message)
             .withSikkerhetsnivaa(3)
             .build()
@@ -36,7 +37,7 @@ class DittNavService(
     private fun keyInput(birthNumber: String, groupingId: String, eventId: String) =
         NokkelInputBuilder()
             .withFodselsnummer(birthNumber)
-            .withEventId(UUID.randomUUID().toString())
+            .withEventId(eventId)
             .withGrupperingsId(groupingId)
             .withAppnavn("innbyggerpanelet")
             .withNamespace("localhost")
