@@ -5,7 +5,7 @@ import '@navikt/ds-datepicker/lib/index.css';
 import { AddCircle, Close } from '@navikt/ds-icons';
 import { BodyShort, Label, Textarea, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { IErrorMessage } from '../../validation/IErrorMessage';
+import { IValidationError } from '../../core/hooks/useFormatValidationErrors';
 import ErrorList from '../misc/validation/ErrorList';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 import { CriteriasSearchModal } from './CriteriasSearchModal';
@@ -14,10 +14,10 @@ import style from './InsightConfiguration.module.scss';
 interface IProps {
     insight: IInsight;
     setInsight: (insight: IInsight) => void;
-    errorMessages: IErrorMessage
+    validationErrors: IValidationError;
 }
 
-export const InsightConfiguration = ({ insight, setInsight, errorMessages }: IProps): ReactElement => {
+export const InsightConfiguration = ({ insight, setInsight, validationErrors }: IProps): ReactElement => {
     const [openCriterias, setOpenCriterias] = useState<boolean>(false);
     const [openConsents, setOpenConsents] = useState<boolean>(false);
 
@@ -68,19 +68,19 @@ export const InsightConfiguration = ({ insight, setInsight, errorMessages }: IPr
     return (
         <>
             <div className={style.wrapper}>
-                <TextField 
-                    id="name" 
-                    label="Tittel" 
-                    onChange={handleInputChange} 
+                <TextField
+                    id="name"
+                    label="Tittel"
+                    onChange={handleInputChange}
                     value={insight.name}
-                    error={errorMessages.nameErrorMsg} 
+                    error={validationErrors.name}
                 />
                 <Textarea
                     id="description"
                     label="Formål med innsiktsarbeid"
                     onChange={handleInputChange}
                     value={insight.description}
-                    error={errorMessages.descriptionErrorMsg}
+                    error={validationErrors.description}
                 />
                 <div>
                     <Label>Innsiktsperiode</Label>
@@ -89,9 +89,8 @@ export const InsightConfiguration = ({ insight, setInsight, errorMessages }: IPr
                         <BodyShort>til</BodyShort>
                         <Datepicker value={insight.end} onChange={(value) => handleDateChange(value, 'end')} />
                     </div>
-                    {errorMessages.datesErrorMsg!.length > 0 && (
-                        <ErrorList errorMessages={errorMessages.datesErrorMsg!}/>
-                    )}
+                    {validationErrors.start && <ErrorList errorMessages={[...validationErrors.start]} />}
+                    {validationErrors.end && <ErrorList errorMessages={[...validationErrors.end]} />}
                 </div>
                 <div>
                     <Label className={style.listHeader} size="medium" spacing>
@@ -106,6 +105,7 @@ export const InsightConfiguration = ({ insight, setInsight, errorMessages }: IPr
                         );
                     })}
                     {insight.criterias.length === 0 ? <BodyShort>Ingen valgte...</BodyShort> : null}
+                    {validationErrors.criterias && <ErrorList errorMessages={[...validationErrors.criterias]} />}
                 </div>
                 <div>
                     <Label className={style.listHeader} size="medium" spacing>
@@ -120,9 +120,7 @@ export const InsightConfiguration = ({ insight, setInsight, errorMessages }: IPr
                         );
                     })}
                     {insight.consents.length === 0 ? <BodyShort>Ingen valgte...</BodyShort> : null}
-                    {errorMessages.consentsErrorMsg && (
-                        <ErrorList errorMessages={[errorMessages.consentsErrorMsg]}/>
-                    )}
+                    {validationErrors.consents && <ErrorList errorMessages={[...validationErrors.consents]} />}
                 </div>
             </div>
 
@@ -131,11 +129,7 @@ export const InsightConfiguration = ({ insight, setInsight, errorMessages }: IPr
                 close={() => setOpenCriterias(false)}
                 addCriteria={addcriteria}
             />
-            <ConsentsSearchModal 
-                open={openConsents} 
-                close={() => setOpenConsents(false)} 
-                addConsent={addConsent} 
-            />
+            <ConsentsSearchModal open={openConsents} close={() => setOpenConsents(false)} addConsent={addConsent} />
         </>
     );
 };

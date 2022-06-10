@@ -1,3 +1,4 @@
+import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { Insight } from '../models/insight/InsightEntity';
@@ -11,9 +12,7 @@ insightRouter.get('/', async (req, res, next) => {
 
         const insightService = new InsightService(database);
 
-        const result: Insight[] | undefined = await insightService.search(
-            queries
-        );
+        const result: Insight[] | undefined = await insightService.search(queries);
 
         res.json(result);
     } catch (error) {
@@ -24,7 +23,7 @@ insightRouter.get('/', async (req, res, next) => {
 insightRouter.post('/', async (req, res, next) => {
     try {
         const insightService = new InsightService(database);
-        const newInsight = req.body as Insight;
+        const newInsight = plainToInstance(Insight, req.body);
 
         const result = await insightService.create(newInsight);
 

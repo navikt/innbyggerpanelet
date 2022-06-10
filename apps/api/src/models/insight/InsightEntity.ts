@@ -1,14 +1,9 @@
 /* eslint-disable indent */
 import { IInsight } from '@innbyggerpanelet/api-interfaces';
-import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    ManyToMany,
-    JoinTable,
-    ManyToOne,
-    OneToMany,
-} from 'typeorm';
+import { Transform } from 'class-transformer';
+import { ArrayNotEmpty, IsDate, MinDate, MinLength, Validate } from 'class-validator';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { IsBeforeConstraint } from '../../lib/validators/IsBeforeConstraint';
 import { Candidate } from '../candidate/CandidateEntity';
 import { Consent } from '../consent/ConsentEntity';
 import { Criteria } from '../criteria/CriteriaEntity';
@@ -25,15 +20,23 @@ export class Insight implements IInsight {
     project: InsightProject;
 
     @Column()
+    @MinLength(5, { message: 'Tittel er for kort, minst 5 bokstaver.' })
     name: string;
 
     @Column()
+    @MinLength(10, { message: 'Beskrivelse er for kort, minst 10 bokstaver.' })
     description: string;
 
-    @Column()
+    @Column({ type: 'date', default: new Date() })
+    @IsDate({ message: 'Ingen startdato valgt.' })
+    @Transform(({ value }) => new Date(value))
+    @Validate(IsBeforeConstraint, ['end'])
     start: string;
 
-    @Column()
+    @Column({ type: 'date', default: new Date() })
+    @IsDate({ message: 'Ingen sluttdato valgt.' })
+    @Transform(({ value }) => new Date(value))
+    @MinDate(new Date(), { message: 'Sluttdato kan ikke være før dagens dato.' })
     end: string;
 
     @OneToMany(() => Candidate, (candidate) => candidate.insight)
@@ -41,9 +44,11 @@ export class Insight implements IInsight {
 
     @ManyToMany(() => Criteria)
     @JoinTable()
+    @ArrayNotEmpty({ message: 'Ingen kriterier valgt.' })
     criterias: Criteria[];
 
     @ManyToMany(() => Consent)
     @JoinTable()
+    @ArrayNotEmpty({ message: 'Ingen samtykker valgt.' })
     consents: Consent[];
 }

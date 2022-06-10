@@ -1,10 +1,11 @@
 import { ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
-import { validateCriteriaCategory } from '../../validation/criteriaCategory';
+import { AxiosError } from 'axios';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { createCriteriaCategory } from '../../api/mutations/mutateCriteriaCategory';
+import { APIHandler } from '../../components/misc/apiHandler';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import style from './CriteriaAdminPanel.module.scss';
-import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
 
 interface IProps {
     open: boolean;
@@ -19,10 +20,8 @@ const defaultCategory: ICriteriaCategory = {
 
 export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactElement => {
     const [category, setCategory] = useState<ICriteriaCategory>(defaultCategory);
-    const [posting, setPosting] = useState(false);
-
-    const errorMessageDispatch = useErrorMessageDispatcher();
-    const errorMessages = useErrorMessageState();
+    const [categoryValidationErrors, setCategoryValidationErrors] = useFormatValidationErrors();
+    const [postError, setPostError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const result = { ...category };
@@ -33,21 +32,10 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        if (validateCriteriaCategory(category).isValid) {
-            setPosting(true);
-
-            const { response, isError } = await createCriteriaCategory(category);
-
-            if (response) {
-                setPosting(false);
-                errorMessageDispatch.clearErrorMessages();
-                close();
-            } else if (isError) {
-                console.error(isError);
-            }
-        } else {
-            errorMessageDispatch.setErrorMessages(validateCriteriaCategory(category).errorMessages);
-        }
+        const { response, error, validationErrors } = await createCriteriaCategory(category);
+        if (error) return setPostError(error);
+        if (validationErrors) return setCategoryValidationErrors(validationErrors);
+        if (response) close();
     };
 
     return (
@@ -55,23 +43,22 @@ export const CriteriaCategoryCreateModal = ({ open, close }: IProps): ReactEleme
             <Modal.Content className={style.editModal}>
                 <Heading size="small">Ny kategori</Heading>
                 <BodyShort>Lag en ny kategori.</BodyShort>
-                <TextField 
-                    label="Navn" 
-                    id="name" 
-                    value={category.name} 
+                <TextField
+                    label="Navn"
+                    id="name"
+                    value={category.name}
                     onChange={handleChange}
-                    error={errorMessages.nameErrorMsg}
+                    error={categoryValidationErrors.name}
                 />
-                <TextField 
-                    label="Beskrivelse" 
-                    id="description" 
-                    value={category.description} 
-                    onChange={handleChange} 
-                    error={errorMessages.descriptionErrorMsg}
+                <TextField
+                    label="Beskrivelse"
+                    id="description"
+                    value={category.description}
+                    onChange={handleChange}
+                    error={categoryValidationErrors.description}
                 />
-                <Button onClick={handleSubmit} loading={posting}>
-                    Opprett
-                </Button>
+                {postError && <APIHandler loading={false} error={postError} />}
+                <Button onClick={handleSubmit}>Opprett</Button>
             </Modal.Content>
         </Modal>
     );

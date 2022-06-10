@@ -1,16 +1,19 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
-import { Accordion, Heading, Loader, Panel } from '@navikt/ds-react';
+import { Accordion, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { useCriteriaCategory } from '../../api/hooks/useCriteriaCategory';
+import { IValidationError } from '../../core/hooks/useFormatValidationErrors';
 import { APIHandler } from '../misc/apiHandler';
+import ErrorList from '../misc/validation/ErrorList';
 import { UserEditCriteriaTable } from './UserEditCriteriaTable';
 
 interface IProps {
     user: IUser;
     setUser: (user: IUser) => void;
+    validationErrors: IValidationError;
 }
 
-export const UserEditCriterias = ({ user, setUser }: IProps): ReactElement => {
+export const UserEditCriterias = ({ user, setUser, validationErrors }: IProps): ReactElement => {
     const { categories, loading, error } = useCriteriaCategory();
 
     return (
@@ -26,6 +29,7 @@ export const UserEditCriterias = ({ user, setUser }: IProps): ReactElement => {
                     </Accordion.Item>
                 )) || <APIHandler error={error} loading={loading} />}
             </Accordion>
+            {validationErrors.criterias && <ErrorList errorMessages={[...validationErrors.criterias]} />}
         </Panel>
     );
 };
