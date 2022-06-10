@@ -87,3 +87,13 @@ export interface ICriteriaCategory {
     name: string;
     description: string;
 }
+
+export interface IMessage {
+    id: number;
+    recipient: IUser;
+    timestamp: string;
+    title: string;
+    description: string;
+    read: boolean;
+    ref?: string;
+}

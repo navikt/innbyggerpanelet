@@ -1,15 +1,15 @@
-import { ICandidate } from '@innbyggerpanelet/api-interfaces';
+import { IMessage } from '@innbyggerpanelet/api-interfaces';
 import { ReactElement } from 'react';
-import { InvitationMessage } from '../../components/messages/InvitationMessage';
+import { AlertMessage } from '../../components/messages/AlertMessage';
 
 interface IProps {
-    candidates: ICandidate[];
+    messages: IMessage[];
 }
-export const Inbox = ({ candidates }: IProps): ReactElement => {
+export const Inbox = ({ messages }: IProps): ReactElement => {
     return (
         <>
-            {candidates.map((candidate, index) => (
-                <InvitationMessage key={index} candidate={candidate} />
+            {messages.map((message, index) => (
+                <AlertMessage key={index} message={message} />
             ))}
         </>
     );

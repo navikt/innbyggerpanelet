@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { database } from '../loaders';
 import { Candidate } from '../models/candidate/CandidateEntity';
 import { CandidateService, ICandidateSearch } from '../services';
+import { MessageService } from '../services/MessageService';
 import { authenticated, navAuthenticated } from './middleware/authenticationHandler';
 
 const candidateRouter = Router();
@@ -65,8 +66,11 @@ candidateRouter.put('/accept', authenticated, async (req, res, next) => {
 
         const candidateService = new CandidateService(database);
         const updatedCandidate = plainToInstance(Candidate, req.body);
-
         const result = await candidateService.accept(updatedCandidate.insight.id, id);
+
+        const messageService = new MessageService(database);
+        await messageService.createAcceptCandidatureMessage(updatedCandidate.insight.id);
+
         res.json(result);
     } catch (error) {
         next(error);
@@ -79,8 +83,11 @@ candidateRouter.put('/decline', authenticated, async (req, res, next) => {
 
         const candidateService = new CandidateService(database);
         const updatedCandidate = plainToInstance(Candidate, req.body);
-
         const result = await candidateService.decline(updatedCandidate.insight.id, id);
+
+        const messageService = new MessageService(database);
+        await messageService.createDeclineCandidatureMessage(updatedCandidate.insight.id);
+
         res.json(result);
     } catch (error) {
         next(error);
