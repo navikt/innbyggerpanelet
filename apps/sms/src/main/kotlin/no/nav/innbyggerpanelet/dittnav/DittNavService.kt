@@ -18,6 +18,8 @@ class DittNavService(
 
     fun createMessage(sms: Sms) {
         with (keyInput(sms.birthNumber, "groupId" + Random().nextFloat().toString(), UUID.randomUUID().toString()) ) {
+            print(keyInput(sms.birthNumber, "groupId" + Random().nextFloat().toString(), UUID.randomUUID().toString()))
+            print(message(sms.message))
             dittNav.send(
                 ProducerRecord("min-side.privat-brukernotifikasjon-beskjed-v1", this, message(sms.message))
             )
