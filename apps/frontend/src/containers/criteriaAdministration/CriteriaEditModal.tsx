@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { updateCriteria } from '../../api/mutations/mutateCriteria';
 import { APIHandler } from '../../components/misc/apiHandler';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import style from './CriteriaAdminPanel.module.scss';
 
 interface IProps {
@@ -17,7 +17,7 @@ interface IProps {
 // Can be refactored into an abstract modal for both patching and posting
 // by turning heading and body into react children and adding a submit function prop.
 export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps): ReactElement => {
-    const [criteriaValidationErrors, setCriteriaValidationErrors] = useValidationErrors();
+    const [criteriaValidationErrors, setCriteriaValidationErrors] = useFormatValidationErrors();
     const [putError, setPutError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

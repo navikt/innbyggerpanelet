@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { updateUser } from '../../api/mutations/mutateUser';
 import { APIHandler } from '../../components/misc/apiHandler';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import style from './UserAdministration.module.scss';
 
 interface IProps {
@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const UserEditModal = ({ open, close, user, setUser }: IProps): ReactElement => {
-    const [userValidationErrors, setUserValidationErrors] = useValidationErrors();
+    const [userValidationErrors, setUserValidationErrors] = useFormatValidationErrors();
     const [putError, setPutError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {

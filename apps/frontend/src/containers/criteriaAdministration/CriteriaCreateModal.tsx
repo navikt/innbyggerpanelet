@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { createCriteria } from '../../api/mutations/mutateCriteria';
 import { APIHandler } from '../../components/misc/apiHandler';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import style from './CriteriaAdminPanel.module.scss';
 
 interface IProps {
@@ -20,7 +20,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
         exclusivitySlug: '',
         category
     });
-    const [criteriaValidationErrors, setCriteriaValidationErrors] = useValidationErrors();
+    const [criteriaValidationErrors, setCriteriaValidationErrors] = useFormatValidationErrors();
     const [postError, setPostError] = useState<AxiosError>();
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {

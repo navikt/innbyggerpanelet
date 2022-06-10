@@ -1,7 +1,7 @@
 import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Panel, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement } from 'react';
-import { IValidationError } from '../../core/hooks/useValidationErrors';
+import { IValidationError } from '../../core/hooks/useFormatValidationErrors';
 import style from './UserContactInfoForm.module.scss';
 
 interface IProps {

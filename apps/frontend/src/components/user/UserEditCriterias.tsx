@@ -2,7 +2,7 @@ import { IUser } from '@innbyggerpanelet/api-interfaces';
 import { Accordion, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { useCriteriaCategory } from '../../api/hooks/useCriteriaCategory';
-import { IValidationError } from '../../core/hooks/useValidationErrors';
+import { IValidationError } from '../../core/hooks/useFormatValidationErrors';
 import { APIHandler } from '../misc/apiHandler';
 import ErrorList from '../misc/validation/ErrorList';
 import { UserEditCriteriaTable } from './UserEditCriteriaTable';

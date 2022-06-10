@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/mutations/mutateUser';
 import { APIHandler } from '../../components/misc/apiHandler';
 import { UserContactInfoForm, UserEditCriterias } from '../../components/user';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import style from './RegisterUser.module.scss';
 
 const defaultUser: IUser = {
@@ -23,7 +23,7 @@ export const RegisterUser = (): ReactElement => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState<IUser>(defaultUser);
-    const [userValidationErrors, setUserValidationErrors] = useValidationErrors();
+    const [userValidationErrors, setUserValidationErrors] = useFormatValidationErrors();
     const [postError, setPostError] = useState<AxiosError>();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

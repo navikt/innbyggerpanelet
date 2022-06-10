@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { createInsightProject } from '../../api/mutations/mutateInsightProject';
 import { APIHandler } from '../../components/misc/apiHandler';
 import { ProjectEdit } from '../../components/project';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 
 const defaultProject: IInsightProject = {
     id: 0,
@@ -21,7 +21,7 @@ export const CreateInsightProject = (): ReactElement => {
     const navigate = useNavigate();
 
     const [insightProject, setInsightProject] = useState(defaultProject);
-    const [insightProjectValidationErrors, setInsightProjectValidationErrors] = useValidationErrors();
+    const [insightProjectValidationErrors, setInsightProjectValidationErrors] = useFormatValidationErrors();
     const [postError, setPostError] = useState<AxiosError>();
 
     const handleSubmit = async (project: IInsightProject) => {

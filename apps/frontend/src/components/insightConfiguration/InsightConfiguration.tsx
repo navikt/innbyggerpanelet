@@ -5,7 +5,7 @@ import '@navikt/ds-datepicker/lib/index.css';
 import { AddCircle, Close } from '@navikt/ds-icons';
 import { BodyShort, Label, Textarea, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { IValidationError } from '../../core/hooks/useValidationErrors';
+import { IValidationError } from '../../core/hooks/useFormatValidationErrors';
 import ErrorList from '../misc/validation/ErrorList';
 import { ConsentsSearchModal } from './ConsentsSearchModal';
 import { CriteriasSearchModal } from './CriteriasSearchModal';
