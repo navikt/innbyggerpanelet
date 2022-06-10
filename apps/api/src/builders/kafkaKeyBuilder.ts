@@ -9,5 +9,11 @@ interface IKeyInput {
 }
 
 export const buildKeyInput = (keyInput: IKeyInput): string => {
-    return `{"eventId": "${keyInput.eventId}", "grupperingsId": "${keyInput.groupingId}", "fodselsnummer": "${keyInput.birthNumber}", "namespace": "${keyInput.namespace}", "appnavn": "${keyInput.appName}"}`; 
+    return `{
+        "eventId": "${keyInput.eventId}", 
+        "grupperingsId": "${keyInput.groupingId}", 
+        "fodselsnummer": "${keyInput.birthNumber}", 
+        "namespace": "${keyInput.namespace}", 
+        "appnavn": "${keyInput.appName}"
+    }`; 
 };

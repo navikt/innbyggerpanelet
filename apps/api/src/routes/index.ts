@@ -8,6 +8,7 @@ import criteriaRoutes from './CriteriaRoutes';
 import insightProjectRoutes from './InsightProjectRoutes';
 import insightRoutes from './InsightRoutes';
 import { errorHandler } from './middleware/errorHandler';
+import smsRoutes from './SmsRoutes';
 import userRoutes from './UserRoutes';
 
 const routes = Router()
@@ -20,6 +21,7 @@ const routes = Router()
     .use('/insight', insightRoutes)
     .use('/insightProject', insightProjectRoutes)
     .use('/user', userRoutes)
+    .use('/sms', smsRoutes)
     .use(errorHandler);
 
 export default Router()

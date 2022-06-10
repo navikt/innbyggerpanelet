@@ -1,11 +1,20 @@
 import { Router } from 'express';
+import kafka from '../loaders/kafka';
+import { SmsService } from '../services/SmsService';
 
-const smsRouter = Router();
+const smsRoutes = Router();
 
-smsRouter.post('/', async (req, res, next) => {
+smsRoutes.post('/', async (req, res, next) => {
     try {
+        const smsService = new SmsService(kafka);
+
         const newSms = req.body;
+
+        smsService.send(newSms);
+
     } catch (error) {
         next(error);
     }
 });
+
+export default smsRoutes;

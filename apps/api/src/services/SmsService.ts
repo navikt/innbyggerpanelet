@@ -1,6 +1,7 @@
 import { Kafka } from 'kafkajs';
 import { buildKeyInput } from '../builders/kafkaKeyBuilder';
 import { v4 as uuidv4 } from 'uuid';
+import { buildMessage } from '../builders/messageBuilder';
 
 export class SmsService {
     private _kafkaConnection: Kafka;
@@ -23,7 +24,16 @@ export class SmsService {
                     namespace: 'localhost',
                     appName: 'innbyggerpanelet'
                 }),
-                value: 'Hello world kafka'
+                value: buildMessage({
+                    time: Date.now(),
+                    visibleUntill: Date.now(),
+                    externalWarning: true,
+                    smsMessage: message,
+                    message: message,
+                    safetyLevel: 3,
+                    emailMessage: undefined,
+                    emailTitle: undefined
+                })
             }]
         });
 
