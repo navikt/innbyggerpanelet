@@ -68,6 +68,7 @@ export class UserService extends BaseService<User> {
 
         const users = await this._userRepository
             .createQueryBuilder('user')
+            .select('user.id')
             // eslint-disable-next-line quotes
             .where("user.role = 'CITIZEN'")
             .leftJoinAndSelect('user.criterias', 'criteria', 'criteria.id IN (:...criteriaIds)', { criteriaIds })

@@ -32,3 +32,36 @@
 .dates > p {
     margin: auto 0;
 }
+
+
+/* Project Insight Candidates */
+
+.cardContainer {
+    margin: 2ch 0 0;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2ch;
+
+    > .card {
+        padding: 2ch;
+        border-radius: 1ch;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+        > p {
+            font-weight: normal;
+        }
+
+        > .labelAccepted, > .labelCompleted {
+            color: green;
+        }
+
+        > .labelDenied {
+            color: red;
+        }
+
+        > .labelPending {
+            color: orange;
+        }
+    }
+}
+

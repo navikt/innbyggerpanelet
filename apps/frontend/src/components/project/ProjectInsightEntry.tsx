@@ -1,11 +1,10 @@
 import { EnumCandidateStatus, ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
-import { Accordion, Label } from '@navikt/ds-react';
+import { Accordion, BodyLong, Label } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { ProjectInsightCandidates } from '.';
 import { useCandidatesByInsightId } from '../../api/hooks/useCandidate';
 import { APIHandler } from '../misc/apiHandler';
 import { ProgressBar } from '../misc/progressBar';
-
 import style from './Project.module.scss';
 
 interface IProps {
@@ -36,6 +35,7 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
             <Accordion.Item>
                 <Accordion.Header>{insight.name}</Accordion.Header>
                 <Accordion.Content>
+                    <BodyLong>{insight.description}</BodyLong>
                     <div className={style.progress}>
                         <ProgressBar label="Relevansgradering" progress={getAvgRelevancyRating()} />
                         <ProgressBar

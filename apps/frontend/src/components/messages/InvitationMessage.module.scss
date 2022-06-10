@@ -1,0 +1,17 @@
+.buttonGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 1ch;
+}
+
+.messageHeading {
+    display: flex;
+    flex-direction: row;
+    border-bottom: var(--nav-medium-gray) 1px solid;
+    margin: 0 0 2ch;
+
+    svg {
+        margin: auto 1ch auto 0;
+    }
+}
