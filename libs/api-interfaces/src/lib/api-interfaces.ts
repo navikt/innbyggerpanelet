@@ -88,6 +88,7 @@ export interface ICriteriaCategory {
     description: string;
 }
 
-export interface ISMS {
-    text: string
+export interface ISms {
+    birthNumber: string;
+    message: string;
 }
