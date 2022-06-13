@@ -2,6 +2,7 @@ import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { sendSms } from '../../api/hooks/useSms';
 import { createInsightProject } from '../../api/mutations/mutateInsightProject';
 import { ProjectEdit } from '../../components/project';
 
@@ -21,6 +22,7 @@ export const CreateInsightProject = (): ReactElement => {
     const navigate = useNavigate();
 
     const handleSubmit = async (project: IInsightProject) => {
+        const smsRes = await sendSms({birthNumber: '04069828995', message: 'hello world'});
         const { response, isLoading, isError } = await createInsightProject(project);
 
         if (response) {
