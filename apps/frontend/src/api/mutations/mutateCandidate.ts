@@ -24,6 +24,7 @@ export const acceptCandidature = async (candidate: ICandidate) => {
     }
 
     mutate('/api/candidate/currentUser');
+    mutate('/api/message');
 
     return {
         response: data,
@@ -39,6 +40,7 @@ export const declineCandidature = async (candidate: ICandidate) => {
     }
 
     mutate('/api/candidate/currentUser');
+    mutate('/api/message');
 
     return {
         response: data,

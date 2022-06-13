@@ -1,3 +1,4 @@
+import { EnumCandidateStatus } from '@innbyggerpanelet/api-interfaces';
 import { Email, ShakeHands } from '@navikt/ds-icons';
 import { BodyShort } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
@@ -18,6 +19,11 @@ export const MessagesPage = (): ReactElement => {
     const invitations = useCandidatesByCurrentUser();
     const inbox = useMessages();
 
+    const unansweredInvitations = invitations.candidates?.filter(
+        (candidate) => candidate.status === EnumCandidateStatus.Pending
+    );
+    const unreadMessages = inbox.messages?.filter((message) => !message.read);
+
     const [tabState, setTabState] = useState<EnumTabState>(EnumTabState.Invitations);
 
     return (
@@ -28,14 +34,14 @@ export const MessagesPage = (): ReactElement => {
                     onClick={() => setTabState(EnumTabState.Invitations)}
                 >
                     <ShakeHands />
-                    <BodyShort>Invitasjoner</BodyShort>
+                    <BodyShort>Invitasjoner {unansweredInvitations && `(${unansweredInvitations.length})`}</BodyShort>
                 </PanelTabs.TabSelector>
                 <PanelTabs.TabSelector
                     active={tabState === EnumTabState.Messages}
                     onClick={() => setTabState(EnumTabState.Messages)}
                 >
                     <Email />
-                    <BodyShort>Meldinger</BodyShort>
+                    <BodyShort>Meldinger {unreadMessages && `(${unreadMessages.length})`}</BodyShort>
                 </PanelTabs.TabSelector>
             </PanelTabs>
             <PanelTabs.TabContent active={tabState === EnumTabState.Invitations}>
