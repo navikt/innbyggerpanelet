@@ -14,4 +14,25 @@
     svg {
         margin: auto 1ch auto 0;
     }
+
+    > p {
+        text-align: right;
+        flex-grow: 1;
+        margin: auto 0;
+    }
+}
+
+.messageHeading:hover {
+    > h1 {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.open {
+    display: block;
+}
+
+.closed {
+    display: none;
 }

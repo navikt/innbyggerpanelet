@@ -33,13 +33,12 @@
     margin: auto 0;
 }
 
-
 /* Project Insight Candidates */
 
 .cardContainer {
     margin: 2ch 0 0;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     gap: 2ch;
 
     > .card {
@@ -51,7 +50,8 @@
             font-weight: normal;
         }
 
-        > .labelAccepted, > .labelCompleted {
+        > .labelAccepted,
+        > .labelCompleted {
             color: green;
         }
 
@@ -64,4 +64,3 @@
         }
     }
 }
-

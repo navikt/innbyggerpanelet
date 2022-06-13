@@ -1,4 +1,5 @@
 import { Connection, Repository } from 'typeorm';
+import { ForbiddenError } from '../lib/errors/http/ForbiddenError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Message } from '../models/message/MessageEntity';
@@ -27,7 +28,7 @@ export class MessageService extends BaseService<Message> {
     async getByUserId(id: string | number): Promise<Message[]> {
         const messages = await this._database
             .getRepository(Message)
-            .find({ where: { recipient: id }, relations: ['recipient'] });
+            .find({ where: { recipient: id }, relations: ['recipient'], order: { timestamp: 'DESC' } });
 
         if (messages.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Messages') });
 
@@ -55,8 +56,11 @@ export class MessageService extends BaseService<Message> {
         return this.create(message);
     }
 
+    // Check user id against message recipient id
     async update(id: string | number, dto: Message): Promise<Message> {
-        throw new Error('Method not implemented.');
+        if (id !== dto.recipient.id) throw new ForbiddenError({ message: 'Message' });
+
+        return await this._messageRepository.save(dto);
     }
 
     async delete(id: string | number): Promise<void> {

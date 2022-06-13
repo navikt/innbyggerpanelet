@@ -9,7 +9,7 @@ export class Message implements IMessage {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'date', default: new Date() })
+    @Column({ type: 'timestamptz', default: new Date() })
     @Transform(({ value }) => new Date(value))
     timestamp: string;
 
