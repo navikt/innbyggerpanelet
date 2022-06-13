@@ -1,0 +1,35 @@
+.wrapper {
+    position: absolute;
+    right: calc(((100% - 60rem) / 2) + 60rem + 1rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2ch;
+}
+
+.tab {
+    background-color: #fff;
+    padding: 1ch;
+    min-width: 20ch;
+    color: var(--navds-semantic-color-text-muted);
+    display: flex;
+    flex-direction: row;
+    border-radius: 4px;
+
+    > svg {
+        margin: auto 1ch auto 0;
+    }
+}
+
+.tab:hover {
+    cursor: pointer;
+}
+
+.active {
+    border-bottom: var(--navds-semantic-color-interaction-primary) solid 4px;
+    color: black;
+}
+
+.hiddenContent {
+    display: none;
+}
