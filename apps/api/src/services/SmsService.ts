@@ -35,7 +35,7 @@ export class SmsService {
                     emailTitle: undefined
                 })
             }]
-        }).then(result => console.log(result));
+        });
 
         await producer.disconnect();
     }
