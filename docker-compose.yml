@@ -75,3 +75,5 @@ volumes:
     innbyggerpanelet_data:
 networks:
     innbyggerpanelet_api:
+        external:
+          name: dittnav.docker-internal

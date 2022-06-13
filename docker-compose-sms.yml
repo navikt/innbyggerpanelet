@@ -457,3 +457,4 @@ volumes:
 
 networks:
   dittnav.docker-internal:
+    name: dittnav.docker-internal
