@@ -1,18 +1,16 @@
-import { ReactElement, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Heading, Label, Panel } from '@navikt/ds-react';
 import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
+import { Button, Heading, Label, Panel } from '@navikt/ds-react';
+import { ReactElement, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useUserByCriterias } from '../../api/hooks/useUser';
+import { createCandidates } from '../../api/mutations/mutateCandidate';
+import { createInsight } from '../../api/mutations/mutateInsight';
 import CandidatePicker from '../../components/candidatePicker';
 import InsightConfiguration from '../../components/insightConfiguration';
-import { useUserByCriterias } from '../../api/hooks/useUser';
-import { createInsight } from '../../api/mutations/mutateInsight';
-import { createCandidates } from '../../api/mutations/mutateCandidate';
 import { APIHandler } from '../../components/misc/apiHandler';
-import style from './CreateInsight.module.scss';
-import { validateInsight } from '../../validation/insight';
 import ErrorList from '../../components/misc/validation/ErrorList';
-import { IMutation } from '../../api/mutations/IMutation';
-import { useErrorMessageDispatcher, useErrorMessageState } from '../../core/context/ErrorMessageContext';
+import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
+import style from './CreateInsight.module.scss';
 
 const defaultInsight: IInsight = {
     id: 0,
@@ -38,66 +36,47 @@ export const CreateInsight = (): ReactElement => {
 
     // TODO: Look into using context when receipt container is to be made.
     const [insight, setInsight] = useState<IInsight>(defaultInsight);
+    const [insightValidationErrors, setInsightValidationErrors] = useFormatValidationErrors();
+
     const [candidates, setCandidates] = useState<ICandidate[]>([]);
-    const [posting, setPosting] = useState(false);
+    const [candidateValidationErrors, setCandidateValidationErrors] = useFormatValidationErrors();
 
     const { users, loading, error } = useUserByCriterias(insight.criterias);
 
-    const errorMessageDispatch = useErrorMessageDispatcher();
-    const errorMessages = useErrorMessageState();
-
     const handleSubmit = async () => {
         if (!id) throw new Error('This project does not exist.');
-
 
         const payload = {
             ...insight,
             project: { ...insight.project, id: parseInt(id) }
         };
 
-        let insightMutation: IMutation<IInsight> | undefined = undefined;
+        const insightMutation = await createInsight(payload);
+        if (insightMutation.error) throw new Error('Failed to post insight.');
+        if (insightMutation.validationErrors) return setInsightValidationErrors(insightMutation.validationErrors);
 
-        if (validateInsight(insight, candidates).isValid) {
-            setPosting(true);
-            
-            insightMutation = await createInsight(payload);
-            
-            if (!insightMutation.response || insightMutation.isError) {
-                throw new Error('Failed to post insight.');   
-            }
-            
-            const configuredCandidates = candidates.map((c) => {
-                return { ...c, insight: insightMutation?.response };
-            }) as ICandidate[];
-        
-        
-            const candidatesMutation = await createCandidates(configuredCandidates);
+        const configuredCandidates = candidates.map((c) => {
+            return { ...c, insight: insightMutation.response };
+        }) as ICandidate[];
 
-            if (candidatesMutation.response) {
-                errorMessageDispatch.clearErrorMessages();
-                navigate(`/prosjekt/${id}`);
-            } else if (candidatesMutation.isError) {
-                throw new Error('Failed to post candidates');
-            }
-        } else {
-            errorMessageDispatch.setErrorMessages(validateInsight(insight, candidates).errorMesseges);
-        }
+        const candidateMutation = await createCandidates(configuredCandidates);
+        if (candidateMutation.error) throw new Error('Failed to post candidates');
+        if (candidateMutation.validationErrors) return setCandidateValidationErrors(candidateMutation.validationErrors);
 
+        if (insightMutation.response && candidateMutation.response) navigate(`/prosjekt/${id}`);
     };
 
     return (
         <>
             <Panel>
-                <Button onClick={handleSubmit} loading={posting}>
-                    Opprett
-                </Button>
+                <Button onClick={handleSubmit}>Opprett</Button>
                 <Heading level={'1'} size="2xlarge" spacing>
                     Nytt innsiktsarbeid
                 </Heading>
-                <InsightConfiguration 
-                    insight={insight} 
-                    setInsight={setInsight} 
-                    errorMessages={errorMessages}
+                <InsightConfiguration
+                    insight={insight}
+                    setInsight={setInsight}
+                    validationErrors={insightValidationErrors}
                 />
             </Panel>
             <Panel>
@@ -119,8 +98,8 @@ export const CreateInsight = (): ReactElement => {
                             />
                         );
                     }) || <APIHandler error={error} loading={loading} />}
-                    {errorMessages.candidatesErrorMsg && (
-                        <ErrorList errorMessages={[errorMessages.candidatesErrorMsg]}/>
+                    {candidateValidationErrors.candidates && (
+                        <ErrorList errorMessages={[...candidateValidationErrors.candidates]} />
                     )}
                 </div>
             </Panel>

@@ -1,3 +1,4 @@
+import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { User } from '../models/user/UserEntity';
@@ -39,9 +40,22 @@ userRoutes.get('/prioritized', navAuthenticated, async (req, res, next) => {
         const criterias = (req.query.criterias as unknown as string[]) || [];
 
         const userService = new UserService(database);
-        const result: User[] = await userService.prioritizedUsers(criterias);
+        const result: User[] = await userService.getPrioritizedCitizens(criterias);
 
         return res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+userRoutes.get('/teamMember', navAuthenticated, async (req, res, next) => {
+    try {
+        const name = req.query.name || '';
+
+        const userService = new UserService(database);
+        const result: User[] = await userService.getNAVEmployeesByName(name);
+
+        res.json(result);
     } catch (error) {
         next(error);
     }
@@ -63,7 +77,7 @@ userRoutes.get('/:id', navAuthenticated, async (req, res, next) => {
 userRoutes.post('/', adminAuthenticated, async (req, res, next) => {
     try {
         const userService = new UserService(database);
-        const newUser = req.body as User;
+        const newUser = plainToInstance(User, req.body);
 
         const result = await userService.create(newUser);
 
@@ -76,7 +90,7 @@ userRoutes.post('/', adminAuthenticated, async (req, res, next) => {
 userRoutes.put('/', authenticated, async (req, res, next) => {
     try {
         const userService = new UserService(database);
-        const updatedUser = req.body as User;
+        const updatedUser = plainToInstance(User, req.body);
 
         const result = await userService.update(updatedUser.id, updatedUser);
 

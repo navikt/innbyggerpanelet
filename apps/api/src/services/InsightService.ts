@@ -1,4 +1,6 @@
+import { validate } from 'class-validator';
 import { Connection, Repository } from 'typeorm';
+import { NotAcceptableError } from '../lib/errors/http/NotAcceptableError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Insight } from '../models/insight/InsightEntity';
@@ -23,8 +25,8 @@ export class InsightService extends BaseService<Insight> {
 
     async get(): Promise<Insight[]> {
         const insights = await this._insightRepository.find();
-        
-        if (insights.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Insights')});
+
+        if (insights.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Insights') });
 
         return insights;
     }
@@ -36,15 +38,18 @@ export class InsightService extends BaseService<Insight> {
     async search(queries: IInsightSearch): Promise<Insight[]> {
         const insights = await this._insightRepository.find({
             where: queries.where,
-            relations: [queries.relations || []].flat(),
+            relations: [queries.relations || []].flat()
         });
 
-        if (insights.length === 0) throw new NotFoundError({message: ServerErrorMessage.notFound('Insights')});
+        if (insights.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Insights') });
 
         return insights;
     }
 
     async create(dto: Insight): Promise<Insight> {
+        const errors = await validate(dto);
+        if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
+
         const insight = await this._insightRepository.save(dto);
 
         return insight;

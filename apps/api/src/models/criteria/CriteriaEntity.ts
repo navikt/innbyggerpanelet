@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { MinLength } from 'class-validator';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CriteriaCategory } from '../criteriaCategory/CriteriaCategoryEntity';
 
 @Entity()
@@ -11,14 +12,12 @@ export class Criteria implements ICriteria {
     id: number;
 
     @Column()
+    @MinLength(5, { message: 'Navn er for kort, minst 5 bokstaver.' })
     name: string;
 
     @Column({ nullable: true })
     exclusivitySlug?: string;
 
-    @ManyToOne(
-        () => CriteriaCategory,
-        (criteriaCategory) => criteriaCategory.criterias
-    )
+    @ManyToOne(() => CriteriaCategory, (criteriaCategory) => criteriaCategory.criterias)
     category: CriteriaCategory;
 }

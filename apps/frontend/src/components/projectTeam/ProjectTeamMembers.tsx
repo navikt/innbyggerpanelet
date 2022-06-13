@@ -1,8 +1,7 @@
 import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Delete } from '@navikt/ds-icons';
-import { BodyShort, Table } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-
 import style from './ProjectTeam.module.scss';
 
 interface IProps {
@@ -33,13 +32,10 @@ export const ProjectTeamMembers = ({ project, edit }: IProps): ReactElement => {
                     <Table.Row key={index}>
                         <Table.DataCell>{member.name}</Table.DataCell>
                         <Table.DataCell>{member.email}</Table.DataCell>
-                        <Table.DataCell>Ikke satt</Table.DataCell>
+                        <Table.DataCell>{member.role}</Table.DataCell>
                         {edit ? (
                             <Table.DataCell>
-                                <Delete
-                                    className={style.clickIcon}
-                                    onClick={() => deleteUser(member)}
-                                />
+                                <Delete className={style.clickIcon} onClick={() => deleteUser(member)} />
                             </Table.DataCell>
                         ) : null}
                     </Table.Row>

@@ -11,6 +11,11 @@ export const AdminPanel = (): ReactElement => {
                     <LinkPanel.Title>Administrer kriterier</LinkPanel.Title>
                 </LinkPanel>
             </Link>
+            <Link to="/admin/brukere">
+                <LinkPanel>
+                    <LinkPanel.Title>Administrer brukere</LinkPanel.Title>
+                </LinkPanel>
+            </Link>
         </PanelNoBackground>
     );
 };

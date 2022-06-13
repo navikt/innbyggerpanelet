@@ -1,5 +1,7 @@
 /* eslint-disable indent */
 import { EnumUserRole, IUser } from '@innbyggerpanelet/api-interfaces';
+import { Transform } from 'class-transformer';
+import { IsDate, IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
 import { Candidate } from '../candidate/CandidateEntity';
 import { Criteria } from '../criteria/CriteriaEntity';
@@ -14,20 +16,27 @@ export class User implements IUser {
     id: string;
 
     @Column()
+    @IsNotEmpty({ message: 'Navn kan ikke være tomt.' })
     name: string;
 
-    @Column()
+    @Column({ type: 'date', default: new Date() })
+    @IsDate({ message: 'Ingen startdato valgt.' })
+    @Transform(({ value }) => new Date(value))
     latestUpdate: string;
 
     @Column({
         unique: true
     })
+    @IsEmail({}, { message: 'Epost må være på riktig format (ola@eksempel.no).' })
+    @IsNotEmpty({ message: 'E-Post må være fylt ut.' })
     email: string;
 
-    @Column()
+    @Column({ default: '12345678' })
+    @IsPhoneNumber('NO', { message: 'Påse at du har skrevet et gyldig norsk telefonnummber.' })
     phone: string;
 
     @Column({ type: 'enum', enum: EnumUserRole, default: EnumUserRole.Citizen })
+    @IsNotEmpty()
     role: EnumUserRole;
 
     @OneToMany(() => Candidate, (candidate) => candidate.user)

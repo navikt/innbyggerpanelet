@@ -1,3 +1,4 @@
+import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { Candidate } from '../models/candidate/CandidateEntity';
@@ -11,9 +12,7 @@ candidateRouter.get('/', async (req, res, next) => {
 
         const candidateService = new CandidateService(database);
 
-        const result: Candidate[] | undefined = await candidateService.search(
-            queries
-        );
+        const result: Candidate[] | undefined = await candidateService.search(queries);
 
         res.json(result);
     } catch (error) {
@@ -24,7 +23,7 @@ candidateRouter.get('/', async (req, res, next) => {
 candidateRouter.post('/', async (req, res, next) => {
     try {
         const candidateService = new CandidateService(database);
-        const newCandidate = req.body as Candidate;
+        const newCandidate = plainToInstance(Candidate, req.body);
 
         const result = await candidateService.create(newCandidate);
 

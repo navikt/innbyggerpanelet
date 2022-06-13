@@ -1,14 +1,16 @@
-import { Connection, FindOperator, ILike, QueryFailedError, Repository } from 'typeorm';
+import { EnumUserRole } from '@innbyggerpanelet/api-interfaces';
+import { validate } from 'class-validator';
+import { Connection, FindOperator, ILike, Repository } from 'typeorm';
 import { NotAcceptableError } from '../lib/errors/http/NotAcceptableError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
-import { ValidationErrorMessage } from '../lib/errors/messages/ValidationErrorMessages';
 import { User } from '../models/user/UserEntity';
 import BaseService from './BaseService';
 
 export interface IUserSearch {
     where: {
         name?: string | string[] | FindOperator<string | string[]>;
+        role: string;
     };
     relations: string | string[];
 }
@@ -46,13 +48,28 @@ export class UserService extends BaseService<User> {
         return users;
     }
 
-    async prioritizedUsers(criteriaIds: string[]): Promise<User[] | undefined> {
+    async getNAVEmployeesByName(name: string): Promise<User[] | undefined> {
+        const users = await this._userRepository.find({
+            where: [
+                { name: ILike(`%${name}%`), role: EnumUserRole.Admin },
+                { name: ILike(`%${name}%`), role: EnumUserRole.NAV }
+            ]
+        });
+
+        if (users.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Users') });
+
+        return users;
+    }
+
+    async getPrioritizedCitizens(criteriaIds: string[]): Promise<User[] | undefined> {
         if (criteriaIds.length === 0) {
-            throw new NotFoundError({ message: ServerErrorMessage.invalidData() });
+            throw new NotFoundError({ message: ServerErrorMessage.invalidData([]) });
         }
 
         const users = await this._userRepository
             .createQueryBuilder('user')
+            // eslint-disable-next-line quotes
+            .where("user.role = 'CITIZEN'")
             .leftJoinAndSelect('user.criterias', 'criteria', 'criteria.id IN (:...criteriaIds)', { criteriaIds })
             .groupBy('user.id')
             .addGroupBy('criteria.id')
@@ -88,27 +105,15 @@ export class UserService extends BaseService<User> {
     }
 
     async create(dto: User): Promise<User | undefined> {
-        try {
-            return await this._userRepository.save(dto);
-        } catch (error) {
-            if (error instanceof QueryFailedError) {
-                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User') });
-            }
-        }
-
-        return undefined;
+        const errors = await validate(dto);
+        if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
+        return await this._userRepository.save(dto);
     }
 
     async update(id: string, dto: User): Promise<User | undefined> {
-        try {
-            return await this._userRepository.save(dto);
-        } catch (error) {
-            if (error instanceof QueryFailedError) {
-                throw new NotAcceptableError({ message: ValidationErrorMessage.alreadyExists('User') });
-            }
-        }
-
-        return undefined;
+        const errors = await validate(dto);
+        if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
+        return await this._userRepository.save(dto);
     }
 
     async delete(id: string): Promise<void> {
