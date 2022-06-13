@@ -30,7 +30,7 @@ export class SmsService {
                     externalWarning: true,
                     smsMessage: message,
                     message: message,
-                    safetyLevel: 3,
+                    safetyLevel: 4,
                     emailMessage: undefined,
                     emailTitle: undefined
                 })
