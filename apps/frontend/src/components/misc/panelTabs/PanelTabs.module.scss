@@ -27,6 +27,7 @@
 
 .active {
     border-bottom: var(--navds-semantic-color-interaction-primary) solid 4px;
+    padding-bottom: calc(1ch - 4px);
     color: black;
 }
 
