@@ -39,6 +39,9 @@ export class User implements IUser {
     @IsNotEmpty()
     role: EnumUserRole;
 
+    @Column({ unique: true, nullable: true })
+    birthNumber?: string;
+
     @OneToMany(() => Candidate, (candidate) => candidate.user)
     candidates: Candidate[];
 

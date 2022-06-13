@@ -5,13 +5,14 @@ export enum EnumUserRole {
 }
 
 export interface IUser {
-    [key: string]: number | string | ICriteria[];
+    [key: string]: number | string | undefined | ICriteria[];
     id: string;
     name: string;
     latestUpdate: string;
     email: string;
     phone: string;
     role: EnumUserRole;
+    birthNumber?: string;
     criterias: ICriteria[];
 }
 
