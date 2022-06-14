@@ -22,16 +22,16 @@ export class SmsService {
                     key: buildKeyInput({
                         eventId: uuidv4(),
                         groupingId: Math.random().toString(),
-                        birthNumber: birthNumber,
+                        birthNumber,
                         namespace: config.nais.namespace,
                         appName: config.nais.appName
                     }),
                     value: buildMessage({
-                        time: Date.now(),
-                        visibleUntill: Date.now(),
+                        time: Date.now() + 900, // Epoch time + 15 seconds
+                        visibleUntill: Date.now() + 900, // Epoch time + 15 seconds
                         externalWarning: true,
                         smsMessage: message,
-                        message: message,
+                        message,
                         safetyLevel: 4,
                         emailMessage: undefined,
                         emailTitle: undefined

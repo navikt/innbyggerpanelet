@@ -1,3 +1,5 @@
+import { validateEmailMessage, validateEmailTitle, validateEpochTime, validateMessage, validateSafetyLevel, validateSmsMessage } from "./validation/validateMessage"
+
 interface IMessage {
     time: number // Epoch time
     visibleUntill: number // Epoch time
@@ -11,15 +13,15 @@ interface IMessage {
 
 export const buildMessage = (message: IMessage): string => {
     return `{
-        "tidspunkt": ${message.time}, 
-        "synligFremTil": ${message.visibleUntill}, 
-        "tekst": "${message.message}", 
+        "tidspunkt": ${validateEpochTime(message.time)}, 
+        "synligFremTil": ${validateEpochTime(message.visibleUntill)}, 
+        "tekst": "${validateMessage(message.message)}", 
         "link": "", 
-        "sikkerhetsnivaa": ${message.safetyLevel},
+        "sikkerhetsnivaa": ${validateSafetyLevel(message.safetyLevel)},
         "eksternVarsling": ${message.externalWarning},
         "prefererteKanaler": ${[]},
-        "epostVarslingstekst": ${message.emailMessage},
-        "epostVarslingstittel": ${message.emailTitle},
-        "smsVarslingstekst": ${message.smsMessage}
+        "epostVarslingstekst": ${validateEmailMessage(message.emailMessage, message.externalWarning)},
+        "epostVarslingstittel": ${validateEmailTitle(message.emailTitle, message.externalWarning)},
+        "smsVarslingstekst": ${validateSmsMessage(message.smsMessage, message.externalWarning)}
     }`;
 };
