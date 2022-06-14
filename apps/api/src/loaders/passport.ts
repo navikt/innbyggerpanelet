@@ -67,7 +67,8 @@ const passportLoader = async () => {
                         latestUpdate: new Date().toISOString().slice(0, 10),
                         candidates: [],
                         criterias: [],
-                        insightProjects: []
+                        insightProjects: [],
+                        messages: []
                     };
                     return await userService.create(dto);
                 });

@@ -1,34 +1,68 @@
-import { ICandidate } from '@innbyggerpanelet/api-interfaces';
-import { Label, Table } from '@navikt/ds-react';
+import { EnumCandidateStatus, ICandidate } from '@innbyggerpanelet/api-interfaces';
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
+import style from './Project.module.scss';
 
 interface IProps {
     candidates: ICandidate[];
 }
 
 export const ProjectInsightCandidates = ({ candidates }: IProps) => {
+    console.log(candidates);
+
+    candidates.map((candidate, index) => {
+        if (candidate.status !== EnumCandidateStatus.Accepted && candidate.status !== EnumCandidateStatus.Completed) {
+            candidate.user = {
+                ...candidate.user,
+                name: 'Kandidat ' + (index + 1),
+                email: '*****@****.***',
+                phone: '+** ********'
+            };
+        }
+    });
+
+    const statusEnumToElement = (status: EnumCandidateStatus) => {
+        switch (status) {
+            case EnumCandidateStatus.Accepted:
+                return (
+                    <Label size="small" className={style.labelAccepted}>
+                        GODTATT SAMTYKKE
+                    </Label>
+                );
+            case EnumCandidateStatus.Completed:
+                return (
+                    <Label size="small" className={style.labelCompleted}>
+                        GJENNOMFØRT ARBEID
+                    </Label>
+                );
+            case EnumCandidateStatus.Declined:
+                return (
+                    <Label size="small" className={style.labelDenied}>
+                        AVSLÅTT
+                    </Label>
+                );
+            case EnumCandidateStatus.Pending:
+                return (
+                    <Label size="small" className={style.labelPending}>
+                        VENTER PÅ SVAR
+                    </Label>
+                );
+        }
+    };
+
     return (
         <>
             <Label>Deltagere:</Label>
-            <Table>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Relevansgradering</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Samtykker?</Table.HeaderCell>
-                        <Table.HeaderCell scope="col">Status</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {candidates.map((candidate, index) => (
-                        <Table.Row key={index}>
-                            <Table.DataCell>{candidate.user.name}</Table.DataCell>
-                            <Table.DataCell>{Math.floor(candidate.relevancyGrading * 100)}%</Table.DataCell>
-                            <Table.DataCell>{candidate.hasConsented ? 'Ja' : 'Nei'}</Table.DataCell>
-                            <Table.DataCell>{candidate.status}</Table.DataCell>
-                        </Table.Row>
-                    ))}
-                </Table.Body>
-            </Table>
+
+            <div className={style.cardContainer}>
+                {candidates.map((candidate, index) => (
+                    <div key={index} className={style.card}>
+                        <Heading size="small">{candidate.user.name}</Heading>
+                        <BodyShort>{candidate.user.email}</BodyShort>
+                        <BodyShort>{candidate.user.phone}</BodyShort>
+                        {statusEnumToElement(candidate.status)}
+                    </div>
+                ))}
+            </div>
         </>
     );
 };

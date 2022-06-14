@@ -92,6 +92,7 @@ export const CreateInsight = (): ReactElement => {
                             <CandidatePicker
                                 key={index}
                                 user={user}
+                                index={index}
                                 insight={insight}
                                 candidates={candidates}
                                 setCandidates={setCandidates}

@@ -1,0 +1,39 @@
+.buttonGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+}
+
+.messageHeading {
+    display: flex;
+    flex-direction: row;
+    border-bottom: var(--nav-medium-gray) 1px solid;
+    margin: 0 0 1.5rem;
+
+    svg {
+        margin: auto 0.5rem auto 0;
+    }
+
+    > p {
+        text-align: right;
+        flex-grow: 1;
+        margin: auto 0;
+    }
+}
+
+.messageHeading:hover {
+    > h1 {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.open {
+    display: block;
+}
+
+.closed {
+    display: none;
+}

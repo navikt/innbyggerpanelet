@@ -13,6 +13,7 @@ export const Header = (): ReactElement => {
 
     const adminStyle = subPath === 'admin' ? style.admin : '';
     const homeStyle = subPath === 'hjem' ? style.home : '';
+    const inboxStyle = subPath === 'meldinger' ? style.inbox : '';
 
     const { user, loading, error } = useUser();
 
@@ -32,6 +33,9 @@ export const Header = (): ReactElement => {
 
                         <RouterLink className={homeStyle} to="/hjem">
                             <Button variant="tertiary">Min side</Button>
+                        </RouterLink>
+                        <RouterLink className={inboxStyle} to="/meldinger">
+                            <Button variant="tertiary">Mine meldinger</Button>
                         </RouterLink>
                         <Link href={user.role === EnumUserRole.Citizen ? '/api/idporten/logout' : '/api/azure/logout'}>
                             <Button>Logg ut</Button>
