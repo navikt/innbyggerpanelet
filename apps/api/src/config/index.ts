@@ -28,6 +28,12 @@ const redis = {
     port: 6379
 };
 
+const nais = {
+    appName: process.env.NAIS_APP_NAME,
+    cluster: process.env.NAIS_CLUSTER_NAME,
+    namespace: process.env.NAIS_NAMESPACE
+}
+
 if (process.env.IS_PROD === 'yes') {
     host = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_HOST;
     port = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_PORT;
@@ -44,14 +50,15 @@ if (process.env.IS_PROD === 'yes') {
 
 export default {
     database: {
-        host: host,
-        port: port,
-        db: db,
-        user: user,
-        password: password
+        host,
+        port,
+        db,
+        user,
+        password
     },
     azureAd,
     frontend,
     backend,
-    redis
+    redis,
+    nais
 };
