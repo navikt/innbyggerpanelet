@@ -12,8 +12,8 @@ smsRoutes.post('/', async (req, res, next) => {
         const newSms = req.body;
 
         smsService.send(newSms);
-        // TODO: GET PROPPER RESPONSE!
-        res.status(StatusCodes.OK);
+
+        res.json({ message: 'SMS sent'});
     } catch (error) {
         next(error);
     }
