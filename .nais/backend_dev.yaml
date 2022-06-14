@@ -50,16 +50,13 @@ spec:
         - "https://innbyggerpanelet-backend.dev.intern.nav.no/api/azure/oauth2/callback"
         - "http://localhost/api/azure/oauth2/callback"
   idporten:
-    enabled: true
+    sidecar:
+      enabled: true
 
-    clientURI: "https://innbyggerpanelet-backend.dev.intern.nav.no"
-    redirectPath: "/api/idporten/oauth2/callback"
-    frontchannelLogoutPath: "/api/idporten/oauth2/logout"
-    postLogoutRedirectURIs: 
-      - "https://innbyggerpanelet-backend.dev.intern.nav.no"
-
-    accessTokenLifetime: 3600
-    sessionLifetime: 7200
+      level: Level4
+      locale: nb
+      autoLogin: false
+      errorPath: ""
   accessPolicy:
     inbound:
       rules:

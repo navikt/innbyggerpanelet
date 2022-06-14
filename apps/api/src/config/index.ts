@@ -14,13 +14,6 @@ const azureAd = {
     tenantId: process.env.AZURE_APP_TENANT_ID
 };
 
-const idPorten = {
-    clientId: process.env.IDPORTEN_CLIENT_ID,
-    jwk: process.env.IDPORTEN_CLIENT_JWK,
-    redirectUri: process.env.IDPORTEN_REDIRECT_URI,
-    wellKnown: process.env.IDPORTEN_WELL_KNOWN_URL
-};
-
 const frontend = {
     url: process.env.CLIENT_URL
 };
@@ -58,7 +51,6 @@ export default {
         password: password
     },
     azureAd,
-    idPorten,
     frontend,
     backend,
     redis

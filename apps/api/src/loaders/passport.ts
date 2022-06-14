@@ -76,7 +76,7 @@ const passportLoader = async () => {
             return done(true, null);
         })
     );
-
+    /*
     const idPortenIssuer = await Issuer.discover(config.idPorten.wellKnown);
 
     const idPortenClient = new idPortenIssuer.Client({
@@ -97,7 +97,7 @@ const passportLoader = async () => {
 
             return await done(null, user);
         })
-    );
+    );*/
 
     // serialize the user.id to save in the cookie session
     // so the browser will remember the user when login
