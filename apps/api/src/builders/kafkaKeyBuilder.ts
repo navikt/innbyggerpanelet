@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { validateAppName, validateBirthNumber, validateGroupingId, validateNamespace } from './validation/validateKafkaKey';
 
 interface IKeyInput {
     eventId: uuidv4
@@ -11,9 +12,9 @@ interface IKeyInput {
 export const buildKeyInput = (keyInput: IKeyInput): string => {
     return `{
         "eventId": "${keyInput.eventId}", 
-        "grupperingsId": "${keyInput.groupingId}", 
-        "fodselsnummer": "${keyInput.birthNumber}", 
-        "namespace": "${keyInput.namespace}", 
-        "appnavn": "${keyInput.appName}"
+        "grupperingsId": "${validateGroupingId(keyInput.groupingId)}", 
+        "fodselsnummer": "${validateBirthNumber(keyInput.birthNumber)}", 
+        "namespace": "${validateNamespace(keyInput.namespace)}", 
+        "appnavn": "${validateAppName(keyInput.appName)}"
     }`; 
 };

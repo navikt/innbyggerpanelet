@@ -12,32 +12,36 @@ export class SmsService {
     }
 
     async send({birthNumber, message}: {birthNumber: string, message: string}): Promise<void> {
-        const producer = this._kafkaConnection.producer();
+        try {
+            const producer = this._kafkaConnection.producer();
 
-        await producer.connect();
-        await producer.send({
-            topic: config.kafka.topic,
-            messages: [{
-                key: buildKeyInput({
-                    eventId: uuidv4(),
-                    groupingId: Math.random().toString(),
-                    birthNumber: birthNumber,
-                    namespace: config.nais.namespace,
-                    appName: config.nais.appName
-                }),
-                value: buildMessage({
-                    time: Date.now(),
-                    visibleUntill: Date.now(),
-                    externalWarning: true,
-                    smsMessage: message,
-                    message: message,
-                    safetyLevel: 4,
-                    emailMessage: undefined,
-                    emailTitle: undefined
-                })
-            }]
-        });
+            await producer.connect();
+            await producer.send({
+                topic: config.kafka.topic,
+                messages: [{
+                    key: buildKeyInput({
+                        eventId: uuidv4(),
+                        groupingId: Math.random().toString(),
+                        birthNumber: birthNumber,
+                        namespace: config.nais.namespace,
+                        appName: config.nais.appName
+                    }),
+                    value: buildMessage({
+                        time: Date.now(),
+                        visibleUntill: Date.now(),
+                        externalWarning: true,
+                        smsMessage: message,
+                        message: message,
+                        safetyLevel: 4,
+                        emailMessage: undefined,
+                        emailTitle: undefined
+                    })
+                }]
+            });
 
-        await producer.disconnect();
+            await producer.disconnect();
+        } catch (error) {
+            throw new Error('Noe gikk galt ved utsenting av sms...')
+        }
     }
 }
