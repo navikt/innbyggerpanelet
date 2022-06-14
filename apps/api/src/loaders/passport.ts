@@ -22,7 +22,7 @@ const passportLoader = async () => {
         `https://login.microsoftonline.com/${config.azureAd.tenantId}/v2.0/.well-known/openid-configuration`
     );
 
-    const client = new azureADIssuer.Client({
+    const azureClient = new azureADIssuer.Client({
         client_id: config.azureAd.clientId,
         client_secret: config.azureAd.secret,
         redirect_uris: [`${config.backend.url}/api/azure/oauth2/callback`],
@@ -33,7 +33,7 @@ const passportLoader = async () => {
     // Typescript does not recognize type here for some reason. Consider making an interface.
     passport.use(
         'azureAD',
-        new Strategy({ client, usePKCE: 'S256' }, async (tokenSet: TokenSet, done) => {
+        new Strategy({ client: azureClient, usePKCE: 'S256' }, async (tokenSet: TokenSet, done) => {
             // Verify expiration
             if (tokenSet.expired()) return done(null, false);
 
@@ -74,6 +74,28 @@ const passportLoader = async () => {
 
             // Return error if user doesn't exist or isn't created.
             return done(true, null);
+        })
+    );
+
+    const idPortenIssuer = await Issuer.discover(config.idPorten.wellKnown);
+
+    const idPortenClient = new idPortenIssuer.Client({
+        response_types: ['code'],
+        client_id: config.idPorten.clientId,
+        redirect_uris: [config.idPorten.redirectUri],
+        scope: ['openid']
+    });
+
+    passport.use(
+        'idPorten',
+        new Strategy({ client: idPortenClient, usePKCE: 'S256' }, async (tokenSet: TokenSet, done) => {
+            if (tokenSet.expired()) return done(null, false);
+
+            const user = { tokenSets: { self: tokenSet }, claims: tokenSet.claims() };
+
+            console.log(user);
+
+            return await done(null, user);
         })
     );
 
