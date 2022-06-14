@@ -34,6 +34,10 @@ const nais = {
     namespace: process.env.NAIS_NAMESPACE
 }
 
+const kafka = {
+    broker: process.env.KAFKA_BROKERS
+}
+
 if (process.env.IS_PROD === 'yes') {
     host = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_HOST;
     port = process.env.NAIS_DATABASE_INNBYGGERPANELET_BACKEND_INNBYGGERPANELET_BACKEND_DB_PORT;
@@ -60,5 +64,6 @@ export default {
     frontend,
     backend,
     redis,
-    nais
+    nais,
+    kafka
 };
