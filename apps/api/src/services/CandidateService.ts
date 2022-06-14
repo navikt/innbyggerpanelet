@@ -43,22 +43,28 @@ export class CandidateService extends BaseService<Candidate> {
         throw new Error('Method not implemented.');
     }
 
-    async getCandidatesByInsightId(id: string): Promise<Candidate[]> {
-        const clearCandidates = await this._candidateRepository
+    private async getClearCandidatesByInsightId(id: string): Promise<Candidate[]> {
+        return await this._candidateRepository
             .createQueryBuilder('candidate')
             .leftJoinAndSelect('candidate.insight', 'insight', 'insight.id = :id', { id })
             // eslint-disable-next-line quotes
             .where("(candidate.status = 'ACCEPTED' OR candidate.status = 'COMPLETED') AND insight.id = :id", { id })
             .leftJoinAndSelect('candidate.user', 'user')
             .getMany();
+    }
 
-        const anonymizedCandidates = await this._candidateRepository
+    private async getAnonymizedCandidatesByInsightId(id: string): Promise<Candidate[]> {
+        return await this._candidateRepository
             .createQueryBuilder('candidate')
             .leftJoinAndSelect('candidate.insight', 'insight', 'insight.id = :id', { id })
             // eslint-disable-next-line quotes
             .where("(candidate.status != 'ACCEPTED' AND candidate.status != 'COMPLETED') AND insight.id = :id", { id })
             .getMany();
+    }
 
+    async getCandidatesByInsightId(id: string): Promise<Candidate[]> {
+        const clearCandidates = await this.getClearCandidatesByInsightId(id);
+        const anonymizedCandidates = await this.getAnonymizedCandidatesByInsightId(id);
         const candidates = [...clearCandidates, ...anonymizedCandidates];
 
         if (candidates.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidates') });

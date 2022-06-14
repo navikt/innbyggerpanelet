@@ -1,23 +1,26 @@
 .wrapper {
     position: absolute;
-    right: calc(((100% - 60rem) / 2) + 60rem + 1rem);
+    /* Position element to the left of body with 1rem margin */
+    /* (Full width - body width / 2) = Width between screen border and body */
+    /* Move element from right side to get anchor on correct side (from right) */
+    right: calc(((100% - var(--body-width)) / 2) + var(--body-width) + 1rem);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 2ch;
+    gap: 1rem;
 }
 
 .tab {
     background-color: #fff;
-    padding: 1ch;
-    min-width: 20ch;
+    padding: 0.5rem;
+    min-width: 12rem;
     color: var(--navds-semantic-color-text-muted);
     display: flex;
     flex-direction: row;
     border-radius: 4px;
 
     > svg {
-        margin: auto 1ch auto 0;
+        margin: auto 0.5rem auto 0;
     }
 }
 
@@ -27,7 +30,7 @@
 
 .active {
     border-bottom: var(--navds-semantic-color-interaction-primary) solid 4px;
-    padding-bottom: calc(1ch - 4px);
+    padding-bottom: calc(0.5rem - 4px);
     color: black;
 }
 

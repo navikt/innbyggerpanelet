@@ -36,14 +36,14 @@
 /* Project Insight Candidates */
 
 .cardContainer {
-    margin: 2ch 0 0;
+    margin: 1rem 0 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2ch;
+    gap: 1rem;
 
     > .card {
-        padding: 2ch;
-        border-radius: 1ch;
+        padding: 1rem;
+        border-radius: 0.5rem;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
         > p {

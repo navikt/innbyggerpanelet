@@ -2,18 +2,18 @@
     display: flex;
     flex-direction: row;
     justify-content: right;
-    gap: 1ch;
-    margin: 2ch 0 0;
+    gap: 1rem;
+    margin: 1.5rem 0 0;
 }
 
 .messageHeading {
     display: flex;
     flex-direction: row;
     border-bottom: var(--nav-medium-gray) 1px solid;
-    margin: 0 0 2ch;
+    margin: 0 0 1.5rem;
 
     svg {
-        margin: auto 1ch auto 0;
+        margin: auto 0.5rem auto 0;
     }
 
     > p {
