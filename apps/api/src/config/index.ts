@@ -35,7 +35,8 @@ const nais = {
 }
 
 const kafka = {
-    broker: process.env.KAFKA_BROKERS
+    broker: process.env.KAFKA_BROKERS,
+    topic: process.env.BESKJED_TOPIC
 }
 
 if (process.env.IS_PROD === 'yes') {

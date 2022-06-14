@@ -2,6 +2,7 @@ import { Kafka } from 'kafkajs';
 import { buildKeyInput } from '../builders/kafkaKeyBuilder';
 import { v4 as uuidv4 } from 'uuid';
 import { buildMessage } from '../builders/messageBuilder';
+import config from '../config';
 
 export class SmsService {
     private _kafkaConnection: Kafka;
@@ -15,14 +16,14 @@ export class SmsService {
 
         await producer.connect();
         await producer.send({
-            topic: 'min-side.privat-brukernotifikasjon-beskjed-v1',
+            topic: config.kafka.topic,
             messages: [{
                 key: buildKeyInput({
                     eventId: uuidv4(),
                     groupingId: Math.random().toString(),
                     birthNumber: birthNumber,
-                    namespace: 'localhost',
-                    appName: 'innbyggerpanelet'
+                    namespace: config.nais.namespace,
+                    appName: config.nais.appName
                 }),
                 value: buildMessage({
                     time: Date.now(),
