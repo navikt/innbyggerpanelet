@@ -6,6 +6,7 @@ import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn } from 
 import { Candidate } from '../candidate/CandidateEntity';
 import { Criteria } from '../criteria/CriteriaEntity';
 import { InsightProject } from '../insightProject/InsightProjectEntity';
+import { Message } from '../message/MessageEntity';
 
 @Entity()
 export class User implements IUser {
@@ -48,4 +49,7 @@ export class User implements IUser {
 
     @ManyToMany(() => InsightProject, (insightProject) => insightProject.members)
     insightProjects: InsightProject[];
+
+    @OneToMany(() => Message, (message) => message.recipient)
+    messages: Message[];
 }

@@ -3,15 +3,6 @@ import { AxiosError } from 'axios';
 import useSWR from 'swr';
 import { fetcher } from '../operations';
 
-export const useCandidatesByInsightId = (id: number | string) => {
-    const { data, error } = useSWR<ICandidate[], AxiosError>(
-        `/api/candidate?relations=user&relations=insight&where[insight]=${id}`,
-        fetcher
-    );
-
-    return { candidates: data, loading: !data && !error, error: error };
-};
-
 export const useCandidatesByUserId = (id: number | string) => {
     const { data, error } = useSWR<ICandidate[], AxiosError>(
         `/api/candidate?relations=user&relations=insight&where[user]=${id}`,
@@ -19,4 +10,16 @@ export const useCandidatesByUserId = (id: number | string) => {
     );
 
     return { candidatures: data, loading: !data && !error, error: error };
+};
+
+export const useCandidatesByCurrentUser = () => {
+    const { data, error } = useSWR<ICandidate[], AxiosError>('/api/candidate/currentUser', fetcher);
+
+    return { candidates: data, loading: !data && !error, error: error };
+};
+
+export const useCandidatesByInsightId = (id: string | number) => {
+    const { data, error } = useSWR<ICandidate[], AxiosError>(`/api/candidate/byInsightId/${id}`, fetcher);
+
+    return { candidates: data, loading: !data && !error, error: error };
 };

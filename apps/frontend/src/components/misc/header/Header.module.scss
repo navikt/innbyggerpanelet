@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: row;
     justify-content: right;
-    flex: 0.2;
+    flex: 0.4;
     gap: 1rem;
 
     > a {
@@ -29,6 +29,6 @@
     text-decoration: none;
 }
 
-.admin span, .home span {
+.admin span, .home span, .inbox span {
     border-bottom: 2px solid var(--navds-button-color-tertiary-text);
 }
