@@ -52,6 +52,11 @@ spec:
   idporten:
     sidecar:
       enabled: true
+
+      level: Level4
+      locale: nb
+      autoLogin: false
+      errorPath: ""
   accessPolicy:
     inbound:
       rules:
