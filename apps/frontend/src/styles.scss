@@ -5,6 +5,7 @@
     --nav-medium-gray: #c4c4c4;
     --nav-light-green: #99dead;
     --nav-dark-blue: #00243a;
+    --nav-primary-blue: #2a67c5;
 
     --body-width: 60rem;
 }
@@ -16,7 +17,8 @@
 
 .navds-panel > .navds-button {
     position: absolute;
-    left: calc(((100% - 60rem) / 2) + 60rem + 1rem);
+    /* Position element to the right of body with 1rem margin */
+    left: calc(((100% - var(--body-width)) / 2) + var(--body-width) + 1rem);
 }
 
 body {

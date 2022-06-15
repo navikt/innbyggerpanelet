@@ -15,6 +15,7 @@ import RegisterUser from './containers/registerUser';
 import { UserAdministration } from './containers/userAdministration/UserAdministration';
 import UserProfile from './containers/userProfile';
 import EmployeeLandingPage from './views/employeeLanding/EmployeeLandingPage';
+import { MessagesPage } from './views/messages/MessagesPage';
 
 // Root
 ReactDOM.render(
@@ -31,6 +32,7 @@ ReactDOM.render(
                 <Route path="/prosjekt/:id/innsikt" element={<CreateInsight />} />
                 <Route path="/profil" element={<UserProfile />} />
                 <Route path="/registrer" element={<RegisterUser />} />
+                <Route path="/meldinger" element={<MessagesPage />} />
                 <Route path="/admin" element={<AdminPanel />} />
                 <Route path="/admin/kriterier" element={<CriteriaAdminPanel />} />
                 <Route path="/admin/brukere" element={<UserAdministration />} />

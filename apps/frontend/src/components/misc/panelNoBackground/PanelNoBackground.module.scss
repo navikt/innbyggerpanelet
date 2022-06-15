@@ -1,9 +1,9 @@
 .wrapper {
-    width: 60rem;
+    width: var(--body-width);
     margin: 2rem auto;
 }
 
 .wrapper > button {
     position: absolute;
-    left: calc(((100% - 60rem) / 2) + 60rem + 1rem);
+    left: calc(((100% - var(--body-width)) / 2) + var(--body-width) + 1rem);
 }

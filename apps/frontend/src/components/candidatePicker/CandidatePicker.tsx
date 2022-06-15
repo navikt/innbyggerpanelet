@@ -5,13 +5,14 @@ import { ProgressBar } from '../misc/progressBar';
 import style from './CandidatePicker.module.scss';
 
 interface IProps {
+    index: number;
     user: IUser;
     insight: IInsight;
     candidates: ICandidate[];
     setCandidates: (candidates: ICandidate[]) => void;
 }
 
-export const CandidatePicker = ({ user, insight, candidates, setCandidates }: IProps): ReactElement => {
+export const CandidatePicker = ({ index, user, insight, candidates, setCandidates }: IProps): ReactElement => {
     // Does user already exist in selected candidates
     const isSelected = (): boolean => {
         const exists = candidates.find((c) => c.user.id === user.id);
@@ -69,7 +70,7 @@ export const CandidatePicker = ({ user, insight, candidates, setCandidates }: IP
         <div className={`${style.wrapper} ${isSelected() ? style.selected : ''}`} onClick={toggleCandidate}>
             <div className={style.header}>
                 <Label size="medium" className={style.candidateName}>
-                    {user.name}
+                    Kandidat {index + 1}
                 </Label>
                 <ProgressBar label="Relevansgradering" progress={getRelevancePercentage()} />
             </div>

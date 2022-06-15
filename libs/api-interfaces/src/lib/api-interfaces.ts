@@ -93,3 +93,12 @@ export interface ISms {
     birthNumber: string;
     message: string;
 }
+export interface IMessage {
+    id: number;
+    recipient: IUser;
+    timestamp: string;
+    title: string;
+    description: string;
+    read: boolean;
+    ref?: string;
+}

@@ -31,8 +31,11 @@ export class InsightService extends BaseService<Insight> {
         return insights;
     }
 
-    async getById(id: number): Promise<Insight> {
-        throw new Error('Method not implemented.');
+    async getById(id: number | string): Promise<Insight> {
+        const insight = await this._insightRepository.findOne(id, { relations: ['project', 'project.members'] });
+        if (!insight) throw new NotFoundError({ message: ServerErrorMessage.notFound('Insights') });
+
+        return insight;
     }
 
     async search(queries: IInsightSearch): Promise<Insight[]> {
