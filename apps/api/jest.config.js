@@ -6,7 +6,7 @@ module.exports = {
             tsconfig: '<rootDir>/tsconfig.spec.json',
         },
     },
-    testEnvironment: 'jsdom',
+    testEnvironment: 'node',
     transform: {
         '^.+\\.[tj]s$': 'ts-jest',
     },
