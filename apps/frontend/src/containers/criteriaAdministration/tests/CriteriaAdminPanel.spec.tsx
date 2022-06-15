@@ -2,8 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
-import CriteriaAdminPanel from '..';
 import { mocks } from '../../../utils/mocks';
+import { CriteriaAdminPanel } from '../CriteriaAdminPanel';
 
 // Consider moving mocks to seperate file
 const server = setupServer(
