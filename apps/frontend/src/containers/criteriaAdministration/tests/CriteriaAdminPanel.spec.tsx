@@ -1,14 +1,27 @@
+import { ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
-import { mocks } from '../../../utils/mocks';
 import { CriteriaAdminPanel } from '../CriteriaAdminPanel';
+
+const allCriteriaCategories: ICriteriaCategory[] = [
+    {
+        id: 1,
+        name: 'Alder',
+        description: 'Kandidatens aldergruppe.'
+    },
+    {
+        id: 2,
+        name: 'Hjelpemidler',
+        description: 'Utvalg av mulige hjelpemidler tatt i bruk av kandidat.'
+    }
+];
 
 // Consider moving mocks to seperate file
 const server = setupServer(
     rest.get('/api/criteriaCategory', (req, res, ctx) => {
-        return res(ctx.json(mocks.allCriteriaCategories));
+        return res(ctx.json(allCriteriaCategories));
     })
 );
 

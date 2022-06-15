@@ -1,11 +1,13 @@
 {
-  "root": "apps/frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/frontend/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/web:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/frontend",
@@ -14,8 +16,13 @@
         "main": "apps/frontend/src/main.tsx",
         "polyfills": "apps/frontend/src/polyfills.ts",
         "tsConfig": "apps/frontend/tsconfig.app.json",
-        "assets": ["apps/frontend/src/favicon.ico", "apps/frontend/src/assets"],
-        "styles": ["apps/frontend/src/styles.scss"],
+        "assets": [
+          "apps/frontend/src/favicon.ico",
+          "apps/frontend/src/assets"
+        ],
+        "styles": [
+          "apps/frontend/src/styles.scss"
+        ],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
       },
@@ -52,14 +59,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/frontend/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/frontend"],
+      "outputs": [
+        "coverage/apps/frontend"
+      ],
       "options": {
         "jestConfig": "apps/frontend/jest.config.js",
         "passWithNoTests": true

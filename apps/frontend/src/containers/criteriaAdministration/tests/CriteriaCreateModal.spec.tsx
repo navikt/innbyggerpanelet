@@ -1,10 +1,22 @@
-import { ICriteria } from '@innbyggerpanelet/api-interfaces';
+import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
 import { CriteriaCreateModal } from '..';
-import { mocks } from '../../../utils/mocks';
+
+const allCriteriaCategories: ICriteriaCategory[] = [
+    {
+        id: 1,
+        name: 'Alder',
+        description: 'Kandidatens aldergruppe.'
+    },
+    {
+        id: 2,
+        name: 'Hjelpemidler',
+        description: 'Utvalg av mulige hjelpemidler tatt i bruk av kandidat.'
+    }
+];
 
 // Consider moving mocks to seperate file
 const server = setupServer(
@@ -17,7 +29,7 @@ const mockedPost: ICriteria = {
     id: 0,
     name: 'Hygienehjelpemidler',
     exclusivitySlug: undefined,
-    category: mocks.allCriteriaCategories[0]
+    category: allCriteriaCategories[0]
 };
 
 const setup = () => {
