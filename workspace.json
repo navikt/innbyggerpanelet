@@ -1,9 +1,8 @@
 {
-  "version": 2,
-  "projects": {
-    "api": "apps/api",
-    "api-interfaces": "libs/api-interfaces",
-    "frontend": "apps/frontend",
-    "sms": "apps/sms"
-  }
+    "version": 2,
+    "projects": {
+        "api": "apps/api",
+        "api-interfaces": "libs/api-interfaces",
+        "frontend": "apps/frontend"
+    }
 }
