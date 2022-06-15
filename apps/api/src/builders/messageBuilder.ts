@@ -7,7 +7,7 @@ import {
     validateExternalNotEmptyMaxLength, 
     validateNotEmptyMaxLength, 
     validateSafetyLevel 
-} from "./util/kafkaMessageValidation"
+} from './util/kafkaMessageValidation';
 
 interface IMessage {
     time: number // Epoch time
