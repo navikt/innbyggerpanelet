@@ -64,6 +64,8 @@ export const CreateInsight = (): ReactElement => {
         if (candidateMutation.error) throw new Error('Failed to post candidates');
         if (candidateMutation.validationErrors) return setCandidateValidationErrors(candidateMutation.validationErrors);
 
+        if (insightMutation.response && candidateMutation.response) navigate(`/prosjekt/${id}`);
+        
         configuredCandidates.forEach(async (candidate) => {
             if (candidate.user.birthNumber !== undefined) {
                 await sendSms({ 
@@ -72,8 +74,6 @@ export const CreateInsight = (): ReactElement => {
                 });
             }
         });
-
-        if (insightMutation.response && candidateMutation.response) navigate(`/prosjekt/${id}`);
     };
 
     return (
