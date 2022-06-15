@@ -1,14 +1,4 @@
-import {
-    EnumCandidateStatus,
-    EnumUserRole,
-    ICandidate,
-    IConsent,
-    ICriteria,
-    ICriteriaCategory,
-    IInsight,
-    IInsightProject,
-    IUser
-} from '@innbyggerpanelet/api-interfaces';
+import { EnumCandidateStatus, EnumUserRole, ICandidate, IConsent, ICriteria, ICriteriaCategory, IInsight, IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
 
 const allCriteriaCategories: ICriteriaCategory[] = [
     {
