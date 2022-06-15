@@ -1,4 +1,13 @@
-import { validateEmailMessage, validateEmailTitle, validateEpochTime, validateMessage, validateSafetyLevel, validateSmsMessage } from "./validation/validateMessage"
+import { 
+    BESKJED_MAX_LENGTH, 
+    EMAIL_MESSAGE_MAX_LENGTH, 
+    EMAIL_TITLE_MAX_LENGTH, 
+    SMS_MESSAGE_MAX_LENGTH, 
+    validateEpochTime, 
+    validateExternalNotEmptyMaxLength, 
+    validateNotEmptyMaxLength, 
+    validateSafetyLevel 
+} from "./util/kafkaMessageValidation"
 
 interface IMessage {
     time: number // Epoch time
@@ -15,13 +24,13 @@ export const buildMessage = (message: IMessage): string => {
     return `{
         "tidspunkt": ${validateEpochTime(message.time)}, 
         "synligFremTil": ${validateEpochTime(message.visibleUntill)}, 
-        "tekst": "${validateMessage(message.message)}", 
+        "tekst": "${validateNotEmptyMaxLength(message.message, 'message', BESKJED_MAX_LENGTH)}", 
         "link": "", 
         "sikkerhetsnivaa": ${validateSafetyLevel(message.safetyLevel)},
         "eksternVarsling": ${message.externalWarning},
         "prefererteKanaler": ${[]},
-        "epostVarslingstekst": ${validateEmailMessage(message.emailMessage, message.externalWarning)},
-        "epostVarslingstittel": ${validateEmailTitle(message.emailTitle, message.externalWarning)},
-        "smsVarslingstekst": ${validateSmsMessage(message.smsMessage, message.externalWarning)}
+        "epostVarslingstekst": ${validateExternalNotEmptyMaxLength(message.emailMessage, 'email message', EMAIL_MESSAGE_MAX_LENGTH ,message.externalWarning)},
+        "epostVarslingstittel": ${validateExternalNotEmptyMaxLength(message.emailTitle, 'email title', EMAIL_TITLE_MAX_LENGTH ,message.externalWarning)},
+        "smsVarslingstekst": ${validateExternalNotEmptyMaxLength(message.smsMessage, 'sms message', SMS_MESSAGE_MAX_LENGTH, message.externalWarning)}
     }`;
 };
