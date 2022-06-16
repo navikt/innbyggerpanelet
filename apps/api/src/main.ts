@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
-import express = require('express');
 import { load } from './loaders';
 import { logger } from './loaders/logger';
+import express = require('express');
 
 logger.info('======== BOOTING UP API ========');
 
@@ -13,8 +13,8 @@ async function boot() {
 
         await load({ server });
 
-        server.listen(2022, () => {
-            logger.info(`Listening on ${2022}`);
+        server.listen(3000, () => {
+            logger.info(`Listening on ${3000}`);
             logger.info('======== API STARTED ========');
         });
     } catch (error) {

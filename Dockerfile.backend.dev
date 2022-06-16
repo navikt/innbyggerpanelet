@@ -2,7 +2,7 @@ FROM node:14.17.0
 
 ENV NODE_ENV=development
 ENV CLIENT_URL=http://localhost:4200
-ENV API_URL=http://localhost:2022
+ENV API_URL=http://localhost:3000
 ENV REDIS_HOST=redis
 
 WORKDIR /app
@@ -14,6 +14,6 @@ RUN yarn
 
 COPY . .
 
-EXPOSE 2022
+EXPOSE 3000
 
 CMD ["yarn", "start", "api"]

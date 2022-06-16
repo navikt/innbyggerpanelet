@@ -5,6 +5,7 @@ import candidateRoutes from './CandidateRoutes';
 import consentRoutes from './ConsentRoutes';
 import criteriaCategoryRoutes from './CriteriaCategoryRoutes';
 import criteriaRoutes from './CriteriaRoutes';
+import IDPortenRoutes from './IDPortenRoutes';
 import insightProjectRoutes from './InsightProjectRoutes';
 import insightRoutes from './InsightRoutes';
 import { errorHandler } from './middleware/errorHandler';
@@ -29,4 +30,5 @@ export default Router()
     .use('/isReady', (req, res) => {
         res.send('Ready').status(200);
     })
+    .use(IDPortenRoutes)
     .use('/api', routes);

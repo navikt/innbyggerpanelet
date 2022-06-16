@@ -1,4 +1,3 @@
-
 import { EnumUserRole } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Link } from '@navikt/ds-react';
 import { ReactElement } from 'react';
@@ -34,14 +33,14 @@ export const Header = (): ReactElement => {
                         <RouterLink className={homeStyle} to="/hjem">
                             <Button variant="tertiary">Min side</Button>
                         </RouterLink>
-                        <Link href="/api/azure/logout">
+                        <Link href={user.role === EnumUserRole.Citizen ? '/api/idporten/logout' : '/api/azure/logout'}>
                             <Button>Logg ut</Button>
                         </Link>
                     </>
                 ) : (
-                    <Link href="/api/azure/login">
+                    <RouterLink to="/innlogging">
                         <Button>Logg inn</Button>
-                    </Link>
+                    </RouterLink>
                 )}
             </div>
         </div>

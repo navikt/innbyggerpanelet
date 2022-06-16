@@ -12,6 +12,8 @@ export interface IPassportSession extends session.Session {
         user: {
             claims: {
                 oid: string;
+                sid?: string;
+                iss?: string;
             };
         };
     };
@@ -76,28 +78,68 @@ const passportLoader = async () => {
             return done(true, null);
         })
     );
-    /*
+
     const idPortenIssuer = await Issuer.discover(config.idPorten.wellKnown);
 
-    const idPortenClient = new idPortenIssuer.Client({
-        response_types: ['code'],
-        client_id: config.idPorten.clientId,
-        redirect_uris: [config.idPorten.redirectUri],
-        scope: ['openid']
-    });
+    const idPortenClient = new idPortenIssuer.Client(
+        {
+            response_types: ['code'],
+            client_id: config.idPorten.clientId,
+            redirect_uris: [`${config.idPorten.redirectUri}/oauth2/callback`],
+            scope: ['openid'],
+            token_endpoint_auth_method: 'private_key_jwt',
+            token_endpoint_auth_signing_alg: 'RS256',
+            post_logout_redirect_uris: [idPortenIssuer.metadata.end_session_endpoint]
+        },
+        { keys: [config.idPorten.jwk] }
+    );
 
     passport.use(
         'idPorten',
-        new Strategy({ client: idPortenClient, usePKCE: 'S256' }, async (tokenSet: TokenSet, done) => {
-            if (tokenSet.expired()) return done(null, false);
+        new Strategy(
+            {
+                client: idPortenClient,
+                usePKCE: 'S256',
+                extras: { clientAssertionPayload: { aud: idPortenClient.issuer.metadata['token_endpoint'] } }
+            },
+            async (tokenSet: TokenSet, done) => {
+                if (tokenSet.expired()) return done(null, false);
 
-            const user = { tokenSets: { self: tokenSet }, claims: tokenSet.claims() };
+                const user = { tokenSets: { self: tokenSet }, claims: tokenSet.claims() };
 
-            console.log(user);
+                console.log(user);
+                if (user.claims.aud !== config.idPorten.clientId) return done(null, false);
 
-            return await done(null, user);
-        })
-    );*/
+                const userService = new UserService(database);
+                const result: User = await userService
+                    .getById(user.claims.pid as string)
+                    .then((user) => {
+                        return user;
+                    })
+                    .catch(async (error) => {
+                        console.log('User does not exist.');
+
+                        const dto: User = {
+                            id: user.claims.pid as string,
+                            name: 'IKKE SATT',
+                            email: 'eksempeld@web.no',
+                            phone: '12345678',
+                            role: EnumUserRole.Citizen,
+                            latestUpdate: new Date().toISOString().slice(0, 10),
+                            candidates: [],
+                            criterias: [],
+                            insightProjects: []
+                        };
+                        return await userService.create(dto);
+                    });
+
+                if (result) return done(null, user);
+
+                // Return error if user doesn't exist or isn't created.
+                return done(true, null);
+            }
+        )
+    );
 
     // serialize the user.id to save in the cookie session
     // so the browser will remember the user when login

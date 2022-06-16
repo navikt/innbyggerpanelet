@@ -15,6 +15,7 @@ import RegisterUser from './containers/registerUser';
 import { UserAdministration } from './containers/userAdministration/UserAdministration';
 import UserProfile from './containers/userProfile';
 import EmployeeLandingPage from './views/employeeLanding/EmployeeLandingPage';
+import { SignInPage } from './views/signInPage/SignInPage';
 
 // Root
 ReactDOM.render(
@@ -24,6 +25,7 @@ ReactDOM.render(
             <Breadcrumbs />
             <Routes>
                 <Route path="/" element={<LandingPage />} />
+                <Route path="/innlogging" element={<SignInPage />} />
                 <Route path="/hjem" element={<EmployeeLandingPage />} />
                 <Route path="/prosjekt" element={<InsightProjectOverview />} />
                 <Route path="/prosjekt/ny" element={<CreateInsightProject />} />
