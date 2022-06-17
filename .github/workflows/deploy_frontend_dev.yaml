@@ -5,7 +5,7 @@ on:
         branches: [feat/id-porten]
 
 env:
-    IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
+    IMAGE: ghcr.io/${{ github.repository }}/innbyggerpanelet-frontend:${{ github.sha }}
     CLUSTER: dev-gcp
     RESOURCE: .nais/frontend_dev.yaml
 
@@ -21,7 +21,7 @@ jobs:
               run: |
                   yarn
                   docker build . -t ${IMAGE} -f Dockerfile.frontend.prod
-                  docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+                  docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
                   docker push ${IMAGE}
     deploy:
         name: Deploy to dev-gcp
