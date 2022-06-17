@@ -5,7 +5,7 @@ on:
         branches: [feat/id-porten]
 
 env:
-    IMAGE: docker.pkg.github.com/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
+    IMAGE: ghcr.io/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
     CLUSTER: dev-gcp
     RESOURCE: .nais/backend_dev.yaml
 
