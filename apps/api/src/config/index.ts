@@ -17,7 +17,7 @@ const azureAd = {
 const idPorten = {
     clientId: process.env.IDPORTEN_CLIENT_ID,
     jwk: JSON.parse(process.env.IDPORTEN_CLIENT_JWK),
-    redirectUri: process.env.IDPORTEN_REDIRECT_URL,
+    redirectUri: process.env.IDPORTEN_REDIRECT_URI,
     wellKnown: process.env.IDPORTEN_WELL_KNOWN_URL
 };
 

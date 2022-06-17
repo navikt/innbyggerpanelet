@@ -87,7 +87,7 @@ const passportLoader = async () => {
         {
             response_types: ['code'],
             client_id: config.idPorten.clientId,
-            redirect_uris: [`${config.idPorten.redirectUri}/oauth2/callback`],
+            redirect_uris: [config.idPorten.redirectUri],
             scope: ['openid'],
             token_endpoint_auth_method: 'private_key_jwt',
             token_endpoint_auth_signing_alg: 'RS256',
