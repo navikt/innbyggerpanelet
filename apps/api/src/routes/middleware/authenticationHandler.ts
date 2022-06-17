@@ -15,13 +15,15 @@ interface IReqWithUserPermissions extends Request {
 }
 
 const addUserDetailsToRequest = async (req: IReqWithUserPermissions, res: Response, next: NextFunction) => {
-    const userId: string = (req.session as IPassportSession).passport.user.claims.oid;
+    const azureId: string = (req.session as IPassportSession).passport.user.claims.oid;
+    const idPortenId: string = (req.session as IPassportSession).passport.user.claims.pid;
+
+    req.user.id = azureId || idPortenId;
 
     const userService = new UserService(database);
-    const result: User = await userService.getById(userId);
+    const result: User = await userService.getById(req.user.id);
 
     req.user.role = result.role;
-    req.user.id = userId;
 
     next();
 };

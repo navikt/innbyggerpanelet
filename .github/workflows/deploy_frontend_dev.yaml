@@ -2,7 +2,7 @@ name: Deploy frontend to dev-gcp
 
 on:
     push:
-        branches: [main]
+        branches: [feat/id-porten]
 
 env:
     IMAGE: docker.pkg.github.com/${{ github.repository }}/innbyggerpanelet-frontend:${{ github.sha }}

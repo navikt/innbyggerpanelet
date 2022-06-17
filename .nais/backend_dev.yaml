@@ -53,8 +53,8 @@ spec:
     enabled: true
 
     clientURI: "https://innbyggerpanelet-backend.dev.intern.nav.no"
-    redirectPath: "/api/idporten/oauth2/callback"
-    frontchannelLogoutPath: "/api/idporten/oauth2/logout"
+    redirectPath: "/oauth2/callback"
+    frontchannelLogoutPath: "/oauth2/logout"
     postLogoutRedirectURIs: 
       - "https://innbyggerpanelet-backend.dev.intern.nav.no"
 

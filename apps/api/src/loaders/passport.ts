@@ -12,6 +12,7 @@ export interface IPassportSession extends session.Session {
         user: {
             claims: {
                 oid: string;
+                pid: string;
                 sid?: string;
                 iss?: string;
             };
@@ -108,7 +109,6 @@ const passportLoader = async () => {
 
                 const user = { tokenSets: { self: tokenSet }, claims: tokenSet.claims() };
 
-                console.log(user);
                 if (user.claims.aud !== config.idPorten.clientId) return done(null, false);
 
                 const userService = new UserService(database);
@@ -129,7 +129,8 @@ const passportLoader = async () => {
                             latestUpdate: new Date().toISOString().slice(0, 10),
                             candidates: [],
                             criterias: [],
-                            insightProjects: []
+                            insightProjects: [],
+                            messages: []
                         };
                         return await userService.create(dto);
                     });
