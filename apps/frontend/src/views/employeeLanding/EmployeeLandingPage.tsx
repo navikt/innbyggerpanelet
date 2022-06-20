@@ -1,3 +1,4 @@
+import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../../api/hooks';
@@ -8,14 +9,14 @@ import { useFilterInsightProjects } from '../../core/hooks/useEmployeeLanding';
 import style from './EmployeeLandingPage.module.scss';
 
 export default function EmployeeLandingPage(): ReactElement {
-    const { user, loading, error } = useUser();
+    const { user, loading, error } = useUser<ICitizen>();
 
     const { onGoingProjects, futureProjects, completedProjects } = useFilterInsightProjects();
 
     return (
         <PanelNoBackground className={style.employeeLandingPageContainer}>
             <Link to="/profil">
-                <EmployeeInfo name={user?.name} />
+                <EmployeeInfo name={user?.firstname + ' ' + user?.surname} />
             </Link>
             <div className={style.newProjectButtonContaner}></div>
             <CurrentProjects filteredProjects={{ onGoingProjects, futureProjects, completedProjects }} />

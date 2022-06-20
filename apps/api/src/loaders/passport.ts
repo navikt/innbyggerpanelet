@@ -1,11 +1,13 @@
-import { EnumUserRole } from '@innbyggerpanelet/api-interfaces';
+import { EnumEmployeeRole } from '@innbyggerpanelet/api-interfaces';
 import session from 'express-session';
 import { Issuer, Strategy, TokenSet } from 'openid-client';
 import passport from 'passport';
 import { database } from '.';
 import config from '../config';
-import { User } from '../models/user/UserEntity';
-import { UserService } from '../services';
+import { Citizen } from '../models/citizen/CitizenEntity';
+import { Employee } from '../models/employee/EmployeeEntity';
+import { CitizenService } from '../services/CitizenService';
+import { EmployeeService } from '../services/EmployeeService';
 
 export interface IPassportSession extends session.Session {
     passport: {
@@ -15,6 +17,7 @@ export interface IPassportSession extends session.Session {
                 pid: string;
                 sid?: string;
                 iss?: string;
+                sub?: string;
             };
         };
     };
@@ -50,28 +53,26 @@ const passportLoader = async () => {
             // Verify AUD in claim
             if (user.claims.aud !== config.azureAd.clientId) return done(null, false);
 
-            const userService = new UserService(database);
-            const result: User = await userService
+            const employeeService = new EmployeeService(database);
+            const result: Employee = await employeeService
                 .getById(user.claims.oid as string)
                 .then((user) => {
                     return user;
                 })
                 .catch(async (error) => {
-                    console.log('User does not exist.');
+                    console.log('Employee does not exist.');
 
-                    const dto: User = {
+                    const dto: Employee = {
                         id: user.claims.oid as string,
-                        name: user.claims.name,
+                        firstname: user.claims.name.split(',')[1],
+                        surname: user.claims.name.split(',')[0],
                         email: user.claims.preferred_username,
-                        phone: '12345678',
-                        role: EnumUserRole.NAV,
-                        latestUpdate: new Date().toISOString().slice(0, 10),
-                        candidates: [],
-                        criterias: [],
+                        role: EnumEmployeeRole.InsightWorker,
+                        registered: true,
                         insightProjects: [],
                         messages: []
                     };
-                    return await userService.create(dto);
+                    return await employeeService.create(dto);
                 });
 
             if (result) return done(null, user);
@@ -111,28 +112,30 @@ const passportLoader = async () => {
 
                 if (user.claims.aud !== config.idPorten.clientId) return done(null, false);
 
-                const userService = new UserService(database);
-                const result: User = await userService
-                    .getById(user.claims.pid as string)
+                const citizenService = new CitizenService(database);
+                const result: Citizen = await citizenService
+                    .getById(user.claims.sub as string)
                     .then((user) => {
                         return user;
                     })
                     .catch(async (error) => {
-                        console.log('User does not exist.');
+                        console.log('Citizen does not exist.');
 
-                        const dto: User = {
-                            id: user.claims.pid as string,
-                            name: 'IKKE SATT',
-                            email: 'eksempeld@web.no',
-                            phone: '12345678',
-                            role: EnumUserRole.Citizen,
-                            latestUpdate: new Date().toISOString().slice(0, 10),
+                        const dto: Citizen = {
+                            id: user.claims.sub as string,
+                            pnr: user.claims.pid as string,
+                            firstname: '',
+                            surname: '',
+                            phone: '',
+                            registered: false,
+                            expirationDate: new Date(
+                                new Date().setFullYear(new Date().getFullYear() + 1)
+                            ).toISOString(),
                             candidates: [],
                             criterias: [],
-                            insightProjects: [],
                             messages: []
                         };
-                        return await userService.create(dto);
+                        return await citizenService.create(dto);
                     });
 
                 if (result) return done(null, user);

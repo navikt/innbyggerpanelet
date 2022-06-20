@@ -1,4 +1,4 @@
-import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
+import { IEmployee, IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Modal, SearchField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { useTeamMemberByName } from '../../api/hooks';
@@ -14,14 +14,14 @@ interface IProps {
 
 export const ProjectTeamSearchModal = ({ project, setProject, open, close }: IProps): ReactElement => {
     const [search, setSearch] = useState('');
-    const { users, loading, error } = useTeamMemberByName(search);
+    const { employees, loading, error } = useTeamMemberByName(search);
 
     const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     };
 
-    const addUser = (user: IUser) => {
-        setProject({ ...project, members: [...project.members, user] });
+    const addUser = (employee: IEmployee) => {
+        setProject({ ...project, members: [...project.members, employee] });
         close();
     };
 
@@ -35,9 +35,9 @@ export const ProjectTeamSearchModal = ({ project, setProject, open, close }: IPr
                 </SearchField>
 
                 <div className={style.results}>
-                    {users?.map((user, index) => (
-                        <div className={style.result} key={index} onClick={() => addUser(user)}>
-                            + {user.name}
+                    {employees?.map((employee, index) => (
+                        <div className={style.result} key={index} onClick={() => addUser(employee)}>
+                            + {employee.firstname + ' ' + employee.surname}
                         </div>
                     )) || <APIHandler error={error} loading={loading} />}
                 </div>

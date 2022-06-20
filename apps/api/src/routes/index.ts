@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import morgan from 'morgan';
+import authRoutes from './authRoutes';
 import azureADRoutes from './AzureADRoutes';
 import candidateRoutes from './CandidateRoutes';
+import citizenRoutes from './CitizenRoutes';
 import consentRoutes from './ConsentRoutes';
 import criteriaCategoryRoutes from './CriteriaCategoryRoutes';
 import criteriaRoutes from './CriteriaRoutes';
+import employeeRoutes from './EmployeeRoutes';
 import IDPortenRoutes from './IDPortenRoutes';
 import insightProjectRoutes from './InsightProjectRoutes';
 import insightRoutes from './InsightRoutes';
@@ -15,10 +18,13 @@ import userRoutes from './UserRoutes';
 const routes = Router()
     .use(morgan('dev'))
     .use('/azure', azureADRoutes)
+    .use('/auth', authRoutes)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
+    .use('/citizen', citizenRoutes)
     .use('/criteria', criteriaRoutes)
     .use('/criteriaCategory', criteriaCategoryRoutes)
+    .use('/employee', employeeRoutes)
     .use('/insight', insightRoutes)
     .use('/insightProject', insightProjectRoutes)
     .use('/user', userRoutes)

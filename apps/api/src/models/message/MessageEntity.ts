@@ -2,6 +2,8 @@
 import { IMessage } from '@innbyggerpanelet/api-interfaces';
 import { Transform } from 'class-transformer';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Citizen } from '../citizen/CitizenEntity';
+import { Employee } from '../employee/EmployeeEntity';
 import { User } from '../user/UserEntity';
 
 @Entity()
@@ -15,7 +17,7 @@ export class Message implements IMessage {
 
     @ManyToOne(() => User, (user) => user.messages)
     @JoinColumn()
-    recipient: User;
+    recipient: Citizen | Employee;
 
     @Column()
     title: string;
