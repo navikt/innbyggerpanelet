@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import clfDate from 'clf-date';
+import morgan from 'morgan';
+import config from '../../config';
 
-export function httpLogger(req: Request, res: Response, next: NextFunction) {
+function httpLogger(req: Request, res: Response, next: NextFunction) {
 
     const uuid = uuidv4();
     // TODO add real user
@@ -21,3 +23,5 @@ export function httpLogger(req: Request, res: Response, next: NextFunction) {
     
     next();
 }
+
+export const logger = config.backend.prod === true ? httpLogger : morgan('dev');

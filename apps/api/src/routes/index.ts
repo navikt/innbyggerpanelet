@@ -8,12 +8,12 @@ import insightProjectRoutes from './InsightProjectRoutes';
 import insightRoutes from './InsightRoutes';
 import messageRoutes from './MessageRoutes';
 import { errorHandler } from './middleware/errorHandler';
-import { httpLogger } from './middleware/httpLogging';
+import { logger } from './middleware/httpLogging';
 import smsRoutes from './SmsRoutes';
 import userRoutes from './UserRoutes';
 
 const routes = Router()
-    .use(httpLogger)
+    .use(logger)
     .use('/azure', azureADRoutes)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
