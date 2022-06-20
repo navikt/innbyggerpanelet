@@ -11,10 +11,11 @@ import { errorHandler } from './middleware/errorHandler';
 import { httpLogger } from './middleware/httpLogging';
 import smsRoutes from './SmsRoutes';
 import userRoutes from './UserRoutes';
+import morgan from 'morgan';
 
 const routes = Router()
     .use(httpLogger)
-    //.use(morgan('combined'))
+    .use(morgan('combined'))
     .use('/azure', azureADRoutes)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)

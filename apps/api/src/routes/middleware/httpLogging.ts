@@ -11,7 +11,7 @@ export function httpLogger(req: Request, res: Response, next: NextFunction) {
     const { method, url, httpVersion } = req;
     const { statusCode } = res;
 
-    const contentLength = req.headers['content-length'] ||  0;
+    const contentLength = res.json()['_contentLength'] | 0;
 
     const referrer = req.headers.referrer || req.headers.referer;
     const userAgent = req.get('User-agent');
