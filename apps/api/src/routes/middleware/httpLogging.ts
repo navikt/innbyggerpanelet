@@ -5,6 +5,7 @@ import clfDate from 'clf-date';
 export function httpLogger(req: Request, res: Response, next: NextFunction) {
 
     const uuid = uuidv4();
+    // TODO add real user id
     const userId = 'userid';
     const remoteUser = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     const date = clfDate(new Date());
