@@ -33,7 +33,7 @@ employeeRoutes.get('/teamMember', navAuthenticated, async (req, res, next) => {
     }
 });
 
-employeeRoutes.put('/', navAuthenticated, async (req, res, next) => {
+employeeRoutes.put('/', adminAuthenticated, async (req, res, next) => {
     try {
         const employeeService = new EmployeeService(database);
         const newEmployee = plainToInstance(Employee, req.body);
