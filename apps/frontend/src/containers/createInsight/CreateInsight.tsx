@@ -2,7 +2,6 @@ import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Label, Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { sendSms } from '../../api/hooks/useSms';
 import { useUserByCriterias } from '../../api/hooks/useUser';
 import { createCandidates } from '../../api/mutations/mutateCandidate';
 import { createInsight } from '../../api/mutations/mutateInsight';
@@ -65,15 +64,6 @@ export const CreateInsight = (): ReactElement => {
         if (candidateMutation.validationErrors) return setCandidateValidationErrors(candidateMutation.validationErrors);
 
         if (insightMutation.response && candidateMutation.response) navigate(`/prosjekt/${id}`);
-        
-        configuredCandidates.forEach(async (candidate) => {
-            if (candidate.user.birthNumber !== undefined) {
-                await sendSms({ 
-                    birthNumber: candidate.user.birthNumber,
-                    message: 'Du har blitt invitert til innsiktsarbeid. Logg deg inn på innbyggerpanelet for å se mer'
-                });
-            }
-        });
     };
 
     return (
