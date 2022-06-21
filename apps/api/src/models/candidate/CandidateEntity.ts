@@ -1,17 +1,17 @@
 /* eslint-disable indent */
 import { EnumCandidateStatus, ICandidate } from '@innbyggerpanelet/api-interfaces';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Citizen } from '../citizen/CitizenEntity';
 import { Insight } from '../insight/InsightEntity';
-import { User } from '../user/UserEntity';
 
 @Entity()
 export class Candidate implements ICandidate {
-    @ManyToOne(() => User, (user) => user.id, {
+    @ManyToOne(() => Citizen, (citizen) => citizen.id, {
         primary: true,
         nullable: false
     })
     @JoinColumn()
-    user: User;
+    citizen: Citizen;
 
     @ManyToOne(() => Insight, (insight) => insight.id, {
         primary: true,

@@ -1,10 +1,13 @@
 import {
     EnumCandidateStatus,
+    EnumEmployeeRole,
     EnumUserRole,
     ICandidate,
+    ICitizen,
     IConsent,
     ICriteria,
     ICriteriaCategory,
+    IEmployee,
     IInsight,
     IInsightProject,
     IUser
@@ -42,14 +45,15 @@ const allCriterias: ICriteria[] = [
 
 const allConsents: IConsent[] = [{ id: 1, description: 'Samtykker til skjermopptak' }];
 
-const teamMember: IUser = {
+const teamMember: IEmployee = {
     id: '3',
-    name: 'Terje Navansatt',
     email: 'terje@nav.no',
-    phone: '45676456',
-    role: EnumUserRole.NAV,
-    latestUpdate: '21.01.2022',
-    criterias: []
+    role: EnumEmployeeRole.InsightWorker,
+    criterias: [],
+    registered: true,
+    insightProjects: [],
+    firstname: 'Terje',
+    surname: 'Navansatt'
 };
 
 const primaryProject: IInsightProject = {
@@ -72,19 +76,22 @@ const primaryInsight: IInsight = {
     consents: [allConsents[0]]
 };
 
-const olaUser: IUser = {
+const olaUser: ICitizen = {
     id: '1',
-    name: 'Ola Nordmann',
-    email: 'ola@nordmann.no',
+    firstname: 'Ola',
+    surname: 'Nordmann',
     phone: '12332123',
     role: EnumUserRole.Citizen,
-    latestUpdate: '21.01.2022',
-    criterias: [allCriterias[0], allCriterias[2]]
+    expirationDate: '21.01.2025',
+    registered: true,
+    criterias: [allCriterias[0], allCriterias[2]],
+    pnr: '22031112345',
+    candidates: []
 };
 
 const olaCandidatures: ICandidate[] = [
     {
-        user: olaUser,
+        citizen: olaUser,
         insight: primaryInsight,
         hasConsented: true,
         relevancyGrading: 0.8,
@@ -92,14 +99,16 @@ const olaCandidatures: ICandidate[] = [
     }
 ];
 
-const kariUser: IUser = {
+const kariUser: ICitizen = {
     id: '2',
-    email: 'kari@example.com',
     phone: '32132321',
-    role: EnumUserRole.Citizen,
-    latestUpdate: '2022-01-02',
-    name: 'Kari Nordmann',
-    criterias: [allCriterias[1], allCriterias[3]]
+    expirationDate: '2023-01-02',
+    criterias: [allCriterias[1], allCriterias[3]],
+    pnr: '13046709835',
+    registered: true,
+    candidates: [],
+    firstname: 'Kari',
+    surname: 'Nordmann'
 };
 
 const allUsers: IUser[] = [olaUser, kariUser];

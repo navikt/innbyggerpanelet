@@ -5,7 +5,7 @@ on:
         branches: [main]
 
 env:
-    IMAGE: docker.pkg.github.com/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
+    IMAGE: ghcr.io/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
     CLUSTER: dev-gcp
     RESOURCE: .nais/backend_dev.yaml
 
@@ -21,7 +21,7 @@ jobs:
               run: |
                   yarn
                   docker build . -t ${IMAGE} -f Dockerfile.backend.prod
-                  docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+                  docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
                   docker push ${IMAGE}
     deploy:
         name: Deploy to dev-gcp

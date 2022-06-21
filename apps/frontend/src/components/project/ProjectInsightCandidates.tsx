@@ -11,10 +11,10 @@ export const ProjectInsightCandidates = ({ candidates }: IProps) => {
 
     candidates.map((candidate, index) => {
         if (candidate.status !== EnumCandidateStatus.Accepted && candidate.status !== EnumCandidateStatus.Completed) {
-            candidate.user = {
-                ...candidate.user,
-                name: 'Kandidat ' + (index + 1),
-                email: '*****@****.***',
+            candidate.citizen = {
+                ...candidate.citizen,
+                firstname: 'Kandidat ',
+                surname: `${index + 1}`,
                 phone: '+** ********'
             };
         }
@@ -56,9 +56,8 @@ export const ProjectInsightCandidates = ({ candidates }: IProps) => {
             <div className={style.cardContainer}>
                 {candidates.map((candidate, index) => (
                     <div key={index} className={style.card}>
-                        <Heading size="small">{candidate.user.name}</Heading>
-                        <BodyShort>{candidate.user.email}</BodyShort>
-                        <BodyShort>{candidate.user.phone}</BodyShort>
+                        <Heading size="small">{candidate.citizen.firstname + ' ' + candidate.citizen.surname}</Heading>
+                        <BodyShort>{candidate.citizen.phone}</BodyShort>
                         {statusEnumToElement(candidate.status)}
                     </div>
                 ))}

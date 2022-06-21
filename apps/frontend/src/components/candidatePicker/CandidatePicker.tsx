@@ -1,4 +1,4 @@
-import { EnumCandidateStatus, ICandidate, ICriteria, IInsight, IUser } from '@innbyggerpanelet/api-interfaces';
+import { EnumCandidateStatus, ICandidate, ICitizen, ICriteria, IInsight } from '@innbyggerpanelet/api-interfaces';
 import { Detail, Label } from '@navikt/ds-react';
 import { ReactElement, useEffect } from 'react';
 import { ProgressBar } from '../misc/progressBar';
@@ -6,22 +6,22 @@ import style from './CandidatePicker.module.scss';
 
 interface IProps {
     index: number;
-    user: IUser;
+    citizen: ICitizen;
     insight: IInsight;
     candidates: ICandidate[];
     setCandidates: (candidates: ICandidate[]) => void;
 }
 
-export const CandidatePicker = ({ index, user, insight, candidates, setCandidates }: IProps): ReactElement => {
-    // Does user already exist in selected candidates
+export const CandidatePicker = ({ index, citizen, insight, candidates, setCandidates }: IProps): ReactElement => {
+    // Does citizen already exist in selected candidates
     const isSelected = (): boolean => {
-        const exists = candidates.find((c) => c.user.id === user.id);
+        const exists = candidates.find((c) => c.citizen.id === citizen.id);
         return exists !== undefined;
     };
 
-    // Which criteria required by the insight work does the user posess
+    // Which criteria required by the insight work does the citizen posess
     const getRelevantCriterias = (): ICriteria[] => {
-        const criteriaIDs = user.criterias.map((criteria) => {
+        const criteriaIDs = citizen.criterias.map((criteria) => {
             return criteria.id;
         });
 
@@ -40,18 +40,18 @@ export const CandidatePicker = ({ index, user, insight, candidates, setCandidate
         return relevantCriterias.includes(criteria);
     };
 
-    // Add or remove user from insight candidate list
+    // Add or remove citizen from insight candidate list
     const toggleCandidate = () => {
         const exists = isSelected();
         const newCandidates = [...candidates];
 
         if (exists) {
-            setCandidates(newCandidates.filter((c) => c.user.id !== user.id));
+            setCandidates(newCandidates.filter((c) => c.citizen.id !== citizen.id));
         } else {
             setCandidates([
                 ...newCandidates,
                 {
-                    user,
+                    citizen,
                     insight,
                     hasConsented: false,
                     relevancyGrading: getRelevancePercentage(),
