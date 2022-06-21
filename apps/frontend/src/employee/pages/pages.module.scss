@@ -1,0 +1,24 @@
+.employeeLandingPageContainer {
+    > a {
+        color: black;
+        text-decoration: none;
+    }
+}
+
+.newProjectButtonContaner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.candidatesHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.candidatesHeader > p {
+    margin: auto 0;
+}
