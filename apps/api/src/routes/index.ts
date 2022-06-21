@@ -13,7 +13,6 @@ import insightProjectRoutes from './InsightProjectRoutes';
 import insightRoutes from './InsightRoutes';
 import messageRoutes from './MessageRoutes';
 import { errorHandler } from './middleware/errorHandler';
-import userRoutes from './UserRoutes';
 
 const routes = Router()
     .use(morgan('dev'))
@@ -27,7 +26,6 @@ const routes = Router()
     .use('/employee', employeeRoutes)
     .use('/insight', insightRoutes)
     .use('/insightProject', insightProjectRoutes)
-    .use('/user', userRoutes)
     .use('/message', messageRoutes)
     .use(errorHandler);
 
