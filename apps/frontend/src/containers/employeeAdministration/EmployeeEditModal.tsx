@@ -1,4 +1,4 @@
-import { EnumEmployeeRole, IEmployee } from '@innbyggerpanelet/api-interfaces';
+import { EnumUserRole, IEmployee } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Modal, Select } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
@@ -42,8 +42,8 @@ export const EmployeeEditModal = ({ open, close, employee, setEmployee }: IProps
                     value={employee.role}
                     error={employeeValidationErrors.role}
                 >
-                    <option value={EnumEmployeeRole.InsightWorker}>Innsiktsarbeider</option>
-                    <option value={EnumEmployeeRole.Admin}>Administrator</option>
+                    <option value={EnumUserRole.InsightWorker}>Innsiktsarbeider</option>
+                    <option value={EnumUserRole.Admin}>Administrator</option>
                 </Select>
                 {putError && <APIHandler loading={false} error={putError} />}
                 <Button onClick={handleSubmit}>Oppdater</Button>

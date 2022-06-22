@@ -1,4 +1,4 @@
-import { EnumEmployeeRole, EnumUserRole } from '@innbyggerpanelet/api-interfaces';
+import { EnumUserRole } from '@innbyggerpanelet/api-interfaces';
 import { NextFunction, Request, Response } from 'express';
 import { ForbiddenError } from '../../lib/errors/http/ForbiddenError';
 import { ServerErrorMessage } from '../../lib/errors/messages/ServerErrorMessages';
@@ -9,7 +9,7 @@ import { EmployeeService } from '../../services/EmployeeService';
 
 interface IReqWithUserPermissions extends Request {
     user: {
-        role: EnumUserRole | EnumEmployeeRole;
+        role: EnumUserRole;
         id: string;
     };
 }
@@ -24,7 +24,7 @@ const addUserDetailsToRequest = async (req: IReqWithUserPermissions, res: Respon
         const employeeService = new EmployeeService(database);
         const result: User = await employeeService.getById(req.user.id);
 
-        req.user.role = result.role as EnumEmployeeRole;
+        req.user.role = result.role;
     } else if (idPortenId) {
         req.user.id = idPortenId;
         req.user.role = EnumUserRole.Citizen;
@@ -50,7 +50,7 @@ const isCitizen = (req: IReqWithUserPermissions, res: Response, next: NextFuncti
 };
 
 const isNAV = (req: IReqWithUserPermissions, res: Response, next: NextFunction) => {
-    if (req.user.role === EnumEmployeeRole.InsightWorker || req.user.role === EnumEmployeeRole.Admin) {
+    if (req.user.role === EnumUserRole.InsightWorker || req.user.role === EnumUserRole.Admin) {
         next();
     } else {
         throw new ForbiddenError({ message: ServerErrorMessage.forbidden() });
@@ -58,7 +58,7 @@ const isNAV = (req: IReqWithUserPermissions, res: Response, next: NextFunction) 
 };
 
 const isAdmin = (req: IReqWithUserPermissions, res: Response, next: NextFunction) => {
-    if (req.user.role === EnumEmployeeRole.Admin) {
+    if (req.user.role === EnumUserRole.Admin) {
         next();
     } else {
         throw new ForbiddenError({ message: ServerErrorMessage.forbidden() });

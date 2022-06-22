@@ -1,6 +1,5 @@
 import {
     EnumCandidateStatus,
-    EnumEmployeeRole,
     EnumUserRole,
     ICandidate,
     ICitizen,
@@ -48,7 +47,7 @@ const allConsents: IConsent[] = [{ id: 1, description: 'Samtykker til skjermoppt
 const teamMember: IEmployee = {
     id: '3',
     email: 'terje@nav.no',
-    role: EnumEmployeeRole.InsightWorker,
+    role: EnumUserRole.InsightWorker,
     criterias: [],
     registered: true,
     insightProjects: [],
@@ -106,6 +105,7 @@ const kariUser: ICitizen = {
     criterias: [allCriterias[1], allCriterias[3]],
     pnr: '13046709835',
     registered: true,
+    role: EnumUserRole.Citizen,
     candidates: [],
     firstname: 'Kari',
     surname: 'Nordmann'

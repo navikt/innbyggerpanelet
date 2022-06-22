@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { IUser } from '@innbyggerpanelet/api-interfaces';
+import { EnumUserRole, IUser } from '@innbyggerpanelet/api-interfaces';
 import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, OneToMany, PrimaryColumn, TableInheritance } from 'typeorm';
 import { Message } from '../message/MessageEntity';
@@ -22,6 +22,12 @@ export class User implements IUser {
 
     @Column({ default: false })
     registered: boolean;
+
+    @Column({
+        type: 'enum',
+        enum: EnumUserRole
+    })
+    role: EnumUserRole;
 
     @OneToMany(() => Message, (message) => message.recipient)
     messages: Message[];

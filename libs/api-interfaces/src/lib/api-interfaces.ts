@@ -1,6 +1,6 @@
 export enum EnumUserRole {
     Citizen = 'CITIZEN',
-    NAV = 'NAV',
+    InsightWorker = 'INSIGHT_WORKER',
     Admin = 'ADMIN',
 }
 
@@ -16,6 +16,7 @@ export interface IUser {
     firstname: string;
     surname: string;
     registered: boolean;
+    role: EnumUserRole;
 }
 
 export interface ICitizen extends IUser {
@@ -26,14 +27,8 @@ export interface ICitizen extends IUser {
     criterias: ICriteria[];
 }
 
-export enum EnumEmployeeRole {
-    InsightWorker = 'INSIGHT_WORKER',
-    Admin = 'ADMIN',
-}
-
 export interface IEmployee extends IUser {
     email: string;
-    role: EnumEmployeeRole;
     insightProjects: IInsightProject[];
 }
 

@@ -1,13 +1,15 @@
-import { EnumEmployeeRole, ICitizen, IEmployee } from '@innbyggerpanelet/api-interfaces';
+import { EnumUserRole, ICitizen, IEmployee } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Link } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../../../api/hooks';
+import { useUserPermissions } from '../../../core/hooks/useUserPermissions';
 import style from './Header.module.scss';
 
 export const Header = (): ReactElement => {
     const location = useLocation();
     const navigate = useNavigate();
+    const authorize = useUserPermissions();
 
     // Get subpath
     const subPath = location.pathname.split('/')[1];
@@ -19,12 +21,13 @@ export const Header = (): ReactElement => {
     const { user, loading, error } = useUser<ICitizen | IEmployee>();
 
     if (user) {
-        if (!user.registered && subPath !== 'registrer') navigate('/registrer');
-        if (user.registered && subPath === 'registrer') navigate('/profil');
+        authorize(user);
+        //if (!user.registered && subPath !== 'registrer') navigate('/registrer');
+        //if (user.registered && subPath === 'registrer') navigate('/profil');
 
         return (
             <HeaderWrapper>
-                {user.role === EnumEmployeeRole.Admin ? (
+                {user.role === EnumUserRole.Admin ? (
                     <RouterLink className={adminStyle} to="/admin">
                         <Button variant="tertiary">Admin</Button>
                     </RouterLink>
