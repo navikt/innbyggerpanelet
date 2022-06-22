@@ -1,11 +1,9 @@
 import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
-import kafka from '../loaders/kafka';
 import { Candidate } from '../models/candidate/CandidateEntity';
 import { CandidateService, ICandidateSearch } from '../services';
 import { MessageService } from '../services/MessageService';
-import { SmsService } from '../services/SmsService';
 import { authenticated, navAuthenticated } from './middleware/authenticationHandler';
 
 const candidateRouter = Router();
@@ -55,13 +53,6 @@ candidateRouter.post('/', async (req, res, next) => {
         const newCandidate = plainToInstance(Candidate, req.body);
 
         const result = await candidateService.create(newCandidate);
-
-        const smsService = new SmsService(kafka);
-
-        smsService.send({
-            birthNumber: result.user.id,
-            message: 'Du har en melding om innsiktsarbeid på innbyggerpanelet.'
-        });
 
         res.json(result);
     } catch (error) {
