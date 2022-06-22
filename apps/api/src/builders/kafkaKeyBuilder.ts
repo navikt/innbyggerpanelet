@@ -1,4 +1,6 @@
+import { IsNotEmpty, Max, Validate } from 'class-validator';
 import { v4 as uuidv4 } from 'uuid';
+import { IsNorwegianBirthNumber } from './util/IsNorwegianBirthNumber';
 import { 
     APP_NAME_MAX_LENGTH, 
     GROUPING_ID_MAX_LENGTH, 
@@ -24,3 +26,22 @@ export const buildKeyInput = (keyInput: IKeyInput): string => {
         "appnavn": "${validateNotEmptyMaxLength(keyInput.appName, 'app name', APP_NAME_MAX_LENGTH)}"
     }`; 
 };
+/* eslint-disable indent */
+class KafkaKey implements IKeyInput {
+    eventId: uuidv4;
+
+    @IsNotEmpty()
+    @Max(100)
+    groupingId: string;
+
+    @Validate(IsNorwegianBirthNumber)
+    birthNumber: string;
+
+    @IsNotEmpty()
+    @Max(100)
+    namespace: string;
+
+    @IsNotEmpty()
+    @Max(100)
+    appName: string;
+}
