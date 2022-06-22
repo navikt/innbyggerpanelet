@@ -1,15 +1,9 @@
-import { 
-    BESKJED_MAX_LENGTH, 
-    EMAIL_MESSAGE_MAX_LENGTH, 
-    EMAIL_TITLE_MAX_LENGTH, 
-    SMS_MESSAGE_MAX_LENGTH, 
-    validateEpochTime, 
-    validateExternalNotEmptyMaxLength, 
-    validateNotEmptyMaxLength, 
-    validateSafetyLevel 
-} from './util/kafkaMessageValidation';
+import { IsNotEmpty, Max, Min, validate, Validate } from 'class-validator';
+import { IsEpochTime } from './constraints/IsEpochTime';
 
-interface IMessage {
+
+
+interface ISmsMessage {
     time: number // Epoch time
     visibleUntill: number // Epoch time
     externalWarning: boolean
@@ -20,17 +14,51 @@ interface IMessage {
     emailTitle: string | undefined
 }
 
-export const buildMessage = (message: IMessage): string => {
+/* eslint-disable indent */
+class SmsMessage implements ISmsMessage {
+    @Validate(IsEpochTime)
+    time: number;
+
+    @Validate(IsEpochTime)
+    visibleUntill: number;
+
+    @IsNotEmpty()
+    @Max(300)
+    message: string;
+
+    @Min(3)
+    @Max(4)
+    safetyLevel: number;
+
+    externalWarning: boolean;
+
+    @Max(4000)
+    emailMessage: string;
+
+    @Max(40)
+    emailTitle: string;
+
+    @Max(160)
+    smsMessage: string;
+} 
+/* eslint-enable indent */
+
+export const buildMessage = (message: ISmsMessage): string => {
+    let smsMessage = new SmsMessage();
+    smsMessage = message;
+
+    validate(smsMessage);
+
     return `{
-        "tidspunkt": ${validateEpochTime(message.time)}, 
-        "synligFremTil": ${validateEpochTime(message.visibleUntill)}, 
-        "tekst": "${validateNotEmptyMaxLength(message.message, 'message', BESKJED_MAX_LENGTH)}", 
+        "tidspunkt": ${smsMessage.time}, 
+        "synligFremTil": ${smsMessage.visibleUntill}, 
+        "tekst": "${smsMessage.message}", 
         "link": "", 
-        "sikkerhetsnivaa": ${validateSafetyLevel(message.safetyLevel)},
-        "eksternVarsling": ${message.externalWarning},
+        "sikkerhetsnivaa": ${smsMessage.safetyLevel},
+        "eksternVarsling": ${smsMessage.externalWarning},
         "prefererteKanaler": ${[]},
-        "epostVarslingstekst": ${validateExternalNotEmptyMaxLength(message.emailMessage, 'email message', EMAIL_MESSAGE_MAX_LENGTH ,message.externalWarning)},
-        "epostVarslingstittel": ${validateExternalNotEmptyMaxLength(message.emailTitle, 'email title', EMAIL_TITLE_MAX_LENGTH ,message.externalWarning)},
-        "smsVarslingstekst": ${validateExternalNotEmptyMaxLength(message.smsMessage, 'sms message', SMS_MESSAGE_MAX_LENGTH, message.externalWarning)}
+        "epostVarslingstekst": ${smsMessage.emailMessage},
+        "epostVarslingstittel": ${smsMessage.emailTitle},
+        "smsVarslingstekst": ${smsMessage.smsMessage}
     }`;
 };

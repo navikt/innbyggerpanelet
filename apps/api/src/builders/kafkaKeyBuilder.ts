@@ -1,6 +1,6 @@
-import { IsNotEmpty, Max, Validate } from 'class-validator';
+import { IsNotEmpty, Max, validate, Validate } from 'class-validator';
 import { v4 as uuidv4 } from 'uuid';
-import { IsNorwegianBirthNumber } from './util/IsNorwegianBirthNumber';
+import { IsNorwegianBirthNumber } from './constraints/IsNorwegianBirthNumber';
 
 interface IKeyInput {
     eventId: uuidv4
@@ -34,6 +34,8 @@ class KafkaKey implements IKeyInput {
 export const buildKeyInput = (keyInput: IKeyInput): string => {
     let kafkaKey = new KafkaKey();
     kafkaKey = keyInput;
+    
+    validate(kafkaKey);
 
     return `{
         "eventId": "${kafkaKey.eventId}", 
