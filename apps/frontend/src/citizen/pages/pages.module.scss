@@ -1,0 +1,60 @@
+.submit {
+    display: flex;
+    flex-direction: column;
+}
+
+.landingPageWrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 5rem auto;
+    justify-content: center;
+    gap: 10rem;
+}
+
+.selectionCardsWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    .selectionCard {
+        flex: 0.2;
+        background-color: var(--navds-semantic-color-component-background-light);
+        border-radius: 0.5rem;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        padding: 1.5rem;
+        text-decoration: none;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        cursor: pointer;
+    }
+}
+
+.selectionCard:hover {
+    background: #ccf1d6;
+    transition: all 0.25s ease-in-out;
+
+    h1 {
+        text-decoration: none;
+    }
+}
+
+/* View PROFILE */
+.candidateInfo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+}
+/* EDIT PROFILE */
+
+.editButtons {
+    display: flex;
+    display: row;
+    gap: 1rem;
+}
+
+.editButtons > button {
+    flex: 1;
+}

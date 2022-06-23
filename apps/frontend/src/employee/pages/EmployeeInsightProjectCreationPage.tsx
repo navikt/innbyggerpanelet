@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createInsightProject } from '../../api/mutations/mutateInsightProject';
-import { APIHandler } from '../../components/misc/apiHandler';
+import { APIHandler } from '../../common/components/apiHandler';
 import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
 import { EmployeeInsightProjectEdit } from '../containers';
 

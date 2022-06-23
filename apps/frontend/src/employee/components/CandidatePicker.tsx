@@ -1,7 +1,7 @@
 import { EnumCandidateStatus, ICandidate, ICitizen, ICriteria, IInsight } from '@innbyggerpanelet/api-interfaces';
 import { Detail, Label } from '@navikt/ds-react';
 import { ReactElement, useEffect } from 'react';
-import { ProgressBar } from '../../components/misc/progressBar';
+import { ProgressBar } from '../../common/components/progressBar';
 import style from './components.module.scss';
 
 interface IProps {

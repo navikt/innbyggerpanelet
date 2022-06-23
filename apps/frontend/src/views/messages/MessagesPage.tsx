@@ -4,9 +4,9 @@ import { BodyShort } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useCandidatesByCurrentUser } from '../../api/hooks';
 import { useMessages } from '../../api/hooks/useMessages';
-import { APIHandler } from '../../components/misc/apiHandler';
-import { PanelNoBackground } from '../../components/misc/panelNoBackground';
-import PanelTabs from '../../components/misc/panelTabs/PanelTabs';
+import { APIHandler } from '../../common/components/apiHandler';
+import { PanelNoBackground } from '../../common/components/panelNoBackground';
+import PanelTabs from '../../common/components/panelTabs/PanelTabs';
 import { Inbox } from '../../containers/messages/Inbox';
 import { Invitations } from '../../containers/messages/Invitations';
 

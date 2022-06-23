@@ -2,7 +2,7 @@ import { IConsent } from '@innbyggerpanelet/api-interfaces';
 import { Modal, SearchField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { useConsentSearchByDescription } from '../../api/hooks';
-import { APIHandler } from '../../components/misc/apiHandler';
+import { APIHandler } from '../../common/components/apiHandler';
 import style from './components.module.scss';
 
 interface IProps {

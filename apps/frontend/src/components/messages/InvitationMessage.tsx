@@ -4,8 +4,8 @@ import { BodyLong, Button, Detail, Heading, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ReactElement, useState } from 'react';
 import { acceptCandidature, declineCandidature } from '../../api/mutations/mutateCandidate';
+import { APIHandler } from '../../common/components/apiHandler';
 import { useValidationErrors } from '../../core/hooks/useValidationErrors';
-import { APIHandler } from '../misc/apiHandler';
 import style from './Message.module.scss';
 
 interface IProps {

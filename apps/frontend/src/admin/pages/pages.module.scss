@@ -1,0 +1,21 @@
+/* Employee Administration */
+.filter {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.edit {
+    cursor: pointer;
+}
+
+/* Criteria Administration */
+.criteriaWrapper > h1 {
+    margin-bottom: 1rem;
+}
+
+.accordionBody {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

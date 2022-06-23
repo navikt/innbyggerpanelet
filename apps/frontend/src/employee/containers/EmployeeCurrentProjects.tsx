@@ -2,7 +2,7 @@ import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading } from '@navikt/ds-react';
 import React, { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PanelNoBackground } from '../../components/misc/panelNoBackground';
+import { PanelNoBackground } from '../../common/components/panelNoBackground';
 import { EmployeeCurrentProjectCard } from '../components';
 import style from './containers.module.scss';
 

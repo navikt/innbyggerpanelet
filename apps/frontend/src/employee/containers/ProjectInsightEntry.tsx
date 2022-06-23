@@ -3,8 +3,8 @@ import { Accordion, BodyLong, Label } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { ProjectInsightCandidates } from '.';
 import { useCandidatesByInsightId } from '../../api/hooks/useCandidate';
-import { APIHandler } from '../../components/misc/apiHandler';
-import { ProgressBar } from '../../components/misc/progressBar';
+import { APIHandler } from '../../common/components/apiHandler';
+import { ProgressBar } from '../../common/components/progressBar';
 import style from './containers.module.scss';
 
 interface IProps {

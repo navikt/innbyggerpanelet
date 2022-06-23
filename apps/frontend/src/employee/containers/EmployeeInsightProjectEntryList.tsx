@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProjectInsightEntry } from '.';
 import { useInsightsByProjectId } from '../../api/hooks/useInsight';
-import { APIHandler } from '../../components/misc/apiHandler/APIHandler';
+import { APIHandler } from '../../common/components/apiHandler';
 import style from './containers.module.scss';
 
 interface IProps {
