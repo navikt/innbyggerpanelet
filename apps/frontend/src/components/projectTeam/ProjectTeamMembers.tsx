@@ -30,7 +30,7 @@ export const ProjectTeamMembers = ({ project, edit }: IProps): ReactElement => {
             <Table.Body>
                 {project.members.map((member, index) => (
                     <Table.Row key={index}>
-                        <Table.DataCell>{member.name}</Table.DataCell>
+                        <Table.DataCell>{member.firstname + ' ' + member.surname}</Table.DataCell>
                         <Table.DataCell>{member.email}</Table.DataCell>
                         <Table.DataCell>{member.role}</Table.DataCell>
                         {edit ? (

@@ -1,14 +1,16 @@
-import { IUser } from '@innbyggerpanelet/api-interfaces';
+import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { ValidationError } from 'class-validator';
 import { mutate } from 'swr';
 import { poster, putter } from '../operations';
 
-export const createUser = async (user: IUser) => {
-    const { data, error } = await poster<IUser>('/api/user', user);
+export const createCitizen = async (citizen: ICitizen) => {
+    const { data, error } = await poster<ICitizen>('/api/citizen', citizen);
 
     if (error?.response?.status === 406) {
         return { response: data, validationErrors: JSON.parse(error.response.data.message) as ValidationError[] };
     }
+
+    mutate('/api/auth/currentUser');
 
     return {
         response: data,
@@ -16,14 +18,14 @@ export const createUser = async (user: IUser) => {
     };
 };
 
-export const updateUser = async (user: IUser) => {
-    const { data, error } = await putter<IUser>('/api/user', user);
-
-    mutate('/api/user/currentUser');
+export const updateCitizen = async (citizen: ICitizen) => {
+    const { data, error } = await putter<ICitizen>('/api/citizen', citizen);
 
     if (error?.response?.status === 406) {
         return { response: data, validationErrors: JSON.parse(error.response.data.message) as ValidationError[] };
     }
+
+    mutate('/api/auth/currentUser');
 
     return {
         response: data,

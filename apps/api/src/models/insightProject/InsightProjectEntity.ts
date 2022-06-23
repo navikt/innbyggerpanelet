@@ -4,8 +4,8 @@ import { Transform } from 'class-transformer';
 import { ArrayNotEmpty, IsDate, MinDate, MinLength, Validate } from 'class-validator';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsBeforeConstraint } from '../../lib/validators/IsBeforeConstraint';
+import { Employee } from '../employee/EmployeeEntity';
 import { Insight } from '../insight/InsightEntity';
-import { User } from '../user/UserEntity';
 
 @Entity()
 export class InsightProject implements IInsightProject {
@@ -35,9 +35,9 @@ export class InsightProject implements IInsightProject {
     end: string;
 
     @JoinTable()
-    @ManyToMany(() => User, (user) => user.insightProjects)
+    @ManyToMany(() => Employee, (employee) => employee.insightProjects)
     @ArrayNotEmpty({ message: 'Ingen medlemmer valgt.' })
-    members: User[];
+    members: Employee[];
 
     @OneToMany(() => Insight, (insight) => insight.project)
     insights: Insight[];

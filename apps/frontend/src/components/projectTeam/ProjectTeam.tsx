@@ -2,9 +2,8 @@ import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { AddCircle } from '@navikt/ds-icons';
 import { Label } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
-import { ProjectTeamMembers } from './ProjectTeamMembers';
-
 import style from './ProjectTeam.module.scss';
+import { ProjectTeamMembers } from './ProjectTeamMembers';
 import { ProjectTeamSearchModal } from './ProjectTeamSearchModal';
 
 interface IProps {
@@ -19,12 +18,7 @@ export const ProjectTeam = ({ project, edit }: IProps): ReactElement => {
         <>
             <div className={style.header}>
                 <Label>Teammedlemmer</Label>
-                {edit ? (
-                    <AddCircle
-                        className={style.clickIcon}
-                        onClick={() => setMemberModal(true)}
-                    />
-                ) : null}
+                {edit ? <AddCircle className={style.clickIcon} onClick={() => setMemberModal(true)} /> : null}
             </div>
             <ProjectTeamMembers project={project} edit={edit} />
             {edit ? (

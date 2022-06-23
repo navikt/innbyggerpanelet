@@ -1,7 +1,12 @@
 {
-  "/api": {
-    "target": "http://api:2022",
-    "secure": false,
-    "changeOrigin": true
-  }
+    "/api": {
+        "target": "http://api:3000",
+        "secure": false,
+        "changeOrigin": true
+    },
+    "/oauth2": {
+        "target": "http://api:3000",
+        "secure": false,
+        "changeOrigin": true
+    }
 }

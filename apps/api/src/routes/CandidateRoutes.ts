@@ -4,7 +4,7 @@ import { database } from '../loaders';
 import { Candidate } from '../models/candidate/CandidateEntity';
 import { CandidateService, ICandidateSearch } from '../services';
 import { MessageService } from '../services/MessageService';
-import { authenticated, navAuthenticated } from './middleware/authenticationHandler';
+import { authenticated, citizenAuthenticated, navAuthenticated } from './middleware/authenticationHandler';
 
 const candidateRouter = Router();
 
@@ -34,7 +34,7 @@ candidateRouter.get('/byInsightId/:id', navAuthenticated, async (req, res, next)
     }
 });
 
-candidateRouter.get('/currentUser', authenticated, async (req, res, next) => {
+candidateRouter.get('/currentUser', citizenAuthenticated, async (req, res, next) => {
     try {
         const { id } = req.user;
         const candidateService = new CandidateService(database);

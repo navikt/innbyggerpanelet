@@ -2,7 +2,7 @@ import { ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Label, Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useUserByCriterias } from '../../api/hooks/useUser';
+import { useCitizenByCriterias } from '../../api/hooks';
 import { createCandidates } from '../../api/mutations/mutateCandidate';
 import { createInsight } from '../../api/mutations/mutateInsight';
 import CandidatePicker from '../../components/candidatePicker';
@@ -41,7 +41,7 @@ export const CreateInsight = (): ReactElement => {
     const [candidates, setCandidates] = useState<ICandidate[]>([]);
     const [candidateValidationErrors, setCandidateValidationErrors] = useFormatValidationErrors();
 
-    const { users, loading, error } = useUserByCriterias(insight.criterias);
+    const { citizens, loading, error } = useCitizenByCriterias(insight.criterias);
 
     const handleSubmit = async () => {
         if (!id) throw new Error('This project does not exist.');
@@ -84,14 +84,14 @@ export const CreateInsight = (): ReactElement => {
                     <Heading level={'2'} size="xlarge" spacing>
                         Kandidater
                     </Heading>
-                    <Label>Valgte kandidater: {users ? `${candidates.length}/${users.length}` : '0/0'}</Label>
+                    <Label>Valgte kandidater: {citizens ? `${candidates.length}/${citizens.length}` : '0/0'}</Label>
                 </div>
                 <div>
-                    {users?.map((user, index) => {
+                    {citizens?.map((citizen, index) => {
                         return (
                             <CandidatePicker
                                 key={index}
-                                user={user}
+                                citizen={citizen}
                                 index={index}
                                 insight={insight}
                                 candidates={candidates}
