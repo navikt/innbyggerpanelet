@@ -3,17 +3,17 @@ import { Email, EmailOpen } from '@navikt/ds-icons';
 import { BodyLong, Button, Detail, Heading, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ReactElement, useState } from 'react';
-import { acceptCandidature, declineCandidature } from '../../api/mutations/mutateCandidate';
+import { acceptCandidature, declineCandidature } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
-import { useValidationErrors } from '../../core/hooks/useValidationErrors';
-import style from './Message.module.scss';
+import { useFormatValidationErrors } from '../../common/hooks';
+import style from './components.module.scss';
 
 interface IProps {
     candidate: ICandidate;
 }
 
 export const InvitationMessage = ({ candidate }: IProps): ReactElement => {
-    const [candidateValidationErrors, setCandidateValidationErrors] = useValidationErrors();
+    const [candidateValidationErrors, setCandidateValidationErrors] = useFormatValidationErrors();
     const [putError, setPutError] = useState<AxiosError>();
     const [open, setOpen] = useState(false);
 

@@ -1,7 +1,7 @@
 import { Button, Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useInsightProjectById } from '../../api/hooks/useInsightProject';
+import { useInsightProjectById } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { ProjectDetails } from '../components';
 import { EmployeeInsightProjectEdit, EmployeeInsightProjectEntryList } from '../containers';

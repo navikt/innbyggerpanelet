@@ -3,7 +3,7 @@ import { Edit } from '@navikt/ds-icons';
 import { Heading, Panel, Table, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { mutate } from 'swr';
-import { useTeamMemberByName } from '../../api/hooks';
+import { useTeamMemberByName } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { EmployeeEditModal } from '../containers';
 import style from './pages.module.scss';

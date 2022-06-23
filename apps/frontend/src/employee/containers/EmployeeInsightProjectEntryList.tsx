@@ -2,7 +2,7 @@ import { Button, Heading, Label, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProjectInsightEntry } from '.';
-import { useInsightsByProjectId } from '../../api/hooks/useInsight';
+import { useInsightsByProjectId } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import style from './containers.module.scss';
 

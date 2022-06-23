@@ -7,10 +7,10 @@ import citizenRoutes from './citizen/routes';
 import Breadcrumbs from './common/components/breadcrumbs';
 import Header from './common/components/header';
 import NotFound from './common/components/notFound';
-import LandingPage from './containers/landingPage';
+import { LandingPage } from './common/pages/landingPage';
+import { SignInPage } from './common/pages/signInPage';
 import employeeRoutes from './employee/routes';
-import { MessagesPage } from './views/messages/MessagesPage';
-import { SignInPage } from './views/signInPage/SignInPage';
+import messageRoutes from './message/routes';
 
 // Root
 ReactDOM.render(
@@ -24,7 +24,7 @@ ReactDOM.render(
                 <Route path="/ansatt">{employeeRoutes()}</Route>
                 <Route path="/admin">{adminRoutes()}</Route>
                 <Route path="/innbygger">{citizenRoutes()}</Route>
-                <Route path="/meldinger" element={<MessagesPage />} />
+                <Route path="/meldinger">{messageRoutes()}</Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </HashRouter>

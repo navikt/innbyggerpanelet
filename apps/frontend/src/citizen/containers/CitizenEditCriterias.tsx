@@ -1,10 +1,10 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { Accordion, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import { useCriteriaCategory } from '../../api/hooks/useCriteriaCategory';
+import { useCriteriaCategory } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import ErrorList from '../../common/components/validation/ErrorList';
-import { IValidationError } from '../../core/hooks/useFormatValidationErrors';
+import { IValidationError } from '../../common/hooks/';
 import { CitizenEditCriteriaTable } from '../components';
 
 interface IProps {

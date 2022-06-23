@@ -1,6 +1,6 @@
 import { IMessage } from '@innbyggerpanelet/api-interfaces';
 import { ReactElement } from 'react';
-import { AlertMessage } from '../../components/messages/AlertMessage';
+import { AlertMessage } from '../components/';
 
 interface IProps {
     messages: IMessage[];

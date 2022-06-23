@@ -1,7 +1,7 @@
 import { ICitizen, ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { Checkbox, Table } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import { useCriteriaByCategoryId } from '../../api/hooks/useCriteria';
+import { useCriteriaByCategoryId } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 
 interface IProps {

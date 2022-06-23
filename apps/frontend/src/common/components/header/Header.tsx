@@ -2,8 +2,8 @@ import { EnumUserRole, ICitizen, IEmployee } from '@innbyggerpanelet/api-interfa
 import { Button, Heading, Link } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
-import { useUser } from '../../../api/hooks';
-import { useUserPermissions } from '../../../core/hooks/useUserPermissions';
+import { useUser } from '../../api/hooks';
+import { useUserPermissions } from '../../hooks/';
 import style from './Header.module.scss';
 
 export const Header = (): ReactElement => {

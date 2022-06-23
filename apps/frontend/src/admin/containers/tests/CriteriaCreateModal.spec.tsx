@@ -4,7 +4,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
 import { CriteriaCreateModal } from '..';
-import { mocks } from '../../../utils/mocks';
+import { mocks } from '../../../common/utils/mocks';
 
 // Consider moving mocks to seperate file
 const server = setupServer(

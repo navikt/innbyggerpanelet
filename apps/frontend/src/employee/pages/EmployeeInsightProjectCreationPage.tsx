@@ -3,9 +3,9 @@ import { Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createInsightProject } from '../../api/mutations/mutateInsightProject';
+import { createInsightProject } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
-import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
+import { useFormatValidationErrors } from '../../common/hooks';
 import { EmployeeInsightProjectEdit } from '../containers';
 
 const defaultProject: IInsightProject = {

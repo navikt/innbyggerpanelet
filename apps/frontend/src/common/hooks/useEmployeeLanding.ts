@@ -1,6 +1,6 @@
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { isFuture, isWithinInterval, parse } from 'date-fns';
-import { useInsightProjectByCurrentUser } from '../../api/hooks';
+import { useInsightProjectByCurrentUser } from '../api/hooks';
 
 export const useFilterInsightProjects = (): {
     onGoingProjects: IInsightProject[];

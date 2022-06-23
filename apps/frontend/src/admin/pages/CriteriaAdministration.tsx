@@ -1,6 +1,6 @@
 import { Accordion, BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
-import { useCriteriaCategory } from '../../api/hooks/useCriteriaCategory';
+import { useCriteriaCategory } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { CriteriaTable } from '../containers';
 import { CriteriaCategoryCreateModal } from '../containers/CriteriaCategoryCreateModal';

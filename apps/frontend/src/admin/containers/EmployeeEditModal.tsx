@@ -2,9 +2,9 @@ import { EnumUserRole, IEmployee } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Modal, Select } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { updateEmployee } from '../../api/mutations/mutateEmployee';
+import { updateEmployee } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
-import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
+import { useFormatValidationErrors } from '../../common/hooks';
 import style from './containers.module.scss';
 
 interface IProps {

@@ -8,9 +8,9 @@ export const useUserPermissions = () => {
     const fullPath = location.pathname;
     const subPath = fullPath.split('/')[1];
 
-    const openSubPaths = ['', 'innlogging'];
-    const citizenSubPaths = [...openSubPaths, 'innbygger'];
-    const employeeSubPaths = [...openSubPaths, 'ansatt'];
+    const commonSubPaths = ['', 'innlogging', 'meldinger'];
+    const citizenSubPaths = [...commonSubPaths, 'innbygger'];
+    const employeeSubPaths = [...commonSubPaths, 'ansatt'];
     const adminSubPaths = [...employeeSubPaths, 'admin'];
 
     const check = (user: IUser) => {

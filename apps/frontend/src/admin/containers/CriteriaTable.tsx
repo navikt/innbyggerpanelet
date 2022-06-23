@@ -4,7 +4,7 @@ import { Button, Table } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { mutate } from 'swr';
 import { CriteriaCreateModal, CriteriaEditModal } from '.';
-import { useCriteriaByCategoryId } from '../../api/hooks/useCriteria';
+import { useCriteriaByCategoryId } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { CriteriaAdminRow } from '../components';
 

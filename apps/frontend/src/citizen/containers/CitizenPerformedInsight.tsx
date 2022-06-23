@@ -1,6 +1,6 @@
 import { Accordion, Heading } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import { useCandidatesByUserId } from '../../api/hooks/useCandidate';
+import { useCandidatesByUserId } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 
 interface IProps {

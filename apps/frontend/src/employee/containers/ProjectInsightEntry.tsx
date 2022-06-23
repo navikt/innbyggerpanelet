@@ -2,7 +2,7 @@ import { EnumCandidateStatus, ICandidate, IInsight } from '@innbyggerpanelet/api
 import { Accordion, BodyLong, Label } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { ProjectInsightCandidates } from '.';
-import { useCandidatesByInsightId } from '../../api/hooks/useCandidate';
+import { useCandidatesByInsightId } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { ProgressBar } from '../../common/components/progressBar';
 import style from './containers.module.scss';

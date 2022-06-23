@@ -2,9 +2,9 @@ import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { updateCriteria } from '../../api/mutations/mutateCriteria';
+import { updateCriteria } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
-import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
+import { useFormatValidationErrors } from '../../common/hooks/';
 import style from './containers.module.scss';
 
 interface IProps {

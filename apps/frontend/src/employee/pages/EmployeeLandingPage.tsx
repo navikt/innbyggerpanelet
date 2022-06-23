@@ -1,10 +1,10 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { useUser } from '../../api/hooks';
+import { useUser } from '../../common/api/hooks';
 import { PanelNoBackground } from '../../common/components/panelNoBackground';
 import { UserInfo } from '../../common/components/userInfo';
-import { useFilterInsightProjects } from '../../core/hooks/useEmployeeLanding';
+import { useFilterInsightProjects } from '../../common/hooks';
 import { EmployeeCurrentProjects } from '../containers';
 import style from './pages.module.scss';
 

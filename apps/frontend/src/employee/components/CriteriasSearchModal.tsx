@@ -1,7 +1,7 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { Modal, SearchField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { useCriteriaSearchByName } from '../../api/hooks/useCriteria';
+import { useCriteriaSearchByName } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import style from './components.module.scss';
 

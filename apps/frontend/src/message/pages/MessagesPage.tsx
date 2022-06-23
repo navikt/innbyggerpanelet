@@ -2,13 +2,11 @@ import { EnumCandidateStatus } from '@innbyggerpanelet/api-interfaces';
 import { Email, ShakeHands } from '@navikt/ds-icons';
 import { BodyShort } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
-import { useCandidatesByCurrentUser } from '../../api/hooks';
-import { useMessages } from '../../api/hooks/useMessages';
+import { useCandidatesByCurrentUser, useMessages } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { PanelNoBackground } from '../../common/components/panelNoBackground';
 import PanelTabs from '../../common/components/panelTabs/PanelTabs';
-import { Inbox } from '../../containers/messages/Inbox';
-import { Invitations } from '../../containers/messages/Invitations';
+import { Inbox, Invitations } from '../containers';
 
 enum EnumTabState {
     Invitations = 'INVITATIONS',

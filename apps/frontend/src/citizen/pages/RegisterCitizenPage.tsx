@@ -4,10 +4,10 @@ import { Button, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../api/hooks';
-import { createCitizen } from '../../api/mutations/mutateCitizen';
+import { useUser } from '../../common/api/hooks';
+import { createCitizen } from '../../common/api/mutations/';
 import { APIHandler } from '../../common/components/apiHandler';
-import { useFormatValidationErrors } from '../../core/hooks/useFormatValidationErrors';
+import { useFormatValidationErrors } from '../../common/hooks/';
 import { CitizenContactInfoForm, CitizenEditCriterias } from '../containers';
 import style from './pages.module.scss';
 

@@ -2,7 +2,7 @@ import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { useUser } from '../../api/hooks';
+import { useUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { UserInfo } from '../../common/components/userInfo';
 import style from './pages.module.scss';

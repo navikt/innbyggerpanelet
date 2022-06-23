@@ -1,6 +1,6 @@
 import { ICandidate } from '@innbyggerpanelet/api-interfaces';
 import { ReactElement } from 'react';
-import { InvitationMessage } from '../../components/messages/InvitationMessage';
+import { InvitationMessage } from '../components/';
 
 interface IProps {
     candidates: ICandidate[];

@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { SWRConfig } from 'swr';
-import { mocks } from '../../../utils/mocks';
+import { mocks } from '../../../common/utils/mocks';
 import { CriteriaAdministration } from '../CriteriaAdministration';
 
 // Consider moving mocks to seperate file

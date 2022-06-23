@@ -4,7 +4,7 @@ import { People } from '@navikt/ds-icons';
 import { Button, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { useUser } from '../../api/hooks';
+import { useUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { CitizenCriteriasContainer, CitizenPerformedInsight } from '../containers';
 import style from './pages.module.scss';
