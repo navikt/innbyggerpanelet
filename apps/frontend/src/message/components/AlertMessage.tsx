@@ -30,7 +30,7 @@ export const AlertMessage = ({ message }: IProps): ReactElement => {
                 <BodyLong>{message.description}</BodyLong>
                 {message.ref && (
                     <Link to={message.ref} className={style.buttonGroup}>
-                        <Button>Sjekk ut</Button>
+                        <Button as="div">Sjekk ut</Button>
                     </Link>
                 )}
             </div>

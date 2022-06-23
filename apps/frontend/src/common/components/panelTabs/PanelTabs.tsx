@@ -23,12 +23,12 @@ const TabSelector = ({ children, active = false, onClick }: ITabSelectorProps): 
     );
 };
 
-interface ITabContent {
+interface ITabContentProps {
     active?: boolean;
     children: ReactElement | ReactElement[];
 }
 
-const TabContent = ({ active = false, children }: ITabContent): ReactElement => {
+const TabContent = ({ active = false, children }: ITabContentProps): ReactElement => {
     return <div className={!active ? style.hiddenContent : ''}>{children}</div>;
 };
 

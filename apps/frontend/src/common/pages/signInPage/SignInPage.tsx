@@ -7,7 +7,7 @@ export const SignInPage = (): ReactElement => {
         <Panel>
             <div className={style.buttonGroup}>
                 <Link href="/api/idporten/login">
-                    <Button>Innlogging for innbyggere</Button>
+                    <Button as="div">Innlogging for innbyggere</Button>
                 </Link>
                 <div className={style.breakLine}>
                     <div></div>
@@ -15,7 +15,9 @@ export const SignInPage = (): ReactElement => {
                     <div></div>
                 </div>
                 <Link href="/api/azure/login">
-                    <Button variant="secondary">Innlogging for ansatte</Button>
+                    <Button variant="secondary" as="div">
+                        Innlogging for ansatte
+                    </Button>
                 </Link>
             </div>
         </Panel>

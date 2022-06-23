@@ -20,7 +20,7 @@ export const CitizenProfilePage = (): ReactElement => {
                 <>
                     <Panel>
                         <Link to={'rediger'}>
-                            <Button>Rediger</Button>
+                            <Button as="div">Rediger</Button>
                         </Link>
                         <div className={style.candidateInfo}>
                             <People width={'5rem'} height={'5rem'} />
