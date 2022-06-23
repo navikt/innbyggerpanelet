@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
-import { Button, Panel } from '@navikt/ds-react';
+import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -37,6 +37,15 @@ export const RegisterCitizen = (): ReactElement => {
         <>
             {user ? (
                 <>
+                    <Panel>
+                        <Heading size="medium">Velkommen til Innbyggerpanelet!</Heading>
+                        <BodyLong>
+                            For å bli med i innbyggerpanelet ønsker vi at du registrerer noen opplysninger om deg selv.
+                            Du må fylle inn navn og telefonnummer. Resten av feltene velger du selv hvor mange du vil
+                            fylle inn, og du kan endre dem når som helst inne på “min side”. Vi trenger denne
+                            informasjonen for å finne de undersøkelsene som passer best til din situasjon.
+                        </BodyLong>
+                    </Panel>
                     <CitizenContactInfoForm
                         citizen={citizen}
                         handleChange={handleChange}
