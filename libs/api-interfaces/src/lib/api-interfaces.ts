@@ -76,7 +76,7 @@ export interface IInsightProject {
     id: number;
     name: string;
     description: string;
-    members: IUser[];
+    members: IEmployee[];
     start: string;
     end: string;
 }
@@ -110,10 +110,6 @@ export interface ICriteriaCategory {
     description: string;
 }
 
-export interface ISms {
-    birthNumber: string;
-    message: string;
-}
 export interface IMessage {
     id: number;
     recipient: IUser;
