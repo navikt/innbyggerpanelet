@@ -35,7 +35,7 @@ export class CandidateService extends BaseService<Candidate> {
     }
 
     async getByUserId(id: string): Promise<Candidate[]> {
-        const candidates = await this._candidateRepository.find({ where: { user: id }, relations: ['insight'] });
+        const candidates = await this._candidateRepository.find({ where: { citizen: id }, relations: ['insight'] });
         if (candidates.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidates') });
 
         return candidates;
@@ -51,7 +51,7 @@ export class CandidateService extends BaseService<Candidate> {
             .leftJoinAndSelect('candidate.insight', 'insight', 'insight.id = :id', { id })
             // eslint-disable-next-line quotes
             .where("(candidate.status = 'ACCEPTED' OR candidate.status = 'COMPLETED') AND insight.id = :id", { id })
-            .leftJoinAndSelect('candidate.user', 'user')
+            .leftJoinAndSelect('candidate.citizen', 'citizen')
             .getMany();
     }
 
@@ -101,12 +101,12 @@ export class CandidateService extends BaseService<Candidate> {
         throw new Error('Method not implemented.');
     }
 
-    async accept(insightId: string | number, userId: string): Promise<Candidate> {
+    async accept(insightId: string | number, citizenId: string): Promise<Candidate> {
         const update = await this._candidateRepository
             .createQueryBuilder()
             .update(Candidate)
             .set({ status: EnumCandidateStatus.Accepted, hasConsented: true })
-            .where('user = :userId AND insight = :insightId', { userId, insightId })
+            .where('citizen = :citizenId AND insight = :insightId', { citizenId, insightId })
             .execute();
 
         const candidate: Candidate = plainToInstance(Candidate, update);
@@ -116,12 +116,12 @@ export class CandidateService extends BaseService<Candidate> {
         return candidate;
     }
 
-    async decline(insightId: string | number, userId: string): Promise<Candidate> {
+    async decline(insightId: string | number, citizenId: string): Promise<Candidate> {
         const update = await this._candidateRepository
             .createQueryBuilder()
             .update(Candidate)
             .set({ status: EnumCandidateStatus.Declined })
-            .where('user = :userId AND insight = :insightId', { userId, insightId })
+            .where('citizen = :citizenId AND insight = :insightId', { citizenId, insightId })
             .execute();
 
         const candidate: Candidate = plainToInstance(Candidate, update);

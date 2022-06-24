@@ -12,6 +12,6 @@ COPY . ./
 RUN yarn install
 RUN yarn build api
 
-EXPOSE 2022
+EXPOSE 3000
 
 CMD node dist/apps/api/main.js

@@ -1,4 +1,4 @@
-import { ICriteria, IUser } from '@innbyggerpanelet/api-interfaces';
+import { ICitizen, ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { Checkbox, Table } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { useCriteriaByCategoryId } from '../../api/hooks/useCriteria';
@@ -6,15 +6,15 @@ import { APIHandler } from '../misc/apiHandler';
 
 interface IProps {
     categoryId: number;
-    user: IUser;
-    setUser: (user: IUser) => void;
+    citizen: ICitizen;
+    setCitizen: (citizen: ICitizen) => void;
 }
 
-export const UserEditCriteriaTable = ({ categoryId, user, setUser }: IProps): ReactElement => {
+export const UserEditCriteriaTable = ({ categoryId, citizen, setCitizen }: IProps): ReactElement => {
     const { criterias, loading, error } = useCriteriaByCategoryId(categoryId);
 
     const exclusiveAlreadyPicked = (criteria: ICriteria) => {
-        const exclusiveExists = user.criterias.filter(
+        const exclusiveExists = citizen.criterias.filter(
             (c) =>
                 c.exclusivitySlug === criteria.exclusivitySlug &&
                 c.id !== criteria.id &&
@@ -25,16 +25,16 @@ export const UserEditCriteriaTable = ({ categoryId, user, setUser }: IProps): Re
     };
 
     const isChecked = (criteria: ICriteria) => {
-        const result = user.criterias.filter((c) => c.id === criteria.id);
+        const result = citizen.criterias.filter((c) => c.id === criteria.id);
         return result.length > 0;
     };
 
     const toggleCriteria = (criteria: ICriteria) => {
         if (isChecked(criteria)) {
-            const result = user.criterias.filter((c) => c.id !== criteria.id);
-            setUser({ ...user, criterias: result });
+            const result = citizen.criterias.filter((c) => c.id !== criteria.id);
+            setCitizen({ ...citizen, criterias: result });
         } else {
-            setUser({ ...user, criterias: [...user.criterias, criteria] });
+            setCitizen({ ...citizen, criterias: [...citizen.criterias, criteria] });
         }
     };
 

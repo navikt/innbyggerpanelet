@@ -5,15 +5,36 @@ export enum EnumUserRole {
 }
 
 export interface IUser {
-    [key: string]: number | string | undefined | ICriteria[];
+    [key: string]:
+        | string
+        | ICandidate[]
+        | ICriteria[]
+        | IInsightProject[]
+        | boolean
+        | undefined;
     id: string;
-    name: string;
-    latestUpdate: string;
-    email: string;
+    firstname: string;
+    surname: string;
+    registered: boolean;
+}
+
+export interface ICitizen extends IUser {
+    pnr: string;
+    expirationDate?: string;
     phone: string;
-    role: EnumUserRole;
-    birthNumber?: string;
+    candidates: ICandidate[];
     criterias: ICriteria[];
+}
+
+export enum EnumEmployeeRole {
+    InsightWorker = 'INSIGHT_WORKER',
+    Admin = 'ADMIN',
+}
+
+export interface IEmployee extends IUser {
+    email: string;
+    role: EnumEmployeeRole;
+    insightProjects: IInsightProject[];
 }
 
 export enum EnumCandidateStatus {
@@ -25,7 +46,7 @@ export enum EnumCandidateStatus {
 
 export interface ICandidate {
     relevancyGrading: number;
-    user: IUser;
+    citizen: ICitizen;
     insight: IInsight;
     hasConsented: boolean;
     status: EnumCandidateStatus;

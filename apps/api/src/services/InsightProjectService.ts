@@ -62,11 +62,11 @@ export class InsightProjectService extends BaseService<InsightProject> {
         return insightProject;
     }
 
-    async getByCurrentUser(userId: string | number): Promise<InsightProject[]> {
+    async getByCurrentUser(employeeId: string | number): Promise<InsightProject[]> {
         const insightProjects = await this._insightProjectRepository
             .createQueryBuilder('insightProject')
-            .leftJoinAndSelect('insightProject.members', 'user')
-            .where('user.id = :userId', { userId })
+            .leftJoinAndSelect('insightProject.members', 'employee')
+            .where('employee.id = :employeeId', { employeeId })
             .getMany();
 
         if (insightProjects.length === 0)

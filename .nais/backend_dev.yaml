@@ -7,16 +7,16 @@ metadata:
     team: team-researchops
 spec:
   image: {{ image }}
-  port: 2022
+  port: 3000
   team: team-researchops
   liveness:
     path: /isalive
-    port: 2022
+    port: 3000
     initialDelay: 20
     timeout: 60
   readiness:
     path: /isready
-    port: 2022
+    port: 3000
     initialDelay: 20
     timeout: 60
   resources:
@@ -51,7 +51,16 @@ spec:
         - "http://localhost/api/azure/oauth2/callback"
   kafka:
     pool: nav-dev
+  idporten:
+    enabled: true
+    clientURI: "https://innbyggerpanelet-backend.dev.intern.nav.no"
+    redirectPath: "/oauth2/callback"
+    frontchannelLogoutPath: "/oauth2/logout"
+    postLogoutRedirectURIs: 
+      - "https://innbyggerpanelet-backend.dev.intern.nav.no"
 
+    accessTokenLifetime: 3600
+    sessionLifetime: 7200
   accessPolicy:
     inbound:
       rules:
