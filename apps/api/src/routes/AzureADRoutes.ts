@@ -23,7 +23,7 @@ azureADRoutes.get('/oauth2/callback', (req, res, next) => {
 });
 
 azureADRoutes.get('/logout', (req, res, next) => {
-    req.logOut();
+    req.logout();
     res.redirect(config.frontend.url + '/#/');
 });
 

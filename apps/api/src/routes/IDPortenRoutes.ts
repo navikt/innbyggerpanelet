@@ -32,7 +32,7 @@ IDPortenRoutes.get('/oauth2/logout', (req, res, next) => {
 });
 
 IDPortenRoutes.get('/api/idporten/logout', (req, res, next) => {
-    req.logOut();
+    req.logout();
     res.redirect('https://oidc-ver2.difi.no/idporten-oidc-provider/endsession');
 });
 
