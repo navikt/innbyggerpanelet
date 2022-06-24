@@ -34,7 +34,7 @@ export const EmployeeEditModal = ({ open, close, employee, setEmployee }: IProps
     return (
         <Modal open={open} onClose={close}>
             <Modal.Content className={style.editModal}>
-                <Heading size="medium">Rediger bruker: {employee.name}</Heading>
+                <Heading size="medium">{`Rediger bruker: ${employee.surname} ,${employee.firstname}`}</Heading>
                 <Select
                     id="role"
                     label="Rolle"

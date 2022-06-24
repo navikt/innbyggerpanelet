@@ -19,7 +19,7 @@ export function errorHandler(error: Error, request: Request, response: Response,
     if (!config.backend.prod)
         return response
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json('Something went wrong.. Try again later. \n ' + error);
+            .json(`Something went wrong.. Try again later. \n${error}`);
 
     return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json('Something went wrong.. Try again later.');
 }

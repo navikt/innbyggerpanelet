@@ -7,7 +7,7 @@ import { IPassportSession } from '../../loaders/passport';
 import { User } from '../../models/user/UserEntity';
 import { EmployeeService } from '../../services/EmployeeService';
 
-interface IReqWithUserPermissions extends Request {
+export interface IReqWithUserPermissions extends Request {
     user: {
         role: EnumUserRole | EnumEmployeeRole;
         id: string;

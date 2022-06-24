@@ -76,7 +76,7 @@ export interface IInsightProject {
     id: number;
     name: string;
     description: string;
-    members: IUser[];
+    members: IEmployee[];
     start: string;
     end: string;
 }

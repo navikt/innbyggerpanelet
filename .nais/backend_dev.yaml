@@ -49,9 +49,10 @@ spec:
       replyURLs:
         - "https://innbyggerpanelet-backend.dev.intern.nav.no/api/azure/oauth2/callback"
         - "http://localhost/api/azure/oauth2/callback"
+  kafka:
+    pool: nav-dev
   idporten:
     enabled: true
-
     clientURI: "https://innbyggerpanelet-backend.dev.intern.nav.no"
     redirectPath: "/oauth2/callback"
     frontchannelLogoutPath: "/oauth2/logout"
@@ -67,3 +68,4 @@ spec:
     outbound:
       rules: 
         - application: innbyggerpanelet-redis
+      
