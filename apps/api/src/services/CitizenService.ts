@@ -76,4 +76,10 @@ export class CitizenService extends BaseService<Citizen> {
 
         return citizens;
     }
+
+    async getCitizensWithExpirationDate(date: string): Promise<Citizen[] | undefined> {
+        const citizens = await this._citizenRepository.find({ where: { expirationDate: date } });
+
+        return citizens;
+    }
 }

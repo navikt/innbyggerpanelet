@@ -1,4 +1,4 @@
-import { IInsight, IUser } from '@innbyggerpanelet/api-interfaces';
+import { ICitizen, IInsight } from '@innbyggerpanelet/api-interfaces';
 import { plainToInstance } from 'class-transformer';
 import { Message } from './MessageEntity';
 
@@ -26,12 +26,12 @@ const candidateDeclined = (insight: IInsight) => {
     return message;
 };
 
-const accountExpiration = (user: IUser) => {
+const accountExpiration = (citizen: ICitizen) => {
     const message = plainToInstance(Message, {
         timestamp: new Date(),
-        recipient: user,
+        recipient: citizen,
         title: 'Konto i ferd med å nå utløptsdato.',
-        description: `Kontoen din vil utløpe den ${user.latestUpdate}. Vennligst oppdater samtykke på Min Side om du fortsatt ønsker å ta del i Innbyggerpanelet.`,
+        description: `Kontoen din vil utløpe den ${citizen.expirationDate}. Vennligst oppdater samtykke på Min Side om du fortsatt ønsker å ta del i Innbyggerpanelet.`,
         ref: '/profil'
     });
 
