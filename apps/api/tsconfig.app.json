@@ -1,12 +1,12 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "outDir": "../../dist/out-tsc",
-    "module": "commonjs",
-    "types": ["node", "express"]
-  },
-  "exclude": ["**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "outDir": "../../dist/out-tsc",
+        "module": "commonjs",
+        "types": ["node", "express"]
+    },
+    "exclude": ["**/*.spec.ts", "**/*.test.ts", "jest.config.ts"],
+    "include": ["**/*.ts"]
 }

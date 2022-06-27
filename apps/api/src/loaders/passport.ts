@@ -1,4 +1,4 @@
-import { EnumEmployeeRole } from '@innbyggerpanelet/api-interfaces';
+import { EnumUserRole } from '@innbyggerpanelet/api-interfaces';
 import session from 'express-session';
 import { Issuer, Strategy, TokenSet } from 'openid-client';
 import passport from 'passport';
@@ -67,7 +67,7 @@ const passportLoader = async () => {
                         firstname: user.claims.name.split(',')[1],
                         surname: user.claims.name.split(',')[0],
                         email: user.claims.preferred_username,
-                        role: EnumEmployeeRole.InsightWorker,
+                        role: EnumUserRole.InsightWorker,
                         registered: true,
                         insightProjects: [],
                         messages: []
@@ -128,6 +128,7 @@ const passportLoader = async () => {
                             surname: '',
                             phone: '',
                             registered: false,
+                            role: EnumUserRole.Citizen,
                             expirationDate: new Date(
                                 new Date().setFullYear(new Date().getFullYear() + 1)
                             ).toISOString(),

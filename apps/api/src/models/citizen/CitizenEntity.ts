@@ -13,7 +13,7 @@ export class Citizen extends User implements ICitizen {
     @IsNotEmpty({ message: 'Personummer kan ikke være tomt.' })
     pnr: string;
 
-    @Column({ default: '12345678' })
+    @Column({})
     @IsPhoneNumber('NO', { message: 'Påse at du har skrevet et gyldig norsk telefonnummber.' })
     phone: string;
 

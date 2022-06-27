@@ -35,7 +35,6 @@ IDPortenRoutes.get('/api/idporten/logout', (req, res, next) => {
     req.logOut(() => {
         res.redirect('https://oidc-ver2.difi.no/idporten-oidc-provider/endsession');
     });
-    //res.redirect('https://oidc-ver2.difi.no/idporten-oidc-provider/endsession');
 });
 
 export default IDPortenRoutes;
