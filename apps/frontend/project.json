@@ -33,6 +33,12 @@
                     "namedChunks": false,
                     "extractLicenses": true,
                     "vendorChunk": false
+                },
+                "development": {
+                    "extractLicenses": false,
+                    "optimization": false,
+                    "sourceMap": true,
+                    "vendorChunk": true
                 }
             }
         },
@@ -47,8 +53,12 @@
                 "production": {
                     "buildTarget": "frontend:build:production",
                     "hmr": false
+                },
+                "development": {
+                    "buildTarget": "frontend:build:development"
                 }
-            }
+            },
+            "defaultConfiguration": "development"
         },
         "lint": {
             "executor": "@nrwl/linter:eslint",
@@ -61,7 +71,7 @@
             "executor": "@nrwl/jest:jest",
             "outputs": ["coverage/apps/frontend"],
             "options": {
-                "jestConfig": "apps/frontend/jest.config.js",
+                "jestConfig": "apps/frontend/jest.config.ts",
                 "passWithNoTests": true
             }
         }

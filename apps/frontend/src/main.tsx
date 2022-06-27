@@ -1,6 +1,6 @@
 import '@navikt/ds-css/index.css';
 import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom/client';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import adminRoutes from './admin/routes';
 import citizenRoutes from './citizen/routes';
@@ -13,7 +13,8 @@ import employeeRoutes from './employee/routes';
 import messageRoutes from './message/routes';
 
 // Root
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
     <StrictMode>
         <HashRouter>
             <Header />
@@ -28,6 +29,5 @@ ReactDOM.render(
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </HashRouter>
-    </StrictMode>,
-    document.getElementById('root')
+    </StrictMode>
 );
