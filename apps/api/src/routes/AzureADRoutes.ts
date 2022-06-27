@@ -23,8 +23,10 @@ azureADRoutes.get('/oauth2/callback', (req, res, next) => {
 });
 
 azureADRoutes.get('/logout', (req, res, next) => {
-    req.logOut();
-    res.redirect(config.frontend.url + '/#/');
+    req.logOut(() => {
+        res.redirect(config.frontend.url + '/#/');
+    });
+    //res.redirect(config.frontend.url + '/#/');
 });
 
 export default azureADRoutes;
