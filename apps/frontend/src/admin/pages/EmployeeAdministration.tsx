@@ -6,7 +6,7 @@ import { mutate } from 'swr';
 import { useTeamMemberByName } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { EmployeeEditModal } from '../containers';
-import style from './pages.module.scss';
+import style from './EmployeeAdministration.module.scss';
 
 export const EmployeeAdministration = (): ReactElement => {
     const [name, setName] = useState<string>('');

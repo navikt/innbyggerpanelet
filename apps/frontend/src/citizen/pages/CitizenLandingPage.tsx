@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { UserInfo } from '../../common/components/userInfo';
-import style from './pages.module.scss';
+import style from './CitizenLandingPage.module.scss';
 export const CitizenLandingPage = (): ReactElement => {
     const { user, loading, error } = useUser<ICitizen>();
 

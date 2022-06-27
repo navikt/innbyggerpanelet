@@ -4,7 +4,7 @@ import { BodyLong, Button, Detail, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { readMessage } from '../../common/api/mutations';
-import style from './components.module.scss';
+import style from './Message.module.scss';
 
 interface IProps {
     message: IMessage;

@@ -3,7 +3,7 @@ import { Modal, SearchField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { useCriteriaSearchByName } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
-import style from './components.module.scss';
+import style from './Modals.module.scss';
 
 interface IProps {
     open: boolean;

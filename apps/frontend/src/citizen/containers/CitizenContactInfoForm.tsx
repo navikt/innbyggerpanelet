@@ -2,7 +2,7 @@ import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { Heading, Panel, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement } from 'react';
 import { IValidationError } from '../../common/hooks';
-import style from './containers.module.scss';
+import style from './CitizenContactInfoForm.module.scss';
 
 interface IProps {
     citizen: ICitizen;

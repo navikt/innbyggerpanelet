@@ -5,7 +5,7 @@ import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
 import { createCriteriaCategory } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
 import { useFormatValidationErrors } from '../../common/hooks';
-import style from './containers.module.scss';
+import style from './Modals.module.scss';
 
 interface IProps {
     open: boolean;

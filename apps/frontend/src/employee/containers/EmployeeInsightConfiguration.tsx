@@ -8,7 +8,7 @@ import { ChangeEvent, ReactElement, useState } from 'react';
 import ErrorList from '../../common/components/validation/ErrorList';
 import { IValidationError } from '../../common/hooks';
 import { ConsentsSearchModal, CriteriasSearchModal } from '../components';
-import style from './containers.module.scss';
+import style from './EmployeeInsightConfiguration.module.scss';
 
 interface IProps {
     insight: IInsight;

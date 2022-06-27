@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ProjectInsightEntry } from '.';
 import { useInsightsByProjectId } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
-import style from './containers.module.scss';
+import style from './EmployeeInsightProjectEntryList.module.scss';
 
 interface IProps {
     projectId: number;

@@ -1,0 +1,31 @@
+/* Project Insight Candidates */
+
+.cardContainer {
+    margin: 1rem 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    > .card {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+        > p {
+            font-weight: normal;
+        }
+
+        > .labelAccepted,
+        > .labelCompleted {
+            color: green;
+        }
+
+        > .labelDenied {
+            color: red;
+        }
+
+        > .labelPending {
+            color: orange;
+        }
+    }
+}

@@ -2,13 +2,13 @@ import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { ProjectTeam } from '../containers';
-import style from './components.module.scss';
+import style from './EmployeeProjectDetails.module.scss';
 
 interface IProps {
     project: IInsightProject;
 }
 
-export const ProjectDetails = ({ project }: IProps): ReactElement => {
+export const EmployeeProjectDetails = ({ project }: IProps): ReactElement => {
     return (
         <div className={style.detailWrapper}>
             <Heading size="2xlarge">{project.name}</Heading>

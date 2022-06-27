@@ -1,6 +1,6 @@
 import { EnumCandidateStatus, ICandidate } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
-import style from './containers.module.scss';
+import style from './ProjectInsightCandidates.module.scss';
 
 interface IProps {
     candidates: ICandidate[];

@@ -9,9 +9,9 @@ import { createCitizen } from '../../common/api/mutations/';
 import { APIHandler } from '../../common/components/apiHandler';
 import { useFormatValidationErrors } from '../../common/hooks/';
 import { CitizenContactInfoForm, CitizenEditCriterias } from '../containers';
-import style from './pages.module.scss';
+import style from './RegisterCitizenPage.module.scss';
 
-export const RegisterCitizen = (): ReactElement => {
+export const RegisterCitizenPage = (): ReactElement => {
     const navigate = useNavigate();
     const { user, loading, error } = useUser<ICitizen>();
 

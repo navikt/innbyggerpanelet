@@ -7,7 +7,7 @@ export const LandingPage = (): ReactElement => {
         <>
             <img
                 className={style.backgroundImage}
-                src="../../../assets/prekestolen.jpg"
+                src="../../../common/assets/prekestolen.jpg" //Requires longer path for some reason...
                 alt="Prekestolen, hentet fra Pexels"
             />
             <div className={style.introduction}>

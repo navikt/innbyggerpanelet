@@ -2,7 +2,7 @@ import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { BodyLong, Detail, Heading } from '@navikt/ds-react';
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import style from './components.module.scss';
+import style from './EmployeeCurrentProjectCard.module.scss';
 
 export const EmployeeCurrentProjectCard = ({
     insightProject,

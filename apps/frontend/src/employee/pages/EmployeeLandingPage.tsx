@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { useUser } from '../../common/api/hooks';
 import { PanelNoBackground } from '../../common/components/panelNoBackground';
 import { UserInfo } from '../../common/components/userInfo';
-import { useFilterInsightProjects } from '../../common/hooks';
 import { EmployeeCurrentProjects } from '../containers';
-import style from './pages.module.scss';
+import { useFilterInsightProjects } from '../hooks/useEmployeeLanding';
+import style from './EmployeeLandingPage.module.scss';
 
 export const EmployeeLandingPage = (): ReactElement => {
     const { user, loading, error } = useUser<ICitizen>();

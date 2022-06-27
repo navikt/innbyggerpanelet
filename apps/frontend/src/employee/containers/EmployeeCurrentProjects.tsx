@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PanelNoBackground } from '../../common/components/panelNoBackground';
 import { EmployeeCurrentProjectCard } from '../components';
-import style from './containers.module.scss';
+import style from './EmployeeCurrentProjects.module.scss';
 
 export const EmployeeCurrentProjects = ({
     filteredProjects

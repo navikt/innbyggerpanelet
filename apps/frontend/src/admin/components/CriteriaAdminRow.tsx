@@ -2,7 +2,7 @@ import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { Edit } from '@navikt/ds-icons';
 import { Table } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import style from './components.module.scss';
+import style from './CriteriaAdminRow.module.scss';
 
 interface IProps {
     criteria: ICriteria;

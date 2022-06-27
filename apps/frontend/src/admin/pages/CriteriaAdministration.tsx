@@ -4,7 +4,7 @@ import { useCriteriaCategory } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { CriteriaTable } from '../containers';
 import { CriteriaCategoryCreateModal } from '../containers/CriteriaCategoryCreateModal';
-import style from './pages.module.scss';
+import style from './CriteriaAdministration.module.scss';
 
 export const CriteriaAdministration = (): ReactElement => {
     const { categories, loading, error } = useCriteriaCategory();

@@ -6,7 +6,7 @@ import { ReactElement, useState } from 'react';
 import { acceptCandidature, declineCandidature } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
 import { useFormatValidationErrors } from '../../common/hooks';
-import style from './components.module.scss';
+import style from './Message.module.scss';
 
 interface IProps {
     candidate: ICandidate;

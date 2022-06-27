@@ -2,7 +2,7 @@ import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
 import { Delete } from '@navikt/ds-icons';
 import { Table } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import style from './components.module.scss';
+import style from './ProjectTeamMembers.module.scss';
 
 interface IProps {
     project: IInsightProject;

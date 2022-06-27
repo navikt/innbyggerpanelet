@@ -1,0 +1,11 @@
+/* EDIT PROFILE */
+
+.editButtons {
+    display: flex;
+    display: row;
+    gap: 1rem;
+}
+
+.editButtons > button {
+    flex: 1;
+}

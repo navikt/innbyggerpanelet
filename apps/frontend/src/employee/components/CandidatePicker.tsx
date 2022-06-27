@@ -2,7 +2,7 @@ import { EnumCandidateStatus, ICandidate, ICitizen, ICriteria, IInsight } from '
 import { Detail, Label } from '@navikt/ds-react';
 import { ReactElement, useEffect } from 'react';
 import { ProgressBar } from '../../common/components/progressBar';
-import style from './components.module.scss';
+import style from './CandidatePicker.module.scss';
 
 interface IProps {
     index: number;

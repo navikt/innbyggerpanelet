@@ -3,7 +3,7 @@ import { ReactElement, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useInsightProjectById } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
-import { ProjectDetails } from '../components';
+import { EmployeeProjectDetails } from '../components';
 import { EmployeeInsightProjectEdit, EmployeeInsightProjectEntryList } from '../containers';
 
 export const EmployeeInsightProjectDetailPage = (): ReactElement => {
@@ -25,7 +25,7 @@ export const EmployeeInsightProjectDetailPage = (): ReactElement => {
                         validationErrors={{}}
                     />
                 ) : (
-                    <ProjectDetails project={insightProject} />
+                    <EmployeeProjectDetails project={insightProject} />
                 )}
             </Panel>
             <EmployeeInsightProjectEntryList projectId={insightProject.id} />

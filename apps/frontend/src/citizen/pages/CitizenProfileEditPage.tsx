@@ -8,7 +8,7 @@ import { updateCitizen } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
 import { useFormatValidationErrors } from '../../common/hooks';
 import { CitizenContactInfoForm, CitizenEditCriterias } from '../containers';
-import style from './pages.module.scss';
+import style from './CitizenProfileEditPage.module.scss';
 
 export const CitizenProfileEditPage = (): ReactElement => {
     const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { AddCircle } from '@navikt/ds-icons';
 import { Label } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { ProjectTeamMembers, ProjectTeamSearchModal } from '../components';
-import style from './containers.module.scss';
+import style from './ProjectTeam.module.scss';
 
 interface IProps {
     edit?: (project: IInsightProject) => void;

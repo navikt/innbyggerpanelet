@@ -6,7 +6,7 @@ import { BodyShort, Button, Label, Textarea, TextField } from '@navikt/ds-react'
 import { ChangeEvent, ReactElement } from 'react';
 import ErrorList from '../../common/components/validation/ErrorList';
 import { IValidationError } from '../../common/hooks';
-import style from './containers.module.scss';
+import style from './EmployeeInsightProjectEdit.module.scss';
 import { ProjectTeam } from './ProjectTeam';
 
 interface IProps {

@@ -5,7 +5,7 @@ import { ProjectInsightCandidates } from '.';
 import { useCandidatesByInsightId } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { ProgressBar } from '../../common/components/progressBar';
-import style from './containers.module.scss';
+import style from './ProjectInsightEntry.module.scss';
 
 interface IProps {
     insight: IInsight;

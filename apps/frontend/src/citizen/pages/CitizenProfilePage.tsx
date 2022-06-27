@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { CitizenCriteriasContainer, CitizenPerformedInsight } from '../containers';
-import style from './pages.module.scss';
+import style from './CitizenProfilePage.module.scss';
 
 // TODO: Explore the opportunity to use useContext for a candidate, as
 // there is now quite alot of prop drilling

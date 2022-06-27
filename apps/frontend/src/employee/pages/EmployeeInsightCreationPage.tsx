@@ -9,7 +9,7 @@ import ErrorList from '../../common/components/validation/ErrorList';
 import { useFormatValidationErrors } from '../../common/hooks';
 import { CandidatePicker } from '../components';
 import { EmployeeInsightConfiguration } from '../containers';
-import style from './pages.module.scss';
+import style from './EmployeeInsightCreationPage.module.scss';
 
 const defaultInsight: IInsight = {
     id: 0,
