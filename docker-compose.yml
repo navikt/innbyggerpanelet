@@ -41,7 +41,13 @@ services:
         networks:
             - innbyggerpanelet_api
         ports:
-            - 5432:5432
+            - ${INNBYGGERPANELET_DB_PORT}:${INNBYGGERPANELET_DB_PORT}
+        environment:
+            POSTGRES_DB: ${INNBYGGERPANELET_POSTGRES_DB}
+            POSTGRES_USER: ${INNBYGGERPANELET_POSTGRES_USER}
+            POSTGRES_PASSWORD: ${INNBYGGERPANELET_POSTGRES_PASSWORD}
+            DB_HOST: ${INNBYGGERPANELET_DB_HOST}
+            DB_PORT: ${INNBYGGERPANELET_DB_PORT}
         env_file:
             - '.env'
     redis:
@@ -58,3 +64,5 @@ volumes:
     innbyggerpanelet_data:
 networks:
     innbyggerpanelet_api:
+        external:
+          name: dittnav.docker-internal

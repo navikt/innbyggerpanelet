@@ -35,9 +35,7 @@ export class MessageService extends BaseService<Message> {
         return messages;
     }
     async create(dto: Message): Promise<Message> {
-        const message = await this._messageRepository.save(dto);
-
-        return message;
+        return await this._messageRepository.save(dto);
     }
 
     async createAcceptCandidatureMessage(insightId: string | number): Promise<Message> {

@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import morgan from 'morgan';
 import authRoutes from './authRoutes';
 import azureADRoutes from './AzureADRoutes';
 import candidateRoutes from './CandidateRoutes';
@@ -13,9 +12,11 @@ import insightProjectRoutes from './InsightProjectRoutes';
 import insightRoutes from './InsightRoutes';
 import messageRoutes from './MessageRoutes';
 import { errorHandler } from './middleware/errorHandler';
+import { logger } from './middleware/httpLogging';
+import smsRoutes from './SmsRoutes';
 
 const routes = Router()
-    .use(morgan('dev'))
+    .use(logger)
     .use('/azure', azureADRoutes)
     .use('/auth', authRoutes)
     .use('/candidate', candidateRoutes)
@@ -26,6 +27,7 @@ const routes = Router()
     .use('/employee', employeeRoutes)
     .use('/insight', insightRoutes)
     .use('/insightProject', insightProjectRoutes)
+    .use('/sms', smsRoutes)
     .use('/message', messageRoutes)
     .use(errorHandler);
 
