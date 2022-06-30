@@ -1,11 +1,14 @@
 import { EnumCandidateStatus } from '@innbyggerpanelet/api-interfaces';
 import { plainToInstance } from 'class-transformer';
 import { Connection, Repository } from 'typeorm';
+import config from '../config';
 import { BadRequestError } from '../lib/errors/http/BadRequestError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
+import kafka from '../loaders/kafka';
 import { Candidate } from '../models/candidate/CandidateEntity';
 import BaseService from './BaseService';
+import { SmsService } from './SmsService';
 
 export interface ICandidateSearch {
     where: {
@@ -86,13 +89,13 @@ export class CandidateService extends BaseService<Candidate> {
     async create(dto: Candidate): Promise<Candidate> {
         const candidate = await this._candidateRepository.save(dto);
 
-        /*
-        const smsService = new SmsService(kafka);
-        smsService.send({
-            birthNumber: candidate.citizen.pnr,
-            message: 'Du har en melding om innsiktsarbeid på innbyggerpanelet.'
-        });
-        */
+        if (config.backend.prod) {
+            const smsService = new SmsService(kafka);
+            smsService.send({
+                birthNumber: candidate.citizen.pnr,
+                message: 'Du har en melding om innsiktsarbeid på innbyggerpanelet.'
+            });
+        }
 
         return candidate;
     }
