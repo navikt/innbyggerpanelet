@@ -2,6 +2,7 @@ import { Connection, Repository } from 'typeorm';
 import { ForbiddenError } from '../lib/errors/http/ForbiddenError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
+import { Insight } from '../models/insight/InsightEntity';
 import { Message } from '../models/message/MessageEntity';
 import { messageTemplates } from '../models/message/MessageTemplates';
 import { Citizen } from './../models/citizen/CitizenEntity';
@@ -59,11 +60,16 @@ export class MessageService extends BaseService<Message> {
     }
 
     async createCitizenExpirationNotification(citizens: Citizen[]): Promise<Message[]> {
-        const messages = [];
-        for (const citizen of citizens) {
-            messages.push(messageTemplates.accountExpiration(citizen));
-        }
+        const messages = citizens.map((citizen) => messageTemplates.accountExpiration(citizen));
         return this.createMany(messages);
+    }
+
+    async createInsightExpirationNotification(insights: Insight[]): Promise<Message[]> {
+        for (const insight of insights) {
+            const employees = insight.project.members;
+            const messages = employees.map((employee) => messageTemplates.insightExpiration(employee, insight));
+            return this.createMany(messages);
+        }
     }
 
     // Check user id against message recipient id

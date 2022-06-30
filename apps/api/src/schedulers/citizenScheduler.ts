@@ -11,14 +11,29 @@ const citizenExpirationDateNotification = cron.schedule('0 0 * * *', async () =>
     const citizenService = new CitizenService(database);
     const citizens = await citizenService.getCitizensWithExpirationDate(dateOneMonthFromNow);
 
+    if (!citizens) return;
+
     const messageService = new MessageService(database);
     const messages = await messageService.createCitizenExpirationNotification(citizens);
 
     console.log(messages);
 });
 
+const citizenExpirationDateDeletion = cron.schedule('0 0 * * *', async () => {
+    const dateToday = new Date().toISOString().slice(0, 10);
+
+    const citizenService = new CitizenService(database);
+    const citizens = await citizenService.getCitizensWithExpirationDate(dateToday);
+
+    if (!citizens) return;
+
+    await citizenService.deleteMany(citizens);
+    console.log('DELETED CITIZENS');
+});
+
 const citizenSchedules = () => {
     citizenExpirationDateNotification.start();
+    citizenExpirationDateDeletion.start();
 };
 
 export default citizenSchedules;

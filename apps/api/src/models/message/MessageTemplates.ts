@@ -1,4 +1,4 @@
-import { ICitizen, IInsight } from '@innbyggerpanelet/api-interfaces';
+import { ICitizen, IEmployee, IInsight } from '@innbyggerpanelet/api-interfaces';
 import { plainToInstance } from 'class-transformer';
 import { Message } from './MessageEntity';
 
@@ -38,4 +38,17 @@ const accountExpiration = (citizen: ICitizen) => {
     return message;
 };
 
-export const messageTemplates = { candidateAccepted, candidateDeclined, accountExpiration };
+const insightExpiration = (Employee: IEmployee, insight: IInsight) => {
+    const message = plainToInstance(Message, {
+        timestamp: new Date(),
+        recipient: Employee,
+        title: `${insight.name} har utløpt.`,
+        description:
+            'Vennligst påse at all informasjon relatert til dette innsiktsarbeidet har blitt anonymisert da kanditatenes samtykker har gått ut på dato.',
+        ref: `/ansatt/prosjekt/${insight.project.id}`
+    });
+
+    return message;
+};
+
+export const messageTemplates = { candidateAccepted, candidateDeclined, accountExpiration, insightExpiration };
