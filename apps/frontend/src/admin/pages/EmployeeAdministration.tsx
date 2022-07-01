@@ -1,7 +1,7 @@
 import { IEmployee } from '@innbyggerpanelet/api-interfaces';
 import { Edit } from '@navikt/ds-icons';
-import { Heading, Panel, Table, TextField } from '@navikt/ds-react';
-import { ChangeEvent, ReactElement, useState } from 'react';
+import { Heading, Panel, Search, Table } from '@navikt/ds-react';
+import { ReactElement, useState } from 'react';
 import { mutate } from 'swr';
 import { useTeamMemberByName } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
@@ -14,7 +14,7 @@ export const EmployeeAdministration = (): ReactElement => {
 
     const { employees, loading, error } = useTeamMemberByName(name);
 
-    const handleName = (event: ChangeEvent<HTMLInputElement>) => setName(event.target.value);
+    const handleName = (input: string) => setName(input);
     const handleModalClose = () => {
         mutate(`/api/employee/teamMember?name=%${name}%`); // Will not refresh component if reponse code is 404. Keeps old results in cache.
         setEmployee(undefined);
@@ -22,11 +22,15 @@ export const EmployeeAdministration = (): ReactElement => {
 
     return (
         <>
-            <Panel>
+            <Panel className={style.wrapper}>
                 <Heading size="large">Brukere og deres roller i innbyggerpanelet</Heading>
-                <div className={style.filter}>
-                    <TextField label="Navn" value={name} onChange={handleName} />
-                </div>
+                <Search
+                    label="Søk etter ansatt med navn"
+                    value={name}
+                    onChange={handleName}
+                    variant="simple"
+                    hideLabel={false}
+                />
                 <Table>
                     <Table.Header>
                         <Table.Row>

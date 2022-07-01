@@ -6,6 +6,7 @@ import { useCitizenByCriterias } from '../../common/api/hooks';
 import { createCandidates, createConsents, createInsight } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
 import ErrorList from '../../common/components/validation/ErrorList';
+import { InsightConsentForm } from '../../common/containers/insightConsentForm';
 import { useFormatValidationErrors } from '../../common/hooks';
 import { CandidatePicker } from '../components';
 import { EmployeeInsightConfiguration } from '../containers';
@@ -77,43 +78,54 @@ export const EmployeeInsightCreationPage = (): ReactElement => {
     };
 
     return (
-        <>
-            <Panel>
-                <Button onClick={handleSubmit}>Opprett</Button>
-                <Heading level={'1'} size="xlarge" spacing>
-                    Nytt innsiktsarbeid
-                </Heading>
-                <EmployeeInsightConfiguration
-                    insight={insight}
-                    setInsight={setInsight}
-                    validationErrors={insightValidationErrors}
-                />
-            </Panel>
-            <Panel>
-                <div className={style.candidatesHeader}>
-                    <Heading level={'2'} size="xlarge" spacing>
-                        Kandidater
+        <div className={style.wrapper}>
+            <div>
+                <Panel>
+                    <Heading level={'1'} size="xlarge" spacing>
+                        Nytt innsiktsarbeid
                     </Heading>
-                    <Label>Valgte kandidater: {citizens ? `${candidates.length}/${citizens.length}` : '0/0'}</Label>
-                </div>
-                <div>
-                    {citizens?.map((citizen, index) => {
-                        return (
-                            <CandidatePicker
-                                key={index}
-                                citizen={citizen}
-                                index={index}
-                                insight={insight}
-                                candidates={candidates}
-                                setCandidates={setCandidates}
-                            />
-                        );
-                    }) || <APIHandler error={error} loading={loading} />}
-                    {candidateValidationErrors.candidates && (
-                        <ErrorList errorMessages={[...candidateValidationErrors.candidates]} />
-                    )}
-                </div>
-            </Panel>
-        </>
+                    <EmployeeInsightConfiguration
+                        insight={insight}
+                        setInsight={setInsight}
+                        validationErrors={insightValidationErrors}
+                    />
+                </Panel>
+                <Panel>
+                    <div className={style.candidatesHeader}>
+                        <Heading level={'2'} size="xlarge" spacing>
+                            Kandidater
+                        </Heading>
+                        <Label>Valgte kandidater: {citizens ? `${candidates.length}/${citizens.length}` : '0/0'}</Label>
+                    </div>
+                    <div>
+                        {citizens?.map((citizen, index) => {
+                            return (
+                                <CandidatePicker
+                                    key={index}
+                                    citizen={citizen}
+                                    index={index}
+                                    insight={insight}
+                                    candidates={candidates}
+                                    setCandidates={setCandidates}
+                                />
+                            );
+                        }) || <APIHandler error={error} loading={loading} />}
+                        {candidateValidationErrors.candidates && (
+                            <ErrorList errorMessages={[...candidateValidationErrors.candidates]} />
+                        )}
+                    </div>
+                </Panel>
+                <Panel>
+                    <div className={style.submit}>
+                        <Button onClick={handleSubmit}>Opprett</Button>
+                    </div>
+                </Panel>
+            </div>
+            <div>
+                <Panel>
+                    <InsightConsentForm insight={insight} />
+                </Panel>
+            </div>
+        </div>
     );
 };
