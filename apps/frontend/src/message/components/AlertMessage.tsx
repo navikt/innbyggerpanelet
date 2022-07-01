@@ -1,5 +1,5 @@
 import { IMessage } from '@innbyggerpanelet/api-interfaces';
-import { Email, EmailOpen } from '@navikt/ds-icons';
+import { Email, EmailOpened } from '@navikt/ds-icons';
 import { BodyLong, Button, Detail, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,7 @@ export const AlertMessage = ({ message }: IProps): ReactElement => {
     return (
         <Panel>
             <div className={style.messageHeading} onClick={handleOpen}>
-                {message.read ? <EmailOpen /> : <Email />}
+                {message.read ? <EmailOpened /> : <Email />}
                 <Heading size="medium">{message.title}</Heading>
                 <Detail>{message.timestamp.slice(0, 10)}</Detail>
             </div>

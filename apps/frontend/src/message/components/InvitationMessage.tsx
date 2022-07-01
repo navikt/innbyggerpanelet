@@ -1,5 +1,5 @@
 import { EnumCandidateStatus, ICandidate } from '@innbyggerpanelet/api-interfaces';
-import { Email, EmailOpen } from '@navikt/ds-icons';
+import { Email, EmailOpened } from '@navikt/ds-icons';
 import { BodyLong, Button, Detail, Heading, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ReactElement, useState } from 'react';
@@ -39,7 +39,7 @@ export const InvitationMessage = ({ candidate }: IProps): ReactElement => {
     return (
         <Panel>
             <div className={style.messageHeading} onClick={handleOpen}>
-                {candidate.status !== EnumCandidateStatus.Pending || open ? <EmailOpen /> : <Email />}
+                {candidate.status !== EnumCandidateStatus.Pending || open ? <EmailOpened /> : <Email />}
                 <Heading size="medium">{candidate.insight.name}</Heading>
                 <Detail>{candidate.status}</Detail>
             </div>

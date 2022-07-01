@@ -1,6 +1,6 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
-import { Modal, SearchField } from '@navikt/ds-react';
-import { ChangeEvent, ReactElement, useState } from 'react';
+import { Modal, Search } from '@navikt/ds-react';
+import { ReactElement, useState } from 'react';
 import { useCriteriaSearchByName } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import style from './Modals.module.scss';
@@ -15,17 +15,14 @@ export const CriteriasSearchModal = ({ open, close, addCriteria }: IProps): Reac
     const [search, setSearch] = useState('');
     const { criterias, loading, error } = useCriteriaSearchByName(search);
 
-    const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value);
+    const handleSearch = (input: string) => {
+        setSearch(input);
     };
 
     return (
         <Modal open={open} onClose={close}>
             <Modal.Content className={style.modalContentWrapper}>
-                <SearchField label="Kriterier" description={<div>Søk etter kriterier her</div>}>
-                    <SearchField.Input onChange={handleSearch} value={search} />
-                    <SearchField.Button>Søk</SearchField.Button>
-                </SearchField>
+                <Search variant="simple" label="Kriterier" onChange={handleSearch} value={search} />
                 <div className={style.results}>
                     {criterias?.map((criteria, index) => {
                         return (

@@ -11,7 +11,7 @@ export const LandingPage = (): ReactElement => {
                 alt="Prekestolen, hentet fra Pexels"
             />
             <div className={style.introduction}>
-                <Heading size="2xlarge">Velkommen til innbyggerpanelet</Heading>
+                <Heading size="xlarge">Velkommen til innbyggerpanelet</Heading>
                 <BodyShort>Vil du hjelpe NAV med å bli bedre? I Innbyggerpanelet kan du få sjansen!</BodyShort>
             </div>
         </>

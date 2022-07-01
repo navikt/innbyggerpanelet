@@ -15,7 +15,8 @@ export class Candidate implements ICandidate {
 
     @ManyToOne(() => Insight, (insight) => insight.id, {
         primary: true,
-        nullable: false
+        nullable: false,
+        onDelete: 'CASCADE'
     })
     @JoinColumn()
     insight: Insight;

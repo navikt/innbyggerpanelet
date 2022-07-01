@@ -52,7 +52,7 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
                     <Label>Samtykker:</Label>
                     <ul>
                         {insight.consents.map((consent, index) => (
-                            <li key={index}>{consent.description}</li>
+                            <li key={index}>{consent.template.title}</li>
                         ))}
                     </ul>
                     <ProjectInsightCandidates candidates={candidates} />

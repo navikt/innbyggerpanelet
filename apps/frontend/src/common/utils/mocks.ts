@@ -11,6 +11,7 @@ import {
     IInsightProject,
     IUser
 } from '@innbyggerpanelet/api-interfaces';
+import { IConsentTemplate } from './../../../../../libs/api-interfaces/src/lib/api-interfaces';
 
 const allCriteriaCategories: ICriteriaCategory[] = [
     {
@@ -42,7 +43,16 @@ const allCriterias: ICriteria[] = [
     { id: 4, name: 'Rullestol', category: allCriteriaCategories[1] }
 ];
 
-const allConsents: IConsent[] = [{ id: 1, description: 'Samtykker til skjermopptak' }];
+const allConsentTemplates: IConsentTemplate[] = [
+    {
+        id: 1,
+        title: 'Samtykker til skjermopptak',
+        description:
+            'Testkandidaten samtykker til av utfører at testen kan bruke programvare for å gjøre opptak av skjermen under testen.'
+    }
+];
+
+const allConsents: IConsent[] = [{ template: allConsentTemplates[0], required: true }];
 
 const teamMember: IEmployee = {
     id: '3',

@@ -47,8 +47,7 @@ export class Insight implements IInsight {
     @ArrayNotEmpty({ message: 'Ingen kriterier valgt.' })
     criterias: Criteria[];
 
-    @ManyToMany(() => Consent)
-    @JoinTable()
+    @OneToMany(() => Consent, (consent) => consent.insight)
     @ArrayNotEmpty({ message: 'Ingen samtykker valgt.' })
     consents: Consent[];
 }

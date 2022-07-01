@@ -4,6 +4,7 @@ import azureADRoutes from './AzureADRoutes';
 import candidateRoutes from './CandidateRoutes';
 import citizenRoutes from './CitizenRoutes';
 import consentRoutes from './ConsentRoutes';
+import consentTemplateRoutes from './ConsentTemplateRoutes';
 import criteriaCategoryRoutes from './CriteriaCategoryRoutes';
 import criteriaRoutes from './CriteriaRoutes';
 import employeeRoutes from './EmployeeRoutes';
@@ -21,6 +22,7 @@ const routes = Router()
     .use('/auth', authRoutes)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
+    .use('/consentTemplate', consentTemplateRoutes)
     .use('/citizen', citizenRoutes)
     .use('/criteria', criteriaRoutes)
     .use('/criteriaCategory', criteriaCategoryRoutes)

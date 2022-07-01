@@ -38,6 +38,17 @@ export class InsightService extends BaseService<Insight> {
         return insight;
     }
 
+    async getByProjectId(id: number): Promise<Insight[]> {
+        const insights = await this._insightRepository.find({
+            where: { project: id },
+            relations: ['project', 'criterias', 'consents', 'consents.template']
+        });
+
+        if (!insights.length) throw new NotFoundError({ message: ServerErrorMessage.notFound('Insights') });
+
+        return insights;
+    }
+
     async search(queries: IInsightSearch): Promise<Insight[]> {
         const insights = await this._insightRepository.find({
             where: queries.where,

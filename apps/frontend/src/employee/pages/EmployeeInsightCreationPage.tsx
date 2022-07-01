@@ -3,7 +3,7 @@ import { Button, Heading, Label, Panel } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCitizenByCriterias } from '../../common/api/hooks';
-import { createCandidates, createInsight } from '../../common/api/mutations';
+import { createCandidates, createConsents, createInsight } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
 import ErrorList from '../../common/components/validation/ErrorList';
 import { useFormatValidationErrors } from '../../common/hooks';
@@ -40,6 +40,8 @@ export const EmployeeInsightCreationPage = (): ReactElement => {
     const [candidates, setCandidates] = useState<ICandidate[]>([]);
     const [candidateValidationErrors, setCandidateValidationErrors] = useFormatValidationErrors();
 
+    const [consentValidationErrors, setConsentValidationError] = useFormatValidationErrors();
+
     const { citizens, loading, error } = useCitizenByCriterias(insight.criterias);
 
     const handleSubmit = async () => {
@@ -54,6 +56,14 @@ export const EmployeeInsightCreationPage = (): ReactElement => {
         if (insightMutation.error) throw new Error('Failed to post insight.');
         if (insightMutation.validationErrors) return setInsightValidationErrors(insightMutation.validationErrors);
 
+        const configuredConsents = insight.consents.map((c) => {
+            return { ...c, insight: insightMutation.response };
+        });
+
+        const consentMutation = await createConsents(configuredConsents);
+        if (consentMutation.error) throw new Error('Failed to post consents');
+        if (consentMutation.validationErrors) return setConsentValidationError(consentMutation.validationErrors);
+
         const configuredCandidates = candidates.map((c) => {
             return { ...c, insight: insightMutation.response };
         }) as ICandidate[];
@@ -62,14 +72,15 @@ export const EmployeeInsightCreationPage = (): ReactElement => {
         if (candidateMutation.error) throw new Error('Failed to post candidates');
         if (candidateMutation.validationErrors) return setCandidateValidationErrors(candidateMutation.validationErrors);
 
-        if (insightMutation.response && candidateMutation.response) navigate(`/prosjekt/${id}`);
+        if (insightMutation.response && consentMutation.response && candidateMutation.response)
+            navigate(`/prosjekt/${id}`);
     };
 
     return (
         <>
             <Panel>
                 <Button onClick={handleSubmit}>Opprett</Button>
-                <Heading level={'1'} size="2xlarge" spacing>
+                <Heading level={'1'} size="xlarge" spacing>
                     Nytt innsiktsarbeid
                 </Heading>
                 <EmployeeInsightConfiguration

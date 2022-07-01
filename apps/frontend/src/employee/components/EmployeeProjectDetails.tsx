@@ -11,7 +11,7 @@ interface IProps {
 export const EmployeeProjectDetails = ({ project }: IProps): ReactElement => {
     return (
         <div className={style.detailWrapper}>
-            <Heading size="2xlarge">{project.name}</Heading>
+            <Heading size="xlarge">{project.name}</Heading>
             <BodyLong>{project.description}</BodyLong>
             <Label>Startdato: </Label>
             <BodyShort>{project.start}</BodyShort>

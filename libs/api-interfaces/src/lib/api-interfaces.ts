@@ -77,15 +77,17 @@ export interface IInsightProject {
 }
 
 export interface IConsent {
-    id: number;
+    template: IConsentTemplate;
+    insight?: IInsight;
+    justification?: string;
+    required: boolean;
+}
+
+export interface IConsentTemplate {
+    [key: string]: number | string | undefined;
+    id?: number;
+    title: string;
     description: string;
-    /*
-    firstName: string;
-    lastName: string;
-    email: string;
-    haveConsented: boolean;
-    soundRecording: boolean;
-    videoRecording: boolean;*/
 }
 
 export interface ICriteria {

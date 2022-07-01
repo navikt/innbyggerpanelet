@@ -1,36 +1,33 @@
-import { IConsent } from '@innbyggerpanelet/api-interfaces';
-import { Modal, SearchField } from '@navikt/ds-react';
-import { ChangeEvent, ReactElement, useState } from 'react';
-import { useConsentSearchByDescription } from '../../common/api/hooks';
+import { IConsentTemplate } from '@innbyggerpanelet/api-interfaces';
+import { Modal, Search } from '@navikt/ds-react';
+import { ReactElement, useState } from 'react';
+import { useConsentTemplateSearchByTitle } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import style from './Modals.module.scss';
 
 interface IProps {
     open: boolean;
     close: () => void;
-    addConsent: (consent: IConsent) => void;
+    addConsent: (template: IConsentTemplate) => void;
 }
 
 export const ConsentsSearchModal = ({ open, close, addConsent }: IProps): ReactElement => {
     const [search, setSearch] = useState('');
-    const { consents, loading, error } = useConsentSearchByDescription(search);
+    const { consentTemplates, loading, error } = useConsentTemplateSearchByTitle(search);
 
-    const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value);
+    const handleSearch = (input: string) => {
+        setSearch(input);
     };
 
     return (
         <Modal open={open} onClose={close}>
             <Modal.Content className={style.modalContentWrapper}>
-                <SearchField label="Samtykker" description={<div>Søk etter samtykker her</div>}>
-                    <SearchField.Input onChange={handleSearch} value={search} />
-                    <SearchField.Button>Søk</SearchField.Button>
-                </SearchField>
+                <Search variant="simple" label="Samtykker" onChange={handleSearch} value={search} />
                 <div>
-                    {consents?.map((consent, index) => {
+                    {consentTemplates?.map((template, index) => {
                         return (
-                            <div key={index} className={style.result} onClick={() => addConsent(consent)}>
-                                + {consent.description}
+                            <div key={index} className={style.result} onClick={() => addConsent(template)}>
+                                + {template.title}: {template.description}
                             </div>
                         );
                     }) || <APIHandler error={error} loading={loading} />}

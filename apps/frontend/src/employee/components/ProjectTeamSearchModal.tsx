@@ -1,6 +1,6 @@
 import { IEmployee, IInsightProject } from '@innbyggerpanelet/api-interfaces';
-import { Heading, Modal, SearchField } from '@navikt/ds-react';
-import { ChangeEvent, ReactElement, useState } from 'react';
+import { Heading, Modal, Search } from '@navikt/ds-react';
+import { ReactElement, useState } from 'react';
 import { useTeamMemberByName } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import style from './Modals.module.scss';
@@ -16,8 +16,8 @@ export const ProjectTeamSearchModal = ({ project, setProject, open, close }: IPr
     const [search, setSearch] = useState('');
     const { employees, loading, error } = useTeamMemberByName(search);
 
-    const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value);
+    const handleSearch = (input: string) => {
+        setSearch(input);
     };
 
     const addUser = (employee: IEmployee) => {
@@ -29,11 +29,7 @@ export const ProjectTeamSearchModal = ({ project, setProject, open, close }: IPr
         <Modal open={open} onClose={close}>
             <Modal.Content className={style.modalContentWrapper}>
                 <Heading size="medium">Legg til et nytt medlem.</Heading>
-                <SearchField label="Brukere" description={<div>Søk etter flere NAV ansatte her</div>}>
-                    <SearchField.Input onChange={handleSearch} value={search} />
-                    <SearchField.Button>Søk</SearchField.Button>
-                </SearchField>
-
+                <Search variant="simple" label="Brukere" onChange={handleSearch} value={search} />
                 <div className={style.results}>
                     {employees?.map((employee, index) => (
                         <div className={style.result} key={index} onClick={() => addUser(employee)}>
