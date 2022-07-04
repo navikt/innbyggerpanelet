@@ -1,9 +1,9 @@
-import citizenSchedules from './citizenScheduler';
-import insightSchedules from './insightScheduler';
+import setupCitizenSchedules from './citizenScheduler';
+import setupInsightSchedules from './insightScheduler';
 
 const setupScheduler = () => {
-    citizenSchedules();
-    insightSchedules();
+    setupCitizenSchedules();
+    setupInsightSchedules();
 };
 
 export default setupScheduler;

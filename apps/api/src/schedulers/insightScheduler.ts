@@ -12,16 +12,12 @@ const insightExpiredNotifyEmployees = cron.schedule('0 0 * * *', async () => {
         relations: ['project', 'project.members']
     });
 
-    console.log(insights);
-
     const messageService = new MessageService(database);
     const messages = await messageService.createInsightExpirationNotification(insights);
-
-    console.log(messages);
 });
 
-const insightSchedules = () => {
+const setupInsightSchedules = () => {
     insightExpiredNotifyEmployees.start();
 };
 
-export default insightSchedules;
+export default setupInsightSchedules;
