@@ -8,3 +8,9 @@ export const useInsightsByProjectId = (id: number | string) => {
 
     return { insights: data, loading: !data && !error, error: error };
 };
+
+export const useInsightById = (id: number | string | undefined) => {
+    const { data, error } = useSWR<IInsight, AxiosError>(`/api/insight/${id}`, fetcher);
+
+    return { insight: data, loading: !data && !error, error: error };
+};

@@ -32,7 +32,9 @@ export class InsightService extends BaseService<Insight> {
     }
 
     async getById(id: number | string): Promise<Insight> {
-        const insight = await this._insightRepository.findOne(id, { relations: ['project', 'project.members'] });
+        const insight = await this._insightRepository.findOne(id, {
+            relations: ['project', 'project.members', 'consents', 'consents.template']
+        });
         if (!insight) throw new NotFoundError({ message: ServerErrorMessage.notFound('Insights') });
 
         return insight;

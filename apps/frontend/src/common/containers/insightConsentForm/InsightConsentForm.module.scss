@@ -1,5 +1,11 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+}
+
+.wrapper p + h1,
+.wrapper p + div,
+.wrapper p + p,
+.wrapper div + h1 {
+    margin: 1rem 0 0;
 }

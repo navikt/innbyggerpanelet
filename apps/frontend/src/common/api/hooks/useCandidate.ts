@@ -23,3 +23,9 @@ export const useCandidatesByInsightId = (id: string | number) => {
 
     return { candidates: data, loading: !data && !error, error: error };
 };
+
+export const useCandidateByInsightId = (id: string | number | undefined) => {
+    const { data, error } = useSWR<ICandidate, AxiosError>(`/api/candidate/currentUser/${id}`, fetcher);
+
+    return { candidate: data, loading: !data && !error, error: error };
+};

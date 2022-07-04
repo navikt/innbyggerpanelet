@@ -24,16 +24,9 @@ export const CitizenLandingPage = (): ReactElement => {
                         og slette informasjonen her.
                     </BodyShort>
                 </Link>
-                <Link to={'404'} className={style.selectionCard}>
+                <Link to={'deltagelser'} className={style.selectionCard}>
                     <Heading size="medium">Mine deltakelser</Heading>
                     <BodyShort>Mine deltakelser er en oversikt over alt innsiktsarbeidet du har deltatt på.</BodyShort>
-                </Link>
-                <Link to={'404'} className={style.selectionCard}>
-                    <Heading size="medium">Mine samtykker</Heading>
-                    <BodyShort>
-                        Mine samtykker er en oversikt over dine samtykker. Du kan se, redigere og trekke ditt samtykke
-                        her.
-                    </BodyShort>
                 </Link>
             </div>
         </div>

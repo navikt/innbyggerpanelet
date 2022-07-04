@@ -42,6 +42,22 @@ export class CandidateService extends BaseService<Candidate> {
         return candidates;
     }
 
+    async getByUserIdAndInsightId(insightId: string | number, citizenId: string | number): Promise<Candidate> {
+        const candidates = await this._candidateRepository.find({
+            where: { citizen: citizenId, insight: insightId },
+            relations: [
+                'insight',
+                'insight.project',
+                'insight.project.members',
+                'insight.consents',
+                'insight.consents.template'
+            ]
+        });
+        if (candidates.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidates') });
+
+        return candidates[0];
+    }
+
     async getById(id: number): Promise<Candidate> {
         throw new Error('Method not implemented.');
     }
