@@ -38,8 +38,12 @@ export class CitizenService extends BaseService<Citizen> {
         return await this._citizenRepository.save(dto);
     }
 
-    delete(id: string | number): Promise<void> {
+    async delete(id: string | number): Promise<void> {
         throw new Error('Method not implemented.');
+    }
+
+    async deleteMany(citizens: Citizen[]): Promise<Citizen[]> {
+        return await this._citizenRepository.remove(citizens);
     }
 
     async getPrioritizedCitizens(criteriaIds: string[]): Promise<Citizen[] | undefined> {
@@ -73,6 +77,12 @@ export class CitizenService extends BaseService<Citizen> {
                 return 0;
             }
         });
+
+        return citizens;
+    }
+
+    async getCitizensWithExpirationDate(date: string): Promise<Citizen[] | undefined> {
+        const citizens = await this._citizenRepository.find({ where: { expirationDate: date } });
 
         return citizens;
     }

@@ -2,6 +2,7 @@
 import { IInsight } from '@innbyggerpanelet/api-interfaces';
 import { Transform } from 'class-transformer';
 import { ArrayNotEmpty, IsDate, MinDate, MinLength, Validate } from 'class-validator';
+import { sub } from 'date-fns';
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsBeforeConstraint } from '../../lib/validators/IsBeforeConstraint';
 import { Candidate } from '../candidate/CandidateEntity';
@@ -36,7 +37,7 @@ export class Insight implements IInsight {
     @Column({ type: 'date', default: new Date() })
     @IsDate({ message: 'Ingen sluttdato valgt.' })
     @Transform(({ value }) => new Date(value))
-    @MinDate(new Date(), { message: 'Sluttdato kan ikke være før dagens dato.' })
+    @MinDate(sub(new Date(), { days: 1 }), { message: 'Sluttdato kan ikke være før dagens dato.' })
     end: string;
 
     @OneToMany(() => Candidate, (candidate) => candidate.insight)

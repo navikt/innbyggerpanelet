@@ -7,8 +7,6 @@ interface IProps {
 }
 
 export const ProjectInsightCandidates = ({ candidates }: IProps) => {
-    console.log(candidates);
-
     candidates.map((candidate, index) => {
         if (candidate.status !== EnumCandidateStatus.Accepted && candidate.status !== EnumCandidateStatus.Completed) {
             candidate.citizen = {
