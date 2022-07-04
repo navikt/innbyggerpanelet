@@ -3,7 +3,11 @@
     flex-direction: row;
     gap: 2.5rem;
     margin: 2.5rem auto;
-    justify-content: space-around;
+    justify-content: center;
+}
+
+.wrapper > div {
+    flex: 1;
 }
 
 .candidatesHeader > p {
