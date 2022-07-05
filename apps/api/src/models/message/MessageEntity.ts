@@ -15,7 +15,7 @@ export class Message implements IMessage {
     @Transform(({ value }) => new Date(value))
     timestamp: string;
 
-    @ManyToOne(() => User, (user) => user.messages)
+    @ManyToOne(() => User, (user) => user.messages, { onDelete: 'CASCADE' })
     @JoinColumn()
     recipient: Citizen | Employee;
 

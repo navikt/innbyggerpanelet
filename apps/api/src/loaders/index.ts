@@ -2,6 +2,7 @@ import { Application } from 'express';
 import { Connection } from 'typeorm';
 import expressLoader from '../loaders/express';
 import typeormLoader from '../loaders/typeorm';
+import setupScheduler from '../schedulers';
 import kafka from './kafka';
 import { logger } from './logger';
 import passportLoader from './passport';
@@ -25,10 +26,14 @@ export const load = async ({ server }: { server: Application }) => {
     logger.info('-- loading passport... --');
     const loadedPassport = await passportLoader();
     logger.info('------ PASSPORT LOADED');
-    
+
     logger.info('-- loading kafka... --');
     const loadedKafka = kafka;
     logger.info('------ KAFKA LOADED');
+
+    logger.info('-- loading cron... --');
+    setupScheduler();
+    logger.info('------ CRON LOADED');
 
     loaded = true;
 

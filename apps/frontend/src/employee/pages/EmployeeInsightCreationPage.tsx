@@ -73,8 +73,7 @@ export const EmployeeInsightCreationPage = (): ReactElement => {
         if (candidateMutation.error) throw new Error('Failed to post candidates');
         if (candidateMutation.validationErrors) return setCandidateValidationErrors(candidateMutation.validationErrors);
 
-        if (insightMutation.response && consentMutation.response && candidateMutation.response)
-            navigate(`/prosjekt/${id}`);
+        if (insightMutation.response && candidateMutation.response) navigate(`/ansatt/prosjekt/${id}`);
     };
 
     return (

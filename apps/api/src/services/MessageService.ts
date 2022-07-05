@@ -2,8 +2,10 @@ import { Connection, Repository } from 'typeorm';
 import { ForbiddenError } from '../lib/errors/http/ForbiddenError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
+import { Insight } from '../models/insight/InsightEntity';
 import { Message } from '../models/message/MessageEntity';
 import { messageTemplates } from '../models/message/MessageTemplates';
+import { Citizen } from './../models/citizen/CitizenEntity';
 import BaseService from './BaseService';
 import { InsightService } from './InsightService';
 
@@ -37,6 +39,9 @@ export class MessageService extends BaseService<Message> {
     async create(dto: Message): Promise<Message> {
         return await this._messageRepository.save(dto);
     }
+    async createMany(dtos: Message[]): Promise<Message[]> {
+        return await this._messageRepository.save(dtos);
+    }
 
     async createAcceptCandidatureMessage(insightId: string | number): Promise<Message> {
         const insightService = new InsightService(this._database);
@@ -52,6 +57,19 @@ export class MessageService extends BaseService<Message> {
 
         const message = messageTemplates.candidateDeclined(insight);
         return this.create(message);
+    }
+
+    async createCitizenExpirationNotification(citizens: Citizen[]): Promise<Message[]> {
+        const messages = citizens.map((citizen) => messageTemplates.accountExpiration(citizen));
+        return this.createMany(messages);
+    }
+
+    async createInsightExpirationNotification(insights: Insight[]): Promise<Message[]> {
+        for (const insight of insights) {
+            const employees = insight.project.members;
+            const messages = employees.map((employee) => messageTemplates.insightExpiration(employee, insight));
+            return this.createMany(messages);
+        }
     }
 
     // Check user id against message recipient id

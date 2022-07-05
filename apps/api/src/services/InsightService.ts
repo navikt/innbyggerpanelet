@@ -8,9 +8,10 @@ import BaseService from './BaseService';
 
 export interface IInsightSearch {
     where: {
-        project: string | string[];
+        project?: string | string[];
+        end?: string;
     };
-    relations: string | string[];
+    relations?: string | string[];
 }
 
 export class InsightService extends BaseService<Insight> {

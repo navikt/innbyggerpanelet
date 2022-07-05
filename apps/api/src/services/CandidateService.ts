@@ -108,7 +108,7 @@ export class CandidateService extends BaseService<Candidate> {
         if (config.backend.prod) {
             const smsService = new SmsService(kafka);
             smsService.send({
-                birthNumber: candidate.citizen.id,
+                birthNumber: candidate.citizen.pnr,
                 message: 'Du har en melding om innsiktsarbeid på innbyggerpanelet.'
             });
         }
