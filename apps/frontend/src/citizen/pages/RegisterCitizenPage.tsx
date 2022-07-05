@@ -2,7 +2,7 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { BodyLong, Button, Heading, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
-import { ChangeEvent, MouseEvent, ReactElement, useState } from 'react';
+import { MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../common/api/hooks';
 import { createCitizen } from '../../common/api/mutations/';
@@ -18,12 +18,6 @@ export const RegisterCitizenPage = (): ReactElement => {
     const [citizen, setCitizen] = useState<ICitizen>(user);
     const [citizenValidationErrors, setCitizenValidationErrors] = useFormatValidationErrors();
     const [postError, setPostError] = useState<AxiosError>();
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const result = { ...citizen };
-        result[event.target.id] = event.target.value;
-        setCitizen(result);
-    };
 
     const handleSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -48,7 +42,7 @@ export const RegisterCitizenPage = (): ReactElement => {
                     </Panel>
                     <CitizenContactInfoForm
                         citizen={citizen}
-                        handleChange={handleChange}
+                        setCitizen={setCitizen}
                         validationErrors={citizenValidationErrors}
                     />
                     <CitizenEditCriterias
