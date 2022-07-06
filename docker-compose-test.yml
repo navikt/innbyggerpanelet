@@ -13,8 +13,10 @@ services:
       - '${TEST_HTTP_PORT}:${TEST_HTTP_PORT}'
     depends_on:
       - 'db'
+    environment:
+      - IS_TEST=yes
     env_file:
-      - '.env.test'
+      - .env.test
   db:
     container_name: 'innbyggerpanelet_test_database'
     image: postgres
@@ -30,8 +32,15 @@ services:
       POSTGRES_PASSWORD: ${INNBYGGERPANELET_TEST_POSTGRES_PASSWORD}
       DB_HOST: ${INNBYGGERPANELET_TEST_DB_HOST}
       DB_PORT: ${INNBYGGERPANELET_TEST_DB_PORT}
-    env_file:
-      - '.env.test'
+  redis:
+    container_name: 'innbyggerpanelet_test_redis'
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - innbyggerpanelet_test_api
+    ports:
+      - 6379:7379
 volumes:
   innbyggerpanelet_test_data:
 networks:
