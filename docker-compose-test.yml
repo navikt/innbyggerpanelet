@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  app:
+    container_name: 'innbyggerpanelet_test_api'
+    build:
+      context: .
+      dockerfile: Dockerfile.backend.dev
+    volumes:
+      - './apps/api/src:/app/apps/api/src'
+    networks:
+      - 'innbyggerpanelet_test_api'
+    ports:
+      - '${TEST_HTTP_PORT}:${TEST_HTTP_PORT}'
+    depends_on:
+      - 'db'
+    env_file:
+      - '.env.test'
+  db:
+    container_name: 'innbyggerpanelet_test_database'
+    image: postgres
+    volumes:
+      - innbyggerpanelet_test_data:/var/lib/postgresql/data
+    networks:
+      - innbyggerpanelet_test_api
+    ports:
+      - ${INNBYGGERPANELET_TEST_DB_PORT}:${INNBYGGERPANELET_TEST_DB_PORT}
+    environment:
+      POSTGRES_DB: ${INNBYGGERPANELET_TEST_POSTGRES_DB}
+      POSTGRES_USER: ${INNBYGGERPANELET_TEST_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${INNBYGGERPANELET_TEST_POSTGRES_PASSWORD}
+      DB_HOST: ${INNBYGGERPANELET_TEST_DB_HOST}
+      DB_PORT: ${INNBYGGERPANELET_TEST_DB_PORT}
+    env_file:
+      - '.env.test'
