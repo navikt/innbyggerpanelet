@@ -1,15 +1,19 @@
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { Connection } from 'typeorm';
+import { InsightProject } from '../models/insightProject/InsightProjectEntity';
 import { InsightProjectService } from '../services/InsightProjectService';
 import { getTestDatabase } from '../utils/test/databaseConnection';
+import { clearDatabaseEntityTable } from '../utils/test/clearDatabaseEntityTable';
+import { createDummyInsightProject, deleteDummyInsightProject } from '../utils/test/seed/insightProject';
 
 let db: Connection;
 let insightProjectService: InsightProjectService;
+let insightProject: InsightProject;
 let seedDTO: IInsightProject;
 
 beforeAll(async () => {
-    console.log(process.env.NODE_ENV);
     db = await getTestDatabase();
+    insightProject = await createDummyInsightProject(db);
 
     seedDTO = {
         id: Math.floor(Math.random() * 100_000),
@@ -17,10 +21,38 @@ beforeAll(async () => {
         description: 'The best insight project god has ever seen',
         members: [],
         start: '2022-07-12',
-        end: '2022-07-22'
+        end: '2022-07-22',
+        insights: []
     };
+
+    insightProjectService = new InsightProjectService(db);
 });
 
-it('should be same', () => {
-    expect('yes').toBe('yes');
+beforeEach(async () => {
+    insightProjectService = new InsightProjectService(db);
+    await clearDatabaseEntityTable(db.getRepository(InsightProject));
+});
+
+afterAll(async () => {
+    try {
+        const repository = db.getRepository(InsightProject);
+        await clearDatabaseEntityTable(repository);
+        await deleteDummyInsightProject(db, [insightProject]);
+        await db.close();
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+it('should create a insight project with all data filled out', async () => {
+    const insightProject: InsightProject = await insightProjectService.create({
+        id: Math.floor(Math.random() * 100_000),
+        name: 'Skjermlesertest for nav.no',
+        description: 'En brukertest for å teste hvordan skjermelesere fungerer på nav.no',
+        members: [],
+        start: '2022-07-12',
+        end: '2022-07-22',
+        insights: []
+    });
+    expect(insightProject).toBeInstanceOf(InsightProject);
 });
