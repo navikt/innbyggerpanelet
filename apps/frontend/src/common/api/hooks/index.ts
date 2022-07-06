@@ -1,6 +1,7 @@
 export * from './useCandidate';
 export * from './useCitizen';
 export * from './useConsent';
+export * from './useConsentTemplates';
 export * from './useCriteria';
 export * from './useCriteriaCategory';
 export * from './useEmployee';

@@ -47,9 +47,19 @@ export const EmployeeInsightProjectEdit = ({ project, setProject, submit, valida
             />
             <Label>Prosjektperiode:</Label>
             <div className={style.dates}>
-                <Datepicker value={project.start} onChange={(value) => handleDateChange(value, 'start')} />
+                <Datepicker
+                    value={project.start}
+                    label="Fra"
+                    inputName="start"
+                    onChange={(value) => handleDateChange(value, 'start')}
+                />
                 <BodyShort>til</BodyShort>
-                <Datepicker value={project.end} onChange={(value) => handleDateChange(value, 'end')} />
+                <Datepicker
+                    value={project.end}
+                    label="Til"
+                    inputName="end"
+                    onChange={(value) => handleDateChange(value, 'end')}
+                />
             </div>
             <div>
                 {validationErrors.start && <ErrorList errorMessages={[...validationErrors.start]} />}

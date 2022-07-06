@@ -1,11 +1,12 @@
+import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { Consent } from '../models/consent/ConsentEntity';
 import { ConsentService, IConsentSearch } from '../services/ConsentService';
 
-const consentRouter = Router();
+const consentRoutes = Router();
 
-consentRouter.get('/', async (req, res, next) => {
+consentRoutes.get('/', async (req, res, next) => {
     try {
         const queries = req.query as unknown as IConsentSearch;
 
@@ -18,4 +19,17 @@ consentRouter.get('/', async (req, res, next) => {
     }
 });
 
-export default consentRouter;
+consentRoutes.post('/', async (req, res, next) => {
+    try {
+        const consentService = new ConsentService(database);
+        const newConsent = plainToInstance(Consent, req.body);
+
+        const result = await consentService.create(newConsent);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+export default consentRoutes;

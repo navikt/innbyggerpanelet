@@ -11,11 +11,12 @@
 }
 
 .navds-panel {
-    width: var(--body-width);
+    max-width: var(--body-width);
     margin: 2.5rem auto;
 }
 
-.navds-panel > .navds-button {
+.navds-panel > .navds-button,
+.navds-panel > a > .navds-button {
     position: absolute;
     /* Position element to the right of body with 1rem margin */
     left: calc(((100% - var(--body-width)) / 2) + var(--body-width) + 1rem);

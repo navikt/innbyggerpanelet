@@ -62,7 +62,7 @@ const HeaderWrapper = ({ children }: { children: ReactElement | ReactElement[] |
     return (
         <div className={style.banner}>
             <RouterLink to="/">
-                <Heading size="2xlarge">Innbyggerpanelet</Heading>
+                <Heading size="xlarge">Innbyggerpanelet</Heading>
             </RouterLink>
             <div className={style.buttonGroup}>{children}</div>
         </div>

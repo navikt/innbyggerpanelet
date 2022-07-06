@@ -16,6 +16,11 @@ export const AdminPanel = (): ReactElement => {
                     <LinkPanel.Title>Administrer brukere</LinkPanel.Title>
                 </LinkPanel>
             </Link>
+            <Link to="/admin/samtykker">
+                <LinkPanel>
+                    <LinkPanel.Title>Administrer samtykkemaler</LinkPanel.Title>
+                </LinkPanel>
+            </Link>
         </PanelNoBackground>
     );
 };

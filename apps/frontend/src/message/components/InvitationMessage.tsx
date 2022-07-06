@@ -1,11 +1,8 @@
 import { EnumCandidateStatus, ICandidate } from '@innbyggerpanelet/api-interfaces';
-import { Email, EmailOpen } from '@navikt/ds-icons';
+import { Email, EmailOpened } from '@navikt/ds-icons';
 import { BodyLong, Button, Detail, Heading, Panel } from '@navikt/ds-react';
-import { AxiosError } from 'axios';
 import { ReactElement, useState } from 'react';
-import { acceptCandidature, declineCandidature } from '../../common/api/mutations';
-import { APIHandler } from '../../common/components/apiHandler';
-import { useFormatValidationErrors } from '../../common/hooks';
+import { Link } from 'react-router-dom';
 import style from './Message.module.scss';
 
 interface IProps {
@@ -13,23 +10,7 @@ interface IProps {
 }
 
 export const InvitationMessage = ({ candidate }: IProps): ReactElement => {
-    const [candidateValidationErrors, setCandidateValidationErrors] = useFormatValidationErrors();
-    const [putError, setPutError] = useState<AxiosError>();
     const [open, setOpen] = useState(false);
-
-    const handleAccept = async () => {
-        const { response, error, validationErrors } = await acceptCandidature(candidate);
-        if (error) return setPutError(error);
-        if (validationErrors) return setCandidateValidationErrors(validationErrors);
-        if (response) return;
-    };
-
-    const handleDecline = async () => {
-        const { response, error, validationErrors } = await declineCandidature(candidate);
-        if (error) return setPutError(error);
-        if (validationErrors) return setCandidateValidationErrors(validationErrors);
-        if (response) return;
-    };
 
     const handleOpen = () => {
         setOpen(!open);
@@ -39,7 +20,7 @@ export const InvitationMessage = ({ candidate }: IProps): ReactElement => {
     return (
         <Panel>
             <div className={style.messageHeading} onClick={handleOpen}>
-                {candidate.status !== EnumCandidateStatus.Pending || open ? <EmailOpen /> : <Email />}
+                {candidate.status !== EnumCandidateStatus.Pending || open ? <EmailOpened /> : <Email />}
                 <Heading size="medium">{candidate.insight.name}</Heading>
                 <Detail>{candidate.status}</Detail>
             </div>
@@ -53,10 +34,10 @@ export const InvitationMessage = ({ candidate }: IProps): ReactElement => {
                     Vennligst aksepter invitasjonen om du er interessert i å delta, beskjed om nærmere tidspunkt vil
                     komme fortløpende.
                 </BodyLong>
-                {putError && <APIHandler loading={false} error={putError} />}
                 <div className={style.buttonGroup}>
-                    <Button onClick={handleDecline}>Avslå</Button>
-                    <Button onClick={handleAccept}>Godta</Button>
+                    <Link to={`/innbygger/innsikt/${candidate.insight.id}`} className={style.buttonGroup}>
+                        <Button as="div">Gå til samtykkeskjema</Button>
+                    </Link>
                 </div>
             </div>
         </Panel>

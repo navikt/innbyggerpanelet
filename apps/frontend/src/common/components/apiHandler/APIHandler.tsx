@@ -1,7 +1,7 @@
 import { Heading, Loader, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ReactElement } from 'react';
-
+import style from './APIHandler.module.scss';
 interface IProps {
     loading: boolean;
     error: AxiosError | undefined;
@@ -30,5 +30,5 @@ export const APIHandler = ({ loading, error }: IProps): ReactElement => {
         }
     }
 
-    return <Panel>{element}</Panel>;
+    return <Panel className={style.wrapper}>{element}</Panel>;
 };

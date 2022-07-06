@@ -42,7 +42,7 @@ export class ConsentService extends BaseService<Consent> {
     }
 
     async create(dto: Consent): Promise<Consent | undefined> {
-        throw new Error('not implemented');
+        return await this._consentRepository.save(dto);
     }
 
     async update(id: number, dto: Consent): Promise<Consent | undefined> {

@@ -17,7 +17,7 @@ azureADRoutes.get('/login', (req, res, next) => {
 
 azureADRoutes.get('/oauth2/callback', (req, res, next) => {
     passport.authenticate('azureAD', {
-        successRedirect: config.frontend.url + '/#/hjem',
+        successRedirect: config.frontend.url + '/#/ansatt',
         failureRedirect: '/api/azure/login'
     })(req, res, next);
 });

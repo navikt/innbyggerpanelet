@@ -47,6 +47,21 @@ candidateRouter.get('/currentUser', citizenAuthenticated, async (req, res, next)
     }
 });
 
+candidateRouter.get('/currentUser/:insightId', citizenAuthenticated, async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        const insightId = parseInt(req.params.insightId);
+
+        const candidateService = new CandidateService(database);
+
+        const result: Candidate = await candidateService.getByUserIdAndInsightId(insightId, id);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
 candidateRouter.post('/', async (req, res, next) => {
     try {
         const candidateService = new CandidateService(database);

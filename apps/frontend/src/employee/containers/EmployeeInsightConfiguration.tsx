@@ -1,4 +1,4 @@
-import { IConsent, ICriteria, IInsight } from '@innbyggerpanelet/api-interfaces';
+import { IConsent, IConsentTemplate, ICriteria, IInsight } from '@innbyggerpanelet/api-interfaces';
 import { Datepicker } from '@navikt/ds-datepicker';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 import '@navikt/ds-datepicker/lib/index.css';
@@ -39,9 +39,9 @@ export const EmployeeInsightConfiguration = ({ insight, setInsight, validationEr
         setInsight(newInsight);
     };
 
-    const addConsent = (consent: IConsent) => {
+    const addConsent = (consent: IConsentTemplate) => {
         const newInsight = { ...insight };
-        newInsight.consents = [...newInsight.consents, consent];
+        newInsight.consents = [...newInsight.consents, { template: consent, required: true }];
 
         setInsight(newInsight);
     };
@@ -56,7 +56,7 @@ export const EmployeeInsightConfiguration = ({ insight, setInsight, validationEr
 
     const removeConsent = (consent: IConsent) => {
         const newInsight = { ...insight };
-        const filteredConsents = newInsight.consents.filter((item) => item.id !== consent.id);
+        const filteredConsents = newInsight.consents.filter((item) => item.template.id !== consent.template.id);
 
         newInsight.consents = filteredConsents;
         setInsight(newInsight);
@@ -84,9 +84,19 @@ export const EmployeeInsightConfiguration = ({ insight, setInsight, validationEr
                 <div>
                     <Label>Innsiktsperiode</Label>
                     <div className={style.dates}>
-                        <Datepicker value={insight.start} onChange={(value) => handleDateChange(value, 'start')} />
+                        <Datepicker
+                            value={insight.start}
+                            label="Fra"
+                            inputName="start"
+                            onChange={(value) => handleDateChange(value, 'start')}
+                        />
                         <BodyShort>til</BodyShort>
-                        <Datepicker value={insight.end} onChange={(value) => handleDateChange(value, 'end')} />
+                        <Datepicker
+                            value={insight.end}
+                            label="Til"
+                            inputName="end"
+                            onChange={(value) => handleDateChange(value, 'end')}
+                        />
                     </div>
                     {validationErrors.start && <ErrorList errorMessages={[...validationErrors.start]} />}
                     {validationErrors.end && <ErrorList errorMessages={[...validationErrors.end]} />}
@@ -113,7 +123,7 @@ export const EmployeeInsightConfiguration = ({ insight, setInsight, validationEr
                     {insight.consents.map((consent, index) => {
                         return (
                             <div className={style.listItem}>
-                                <div key={index}>{consent.description}</div>
+                                <div key={index}>{consent.template.title}</div>
                                 <Close onClick={() => removeConsent(consent)} />
                             </div>
                         );

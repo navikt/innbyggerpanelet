@@ -1,6 +1,7 @@
 import { Candidate } from './candidate/CandidateEntity';
 import { Citizen } from './citizen/CitizenEntity';
 import { Consent } from './consent/ConsentEntity';
+import { ConsentTemplate } from './consentTemplate/ConsentTemplateEntity';
 import { Criteria } from './criteria/CriteriaEntity';
 import { CriteriaCategory } from './criteriaCategory/CriteriaCategoryEntity';
 import { Employee } from './employee/EmployeeEntity';
@@ -12,6 +13,7 @@ import { User } from './user/UserEntity';
 const models = [
     Candidate,
     Consent,
+    ConsentTemplate,
     Criteria,
     CriteriaCategory,
     Insight,
