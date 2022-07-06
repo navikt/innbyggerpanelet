@@ -1,6 +1,6 @@
+import { IConsentTemplate } from '@innbyggerpanelet/api-interfaces';
 import { ValidationError } from 'class-validator';
 import { poster } from '../operations';
-import { IConsentTemplate } from './../../../../../../libs/api-interfaces/src/lib/api-interfaces';
 
 export const createConsentTemplate = async (consentTemplate: IConsentTemplate) => {
     const { data, error } = await poster<IConsentTemplate>('/api/consentTemplate', consentTemplate);

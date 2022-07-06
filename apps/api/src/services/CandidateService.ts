@@ -43,7 +43,7 @@ export class CandidateService extends BaseService<Candidate> {
     }
 
     async getByUserIdAndInsightId(insightId: string | number, citizenId: string | number): Promise<Candidate> {
-        const candidates = await this._candidateRepository.find({
+        const candidate = await this._candidateRepository.findOne({
             where: { citizen: citizenId, insight: insightId },
             relations: [
                 'insight',
@@ -53,9 +53,9 @@ export class CandidateService extends BaseService<Candidate> {
                 'insight.consents.template'
             ]
         });
-        if (candidates.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidates') });
+        if (!candidate) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidate') });
 
-        return candidates[0];
+        return candidate;
     }
 
     async getById(id: number): Promise<Candidate> {

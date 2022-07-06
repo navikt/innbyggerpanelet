@@ -4,6 +4,7 @@ import {
     ICandidate,
     ICitizen,
     IConsent,
+    IConsentTemplate,
     ICriteria,
     ICriteriaCategory,
     IEmployee,
@@ -11,7 +12,6 @@ import {
     IInsightProject,
     IUser
 } from '@innbyggerpanelet/api-interfaces';
-import { IConsentTemplate } from './../../../../../libs/api-interfaces/src/lib/api-interfaces';
 
 const allCriteriaCategories: ICriteriaCategory[] = [
     {

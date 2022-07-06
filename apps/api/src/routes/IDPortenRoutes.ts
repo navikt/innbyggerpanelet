@@ -18,7 +18,7 @@ IDPortenRoutes.get('/api/idporten/login', (req, res, next) => {
 
 IDPortenRoutes.get('/oauth2/callback', (req, res, next) => {
     passport.authenticate('idPorten', {
-        successRedirect: config.frontend.url + '/#/hjem',
+        successRedirect: config.frontend.url + '/#/innbygger',
         failureRedirect: '/api/idporten/login'
     })(req, res, next);
 });
