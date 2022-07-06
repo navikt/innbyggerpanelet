@@ -3,12 +3,12 @@ import { AxiosError } from 'axios';
 import useSWR from 'swr';
 import { fetcher } from '../operations';
 
-export const useCitizenByCriterias = (criterias: ICriteria[], endDate: string) => {
+export const useCitizenByCriterias = (criterias: ICriteria[], insightEndDate: string) => {
     const criteriasQueryString = criterias.map((c) => `criterias[]=${c.id}`).join('&');
-    const endDateQueryString = `&enddate=${endDate}`;
+    const insightEndDateQueryString = `&insightEndDate=${insightEndDate}`;
 
     const { data, error } = useSWR<ICitizen[], AxiosError>(
-        `/api/citizen/prioritized?${criteriasQueryString + endDateQueryString}`,
+        `/api/citizen/prioritized?${criteriasQueryString + insightEndDateQueryString}`,
         fetcher
     );
 

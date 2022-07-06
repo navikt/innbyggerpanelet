@@ -23,10 +23,10 @@ citizenRoutes.get('/currentUser', authenticated, async (req, res, next) => {
 citizenRoutes.get('/prioritized', navAuthenticated, async (req, res, next) => {
     try {
         const criterias = (req.query.criterias as unknown as string[]) || [];
-        const endDate = req.query.enddate as unknown as string;
+        const insightEndDate = req.query.insightEndDate as unknown as string;
 
         const citizenService = new CitizenService(database);
-        const result: Citizen[] = await citizenService.getPrioritizedCitizens(criterias, endDate);
+        const result: Citizen[] = await citizenService.getPrioritizedCitizens(criterias, insightEndDate);
         return res.json(result);
     } catch (error) {
         next(error);
