@@ -43,7 +43,7 @@ export const EmployeeInsightCreationPage = (): ReactElement => {
 
     const [consentValidationErrors, setConsentValidationError] = useFormatValidationErrors();
 
-    const { citizens, loading, error } = useCitizenByCriterias(insight.criterias);
+    const { citizens, loading, error } = useCitizenByCriterias(insight.criterias, insight.end);
 
     const handleSubmit = async () => {
         if (!id) throw new Error('This project does not exist.');

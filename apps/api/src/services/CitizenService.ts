@@ -46,7 +46,7 @@ export class CitizenService extends BaseService<Citizen> {
         return await this._citizenRepository.remove(citizens);
     }
 
-    async getPrioritizedCitizens(criteriaIds: string[]): Promise<Citizen[] | undefined> {
+    async getPrioritizedCitizens(criteriaIds: string[], endDate: string): Promise<Citizen[] | undefined> {
         if (criteriaIds.length === 0) {
             throw new NotFoundError({ message: ServerErrorMessage.invalidData([]) });
         }
@@ -54,6 +54,7 @@ export class CitizenService extends BaseService<Citizen> {
         const citizens = await this._citizenRepository
             .createQueryBuilder('citizen')
             .select('citizen.id')
+            .where('"expirationDate" > :endDate', { endDate })
             .leftJoinAndSelect('citizen.criterias', 'criteria', 'criteria.id IN (:...criteriaIds)', { criteriaIds })
             .groupBy('citizen.id')
             .addGroupBy('criteria.id')
