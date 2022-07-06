@@ -32,3 +32,7 @@ services:
       DB_PORT: ${INNBYGGERPANELET_TEST_DB_PORT}
     env_file:
       - '.env.test'
+volumes:
+  innbyggerpanelet_test_data:
+networks:
+  innbyggerpanelet_test_api:

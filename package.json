@@ -17,7 +17,8 @@
     "affected": "nx affected",
     "matrix": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE|tr -d '\\n'|jq -cRs 'split(\" \")'",
     "docker-sms-up": "sudo docker-compose -f docker-compose-sms.yml -p innbyggerpanelet-sms up --build",
-    "docker-sms-down": "sudo docker-compose -f docker-compose-sms.yml down"
+    "docker-sms-down": "sudo docker-compose -f docker-compose-sms.yml down",
+    "docker-test-up": "sudo docker-compose -e IS_TEST=yes -f docker-compose-test-yml up -d"
   },
   "private": true,
   "dependencies": {
