@@ -1,17 +1,31 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
-import { Heading, Panel, TextField } from '@navikt/ds-react';
+import { Refresh } from '@navikt/ds-icons';
+import { Button, Heading, Panel, TextField } from '@navikt/ds-react';
+import { add } from 'date-fns/esm';
 import { ChangeEvent, ReactElement } from 'react';
 import { IValidationError } from '../../common/hooks';
 import style from './CitizenContactInfoForm.module.scss';
 
 interface IProps {
     citizen: ICitizen;
-    handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    setCitizen: (citizen: ICitizen) => void;
     validationErrors: IValidationError;
 }
 
-export const CitizenContactInfoForm = ({ citizen, handleChange, validationErrors }: IProps): ReactElement => {
+export const CitizenContactInfoForm = ({ citizen, setCitizen, validationErrors }: IProps): ReactElement => {
     const { firstname, surname, phone, expirationDate } = citizen;
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const result = { ...citizen };
+        result[event.target.id] = event.target.value;
+        setCitizen(result);
+    };
+
+    const handleExtendDate = () => {
+        const newDate = add(new Date(), { years: 1 }).toISOString().slice(0, 10);
+
+        setCitizen({ ...citizen, expirationDate: newDate });
+    };
 
     return (
         <Panel className={style.contactInfo}>
@@ -40,14 +54,19 @@ export const CitizenContactInfoForm = ({ citizen, handleChange, validationErrors
                 onChange={handleChange}
                 error={validationErrors.phone}
             />
-            <TextField
-                label="Utløpsdato"
-                id="expirationDate"
-                name="expirationDate"
-                disabled={true}
-                value={expirationDate}
-                error={validationErrors.expirationDate}
-            />
+            <div className={style.expiration}>
+                <TextField
+                    label="Utløpsdato"
+                    id="expirationDate"
+                    name="expirationDate"
+                    disabled={true}
+                    value={expirationDate}
+                    error={validationErrors.expirationDate}
+                />
+                <Button onClick={handleExtendDate}>
+                    <Refresh />
+                </Button>
+            </div>
         </Panel>
     );
 };
