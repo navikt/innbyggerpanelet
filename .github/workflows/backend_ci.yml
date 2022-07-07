@@ -41,4 +41,5 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.INNBYGGERPANELET_POSTGRES_PASSWORD }}
           DB_PORT: ${{ secrets.INNBYGGERPANELET_DB_PORT }}
           DB_HOST: ${{ secrets.INNBYGGERPANELET_DB_HOST }}
+          IDPORTEN_CLIENT_JWK: ${{ secrets.IDPORTEN_CLIENT_JWK }}
         run: npm run test api
