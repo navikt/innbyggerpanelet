@@ -5,15 +5,20 @@ import { InsightProjectService } from '../services/InsightProjectService';
 import { getTestDatabase } from '../utils/test/databaseConnection';
 import { clearDatabaseEntityTable } from '../utils/test/clearDatabaseEntityTable';
 import { createDummyInsightProject, deleteDummyInsightProject } from '../utils/test/seed/insightProject';
+import { plainToInstance } from 'class-transformer';
+import { Employee } from '../models/employee/EmployeeEntity';
+import { createDummyEmployee } from '../utils/test/seed/employee';
 
 let db: Connection;
 let insightProjectService: InsightProjectService;
 let insightProject: InsightProject;
 let seedDTO: IInsightProject;
+let employee: Employee;
 
 beforeAll(async () => {
     db = await getTestDatabase();
     insightProject = await createDummyInsightProject(db);
+    employee = await createDummyEmployee(db);
 
     seedDTO = {
         id: Math.floor(Math.random() * 100_000),
@@ -45,14 +50,14 @@ afterAll(async () => {
 });
 
 it('should create a insight project with all data filled out', async () => {
-    const insightProject: InsightProject = await insightProjectService.create({
+    const insightProject: InsightProject = await insightProjectService.create(plainToInstance(InsightProject, {
         id: Math.floor(Math.random() * 100_000),
         name: 'Skjermlesertest for nav.no',
         description: 'En brukertest for å teste hvordan skjermelesere fungerer på nav.no',
-        members: [],
+        members: [employee],
         start: '2022-07-12',
         end: '2022-07-22',
         insights: []
-    });
+    }));
     expect(insightProject).toBeInstanceOf(InsightProject);
 });
