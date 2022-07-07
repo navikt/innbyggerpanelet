@@ -18,7 +18,6 @@ let employee: Employee;
 beforeAll(async () => {
     db = await getTestDatabase();
     insightProject = await createDummyInsightProject(db);
-    employee = await createDummyEmployee(db);
 
     seedDTO = {
         id: Math.floor(Math.random() * 100_000),
@@ -36,6 +35,8 @@ beforeAll(async () => {
 beforeEach(async () => {
     insightProjectService = new InsightProjectService(db);
     await clearDatabaseEntityTable(db.getRepository(InsightProject));
+    await clearDatabaseEntityTable(db.getRepository(Employee));
+    employee = await createDummyEmployee(db);
 });
 
 afterAll(async () => {

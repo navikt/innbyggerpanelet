@@ -2,20 +2,35 @@ name: Backend CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/insight-tests]
   pull_request:
     branches: [main]
 
 jobs:
-  build:
-    name: Backend tests
+  test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: ${{ secrets.INNBYGGERPANELET_POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.INNBYGGERPANELET_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.INNBYGGERPANELET_POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - ${{ secrets.INNBYGGERPANELET_DB_PORT}}:${{ secrets.INNBYGGERPANELET_DB_PORT}}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout branch
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
         with:
-          node-version: '14'
-      - name: Install
+          node-version: "15.8"
+      - name: Install dependencies
         run: npm install
       - name: Build
         run: npm run build api
