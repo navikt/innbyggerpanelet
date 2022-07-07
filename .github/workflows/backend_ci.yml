@@ -22,7 +22,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - ${{ secrets.INNBYGGERPANELET_DB_PORT}}:${{ secrets.INNBYGGERPANELET_DB_PORT}}
+          - 5432:5432
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2
@@ -35,4 +35,10 @@ jobs:
       - name: Build
         run: npm run build api
       - name: Test
+        env:
+          POSTGRES_DB: ${{ secrets.INNBYGGERPANELET_POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.INNBYGGERPANELET_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.INNBYGGERPANELET_POSTGRES_PASSWORD }}
+          DB_PORT: ${{ secrets.INNBYGGERPANELET_DB_PORT }}
+          DB_HOST: ${{ secrets.INNBYGGERPANELET_DB_HOST }}
         run: npm run test api
