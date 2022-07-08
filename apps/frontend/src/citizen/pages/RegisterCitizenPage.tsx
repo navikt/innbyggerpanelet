@@ -24,7 +24,7 @@ export const RegisterCitizenPage = (): ReactElement => {
         const { response, error, validationErrors } = await createCitizen(citizen);
         if (error) return setPostError(error);
         if (validationErrors) return setCitizenValidationErrors(validationErrors);
-        if (response) navigate('/profil');
+        if (response) navigate('/innbygger/profil');
     };
 
     return (
