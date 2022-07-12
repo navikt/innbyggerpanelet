@@ -8,7 +8,8 @@ import style from './NewConsentTemplateAdministration.module.scss';
 
 const defaultConsentTemplate: IConsentTemplate = {
     title: '',
-    description: ''
+    description: '',
+    version: 1
 };
 
 export const NewConsentTemplateAdministration = (): ReactElement => {

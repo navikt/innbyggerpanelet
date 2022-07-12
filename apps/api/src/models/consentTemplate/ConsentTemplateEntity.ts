@@ -13,6 +13,9 @@ export class ConsentTemplate implements IConsentTemplate {
     @OneToMany(() => Consent, (consent) => consent.insight)
     consents: Consent[];
 
+    @Column({ default: 1 })
+    version: number;
+
     @Column()
     title: string;
 
