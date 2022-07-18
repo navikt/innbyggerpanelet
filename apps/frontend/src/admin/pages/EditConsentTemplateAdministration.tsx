@@ -11,6 +11,7 @@ import style from './EditConsentTemplateAdministration.module.scss';
 const defaultConsentTemplate: IConsentTemplate = {
     title: '',
     description: '',
+    newest: true,
     version: 0
 };
 

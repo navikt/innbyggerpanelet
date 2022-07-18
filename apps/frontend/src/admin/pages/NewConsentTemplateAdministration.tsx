@@ -9,6 +9,7 @@ import style from './NewConsentTemplateAdministration.module.scss';
 const defaultConsentTemplate: IConsentTemplate = {
     title: '',
     description: '',
+    newest: true,
     version: 1
 };
 
