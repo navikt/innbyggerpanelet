@@ -24,9 +24,9 @@ export const AlertMessage = ({ message }: IProps): ReactElement => {
             <div className={style.messageHeading} onClick={handleOpen}>
                 {message.read ? <EmailOpened /> : <Email />}
                 <Heading size="medium">{message.title}</Heading>
-                <Detail>{message.timestamp.slice(0, 10)}</Detail>
             </div>
             <div className={open ? style.open : style.closed}>
+                <Detail>{message.timestamp.slice(0, 10)}</Detail>
                 <BodyLong>{message.description}</BodyLong>
                 {message.ref && (
                     <Link to={message.ref} className={style.buttonGroup}>

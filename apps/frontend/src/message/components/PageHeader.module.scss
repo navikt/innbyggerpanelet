@@ -1,0 +1,33 @@
+.wrapper {
+    position: relative;
+}
+
+.wrapper h1 {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.circleWrapper {
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circleWrapper svg {
+    vertical-align: middle;
+    font-size: 2rem;
+    position: absolute;
+    top: -1rem;
+}
+
+.circleWrapper::before {
+    content: ' ';
+    position: absolute;
+    top: -2rem;
+    background-color: #e0d8e9;
+    border-radius: 100%;
+    height: 4rem;
+    width: 4rem;
+}
