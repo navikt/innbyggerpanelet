@@ -3,10 +3,11 @@ import { Router } from 'express';
 import { database } from '../loaders';
 import { ConsentTemplate } from './../models/consentTemplate/ConsentTemplateEntity';
 import { ConsentTemplateService, IConsentTemplateSearch } from './../services/ConsentTemplateService';
+import { adminAuthenticated, navAuthenticated } from './middleware/authenticationHandler';
 
 const consentTemplateRoutes = Router();
 
-consentTemplateRoutes.get('/', async (req, res, next) => {
+consentTemplateRoutes.get('/', navAuthenticated, async (req, res, next) => {
     try {
         const queries = req.query as unknown as IConsentTemplateSearch;
 
@@ -19,7 +20,7 @@ consentTemplateRoutes.get('/', async (req, res, next) => {
     }
 });
 
-consentTemplateRoutes.get('/:id', async (req, res, next) => {
+consentTemplateRoutes.get('/:id', adminAuthenticated, async (req, res, next) => {
     try {
         const consentTemplateId = parseInt(req.params.id);
 
@@ -32,7 +33,7 @@ consentTemplateRoutes.get('/:id', async (req, res, next) => {
     }
 });
 
-consentTemplateRoutes.post('/', async (req, res, next) => {
+consentTemplateRoutes.post('/', adminAuthenticated, async (req, res, next) => {
     try {
         const consentTemplateService = new ConsentTemplateService(database);
         const newConsentTemplate: ConsentTemplate = plainToInstance(ConsentTemplate, req.body);
@@ -44,7 +45,7 @@ consentTemplateRoutes.post('/', async (req, res, next) => {
     }
 });
 
-consentTemplateRoutes.put('/', async (req, res, next) => {
+consentTemplateRoutes.put('/', adminAuthenticated, async (req, res, next) => {
     try {
         const consentTemplateService = new ConsentTemplateService(database);
         const updatedConsentTemplate: ConsentTemplate = plainToInstance(ConsentTemplate, req.body);
