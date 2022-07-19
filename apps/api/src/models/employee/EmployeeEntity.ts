@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { IEmployee } from '@innbyggerpanelet/api-interfaces';
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { ChildEntity, Column, ManyToMany } from 'typeorm';
+import { ChildEntity, Column, ManyToMany, OneToMany } from 'typeorm';
 import { InsightProject } from '../insightProject/InsightProjectEntity';
 import { User } from '../user/UserEntity';
 
@@ -16,4 +16,7 @@ export class Employee extends User implements IEmployee {
 
     @ManyToMany(() => InsightProject, (insightProject) => insightProject.members)
     insightProjects: InsightProject[];
+
+    @OneToMany(() => InsightProject, (insightProject) => insightProject.owner)
+    ownerships: InsightProject[];
 }

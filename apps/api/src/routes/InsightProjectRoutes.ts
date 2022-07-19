@@ -4,6 +4,7 @@ import { Router } from 'express';
 import { database } from '../loaders';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
 import { IInsightProjectSearch, InsightProjectService } from '../services/';
+import { MessageService } from './../services/MessageService';
 import { navAuthenticated } from './middleware/authenticationHandler';
 
 const insightProjectRoutes = Router();
@@ -62,12 +63,16 @@ insightProjectRoutes.get('/:id', async (req, res, next) => {
     }
 });
 
-insightProjectRoutes.post('/', async (req, res, next) => {
+insightProjectRoutes.post('/', navAuthenticated, async (req, res, next) => {
     try {
-        const insightProjectService = new InsightProjectService(database);
-        const newInsightProject = plainToInstance(InsightProject, req.body);
+        const { id } = req.user;
 
+        const insightProjectService = new InsightProjectService(database);
+        const newInsightProject = plainToInstance(InsightProject, { ...req.body, owner: id });
         const result = await insightProjectService.create(newInsightProject);
+
+        const messageService = new MessageService(database);
+        await messageService.createInsightProjectCreationNotifications(newInsightProject);
 
         res.json(result);
     } catch (error) {

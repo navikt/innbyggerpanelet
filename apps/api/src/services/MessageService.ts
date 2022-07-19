@@ -3,10 +3,12 @@ import { ForbiddenError } from '../lib/errors/http/ForbiddenError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Insight } from '../models/insight/InsightEntity';
+import { InsightProject } from '../models/insightProject/InsightProjectEntity';
 import { Message } from '../models/message/MessageEntity';
 import { messageTemplates } from '../models/message/MessageTemplates';
 import { Citizen } from './../models/citizen/CitizenEntity';
 import BaseService from './BaseService';
+import { InsightProjectService } from './InsightProjectService';
 import { InsightService } from './InsightService';
 
 export class MessageService extends BaseService<Message> {
@@ -70,6 +72,20 @@ export class MessageService extends BaseService<Message> {
             const messages = employees.map((employee) => messageTemplates.insightExpiration(employee, insight));
             return this.createMany(messages);
         }
+    }
+
+    async createInsightCreationNotifications(insight: Insight): Promise<Message[]> {
+        const insightProjectService = new InsightProjectService(this._database);
+        const project = await insightProjectService.getById(insight.project.id);
+
+        const messages = project.members.map((member) => messageTemplates.insightCreation(member, insight));
+
+        return this.createMany(messages);
+    }
+
+    async createInsightProjectCreationNotifications(project: InsightProject): Promise<Message[]> {
+        const messages = project.members.map((member) => messageTemplates.projectInvitation(member, project));
+        return this.createMany(messages);
     }
 
     // Check user id against message recipient id

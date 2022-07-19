@@ -60,6 +60,7 @@ const teamMember: IEmployee = {
     role: EnumUserRole.InsightWorker,
     criterias: [],
     registered: true,
+    ownerships: [],
     insightProjects: [],
     firstname: 'Terje',
     surname: 'Navansatt'
@@ -71,6 +72,7 @@ const primaryProject: IInsightProject = {
     description: 'Primært prosjektbeskrivelse',
     start: '01.12.2021',
     end: '01.04.2021',
+    owner: teamMember,
     members: [teamMember]
 };
 
