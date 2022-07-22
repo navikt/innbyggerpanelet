@@ -2,7 +2,9 @@ import { Connection, Repository } from 'typeorm';
 import { ForbiddenError } from '../lib/errors/http/ForbiddenError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
+import { Criteria } from '../models/criteria/CriteriaEntity';
 import { Insight } from '../models/insight/InsightEntity';
+import { InsightProject } from '../models/insightProject/InsightProjectEntity';
 import { Message } from '../models/message/MessageEntity';
 import { messageTemplates } from '../models/message/MessageTemplates';
 import { Citizen } from './../models/citizen/CitizenEntity';
@@ -70,6 +72,25 @@ export class MessageService extends BaseService<Message> {
             const messages = employees.map((employee) => messageTemplates.insightExpiration(employee, insight));
             return this.createMany(messages);
         }
+    }
+
+    async createInsightCreationNotifications(insight: Insight): Promise<Message[]> {
+        const members = insight.project.members;
+        const messages: Message[] = members.map((member) => messageTemplates.insightCreation(insight, member));
+        return this.createMany(messages);
+    }
+
+    async createInsightProjectCreationNotifications(insightProject: InsightProject): Promise<Message[]> {
+        const members = insightProject.members;
+        const messages: Message[] = members.map((member) =>
+            messageTemplates.insightProjectCreation(insightProject, member)
+        );
+        return this.createMany(messages);
+    }
+
+    async createCriteriaUpdateNotifications(criteria: Criteria, citizens: Citizen[]): Promise<Message[]> {
+        const messages: Message[] = citizens.map((citizen) => messageTemplates.criteriaUpdate(citizen, criteria));
+        return this.createMany(messages);
     }
 
     // Check user id against message recipient id
