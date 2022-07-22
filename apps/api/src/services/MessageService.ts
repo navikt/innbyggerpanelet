@@ -2,13 +2,13 @@ import { Connection, Repository } from 'typeorm';
 import { ForbiddenError } from '../lib/errors/http/ForbiddenError';
 import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
+import { Criteria } from '../models/criteria/CriteriaEntity';
 import { Insight } from '../models/insight/InsightEntity';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
 import { Message } from '../models/message/MessageEntity';
 import { messageTemplates } from '../models/message/MessageTemplates';
 import { Citizen } from './../models/citizen/CitizenEntity';
 import BaseService from './BaseService';
-import { InsightProjectService } from './InsightProjectService';
 import { InsightService } from './InsightService';
 
 export class MessageService extends BaseService<Message> {
@@ -75,16 +75,19 @@ export class MessageService extends BaseService<Message> {
     }
 
     async createInsightCreationNotifications(insight: Insight): Promise<Message[]> {
-        const insightProjectService = new InsightProjectService(this._database);
-        const project = await insightProjectService.getById(insight.project.id);
-
-        const messages = project.members.map((member) => messageTemplates.insightCreation(member, insight));
-
+        const members = insight.project.members;
+        const messages: Message[] = members.map((member) => messageTemplates.insightCreation(member, insight));
         return this.createMany(messages);
     }
 
-    async createInsightProjectCreationNotifications(project: InsightProject): Promise<Message[]> {
-        const messages = project.members.map((member) => messageTemplates.projectInvitation(member, project));
+    async createInsightProjectCreationNotifications(insightProject: InsightProject): Promise<Message[]> {
+        const members = insightProject.members;
+        const messages: Message[] = members.map((member) => messageTemplates.projectInvitation(member, insightProject));
+        return this.createMany(messages);
+    }
+
+    async createCriteriaUpdateNotifications(criteria: Criteria, citizens: Citizen[]): Promise<Message[]> {
+        const messages: Message[] = citizens.map((citizen) => messageTemplates.criteriaUpdate(citizen, criteria));
         return this.createMany(messages);
     }
 

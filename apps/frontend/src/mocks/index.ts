@@ -46,6 +46,8 @@ const allCriterias: ICriteria[] = [
 const allConsentTemplates: IConsentTemplate[] = [
     {
         id: 1,
+        version: 1,
+        newest: true,
         title: 'Samtykker til skjermopptak',
         description:
             'Testkandidaten samtykker til at utfører at testen kan bruke programvare for å gjøre opptak av skjermen under testen.'

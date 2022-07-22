@@ -31,6 +31,9 @@ export const ConsentTemplateAdministration = (): ReactElement => {
                             <Accordion.Header>{template.title}</Accordion.Header>
                             <Accordion.Content>
                                 <BodyLong>{template.description}</BodyLong>
+                                <Link to={`/admin/samtykker/${template.id}`}>
+                                    <Button as="div">Rediger</Button>
+                                </Link>
                             </Accordion.Content>
                         </Accordion.Item>
                     )) || <APIHandler error={error} loading={loading} />}

@@ -1,4 +1,4 @@
-import { ICitizen, IEmployee, IInsight, IInsightProject } from '@innbyggerpanelet/api-interfaces';
+import { ICitizen, ICriteria, IEmployee, IInsight, IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { plainToInstance } from 'class-transformer';
 import { Message } from './MessageEntity';
 
@@ -75,11 +75,24 @@ const projectInvitation = (employee: IEmployee, project: IInsightProject) => {
     return message;
 };
 
+const criteriaUpdate = (citizen: ICitizen, criteria: ICriteria) => {
+    const message = plainToInstance(Message, {
+        timestamp: new Date(),
+        recipient: citizen,
+        title: 'Kriterie oppdatert',
+        description: `Et kriterie du har benyttet deg av har blitt oppdatert, vennligst sjekk om dette kriteriet fortsatt gjelder deg. Hvis ikke, fjern det fra din profil. \n Oppdatert kriterie: ${criteria.category.name} - ${criteria.name}`,
+        ref: '/innbygger/profil'
+    });
+
+    return message;
+};
+
 export const messageTemplates = {
     candidateAccepted,
     candidateDeclined,
     accountExpiration,
     insightExpiration,
     insightCreation,
-    projectInvitation
+    projectInvitation,
+    criteriaUpdate
 };

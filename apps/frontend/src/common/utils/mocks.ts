@@ -47,6 +47,8 @@ const allConsentTemplates: IConsentTemplate[] = [
     {
         id: 1,
         title: 'Samtykker til skjermopptak',
+        version: 1,
+        newest: true,
         description:
             'Testkandidaten samtykker til av utfører at testen kan bruke programvare for å gjøre opptak av skjermen under testen.'
     }

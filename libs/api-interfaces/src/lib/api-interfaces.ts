@@ -86,10 +86,12 @@ export interface IConsent {
 }
 
 export interface IConsentTemplate {
-    [key: string]: number | string | undefined;
+    [key: string]: number | string | boolean | undefined;
     id?: number;
     title: string;
     description: string;
+    version: number;
+    newest: boolean;
 }
 
 export interface ICriteria {
