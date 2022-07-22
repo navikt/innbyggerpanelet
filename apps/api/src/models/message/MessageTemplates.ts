@@ -1,4 +1,4 @@
-import { ICitizen, IEmployee, IInsight } from '@innbyggerpanelet/api-interfaces';
+import { ICitizen, ICriteria, IEmployee, IInsight, IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { plainToInstance } from 'class-transformer';
 import { Message } from './MessageEntity';
 
@@ -38,10 +38,10 @@ const accountExpiration = (citizen: ICitizen) => {
     return message;
 };
 
-const insightExpiration = (Employee: IEmployee, insight: IInsight) => {
+const insightExpiration = (employee: IEmployee, insight: IInsight) => {
     const message = plainToInstance(Message, {
         timestamp: new Date(),
-        recipient: Employee,
+        recipient: employee,
         title: `${insight.name} har utløpt.`,
         description:
             'Vennligst påse at all informasjon relatert til dette innsiktsarbeidet har blitt anonymisert da kanditatenes samtykker har gått ut på dato.',
@@ -51,4 +51,48 @@ const insightExpiration = (Employee: IEmployee, insight: IInsight) => {
     return message;
 };
 
-export const messageTemplates = { candidateAccepted, candidateDeclined, accountExpiration, insightExpiration };
+const insightProjectCreation = (project: IInsightProject, employee: IEmployee) => {
+    const message = plainToInstance(Message, {
+        timestamp: new Date(),
+        recipient: employee,
+        title: `Prosjekt opprettet: ${project.name}`,
+        description: 'Et nytt prosjekt som du er medlem av har blitt opprettet.',
+        ref: `/ansatt/prosjekt/${project.id}`
+    });
+
+    return message;
+};
+
+const insightCreation = (insight: IInsight, employee: IEmployee) => {
+    const message = plainToInstance(Message, {
+        timestamp: new Date(),
+        recipient: employee,
+        title: `Innsiktsarbeid opprettet: ${insight.name}`,
+        description: `Et nytt innsiktsarbeid er opprettet under prosjektet ${insight.project.name}.`,
+        ref: `/prosjekt/${insight.project.id}`
+    });
+
+    return message;
+};
+
+const criteriaUpdate = (citizen: ICitizen, criteria: ICriteria) => {
+    const message = plainToInstance(Message, {
+        timestamp: new Date(),
+        recipient: citizen,
+        title: 'Kriterie oppdatert',
+        description: `Et kriterie du har benyttet deg av har blitt oppdatert, vennligst sjekk om dette kriteriet fortsatt gjelder deg. Hvis ikke, fjern det fra din profil. \n Oppdatert kriterie: ${criteria.category.name} - ${criteria.name}`,
+        ref: '/innbygger/profil'
+    });
+
+    return message;
+};
+
+export const messageTemplates = {
+    accountExpiration,
+    candidateAccepted,
+    candidateDeclined,
+    insightExpiration,
+    insightCreation,
+    insightProjectCreation,
+    criteriaUpdate
+};
