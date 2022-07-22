@@ -3,28 +3,55 @@ import cron from 'node-cron';
 import { database } from '../loaders';
 import { CitizenService } from './../services/CitizenService';
 import { MessageService } from './../services/MessageService';
+import cronLogger, { EnumScheduleTypes } from './cronLogging';
 
-const citizenExpirationDateNotification = cron.schedule('0 0 * * *', async () => {
+const citizenExpirationDateNotification = cron.schedule('0 0 * * *', async (now: Date) => {
+    cronLogger.scheduleStart('Citizen Expiration Notification');
+
     const dateOneMonthFromNow = add(new Date(), { months: 1 }).toISOString().slice(0, 10);
 
-    const citizenService = new CitizenService(database);
-    const citizens = await citizenService.getCitizensWithExpirationDate(dateOneMonthFromNow);
+    try {
+        const citizenService = new CitizenService(database);
+        const citizens = await citizenService.getCitizensWithExpirationDate(dateOneMonthFromNow);
 
-    if (!citizens) return;
+        if (!citizens) return;
 
-    const messageService = new MessageService(database);
-    const messages = await messageService.createCitizenExpirationNotification(citizens);
+        const messageService = new MessageService(database);
+        const messages = await messageService.createCitizenExpirationNotification(citizens);
+
+        cronLogger.scheduleStop(
+            'Citizen Expiration Notification',
+            'Message',
+            messages.length,
+            EnumScheduleTypes.Create
+        );
+    } catch (error) {
+        cronLogger.scheduleInterrupted('Citizen Expiration Notification');
+    }
 });
 
 const citizenExpirationDateDeletion = cron.schedule('0 0 * * *', async () => {
+    cronLogger.scheduleStart('Citizen Expiration Deletion');
+
     const dateToday = new Date().toISOString().slice(0, 10);
 
-    const citizenService = new CitizenService(database);
-    const citizens = await citizenService.getCitizensWithExpirationDate(dateToday);
+    try {
+        const citizenService = new CitizenService(database);
+        const citizens = await citizenService.getCitizensWithExpirationDate(dateToday);
 
-    if (!citizens) return;
+        if (!citizens) return;
 
-    await citizenService.deleteMany(citizens);
+        const deletedCitizens = await citizenService.deleteMany(citizens);
+
+        cronLogger.scheduleStop(
+            'Citizen Expiration Deletion',
+            'User',
+            deletedCitizens.length,
+            EnumScheduleTypes.Delete
+        );
+    } catch (error) {
+        cronLogger.scheduleInterrupted('Citizen Expiration Deletion');
+    }
 });
 
 const setupCitizenSchedules = () => {
