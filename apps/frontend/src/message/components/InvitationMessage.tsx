@@ -22,9 +22,9 @@ export const InvitationMessage = ({ candidate }: IProps): ReactElement => {
             <div className={style.messageHeading} onClick={handleOpen}>
                 {candidate.status !== EnumCandidateStatus.Pending || open ? <EmailOpened /> : <Email />}
                 <Heading size="medium">{candidate.insight.name}</Heading>
-                <Detail>{candidate.status}</Detail>
             </div>
             <div className={open ? style.open : style.closed}>
+                <Detail>{candidate.status}</Detail>
                 <BodyLong>
                     Hei, du er invitert til <b>{candidate.insight.name}</b> i perioden
                     <b>{' ' + candidate.insight.start + ' til ' + candidate.insight.end}</b> med beskrivelse "
@@ -35,7 +35,11 @@ export const InvitationMessage = ({ candidate }: IProps): ReactElement => {
                     komme fortløpende.
                 </BodyLong>
                 <div className={style.buttonGroup}>
-                    <Link to={`/innbygger/innsikt/${candidate.insight.id}`} className={style.buttonGroup}>
+                    <Button as="div" variant="secondary">
+                        Avslå invitasjon
+                    </Button>
+
+                    <Link to={`/innbygger/innsikt/${candidate.insight.id}`}>
                         <Button as="div">Gå til samtykkeskjema</Button>
                     </Link>
                 </div>

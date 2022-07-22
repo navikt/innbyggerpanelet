@@ -1,7 +1,7 @@
 .buttonGroup {
     display: flex;
     flex-direction: row;
-    justify-content: right;
+    justify-content: space-between;
     gap: 1rem;
     margin: 1.5rem 0 0;
 }
@@ -9,17 +9,10 @@
 .messageHeading {
     display: flex;
     flex-direction: row;
-    border-bottom: var(--nav-medium-gray) 1px solid;
-    margin: 0 0 1.5rem;
 
     svg {
-        margin: auto 0.5rem auto 0;
-    }
-
-    > p {
-        text-align: right;
-        flex-grow: 1;
-        margin: auto 0;
+        margin: auto 2rem auto 0;
+        font-size: 2rem;
     }
 }
 
@@ -32,6 +25,7 @@
 
 .open {
     display: block;
+    margin: 1rem 0 0;
 }
 
 .closed {
