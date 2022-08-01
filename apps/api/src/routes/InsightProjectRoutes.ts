@@ -66,7 +66,6 @@ insightProjectRoutes.post('/', async (req, res, next) => {
     try {
         const insightProjectService = new InsightProjectService(database);
         const newInsightProject = plainToInstance(InsightProject, req.body);
-
         const result = await insightProjectService.create(newInsightProject);
 
         res.json(result);

@@ -11,3 +11,9 @@ export const useConsentTemplateSearchByTitle = (title: string) => {
 
     return { consentTemplates: data, loading: !error && !data, error };
 };
+
+export const useConsentTemplateById = (id: number | string | undefined) => {
+    const { data, error } = useSWR<IConsentTemplate, AxiosError>(`/api/consentTemplate/${id}`, fetcher);
+
+    return { consentTemplate: data, loading: !error && !data, error };
+};
