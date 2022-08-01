@@ -65,6 +65,7 @@ insightProjectRoutes.get('/:id', async (req, res, next) => {
 
 insightProjectRoutes.post('/', navAuthenticated, async (req, res, next) => {
     try {
+
         const { id } = req.user;
 
         const insightProjectService = new InsightProjectService(database);

@@ -70,6 +70,7 @@ const projectInvitation = (employee: IEmployee, project: IInsightProject) => {
         title: `Nytt prosjekt: ${project.name}.`,
         description: `Du har blitt lagt til som medlem i et prosjekt ${project.name}.`,
         ref: `/ansatt/prosjekt/${project.id}`
+
     });
 
     return message;
