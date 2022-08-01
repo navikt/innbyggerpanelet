@@ -15,7 +15,7 @@ interface IProps {
 export const CandidatePicker = ({ index, citizen, insight, candidates, setCandidates }: IProps): ReactElement => {
     // Does citizen already exist in selected candidates
     const isSelected = (): boolean => {
-        const exists = candidates.find((c) => c.citizen.id === citizen.id);
+        const exists = candidates.find((c) => c.citizen?.id === citizen.id);
         return exists !== undefined;
     };
 
@@ -46,7 +46,7 @@ export const CandidatePicker = ({ index, citizen, insight, candidates, setCandid
         const newCandidates = [...candidates];
 
         if (exists) {
-            setCandidates(newCandidates.filter((c) => c.citizen.id !== citizen.id));
+            setCandidates(newCandidates.filter((c) => c.citizen?.id !== citizen.id));
         } else {
             setCandidates([
                 ...newCandidates,

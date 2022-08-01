@@ -1,0 +1,20 @@
+.expiration {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.expiration > div {
+    flex: 1;
+}
+
+.expiration button {
+    flex: 1;
+    height: 3rem;
+    margin: auto 0 0;
+}
+
+.expiration button:last-child {
+    flex: 2;
+}

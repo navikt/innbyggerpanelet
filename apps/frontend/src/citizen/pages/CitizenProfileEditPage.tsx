@@ -7,7 +7,7 @@ import { useUser } from '../../common/api/hooks';
 import { updateCitizen } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
 import { useFormatValidationErrors } from '../../common/hooks';
-import { CitizenContactInfoForm, CitizenEditCriterias } from '../containers';
+import { CitizenConsentExpirationControl, CitizenContactInfoForm, CitizenEditCriterias } from '../containers';
 import style from './CitizenProfileEditPage.module.scss';
 
 export const CitizenProfileEditPage = (): ReactElement => {
@@ -44,6 +44,7 @@ export const CitizenProfileEditPage = (): ReactElement => {
                 setCitizen={setCitizen}
                 validationErrors={citizenValidationErrors}
             />
+            <CitizenConsentExpirationControl citizen={citizen} />
             <Panel>
                 {putError && <APIHandler loading={loading} error={putError} />}
                 <div className={style.editButtons}>
