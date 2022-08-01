@@ -2,7 +2,7 @@ import { plainToInstance } from 'class-transformer';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { Insight } from '../models/insight/InsightEntity';
-import { IInsightSearch } from '../services';
+import { IInsightSearch, MessageService } from '../services';
 import { InsightService } from './../services/InsightService';
 
 const insightRouter = Router();
@@ -38,8 +38,10 @@ insightRouter.post('/', async (req, res, next) => {
     try {
         const insightService = new InsightService(database);
         const newInsight = plainToInstance(Insight, req.body);
-
         const result = await insightService.create(newInsight);
+
+        const messageService = new MessageService(database);
+        await messageService.createInsightCreationNotifications(newInsight);
 
         res.json(result);
     } catch (error) {

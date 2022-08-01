@@ -69,6 +69,7 @@ const passportLoader = async () => {
                         email: user.claims.preferred_username,
                         role: EnumUserRole.InsightWorker,
                         registered: true,
+                        ownerships: [],
                         insightProjects: [],
                         messages: []
                     };

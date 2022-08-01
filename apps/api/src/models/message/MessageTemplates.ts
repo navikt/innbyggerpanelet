@@ -8,7 +8,7 @@ const candidateAccepted = (insight: IInsight) => {
         recipient: insight.project.members[0], // Needs better solution
         title: `Oppdatering vedrørende kandidat i ${insight.name}`,
         description: `En innbygger har takket ja til å delta i innsiktsarbeidet: ${insight.name}. Gå videre for å lese kontaktinformasjon.`,
-        ref: `/prosjekt/${insight.project.id}`
+        ref: `/ansatt/prosjekt/${insight.project.id}`
     });
 
     return message;
@@ -20,7 +20,7 @@ const candidateDeclined = (insight: IInsight) => {
         recipient: insight.project.members[0], // Needs better solution
         title: `Oppdatering vedrørende kandidat i ${insight.name}`,
         description: `En innbygger har takket nei til å delta i innsiktsarbeidet: ${insight.name}. Gå videre for å invitere nye kandidater.`,
-        ref: `/prosjekt/${insight.project.id}`
+        ref: `/ansatt/prosjekt/${insight.project.id}`
     });
 
     return message;
@@ -44,32 +44,33 @@ const insightExpiration = (employee: IEmployee, insight: IInsight) => {
         recipient: employee,
         title: `${insight.name} har utløpt.`,
         description:
-            'Vennligst påse at all informasjon relatert til dette innsiktsarbeidet har blitt anonymisert da kanditatenes samtykker har gått ut på dato.',
+            'Vennligst påse at all informasjon relatert til dette innsiktsarbeidet har blitt anonymisert da kanditatenes samtykke har gått ut på dato.',
         ref: `/ansatt/prosjekt/${insight.project.id}`
     });
 
     return message;
 };
 
-const insightProjectCreation = (project: IInsightProject, employee: IEmployee) => {
+const insightCreation = (employee: IEmployee, insight: IInsight) => {
     const message = plainToInstance(Message, {
         timestamp: new Date(),
         recipient: employee,
-        title: `Prosjekt opprettet: ${project.name}`,
-        description: 'Et nytt prosjekt som du er medlem av har blitt opprettet.',
-        ref: `/ansatt/prosjekt/${project.id}`
+        title: `Nytt innsiktsarbeid: ${insight.name}.`,
+        description: 'Et nytt innsiktsarbeid har blitt opprettet i et prosjekt du er medlem av.',
+        ref: `/ansatt/prosjekt/${insight.project.id}`
     });
 
     return message;
 };
 
-const insightCreation = (insight: IInsight, employee: IEmployee) => {
+const projectInvitation = (employee: IEmployee, project: IInsightProject) => {
     const message = plainToInstance(Message, {
         timestamp: new Date(),
         recipient: employee,
-        title: `Innsiktsarbeid opprettet: ${insight.name}`,
-        description: `Et nytt innsiktsarbeid er opprettet under prosjektet ${insight.project.name}.`,
-        ref: `/prosjekt/${insight.project.id}`
+        title: `Nytt prosjekt: ${project.name}.`,
+        description: `Du har blitt lagt til som medlem i et prosjekt ${project.name}.`,
+        ref: `/ansatt/prosjekt/${project.id}`
+
     });
 
     return message;
@@ -88,11 +89,11 @@ const criteriaUpdate = (citizen: ICitizen, criteria: ICriteria) => {
 };
 
 export const messageTemplates = {
-    accountExpiration,
     candidateAccepted,
     candidateDeclined,
+    accountExpiration,
     insightExpiration,
     insightCreation,
-    insightProjectCreation,
+    projectInvitation,
     criteriaUpdate
 };
