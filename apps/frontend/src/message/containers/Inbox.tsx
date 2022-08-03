@@ -1,7 +1,8 @@
 import { IMessage } from '@innbyggerpanelet/api-interfaces';
 import { Email } from '@navikt/ds-icons';
 import { ReactElement } from 'react';
-import { AlertMessage, PageHeader } from '../components/';
+import { PageHeader } from '../../common/components/pageHeader';
+import { AlertMessage } from '../components/';
 
 interface IProps {
     messages: IMessage[];

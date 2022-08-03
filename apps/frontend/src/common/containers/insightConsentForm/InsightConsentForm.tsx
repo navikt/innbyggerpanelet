@@ -1,5 +1,5 @@
 import { IInsight } from '@innbyggerpanelet/api-interfaces';
-import { BodyLong, Checkbox, Detail, Heading } from '@navikt/ds-react';
+import { BodyLong, Detail, Heading } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import style from './InsightConsentForm.module.scss';
 
@@ -67,7 +67,6 @@ export const InsightConsentForm = ({ insight }: IProps): ReactElement => {
             </ul>
             <Heading size="large">Samtykke</Heading>
             <BodyLong>Med dette samtykker jeg til overnevnte punktene... osv...</BodyLong>
-            <Checkbox value={true}>Jeg samtykker.</Checkbox>
         </div>
     );
 };

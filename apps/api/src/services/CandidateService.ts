@@ -36,7 +36,10 @@ export class CandidateService extends BaseService<Candidate> {
     }
 
     async getByUserId(id: string): Promise<Candidate[]> {
-        const candidates = await this._candidateRepository.find({ where: { citizen: id }, relations: ['insight'] });
+        const candidates = await this._candidateRepository.find({
+            where: { citizen: id },
+            relations: ['insight', 'insight.project']
+        });
         if (candidates.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidates') });
 
         return candidates;
@@ -139,7 +142,7 @@ export class CandidateService extends BaseService<Candidate> {
         const update = await this._candidateRepository
             .createQueryBuilder()
             .update(Candidate)
-            .set({ status: EnumCandidateStatus.Declined })
+            .set({ status: EnumCandidateStatus.Declined, hasConsented: false })
             .where('citizen = :citizenId AND insight = :insightId', { citizenId, insightId })
             .execute();
 
