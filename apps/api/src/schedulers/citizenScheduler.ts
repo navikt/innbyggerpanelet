@@ -1,6 +1,7 @@
 import { add } from 'date-fns';
 import cron from 'node-cron';
 import { database } from '../loaders';
+import { CandidateService } from '../services';
 import { CitizenService } from './../services/CitizenService';
 import { MessageService } from './../services/MessageService';
 import cronLogger, { EnumScheduleTypes } from './cronLogging';
@@ -40,6 +41,11 @@ const citizenExpirationDateDeletion = cron.schedule('0 0 * * *', async () => {
         const citizens = await citizenService.getCitizensWithExpirationDate(dateToday);
 
         if (!citizens) return;
+
+        const candidateService = new CandidateService(database);
+        for (const citizen of citizens) {
+            candidateService.anonymizeUser(citizen.id);
+        }
 
         const deletedCitizens = await citizenService.deleteMany(citizens);
 
