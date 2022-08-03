@@ -33,6 +33,18 @@ citizenRoutes.get('/prioritized', navAuthenticated, async (req, res, next) => {
     }
 });
 
+citizenRoutes.get('/full', authenticated, async (req, res, next) => {
+    try {
+        const { id } = req.user;
+
+        const citizenService = new CitizenService(database);
+        const result: Citizen = await citizenService.getFullCitizenById(id);
+        return res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
 citizenRoutes.post('/', authenticated, async (req, res, next) => {
     try {
         const citizenService = new CitizenService(database);
