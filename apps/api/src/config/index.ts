@@ -1,6 +1,11 @@
 import dotenv from 'dotenv';
+import { cwd } from 'process';
 
-dotenv.config();
+if (process.env.NODE_ENV === 'test') {
+    dotenv.config({ path: cwd() + '/.env.test' });
+} else {
+    dotenv.config();
+}
 
 let host;
 let port;
