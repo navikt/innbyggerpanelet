@@ -11,16 +11,3 @@
 .contactName {
     grid-column: span 2;
 }
-
-.expiration {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-.expiration button {
-    flex: 1;
-    height: 3rem;
-    margin: auto 0 0;
-}

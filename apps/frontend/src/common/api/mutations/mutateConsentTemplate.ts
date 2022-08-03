@@ -27,3 +27,16 @@ export const updateConsentTemplate = async (consentTemplate: IConsentTemplate) =
         error: error
     };
 };
+
+export const disableConsentTemplate = async (consentTemplate: IConsentTemplate) => {
+    const { data, error } = await putter<IConsentTemplate>('/api/consentTemplate/disable', consentTemplate);
+
+    if (error?.response?.status === 406) {
+        return { response: data, validationErrors: JSON.parse(error.response.data.message) as ValidationError[] };
+    }
+
+    return {
+        response: data,
+        error: error
+    };
+};

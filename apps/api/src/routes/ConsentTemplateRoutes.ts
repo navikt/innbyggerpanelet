@@ -60,4 +60,16 @@ consentTemplateRoutes.put('/', adminAuthenticated, async (req, res, next) => {
     }
 });
 
+consentTemplateRoutes.put('/disable', adminAuthenticated, async (req, res, next) => {
+    try {
+        const consentTemplateService = new ConsentTemplateService(database);
+        const disabledConsentTemplate: ConsentTemplate = plainToInstance(ConsentTemplate, req.body);
+        const result: ConsentTemplate = await consentTemplateService.disable(disabledConsentTemplate);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default consentTemplateRoutes;
