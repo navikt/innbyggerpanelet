@@ -5,6 +5,11 @@
     gap: 1rem;
 }
 
-.buttons button {
+.buttons button,
+.buttons a {
     flex: 1;
+}
+
+.buttons > a > div {
+    width: 100%;
 }

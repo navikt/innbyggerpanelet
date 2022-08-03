@@ -1,30 +1,19 @@
-import { Accordion, BodyLong, Button, Heading, Panel } from '@navikt/ds-react';
+import { Findout } from '@navikt/ds-icons';
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
 import { useCandidatesByCurrentUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
-import style from './CitizenCandidaturesPage.module.scss';
+import { PageHeader } from '../../common/components/pageHeader';
+import { CitizenCandidature } from '../containers';
 
 export const CitizenCandidaturesPage = (): ReactElement => {
     const { candidates, loading, error } = useCandidatesByCurrentUser();
 
     return (
-        <Panel className={style.wrapper}>
-            <Heading size="xlarge">Deltagelser</Heading>
-            <BodyLong>Her kan du se en oversikt over alle innsiktsarbeid du har deltatt i.</BodyLong>
-            <Accordion>
-                {candidates?.map((candidate, index) => (
-                    <Accordion.Item key={index}>
-                        <Accordion.Header>{candidate.insight.name}</Accordion.Header>
-                        <Accordion.Content className={style.candidatureContent}>
-                            <BodyLong>{candidate.insight.description}</BodyLong>
-                            <Link to={`/innbygger/innsikt/${candidate.insight.id}`}>
-                                <Button as="div">Se samtykkeskjema</Button>
-                            </Link>
-                        </Accordion.Content>
-                    </Accordion.Item>
-                )) || <APIHandler loading={loading} error={error} />}
-            </Accordion>
-        </Panel>
+        <>
+            <PageHeader title="Mine deltagelser" icon={<Findout />} />
+            {candidates?.map((candidate, index) => <CitizenCandidature key={index} candidate={candidate} />) || (
+                <APIHandler loading={loading} error={error} />
+            )}
+        </>
     );
 };
