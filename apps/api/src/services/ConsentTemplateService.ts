@@ -60,7 +60,7 @@ export class ConsentTemplateService extends BaseService<ConsentTemplate> {
         const errors = await validate(dto);
         if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
 
-        await this._consentRepository.save({ id: dto.id, version: dto.version, newest: false });
+        await this.disable(dto);
 
         const consentTemplate = await this._consentRepository.save({ ...dto, version: dto.version + 1 });
         return consentTemplate;
@@ -68,5 +68,12 @@ export class ConsentTemplateService extends BaseService<ConsentTemplate> {
 
     delete(id: string | number): Promise<void> {
         throw new Error('Method not implemented.');
+    }
+
+    async disable(dto: ConsentTemplate): Promise<ConsentTemplate> {
+        const errors = await validate(dto);
+        if (errors.length > 0) throw new NotAcceptableError({ message: ServerErrorMessage.invalidData(errors) });
+
+        return await this._consentRepository.save({ id: dto.id, version: dto.version, newest: false });
     }
 }
