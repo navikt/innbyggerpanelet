@@ -150,6 +150,15 @@ export class CandidateService extends BaseService<Candidate> {
         return candidate;
     }
 
+    async anonymizeUser(userId: string | number): Promise<void> {
+        await this._candidateRepository
+            .createQueryBuilder()
+            .update(Candidate)
+            .set({ status: EnumCandidateStatus.Deleted })
+            .where('"citizenId" = :id', { id: userId })
+            .execute();
+    }
+
     async delete(id: number): Promise<void> {
         throw new Error('Method not implemented.');
     }

@@ -22,7 +22,7 @@ export class Citizen extends User implements ICitizen {
     @Transform(({ value }) => new Date(value))
     expirationDate?: string;
 
-    @OneToMany(() => Candidate, (candidate) => candidate.citizen)
+    @OneToMany(() => Candidate, (candidate) => candidate.citizen, { nullable: true, cascade: true })
     candidates: Candidate[];
 
     @ManyToMany(() => Criteria)
