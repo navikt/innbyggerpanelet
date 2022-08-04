@@ -1,16 +1,17 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
-import { BodyLong, Heading, Panel } from '@navikt/ds-react';
+import { BodyLong, Heading, Panel, TextField } from '@navikt/ds-react';
 import React from 'react';
 import { ReactElement } from 'react';
-import { useUser } from '../../common/api/hooks';
+import { useCriteriaCategory, useUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import style from './RegisterCitizen.module.scss';
 
 export const RegisterCitizen = (): ReactElement => {
     const { user, loading, error } = useUser<ICitizen>();
-    
+    const { categories } = useCriteriaCategory();
+    console.log(categories);
     return (
         <>
             {user ? (
@@ -26,6 +27,13 @@ export const RegisterCitizen = (): ReactElement => {
                         de undersøkelsene som passer best til din situasjon.
                         </BodyLong>
                     </Panel>
+                    <div>
+                        <Panel className={style.citizenInfoInputContainer}>
+                            <TextField label="Navn"/>
+                            <TextField label="Alder (år)" className={style.ageInput}/>
+                            <TextField label="Telefonnummer" className={style.phoneInput} />
+                        </Panel>
+                    </div>
                 </>
             ) : (
                 <APIHandler loading={loading} error={error}/>

@@ -12,7 +12,7 @@ export class Criteria implements ICriteria {
     id: number;
 
     @Column()
-    @MinLength(5, { message: 'Navn er for kort, minst 5 bokstaver.' })
+    @MinLength(2, { message: 'Navn er for kort, minst 2 bokstaver.' })
     name: string;
 
     @Column({ nullable: true })
