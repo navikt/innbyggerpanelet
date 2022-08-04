@@ -1,4 +1,5 @@
 import { plainToInstance } from 'class-transformer';
+import { add } from 'date-fns';
 import { Router } from 'express';
 import { database } from '../loaders';
 import { Citizen } from '../models/citizen/CitizenEntity';
@@ -65,6 +66,36 @@ citizenRoutes.put('/', authenticated, async (req, res, next) => {
         const result = await citizenService.update(updatedCitizen.id, updatedCitizen);
 
         res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+citizenRoutes.put('/extend', authenticated, async (req, res, next) => {
+    try {
+        const { id } = req.user;
+
+        const citizenService = new CitizenService(database);
+        const updatedCitizen = plainToInstance(Citizen, {
+            ...req.body,
+            expirationDate: add(new Date(), { years: 1 }).toISOString().slice(0, 10)
+        });
+        const result = await citizenService.update(id, updatedCitizen);
+
+        res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
+citizenRoutes.delete('/', authenticated, async (req, res, next) => {
+    try {
+        const { id } = req.user;
+
+        const citizenService = new CitizenService(database);
+        await citizenService.delete(id);
+
+        res.json({ message: 'User deleted' });
     } catch (error) {
         next(error);
     }

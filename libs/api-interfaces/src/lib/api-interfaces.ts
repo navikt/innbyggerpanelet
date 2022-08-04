@@ -37,11 +37,12 @@ export enum EnumCandidateStatus {
     Completed = 'COMPLETED',
     Accepted = 'ACCEPTED',
     Declined = 'DECLINED',
+    Deleted = 'DELETED',
 }
 
 export interface ICandidate {
     relevancyGrading: number;
-    citizen: ICitizen;
+    citizen?: ICitizen;
     insight: IInsight;
     hasConsented: boolean;
     status: EnumCandidateStatus;

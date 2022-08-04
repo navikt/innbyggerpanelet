@@ -5,6 +5,7 @@ import { NotFoundError } from '../lib/errors/http/NotFoundError';
 import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Citizen } from '../models/citizen/CitizenEntity';
 import BaseService from './BaseService';
+import { CandidateService } from './CandidateService';
 
 export class CitizenService extends BaseService<Citizen> {
     private _database: Connection;
@@ -47,7 +48,10 @@ export class CitizenService extends BaseService<Citizen> {
     }
 
     async delete(id: string | number): Promise<void> {
-        throw new Error('Method not implemented.');
+        const candidateService = new CandidateService(this._database);
+        await candidateService.anonymizeUser(id);
+
+        await this._citizenRepository.delete(id);
     }
 
     async deleteMany(citizens: Citizen[]): Promise<Citizen[]> {
