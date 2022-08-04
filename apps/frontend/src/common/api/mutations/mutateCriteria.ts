@@ -1,7 +1,7 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { ValidationError } from 'class-validator';
 import { mutate } from 'swr';
-import { poster, putter } from '../operations';
+import { deleter, poster, putter } from '../operations';
 
 export const createCriteria = async (criteria: ICriteria) => {
     const { data, error } = await poster<ICriteria>('/api/criteria', criteria);
@@ -35,8 +35,6 @@ export const updateCriteria = async (criteria: ICriteria) => {
 
 export const deleteCriteria = async (criteria: ICriteria) => {
     const { data, error } = await deleter<ICriteria>(`/api/criteria/${criteria.id}`);
-
-    mutate(`/api/criteria?where[category]=${criteria.category.id}`);
 
     return { response: data, error: error };
 };

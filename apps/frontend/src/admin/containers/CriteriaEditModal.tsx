@@ -30,13 +30,13 @@ export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps
         const { response, error, validationErrors } = await updateCriteria(criteria);
         if (error) return setPutError(error);
         if (validationErrors) return setCriteriaValidationErrors(validationErrors);
-        if (response) close();
+        if (response) return close();
     };
 
     const handleDelete = async () => {
         const { response, error } = await deleteCriteria(criteria);
         if (error) return setPutError(error);
-        if (response) close();
+        if (response) return close();
     };
 
     return (
