@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ICandidate, ICitizen, ICriteria, IMessage } from '@innbyggerpanelet/api-interfaces';
-import { People } from '@navikt/ds-icons';
+import { Download, People } from '@navikt/ds-icons';
 import { Button, Heading, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
@@ -37,8 +37,18 @@ export const CitizenProfilePage = (): ReactElement => {
                 messages: messages!,
                 candidates: fullCitizen!.candidates
             };
-            console.log(citizenData);
+            
+            const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+                JSON.stringify(citizenData)
+            )}`;
+
+            const link = document.createElement('a');
+            link.href = jsonString;
+            link.download = `${citizenData.firstname}-${citizenData.surname}-data.json`;
+
+            link.click();
         }
+
     };
 
     return (
@@ -61,7 +71,7 @@ export const CitizenProfilePage = (): ReactElement => {
                         <CitizenPerformedInsight id={user.id} />
                     </Panel>
                     <Button as="div" onClick={onDownloadCitizenData}>
-                        Last ned persondata
+                        Last ned persondata <Download />
                     </Button>
                 </>
             ) : (

@@ -28,7 +28,7 @@ export class CitizenService extends BaseService<Citizen> {
 
     async getFullCitizenById(id: string | number): Promise<Citizen> {
         const citizen = await this._citizenRepository.findOne(id, {
-            relations: ['criterias', 'candidates', 'candidates.insight']
+            relations: ['criterias', 'candidates', 'candidates.insight', 'candidates.insight.consents']
         });
         if (!citizen) throw new NotFoundError({ message: ServerErrorMessage.notFound('Citizen') });
         return citizen;
