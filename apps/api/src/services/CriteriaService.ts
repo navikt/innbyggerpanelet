@@ -74,6 +74,6 @@ export class CriteriaService extends BaseService<Criteria> {
     }
 
     async delete(id: number): Promise<void> {
-        throw new Error('not implemented');
+        await this._criteriaRepository.delete(id);
     }
 }

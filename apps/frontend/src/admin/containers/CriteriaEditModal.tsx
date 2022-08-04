@@ -2,7 +2,7 @@ import { ICriteria } from '@innbyggerpanelet/api-interfaces';
 import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
-import { updateCriteria } from '../../common/api/mutations';
+import { deleteCriteria, updateCriteria } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
 import { useFormatValidationErrors } from '../../common/hooks/';
 import style from './Modals.module.scss';
@@ -33,6 +33,12 @@ export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps
         if (response) close();
     };
 
+    const handleDelete = async () => {
+        const { response, error } = await deleteCriteria(criteria);
+        if (error) return setPutError(error);
+        if (response) close();
+    };
+
     return (
         <Modal open={open} onClose={close}>
             <Modal.Content className={style.editModal}>
@@ -55,7 +61,12 @@ export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps
                     onChange={handleChange}
                 />
                 {putError && <APIHandler loading={false} error={putError} />}
-                <Button onClick={handleSubmit}>Bekreft</Button>
+                <div className={style.buttons}>
+                    <Button onClick={handleDelete} variant="danger">
+                        Slett kriterie
+                    </Button>
+                    <Button onClick={handleSubmit}>Bekreft</Button>
+                </div>
             </Modal.Content>
         </Modal>
     );

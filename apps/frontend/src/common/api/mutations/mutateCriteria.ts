@@ -32,3 +32,11 @@ export const updateCriteria = async (criteria: ICriteria) => {
         error: error
     };
 };
+
+export const deleteCriteria = async (criteria: ICriteria) => {
+    const { data, error } = await deleter<ICriteria>(`/api/criteria/${criteria.id}`);
+
+    mutate(`/api/criteria?where[category]=${criteria.category.id}`);
+
+    return { response: data, error: error };
+};
