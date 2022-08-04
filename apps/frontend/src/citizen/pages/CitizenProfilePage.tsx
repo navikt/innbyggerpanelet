@@ -26,25 +26,26 @@ export const CitizenProfilePage = (): ReactElement => {
     
     const { fullCitizen } = useFullCitizen();
     const { messages } = useMessages();
+    
     const onDownloadCitizenData = () => {
         if (fullCitizen) {
             const citizenData: CitizenData = {
-                firstname: fullCitizen!.firstname,
-                surname: fullCitizen!.surname,
-                phone: fullCitizen!.phone,
-                pnr: fullCitizen!.pnr,
-                criterias: fullCitizen!.criterias,
+                firstname: fullCitizen.firstname,
+                surname: fullCitizen.surname,
+                phone: fullCitizen.phone,
+                pnr: fullCitizen.pnr,
+                criterias: fullCitizen.criterias,
                 messages: messages!,
-                candidates: fullCitizen!.candidates
+                candidates: fullCitizen.candidates
             };
-            
+
             const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
                 JSON.stringify(citizenData)
             )}`;
 
             const link = document.createElement('a');
             link.href = jsonString;
-            link.download = `${citizenData.firstname}-${citizenData.surname}-data.json`;
+            link.download = `${citizenData.firstname}-${citizenData.surname}-persondata.json`;
 
             link.click();
         }
@@ -70,9 +71,11 @@ export const CitizenProfilePage = (): ReactElement => {
                     <Panel>
                         <CitizenPerformedInsight id={user.id} />
                     </Panel>
-                    <Button as="div" onClick={onDownloadCitizenData}>
-                        Last ned persondata <Download />
-                    </Button>
+                    <div className={style.citizenDataButtonContainer}>
+                        <Button as="div" onClick={onDownloadCitizenData}>
+                            Last ned persondata <Download />
+                        </Button>
+                    </div>
                 </>
             ) : (
                 <APIHandler loading={loading} error={error} />
