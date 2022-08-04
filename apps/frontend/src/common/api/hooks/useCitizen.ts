@@ -14,3 +14,9 @@ export const useCitizenByCriterias = (criterias: ICriteria[], insightEndDate: st
 
     return { citizens: data, loading: !data && !error, error: error };
 };
+
+export const useFullCitizen = () => {
+    const { data, error } = useSWR<ICitizen, AxiosError>('/api/citizen/full', fetcher);
+
+    return { fullCitizen: data, loading: !data && !error, error };
+};
