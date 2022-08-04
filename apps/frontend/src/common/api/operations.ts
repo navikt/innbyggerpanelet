@@ -30,3 +30,13 @@ export const putter = async <T>(url: string, data: T) =>
         .catch((error: AxiosError) => {
             return { data: undefined, error };
         });
+
+export const deleter = async <T>(url: string) =>
+    await axios
+        .delete(url)
+        .then((res) => {
+            return { data: res.data as T, error: undefined };
+        })
+        .catch((error: AxiosError) => {
+            return { data: undefined, error };
+        });
