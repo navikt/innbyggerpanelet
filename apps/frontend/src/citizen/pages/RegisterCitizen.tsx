@@ -6,12 +6,13 @@ import React from 'react';
 import { ReactElement } from 'react';
 import { useCriteriaCategory, useUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
+import { CriteriaRegistrationContainer } from '../containers/registration/CriteriaRegistrationContainer';
 import style from './RegisterCitizen.module.scss';
 
 export const RegisterCitizen = (): ReactElement => {
     const { user, loading, error } = useUser<ICitizen>();
     const { categories } = useCriteriaCategory();
-    console.log(categories);
+    
     return (
         <>
             {user ? (
@@ -27,13 +28,16 @@ export const RegisterCitizen = (): ReactElement => {
                         de undersøkelsene som passer best til din situasjon.
                         </BodyLong>
                     </Panel>
-                    <div>
-                        <Panel className={style.citizenInfoInputContainer}>
-                            <TextField label="Navn"/>
-                            <TextField label="Alder (år)" className={style.ageInput}/>
-                            <TextField label="Telefonnummer" className={style.phoneInput} />
-                        </Panel>
-                    </div>
+                    <Panel className={style.citizenInfoInputContainer}>
+                        <TextField label="Navn"/>
+                        <TextField label="Alder (år)" className={style.ageInput}/>
+                        <TextField label="Telefonnummer" className={style.phoneInput} />
+                    </Panel>
+                    {categories?.map((categorie, index) => {
+                        return (
+                            <CriteriaRegistrationContainer criteriaCategory={categorie}/>
+                        );
+                    })}
                 </>
             ) : (
                 <APIHandler loading={loading} error={error}/>
