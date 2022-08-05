@@ -1,9 +1,9 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
-import React, { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { People } from '@navikt/ds-icons';
+import { ReactElement } from 'react';
 import { useUser } from '../../common/api/hooks';
+import { PageHeader } from '../../common/components/pageHeader';
 import { PanelNoBackground } from '../../common/components/panelNoBackground';
-import { UserInfo } from '../../common/components/userInfo';
 import { EmployeeCurrentProjects } from '../containers';
 import { useFilterInsightProjects } from '../hooks/useEmployeeLanding';
 import style from './EmployeeLandingPage.module.scss';
@@ -14,12 +14,11 @@ export const EmployeeLandingPage = (): ReactElement => {
     const { onGoingProjects, futureProjects, completedProjects } = useFilterInsightProjects();
 
     return (
-        <PanelNoBackground className={style.employeeLandingPageContainer}>
-            <Link to="/profil">
-                <UserInfo name={user?.firstname + ' ' + user?.surname} />
-            </Link>
-            <div className={style.newProjectButtonContaner}></div>
-            <EmployeeCurrentProjects filteredProjects={{ onGoingProjects, futureProjects, completedProjects }} />
-        </PanelNoBackground>
+        <>
+            <PageHeader title={user?.firstname + ' ' + user?.surname} icon={<People />} />
+            <PanelNoBackground className={style.employeeLandingPageContainer}>
+                <EmployeeCurrentProjects filteredProjects={{ onGoingProjects, futureProjects, completedProjects }} />
+            </PanelNoBackground>
+        </>
     );
 };

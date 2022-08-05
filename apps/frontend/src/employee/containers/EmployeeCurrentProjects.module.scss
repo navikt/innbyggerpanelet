@@ -19,3 +19,9 @@
     grid-gap: 1rem;
     margin: 0 0 2rem;
 }
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

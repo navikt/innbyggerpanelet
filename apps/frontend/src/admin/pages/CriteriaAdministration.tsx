@@ -15,8 +15,10 @@ export const CriteriaAdministration = (): ReactElement => {
     return (
         <>
             <Panel className={style.criteriaWrapper}>
-                <Button onClick={toggleModal}>Ny kategori</Button>
-                <Heading size="large">Kriterieoversikt</Heading>
+                <div className={style.heading}>
+                    <Heading size="large">Kriterieoversikt</Heading>
+                    <Button onClick={toggleModal}>Ny kategori</Button>
+                </div>
                 <Accordion>
                     {categories?.map((category, index) => (
                         <Accordion.Item key={index}>
