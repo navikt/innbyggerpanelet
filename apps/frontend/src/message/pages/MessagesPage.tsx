@@ -24,7 +24,7 @@ export const MessagesPage = (): ReactElement => {
     const [tabState, setTabState] = useState<EnumTabState>(EnumTabState.Invitations);
 
     return (
-        <>
+        <div>
             <PanelTabs>
                 <PanelTabs.TabSelector
                     active={tabState === EnumTabState.Invitations}
@@ -55,6 +55,6 @@ export const MessagesPage = (): ReactElement => {
                     <APIHandler loading={inbox.loading} error={inbox.error} />
                 )}
             </PanelTabs.TabContent>
-        </>
+        </div>
     );
 };
