@@ -2,7 +2,7 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
 import { BodyLong, Heading, Panel, TextField } from '@navikt/ds-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ReactElement } from 'react';
 import { useCriteriaCategory, useUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
@@ -12,7 +12,13 @@ import style from './RegisterCitizen.module.scss';
 export const RegisterCitizen = (): ReactElement => {
     const { user, loading, error } = useUser<ICitizen>();
     const { categories } = useCriteriaCategory();
-    
+
+    const [citizen, setCitizen] = useState<ICitizen>(user);
+
+    useEffect(() => {
+        setCitizen(user);
+    }, [user]);
+
     return (
         <>
             {user ? (
@@ -35,7 +41,12 @@ export const RegisterCitizen = (): ReactElement => {
                     </Panel>
                     {categories?.map((categorie, index) => {
                         return (
-                            <CriteriaRegistrationContainer criteriaCategory={categorie}/>
+                            <CriteriaRegistrationContainer
+                                key={index}
+                                criteriaCategory={categorie}
+                                citizen={citizen}
+                                setCitizen={setCitizen}
+                            />
                         );
                     })}
                 </>
