@@ -1,6 +1,7 @@
 import { EnumUserRole, ICitizen, IEmployee } from '@innbyggerpanelet/api-interfaces';
+import { Hamburger } from '@navikt/ds-icons';
 import { Button, Heading, Link } from '@navikt/ds-react';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useUser } from '../../api/hooks';
 import { useUserPermissions } from '../../hooks/';
@@ -59,12 +60,17 @@ export const Header = (): ReactElement => {
 };
 
 const HeaderWrapper = ({ children }: { children: ReactElement | ReactElement[] | any }): ReactElement => {
+    const [menuToggle, setMenuToggle] = useState(false);
+
+    const handleToggleMenu = () => setMenuToggle(!menuToggle);
+
     return (
         <div className={style.banner}>
             <RouterLink to="/">
                 <Heading size="xlarge">Innbyggerpanelet</Heading>
             </RouterLink>
-            <div className={style.buttonGroup}>{children}</div>
+            <Hamburger onClick={handleToggleMenu} className={style.hamburger} />
+            <div className={`${style.buttonGroup} ${menuToggle ? style.hamburgerMenu : style.hidden}`}>{children}</div>
         </div>
     );
 };

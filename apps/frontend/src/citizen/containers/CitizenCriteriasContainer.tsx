@@ -1,19 +1,22 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
-import { Heading } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { ReactElement } from 'react';
-import PropertyValueField from '../../common/components/propertyValueField/PropertyValueField';
+import style from './CitizenCriteriasContainer.module.scss';
 
 interface IProps {
     criterias: ICriteria[];
 }
 
 export function CitizenCriteriasContainer({ criterias }: IProps): ReactElement {
+    console.log(criterias);
     return (
-        <>
-            <Heading size="large">Egenskaper</Heading>
+        <div className={style.wrapper}>
             {criterias?.map((criteria, index) => (
-                <PropertyValueField key={index} criteria={criteria} />
+                <div key={index}>
+                    <Label>{criteria.category.name}</Label>
+                    <BodyShort>{criteria.name}</BodyShort>
+                </div>
             ))}
-        </>
+        </div>
     );
 }

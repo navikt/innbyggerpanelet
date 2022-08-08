@@ -1,3 +1,9 @@
+@media (max-width: 769px) {
+    .wrapper {
+        flex-direction: column !important;
+    }
+}
+
 .wrapper {
     display: flex;
     flex-direction: row;

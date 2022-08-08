@@ -1,3 +1,11 @@
+@media (max-width: 769px) {
+    .wrapper {
+        position: relative !important;
+        right: inherit !important;
+        margin: 2.5rem 1rem !important;
+    }
+}
+
 .wrapper {
     position: absolute;
     /* Position element to the left of body with 1rem margin */

@@ -1,22 +1,24 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
+import { People } from '@navikt/ds-icons';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
-import { UserInfo } from '../../common/components/userInfo';
+import { PageHeader } from '../../common/components/pageHeader';
+import { PanelNoBackground } from '../../common/components/panelNoBackground';
 import style from './CitizenLandingPage.module.scss';
 export const CitizenLandingPage = (): ReactElement => {
     const { user, loading, error } = useUser<ICitizen>();
 
     return (
-        <div className={style.landingPageWrapper}>
+        <>
             {user ? (
-                <UserInfo name={user.firstname + ' ' + user.surname} />
+                <PageHeader title={user?.firstname + ' ' + user?.surname} icon={<People />} />
             ) : (
                 <APIHandler loading={loading} error={error} />
             )}
-            <div className={style.selectionCardsWrapper}>
+            <PanelNoBackground className={style.selectionCardsWrapper}>
                 <Link to={'profil'} className={style.selectionCard}>
                     <Heading size="medium">Min profil</Heading>
                     <BodyShort>
@@ -28,7 +30,7 @@ export const CitizenLandingPage = (): ReactElement => {
                     <Heading size="medium">Mine deltakelser</Heading>
                     <BodyShort>Mine deltakelser er en oversikt over alt innsiktsarbeidet du har deltatt på.</BodyShort>
                 </Link>
-            </div>
-        </div>
+            </PanelNoBackground>
+        </>
     );
 };

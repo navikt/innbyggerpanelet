@@ -22,7 +22,7 @@ export const ProjectTeamMembers = ({ project, edit }: IProps): ReactElement => {
             {project.members.map((member, index) => (
                 <div key={index} className={style.listItem}>
                     <BodyShort>{`${member.firstname} ${member.surname}`}</BodyShort>
-                    {edit ? <Close onClick={() => deleteUser(member)} title="Fjern medlem fra prosjekt" /> : null}
+                    {edit ? <Close onClick={() => deleteUser(member)} title="Fjern medlem fra prosjekt." /> : null}
                 </div>
             ))}
         </>

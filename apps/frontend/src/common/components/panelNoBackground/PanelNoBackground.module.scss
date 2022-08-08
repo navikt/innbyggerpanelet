@@ -1,6 +1,13 @@
+@media (max-width: 769px) {
+    .wrapper {
+        max-width: 100% !important;
+        margin: 2.5rem 1rem !important;
+    }
+}
+
 .wrapper {
-    width: var(--body-width);
-    margin: 2rem auto;
+    max-width: var(--body-width);
+    margin: 2.5rem auto;
 }
 
 .wrapper > button {

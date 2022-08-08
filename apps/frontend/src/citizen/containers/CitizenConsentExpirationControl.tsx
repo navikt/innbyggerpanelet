@@ -4,7 +4,7 @@ import { Button, Panel, TextField } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteCitizen, extendCitizenExpirationDate } from '../../common/api/mutations';
+import { extendCitizenExpirationDate } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
 import style from './CitizenConsentExpirationControl.module.scss';
 
@@ -16,19 +16,12 @@ export const CitizenConsentExpirationControl = ({ citizen }: IProps): ReactEleme
     const { expirationDate } = citizen;
 
     const [putError, setPutError] = useState<AxiosError>();
-    const [deleteError, setDeleteError] = useState<AxiosError>();
     const navigate = useNavigate();
 
     const handleExtendExpirationDate = async () => {
         const { response, error } = await extendCitizenExpirationDate(citizen);
         if (error) return setPutError(error);
         if (response) navigate('/innbygger/profil');
-    };
-
-    const handleDeleteCitizen = async () => {
-        const { response, error } = await deleteCitizen();
-        if (error) return setDeleteError(error);
-        if (response) window.location.replace('/api/auth/logout');
     };
 
     return (
@@ -44,12 +37,8 @@ export const CitizenConsentExpirationControl = ({ citizen }: IProps): ReactEleme
                 <Button onClick={handleExtendExpirationDate}>
                     <Refresh />
                 </Button>
-                <Button variant="danger" onClick={handleDeleteCitizen}>
-                    Slett konto
-                </Button>
             </div>
             {putError && <APIHandler loading={false} error={putError} />}
-            {deleteError && <APIHandler loading={false} error={deleteError} />}
         </Panel>
     );
 };

@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+@media (max-width: 769px) {
+    .navds-panel {
+        max-width: 100% !important;
+        margin: 2.5rem 1rem !important;
+        padding: 0 1rem;
+    }
+}
+
 :root {
     --nav-light-gray: #f1f1f1;
     --nav-medium-gray: #c4c4c4;
