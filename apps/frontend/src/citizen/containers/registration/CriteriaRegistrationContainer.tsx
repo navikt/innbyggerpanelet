@@ -42,23 +42,23 @@ export function CriteriaRegistrationContainer({
     };
 
     return (
-        <Panel className={style.citizenCriteriaContainer}>
-            
-            <Heading size="small">{criteriaCategory.name}</Heading>
-            {criterias?.map((criteria, index) => {
-                return (
-                    <Checkbox
-                        key={index}
-                        value={criteria.name}
-                        onClick={() => toggleCriteria(criteria)}
-                        disabled={exclusiveAlreadyPicked(criteria)}
-                        checked={isChecked(criteria)}
-                    >
-                        {criteria.name}
-                    </Checkbox>
-                );
-            })}
-
-        </Panel>
+        <div>
+            {criterias?.length !== 0 && <Panel className={style.citizenCriteriaContainer}>
+                <Heading size="small">{criteriaCategory.name}</Heading>
+                {criterias?.map((criteria, index) => {
+                    return !criteria.disabled ? (
+                        <Checkbox
+                            key={index}
+                            value={criteria.name}
+                            onClick={() => toggleCriteria(criteria)}
+                            disabled={exclusiveAlreadyPicked(criteria)}
+                            checked={isChecked(criteria)}
+                        >
+                            {criteria.name}
+                        </Checkbox> 
+                    ) : <></>;
+                })}
+            </Panel>}
+        </div>
     );
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
-import { BodyLong, Heading, Panel, TextField } from '@navikt/ds-react';
+import { BodyLong, Button, Heading, Panel, TextField } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { ReactElement } from 'react';
 import { useCriteriaCategory, useUser } from '../../common/api/hooks';
@@ -35,20 +35,27 @@ export const RegisterCitizen = (): ReactElement => {
                         </BodyLong>
                     </Panel>
                     <Panel className={style.citizenInfoInputContainer}>
-                        <TextField label="Navn"/>
-                        <TextField label="Alder (år)" className={style.ageInput}/>
-                        <TextField label="Telefonnummer" className={style.phoneInput} />
+                        <TextField 
+                            label="Navn"
+                        />
+                        <TextField 
+                            label="Telefonnummer" 
+                            className={style.phoneInput} 
+                        />
                     </Panel>
-                    {categories?.map((categorie, index) => {
-                        return (
-                            <CriteriaRegistrationContainer
-                                key={index}
-                                criteriaCategory={categorie}
-                                citizen={citizen}
-                                setCitizen={setCitizen}
-                            />
-                        );
-                    })}
+                    <div>
+                        {categories?.map((categorie, index) => {
+                            return (
+                                <CriteriaRegistrationContainer
+                                    key={index}
+                                    criteriaCategory={categorie}
+                                    citizen={citizen}
+                                    setCitizen={setCitizen}
+                                />
+                            );
+                        })}
+                        <Button>Neste</Button>
+                    </div>
                 </>
             ) : (
                 <APIHandler loading={loading} error={error}/>
