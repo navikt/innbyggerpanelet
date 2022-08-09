@@ -21,8 +21,6 @@ export const createCriteria = async (criteria: ICriteria) => {
 export const updateCriteria = async (criteria: ICriteria) => {
     const { data, error } = await putter<ICriteria>('/api/criteria', criteria);
 
-    mutate(`/api/criteria?where[category]=${criteria.category.id}`);
-
     if (error?.response?.status === 406) {
         return { response: data, validationErrors: JSON.parse(error.response.data.message) as ValidationError[] };
     }

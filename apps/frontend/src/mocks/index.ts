@@ -31,16 +31,18 @@ const allCriterias: ICriteria[] = [
         id: 1,
         name: 'Mellom 18 og 25 år',
         category: allCriteriaCategories[0],
-        exclusivitySlug: 'age'
+        exclusivitySlug: 'age',
+        disabled: false
     },
     {
         id: 2,
         name: 'Mellom 26 og 35 år',
         category: allCriteriaCategories[0],
-        exclusivitySlug: 'age'
+        exclusivitySlug: 'age',
+        disabled: false
     },
-    { id: 3, name: 'Skjermoppleser', category: allCriteriaCategories[1] },
-    { id: 4, name: 'Rullestol', category: allCriteriaCategories[1] }
+    { id: 3, name: 'Skjermoppleser', category: allCriteriaCategories[1], disabled: false },
+    { id: 4, name: 'Rullestol', category: allCriteriaCategories[1], disabled: false }
 ];
 
 const allConsentTemplates: IConsentTemplate[] = [
