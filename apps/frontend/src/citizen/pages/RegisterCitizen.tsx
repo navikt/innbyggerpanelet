@@ -54,7 +54,10 @@ export const RegisterCitizen = (): ReactElement => {
                                 />
                             );
                         })}
-                        <Button>Neste</Button>
+                        <div className={style.navigationInput}>
+                            <Button variant='secondary'>Avbryt</Button>
+                            <Button>Neste</Button>
+                        </div>
                     </div>
                 </>
             ) : (

@@ -37,3 +37,16 @@
     width: 10rem;
     margin-top: 2rem;
 }
+
+.navigationInput {
+    display: flex;
+    justify-content: flex-end;
+    max-width: var(--body-width);
+    margin: 2.5rem auto;
+
+    button {
+        margin: 0 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
