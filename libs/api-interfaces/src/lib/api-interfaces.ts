@@ -94,10 +94,11 @@ export interface IConsentTemplate {
 }
 
 export interface ICriteria {
-    [key: string]: number | string | ICriteriaCategory | undefined;
+    [key: string]: number | string | ICriteriaCategory | boolean | undefined;
 
     id: number;
     name: string;
+    disabled: boolean;
     exclusivitySlug?: string;
     category: ICriteriaCategory;
 }
