@@ -6,7 +6,7 @@ import { CriteriaCategory } from '../criteriaCategory/CriteriaCategoryEntity';
 
 @Entity()
 export class Criteria implements ICriteria {
-    [key: string]: string | number | ICriteriaCategory;
+    [key: string]: string | number | ICriteriaCategory | boolean;
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -14,6 +14,9 @@ export class Criteria implements ICriteria {
     @Column()
     @MinLength(5, { message: 'Navn er for kort, minst 5 bokstaver.' })
     name: string;
+
+    @Column({ default: false })
+    disabled: boolean;
 
     @Column({ nullable: true })
     exclusivitySlug?: string;

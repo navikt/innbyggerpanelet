@@ -1,5 +1,5 @@
 import { ICriteria } from '@innbyggerpanelet/api-interfaces';
-import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, Modal, Switch, TextField } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { updateCriteria } from '../../common/api/mutations';
@@ -20,7 +20,7 @@ export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps
     const [criteriaValidationErrors, setCriteriaValidationErrors] = useFormatValidationErrors();
     const [putError, setPutError] = useState<AxiosError>();
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newCriteria = { ...criteria };
         newCriteria[event.target.id] = event.target.value;
         setCriteria(newCriteria);
@@ -44,7 +44,7 @@ export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps
                     label="Navn"
                     value={criteria.name}
                     id="name"
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     error={criteriaValidationErrors.name}
                 />
                 <TextField
@@ -52,8 +52,17 @@ export const CriteriaEditModal = ({ criteria, open, close, setCriteria }: IProps
                     value={criteria.exclusivitySlug}
                     id="exclusivitySlug"
                     placeholder="none"
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                 />
+                <Switch
+                    size="medium"
+                    position="left"
+                    id="disabled"
+                    checked={criteria.disabled}
+                    onChange={(e) => setCriteria({ ...criteria, disabled: e.target.checked })}
+                >
+                    Ikke i bruk
+                </Switch>
                 {putError && <APIHandler loading={false} error={putError} />}
                 <Button onClick={handleSubmit}>Bekreft</Button>
             </Modal.Content>

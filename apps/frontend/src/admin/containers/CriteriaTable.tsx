@@ -31,6 +31,7 @@ export const CriteriaTable = ({ category }: IProps): ReactElement => {
                         <Table.HeaderCell scope="col">ID</Table.HeaderCell>
                         <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
                         <Table.HeaderCell scope="col">Eksklusivitet Slug</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">I bruk</Table.HeaderCell>
                         <Table.HeaderCell>Rediger</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
