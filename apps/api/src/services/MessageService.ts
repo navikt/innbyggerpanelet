@@ -7,6 +7,7 @@ import { Insight } from '../models/insight/InsightEntity';
 import { InsightProject } from '../models/insightProject/InsightProjectEntity';
 import { Message } from '../models/message/MessageEntity';
 import { messageTemplates } from '../models/message/MessageTemplates';
+import { Candidate } from './../models/candidate/CandidateEntity';
 import { Citizen } from './../models/citizen/CitizenEntity';
 import BaseService from './BaseService';
 import { InsightService } from './InsightService';
@@ -63,6 +64,18 @@ export class MessageService extends BaseService<Message> {
 
     async createCitizenExpirationNotification(citizens: Citizen[]): Promise<Message[]> {
         const messages = citizens.map((citizen) => messageTemplates.accountExpiration(citizen));
+        return this.createMany(messages);
+    }
+
+    async createCitizenAnonymizationNotifications(candidates: Candidate[]): Promise<Message[]> {
+        const insights = candidates.map((candidate) => candidate.insight);
+
+        const messages = insights
+            .map((insight) =>
+                insight.project.members.map((member) => messageTemplates.citizenAccountDeleted(member, insight))
+            )
+            .flat();
+
         return this.createMany(messages);
     }
 

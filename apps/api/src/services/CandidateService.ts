@@ -35,10 +35,10 @@ export class CandidateService extends BaseService<Candidate> {
         return candidates;
     }
 
-    async getByUserId(id: string): Promise<Candidate[]> {
+    async getByUserId(id: string | number): Promise<Candidate[]> {
         const candidates = await this._candidateRepository.find({
             where: { citizen: id },
-            relations: ['insight', 'insight.project']
+            relations: ['insight', 'insight.project', 'insight.project.members']
         });
         if (candidates.length === 0) throw new NotFoundError({ message: ServerErrorMessage.notFound('Candidates') });
 

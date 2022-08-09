@@ -6,6 +6,7 @@ import { ServerErrorMessage } from '../lib/errors/messages/ServerErrorMessages';
 import { Citizen } from '../models/citizen/CitizenEntity';
 import BaseService from './BaseService';
 import { CandidateService } from './CandidateService';
+import { MessageService } from './MessageService';
 
 export class CitizenService extends BaseService<Citizen> {
     private _database: Connection;
@@ -49,6 +50,10 @@ export class CitizenService extends BaseService<Citizen> {
 
     async delete(id: string | number): Promise<void> {
         const candidateService = new CandidateService(this._database);
+        const messageService = new MessageService(this._database);
+
+        const candidates = await candidateService.getByUserId(id);
+        await messageService.createCitizenAnonymizationNotifications(candidates);
         await candidateService.anonymizeUser(id);
 
         await this._citizenRepository.delete(id);
