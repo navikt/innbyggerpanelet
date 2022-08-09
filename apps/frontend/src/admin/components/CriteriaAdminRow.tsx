@@ -15,6 +15,7 @@ export const CriteriaAdminRow = ({ criteria, edit }: IProps): ReactElement => {
             <Table.HeaderCell>{criteria.id}</Table.HeaderCell>
             <Table.DataCell>{criteria.name}</Table.DataCell>
             <Table.DataCell>{criteria.exclusivitySlug || 'none'}</Table.DataCell>
+            <Table.DataCell>{criteria.disabled ? 'Nei' : 'Ja'}</Table.DataCell>
             <Table.DataCell>
                 <Edit className={style.edit} onClick={() => edit(criteria)} />
             </Table.DataCell>

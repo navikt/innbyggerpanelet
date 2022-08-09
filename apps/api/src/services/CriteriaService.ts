@@ -42,7 +42,7 @@ export class CriteriaService extends BaseService<Criteria> {
 
         // Currently doesn't support OR and sorting
         const criterias = await this._criteriaRepository.find({
-            where: queries.where,
+            where: { ...queries.where, disabled: false },
             relations: [queries.relations || []].flat()
         });
 

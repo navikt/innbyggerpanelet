@@ -1,5 +1,5 @@
 import { ICriteria, ICriteriaCategory } from '@innbyggerpanelet/api-interfaces';
-import { BodyShort, Button, Heading, Modal, TextField } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, Modal, Switch, TextField } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import { createCriteria } from '../../common/api/mutations';
@@ -18,6 +18,7 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
         id: 0,
         name: '',
         exclusivitySlug: '',
+        disabled: false,
         category
     });
     const [criteriaValidationErrors, setCriteriaValidationErrors] = useFormatValidationErrors();
@@ -55,6 +56,15 @@ export const CriteriaCreateModal = ({ category, open, close }: IProps): ReactEle
                     onChange={handleInputChange}
                     placeholder="none"
                 />
+                <Switch
+                    size="medium"
+                    position="left"
+                    id="disabled"
+                    checked={criteria.disabled}
+                    onChange={handleInputChange}
+                >
+                    Ikke i bruk
+                </Switch>
                 <TextField label="Kategori" value={criteria.category.name} disabled />
                 {postError && <APIHandler loading={false} error={postError} />}
                 <Button onClick={handleSubmit} variant="primary">
