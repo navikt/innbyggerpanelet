@@ -16,7 +16,7 @@ export const useUserPermissions = () => {
     const check = (user: IUser) => {
         const { role, registered } = user;
 
-        if (role === EnumUserRole.Citizen && !registered && !fullPath.match(/^\/innbygger\/registrer(\/samtykker)?$/))
+        if (role === EnumUserRole.Citizen && !registered && !fullPath.match(/^\/innbygger\/registrer(\/samtykke)?$/))
             navigate('/innbygger/registrer');
         if (role === EnumUserRole.Citizen && registered && fullPath === '/innbygger/registrer') navigate('/innbygger');
 

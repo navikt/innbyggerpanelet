@@ -1,6 +1,6 @@
 import { EnumUserRole, ICitizen, IEmployee } from '@innbyggerpanelet/api-interfaces';
 import { Button, Heading, Link } from '@navikt/ds-react';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useUser } from '../../api/hooks';
 import { useUserPermissions } from '../../hooks/';
@@ -20,42 +20,40 @@ export const Header = (): ReactElement => {
 
     const { user, loading, error } = useUser<ICitizen | IEmployee>();
 
-    if (user) {
-        authorize(user);
+    useEffect(() => {
+        if (user) authorize(user);
+    }, [authorize, user]);
 
-        return (
-            <HeaderWrapper>
-                {user.role === EnumUserRole.Admin ? (
-                    <RouterLink className={adminStyle} to="/admin">
-                        <Button variant="tertiary" as="div">
-                            Admin
-                        </Button>
-                    </RouterLink>
-                ) : null}
-                <RouterLink className={homeStyle} to={user.role === EnumUserRole.Citizen ? '/innbygger' : '/ansatt'}>
+    return user ? (
+        <HeaderWrapper>
+            {user.role === EnumUserRole.Admin ? (
+                <RouterLink className={adminStyle} to="/admin">
                     <Button variant="tertiary" as="div">
-                        Min side
+                        Admin
                     </Button>
                 </RouterLink>
-                <RouterLink className={inboxStyle} to="/meldinger">
-                    <Button variant="tertiary" as="div">
-                        Mine meldinger
-                    </Button>
-                </RouterLink>
-                <Link href={'/api/auth/logout'}>
-                    <Button as="div">Logg ut</Button>
-                </Link>
-            </HeaderWrapper>
-        );
-    } else {
-        return (
-            <HeaderWrapper>
-                <RouterLink to="/innlogging">
-                    <Button as="div">Logg inn</Button>
-                </RouterLink>
-            </HeaderWrapper>
-        );
-    }
+            ) : null}
+            <RouterLink className={homeStyle} to={user.role === EnumUserRole.Citizen ? '/innbygger' : '/ansatt'}>
+                <Button variant="tertiary" as="div">
+                    Min side
+                </Button>
+            </RouterLink>
+            <RouterLink className={inboxStyle} to="/meldinger">
+                <Button variant="tertiary" as="div">
+                    Mine meldinger
+                </Button>
+            </RouterLink>
+            <Link href={'/api/auth/logout'}>
+                <Button as="div">Logg ut</Button>
+            </Link>
+        </HeaderWrapper>
+    ) : (
+        <HeaderWrapper>
+            <RouterLink to="/innlogging">
+                <Button as="div">Logg inn</Button>
+            </RouterLink>
+        </HeaderWrapper>
+    );
 };
 
 const HeaderWrapper = ({ children }: { children: ReactElement | ReactElement[] | any }): ReactElement => {

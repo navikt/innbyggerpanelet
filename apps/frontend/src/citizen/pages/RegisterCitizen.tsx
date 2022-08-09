@@ -2,10 +2,13 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
 import { BodyLong, Button, Heading, Panel, TextField } from '@navikt/ds-react';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ReactElement } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCriteriaCategory, useUser } from '../../common/api/hooks';
+import { updateCitizen } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
+import { useFormatValidationErrors } from '../../common/hooks';
 import { CriteriaRegistrationContainer } from '../containers/registration/CriteriaRegistrationContainer';
 import style from './RegisterCitizen.module.scss';
 
@@ -14,10 +17,30 @@ export const RegisterCitizen = (): ReactElement => {
     const { categories } = useCriteriaCategory();
 
     const [citizen, setCitizen] = useState<ICitizen>(user);
+    const [citizenValidationErrors, setCitizenValidationErrors] = useFormatValidationErrors();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setCitizen(user);
     }, [user]);
+
+    const handleContactInfoChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const result = { ...citizen };
+        result[event.target.id] = event.target.value;
+        setCitizen(result);
+    };
+
+    const onCancel = () => {
+        navigate('/');
+    };
+
+    const onNext = async () => {
+        const { response, validationErrors, error } = await updateCitizen(citizen);
+
+        if (validationErrors) return setCitizenValidationErrors(validationErrors);
+        if (response) navigate('/innbygger/registrer/samtykke', { state: citizen });
+    };
 
     return (
         <>
@@ -36,10 +59,30 @@ export const RegisterCitizen = (): ReactElement => {
                     </Panel>
                     <Panel className={style.citizenInfoInputContainer}>
                         <TextField 
-                            label="Navn"
+                            label="Fornavn"
+                            id="firstname"
+                            name="firstname"
+                            value={citizen?.firstname || ''}
+                            onChange={handleContactInfoChange}
+                            error={citizenValidationErrors.firstname}
+                            className={style.input}
                         />
                         <TextField 
-                            label="Telefonnummer" 
+                            label="Etternavn"
+                            id="surname"
+                            name="surname"
+                            value={citizen?.surname || ''}
+                            onChange={handleContactInfoChange}
+                            error={citizenValidationErrors.surname}
+                            className={style.input}
+                        />
+                        <TextField 
+                            label="Telefonnummer"
+                            id="phone"
+                            name="phone"
+                            value={citizen?.phone || ''}
+                            onChange={handleContactInfoChange}
+                            error={citizenValidationErrors.phone}
                             className={style.phoneInput} 
                         />
                     </Panel>
@@ -55,8 +98,8 @@ export const RegisterCitizen = (): ReactElement => {
                             );
                         })}
                         <div className={style.navigationInput}>
-                            <Button variant='secondary'>Avbryt</Button>
-                            <Button>Neste</Button>
+                            <Button variant='secondary' onClick={onCancel}>Avbryt</Button>
+                            <Button onClick={onNext}>Neste</Button>
                         </div>
                     </div>
                 </>
