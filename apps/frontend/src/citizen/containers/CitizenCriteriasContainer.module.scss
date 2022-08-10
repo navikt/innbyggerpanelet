@@ -1,0 +1,16 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 2rem;
+
+    > div {
+        border-bottom: 1px solid var(--navds-semantic-color-border);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 1rem;
+    }
+
+    > div:nth-child(even) {
+        background-color: var(--navds-semantic-color-canvas-background);
+    }
+}

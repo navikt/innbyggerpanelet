@@ -1,6 +1,6 @@
 import { IInsightProject, IUser } from '@innbyggerpanelet/api-interfaces';
-import { Delete } from '@navikt/ds-icons';
-import { Table } from '@navikt/ds-react';
+import { Close } from '@navikt/ds-icons';
+import { BodyShort } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import style from './ProjectTeamMembers.module.scss';
 
@@ -18,29 +18,13 @@ export const ProjectTeamMembers = ({ project, edit }: IProps): ReactElement => {
     };
 
     return (
-        <Table>
-            <Table.Header>
-                <Table.Row>
-                    <Table.HeaderCell>Navn</Table.HeaderCell>
-                    <Table.HeaderCell>E-Post</Table.HeaderCell>
-                    <Table.HeaderCell>Rolle</Table.HeaderCell>
-                    {edit ? <Table.HeaderCell></Table.HeaderCell> : null}
-                </Table.Row>
-            </Table.Header>
-            <Table.Body>
-                {project.members.map((member, index) => (
-                    <Table.Row key={index}>
-                        <Table.DataCell>{member.firstname + ' ' + member.surname}</Table.DataCell>
-                        <Table.DataCell>{member.email}</Table.DataCell>
-                        <Table.DataCell>{member.role}</Table.DataCell>
-                        {edit ? (
-                            <Table.DataCell>
-                                <Delete className={style.clickIcon} onClick={() => deleteUser(member)} />
-                            </Table.DataCell>
-                        ) : null}
-                    </Table.Row>
-                ))}
-            </Table.Body>
-        </Table>
+        <>
+            {project.members.map((member, index) => (
+                <div key={index} className={style.listItem}>
+                    <BodyShort>{`${member.firstname} ${member.surname}`}</BodyShort>
+                    {edit ? <Close onClick={() => deleteUser(member)} title="Fjern medlem fra prosjekt." /> : null}
+                </div>
+            ))}
+        </>
     );
 };

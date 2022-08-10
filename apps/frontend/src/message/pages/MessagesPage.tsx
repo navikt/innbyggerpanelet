@@ -4,7 +4,6 @@ import { BodyShort } from '@navikt/ds-react';
 import { ReactElement, useState } from 'react';
 import { useCandidatesByCurrentUser, useMessages } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
-import { PanelNoBackground } from '../../common/components/panelNoBackground';
 import PanelTabs from '../../common/components/panelTabs/PanelTabs';
 import { Inbox, Invitations } from '../containers';
 
@@ -25,7 +24,7 @@ export const MessagesPage = (): ReactElement => {
     const [tabState, setTabState] = useState<EnumTabState>(EnumTabState.Invitations);
 
     return (
-        <PanelNoBackground>
+        <div>
             <PanelTabs>
                 <PanelTabs.TabSelector
                     active={tabState === EnumTabState.Invitations}
@@ -56,6 +55,6 @@ export const MessagesPage = (): ReactElement => {
                     <APIHandler loading={inbox.loading} error={inbox.error} />
                 )}
             </PanelTabs.TabContent>
-        </PanelNoBackground>
+        </div>
     );
 };

@@ -1,9 +1,10 @@
 /* Project entry list */
 .insightHeader {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    text-align: center;
     justify-content: space-between;
-    margin: 0 0 1rem;
+    gap: 1rem;
 }
 
 .insightHeader > p {

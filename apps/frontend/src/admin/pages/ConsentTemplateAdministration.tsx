@@ -12,33 +12,33 @@ export const ConsentTemplateAdministration = (): ReactElement => {
     const { consentTemplates, loading, error } = useConsentTemplateSearchByTitle(search);
 
     return (
-        <Panel>
-            <Link to="ny">
-                <Button as="div">Ny samtykkemal</Button>
-            </Link>
-            <div className={style.wrapper}>
+        <Panel className={style.wrapper}>
+            <div className={style.heading}>
                 <Heading size="large">Samtykkemaler</Heading>
-                <Search
-                    label="Søk etter samtykke"
-                    variant="simple"
-                    value={search}
-                    onChange={handleChange}
-                    hideLabel={false}
-                />
-                <Accordion>
-                    {consentTemplates?.map((template, index) => (
-                        <Accordion.Item key={index}>
-                            <Accordion.Header>{template.title}</Accordion.Header>
-                            <Accordion.Content>
-                                <BodyLong>{template.description}</BodyLong>
-                                <Link to={`/admin/samtykker/${template.id}`}>
-                                    <Button as="div">Rediger</Button>
-                                </Link>
-                            </Accordion.Content>
-                        </Accordion.Item>
-                    )) || <APIHandler error={error} loading={loading} />}
-                </Accordion>
+                <Link to="ny">
+                    <Button as="div">Ny samtykkemal</Button>
+                </Link>
             </div>
+            <Search
+                label="Søk etter samtykke"
+                variant="simple"
+                value={search}
+                onChange={handleChange}
+                hideLabel={false}
+            />
+            <Accordion>
+                {consentTemplates?.map((template, index) => (
+                    <Accordion.Item key={index}>
+                        <Accordion.Header>{template.title}</Accordion.Header>
+                        <Accordion.Content>
+                            <BodyLong>{template.description}</BodyLong>
+                            <Link to={`/admin/samtykker/${template.id}`}>
+                                <Button as="div">Rediger</Button>
+                            </Link>
+                        </Accordion.Content>
+                    </Accordion.Item>
+                )) || <APIHandler error={error} loading={loading} />}
+            </Accordion>
         </Panel>
     );
 };
