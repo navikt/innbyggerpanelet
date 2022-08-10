@@ -76,15 +76,13 @@ export class MessageService extends BaseService<Message> {
 
     async createInsightCreationNotifications(insight: Insight): Promise<Message[]> {
         const members = insight.project.members;
-        const messages: Message[] = members.map((member) => messageTemplates.insightCreation(insight, member));
+        const messages: Message[] = members.map((member) => messageTemplates.insightCreation(member, insight));
         return this.createMany(messages);
     }
 
     async createInsightProjectCreationNotifications(insightProject: InsightProject): Promise<Message[]> {
         const members = insightProject.members;
-        const messages: Message[] = members.map((member) =>
-            messageTemplates.insightProjectCreation(insightProject, member)
-        );
+        const messages: Message[] = members.map((member) => messageTemplates.projectInvitation(member, insightProject));
         return this.createMany(messages);
     }
 

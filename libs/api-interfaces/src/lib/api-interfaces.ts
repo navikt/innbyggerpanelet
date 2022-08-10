@@ -30,6 +30,7 @@ export interface ICitizen extends IUser {
 export interface IEmployee extends IUser {
     email: string;
     insightProjects: IInsightProject[];
+    ownerships: IInsightProject[];
 }
 
 export enum EnumCandidateStatus {
@@ -68,10 +69,11 @@ export interface IInsight {
 }
 
 export interface IInsightProject {
-    [key: string]: string | number | IUser[] | IInsight[];
+    [key: string]: string | number | IUser[] | IUser | IInsight[] | undefined;
     id: number;
     name: string;
     description: string;
+    owner?: IEmployee;
     members: IEmployee[];
     start: string;
     end: string;

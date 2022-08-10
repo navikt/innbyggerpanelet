@@ -2,7 +2,7 @@
 import { IInsightProject } from '@innbyggerpanelet/api-interfaces';
 import { Transform } from 'class-transformer';
 import { ArrayNotEmpty, IsDate, MinDate, MinLength, Validate } from 'class-validator';
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsBeforeConstraint } from '../../lib/validators/IsBeforeConstraint';
 import { Employee } from '../employee/EmployeeEntity';
 import { Insight } from '../insight/InsightEntity';
@@ -33,6 +33,9 @@ export class InsightProject implements IInsightProject {
     @Transform(({ value }) => new Date(value))
     @MinDate(new Date(), { message: 'Sluttdato kan ikke være før dagens dato.' })
     end: string;
+
+    @ManyToOne(() => Employee, (employee) => employee.ownerships)
+    owner: Employee;
 
     @JoinTable()
     @ManyToMany(() => Employee, (employee) => employee.insightProjects)
