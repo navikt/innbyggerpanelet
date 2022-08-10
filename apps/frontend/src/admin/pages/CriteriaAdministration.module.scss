@@ -1,10 +1,18 @@
 /* Criteria Administration */
-.criteriaWrapper > h1 {
-    margin-bottom: 1rem;
+.criteriaWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .accordionBody {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

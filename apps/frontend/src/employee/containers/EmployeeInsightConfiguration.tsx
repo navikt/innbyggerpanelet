@@ -2,8 +2,8 @@ import { IConsent, IConsentTemplate, ICriteria, IInsight } from '@innbyggerpanel
 import { Datepicker } from '@navikt/ds-datepicker';
 import { DatepickerValue } from '@navikt/ds-datepicker/lib/Datepicker';
 import '@navikt/ds-datepicker/lib/index.css';
-import { AddCircle, Close } from '@navikt/ds-icons';
-import { BodyShort, Label, Textarea, TextField } from '@navikt/ds-react';
+import { Close, Search } from '@navikt/ds-icons';
+import { BodyShort, Button, Label, Textarea, TextField } from '@navikt/ds-react';
 import { ChangeEvent, ReactElement, useState } from 'react';
 import ErrorList from '../../common/components/validation/ErrorList';
 import { IValidationError } from '../../common/hooks';
@@ -101,9 +101,9 @@ export const EmployeeInsightConfiguration = ({ insight, setInsight, validationEr
                     {validationErrors.start && <ErrorList errorMessages={[...validationErrors.start]} />}
                     {validationErrors.end && <ErrorList errorMessages={[...validationErrors.end]} />}
                 </div>
-                <div>
-                    <Label className={style.listHeader} size="medium" spacing>
-                        Kriterier <AddCircle onClick={() => setOpenCriterias(true)} />
+                <div className={style.propertyGroup}>
+                    <Label size="medium" spacing>
+                        Kriterier
                     </Label>
                     {insight.criterias.map((criteria, index) => {
                         return (
@@ -115,10 +115,13 @@ export const EmployeeInsightConfiguration = ({ insight, setInsight, validationEr
                     })}
                     {insight.criterias.length === 0 ? <BodyShort>Ingen valgte...</BodyShort> : null}
                     {validationErrors.criterias && <ErrorList errorMessages={[...validationErrors.criterias]} />}
+                    <Button variant="secondary" onClick={() => setOpenCriterias(true)}>
+                        <Search /> Søk etter kriterier
+                    </Button>
                 </div>
-                <div>
-                    <Label className={style.listHeader} size="medium" spacing>
-                        Samtykker <AddCircle onClick={() => setOpenConsents(true)} />
+                <div className={style.propertyGroup}>
+                    <Label size="medium" spacing>
+                        Samtykker
                     </Label>
                     {insight.consents.map((consent, index) => {
                         return (
@@ -130,6 +133,9 @@ export const EmployeeInsightConfiguration = ({ insight, setInsight, validationEr
                     })}
                     {insight.consents.length === 0 ? <BodyShort>Ingen valgte...</BodyShort> : null}
                     {validationErrors.consents && <ErrorList errorMessages={[...validationErrors.consents]} />}
+                    <Button variant="secondary" onClick={() => setOpenConsents(true)}>
+                        <Search /> Søk etter samtykkemaler
+                    </Button>
                 </div>
             </div>
 

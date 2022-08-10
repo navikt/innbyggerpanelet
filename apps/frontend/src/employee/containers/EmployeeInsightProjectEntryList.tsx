@@ -1,9 +1,10 @@
-import { Button, Heading, Label, Panel } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, Label, Panel } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProjectInsightEntry } from '.';
 import { useInsightsByProjectId } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
+import { PanelNoBackground } from '../../common/components/panelNoBackground';
 import style from './EmployeeInsightProjectEntryList.module.scss';
 
 interface IProps {
@@ -15,15 +16,22 @@ export const EmployeeInsightProjectEntryList = ({ projectId }: IProps): ReactEle
     const { insights, loading, error } = useInsightsByProjectId(projectId);
 
     return (
-        <Panel>
-            <Button onClick={() => navigate('innsikt')}>Nytt innsiktsarbeid</Button>
-            <div className={style.insightHeader}>
+        <>
+            <Panel className={style.insightHeader}>
                 <Heading size="large">Innsiktsarbeid</Heading>
                 <Label>Antall innsiktsarbeid: {insights?.length || 0}</Label>
-            </div>
-            {insights?.map((insight, index) => <ProjectInsightEntry key={index} insight={insight} />) || (
-                <APIHandler error={error} loading={loading} />
-            )}
-        </Panel>
+                <BodyShort>
+                    Her er en oversikt over alle innsiktsarbeid som er gjennomført innenfor prosjektet. Du kan også
+                    opprette et nytt innsitksarbeid.
+                </BodyShort>
+
+                <Button onClick={() => navigate('innsikt')}>Nytt innsiktsarbeid</Button>
+            </Panel>
+            <PanelNoBackground>
+                {insights?.map((insight, index) => <ProjectInsightEntry key={index} insight={insight} />) || (
+                    <APIHandler error={error} loading={loading} />
+                )}
+            </PanelNoBackground>
+        </>
     );
 };

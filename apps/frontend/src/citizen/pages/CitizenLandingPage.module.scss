@@ -1,3 +1,9 @@
+@media (max-width: 769px) {
+    .selectionCardsWrapper {
+        flex-direction: column !important;
+    }
+}
+
 .landingPageWrapper {
     display: flex;
     flex-direction: column;
@@ -13,7 +19,7 @@
     gap: 2rem;
 
     .selectionCard {
-        flex: 0.2;
+        flex: 1;
         background-color: var(--navds-semantic-color-component-background-light);
         border-radius: 0.5rem;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;

@@ -45,21 +45,23 @@ export const EmployeeInsightProjectEdit = ({ project, setProject, submit, valida
                 onChange={handleInputChange}
                 error={validationErrors.description}
             />
-            <Label>Prosjektperiode:</Label>
-            <div className={style.dates}>
-                <Datepicker
-                    value={project.start}
-                    label="Fra"
-                    inputName="start"
-                    onChange={(value) => handleDateChange(value, 'start')}
-                />
-                <BodyShort>til</BodyShort>
-                <Datepicker
-                    value={project.end}
-                    label="Til"
-                    inputName="end"
-                    onChange={(value) => handleDateChange(value, 'end')}
-                />
+            <div>
+                <Label>Prosjektperiode:</Label>
+                <div className={style.dates}>
+                    <Datepicker
+                        value={project.start}
+                        label="Fra"
+                        inputName="start"
+                        onChange={(value) => handleDateChange(value, 'start')}
+                    />
+                    <BodyShort>til</BodyShort>
+                    <Datepicker
+                        value={project.end}
+                        label="Til"
+                        inputName="end"
+                        onChange={(value) => handleDateChange(value, 'end')}
+                    />
+                </div>
             </div>
             <div>
                 {validationErrors.start && <ErrorList errorMessages={[...validationErrors.start]} />}
@@ -73,7 +75,7 @@ export const EmployeeInsightProjectEdit = ({ project, setProject, submit, valida
                     submit(project);
                 }}
             >
-                Bekreft
+                Opprett nytt prosjekt
             </Button>
         </form>
     );

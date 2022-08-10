@@ -1,11 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
+@media (max-width: 769px) {
+    .navds-panel {
+        max-width: 100% !important;
+        margin: 2.5rem 1rem !important;
+        padding: 0 1rem;
+    }
+}
+
 :root {
     --nav-light-gray: #f1f1f1;
     --nav-medium-gray: #c4c4c4;
     --nav-light-green: #99dead;
     --nav-dark-blue: #00243a;
     --nav-primary-blue: #2a67c5;
+
+    --background-pink: #efecf4;
 
     --body-width: 40rem;
 }
@@ -15,12 +25,12 @@
     margin: 2.5rem auto;
 }
 
-.navds-panel > .navds-button,
+/* Position element to the right of body with 1rem margin */
+/*.navds-panel > .navds-button,
 .navds-panel > a > .navds-button {
     position: absolute;
-    /* Position element to the right of body with 1rem margin */
     left: calc(((100% - var(--body-width)) / 2) + var(--body-width) + 1rem);
-}
+}*/
 
 body {
     background-color: var(--nav-light-gray);

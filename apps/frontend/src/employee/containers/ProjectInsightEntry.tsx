@@ -1,5 +1,5 @@
 import { EnumCandidateStatus, ICandidate, IInsight } from '@innbyggerpanelet/api-interfaces';
-import { Accordion, BodyLong, Label } from '@navikt/ds-react';
+import { Accordion, BodyLong, BodyShort, Label, Table } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { ProjectInsightCandidates } from '.';
 import { useCandidatesByInsightId } from '../../common/api/hooks';
@@ -34,8 +34,8 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
         <Accordion>
             <Accordion.Item>
                 <Accordion.Header>{insight.name}</Accordion.Header>
-                <Accordion.Content>
-                    <BodyLong>{insight.description}</BodyLong>
+                <Accordion.Content className={style.wrapper}>
+                    <BodyLong className={style.description}>{insight.description}</BodyLong>
                     <div className={style.progress}>
                         <ProgressBar label="Relevansgradering" progress={getAvgRelevancyRating()} />
                         <ProgressBar
@@ -43,19 +43,37 @@ export const ProjectInsightEntry = ({ insight }: IProps): ReactElement => {
                             progress={candidatesCompleted / candidates.length}
                         />
                     </div>
-                    <Label>Kriterier:</Label>
-                    <ul>
-                        {insight.criterias.map((criteria, index) => (
-                            <li key={index}>{criteria.name}</li>
-                        ))}
-                    </ul>
-                    <Label>Samtykker:</Label>
-                    <ul>
+                    <div className={style.consents}>
+                        <Label>Samtykker:</Label>
                         {insight.consents.map((consent, index) => (
-                            <li key={index}>{consent.template.title}</li>
+                            <div key={index} className={style.consentCard}>
+                                <Label>{consent.template.title}</Label>
+                                <BodyShort>{consent.template.description}</BodyShort>
+                            </div>
                         ))}
-                    </ul>
-                    <ProjectInsightCandidates candidates={candidates} />
+                    </div>
+                    <div className={style.criteria}>
+                        <Label>Kriterier:</Label>
+                        <Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Kriterie</Table.HeaderCell>
+                                    <Table.HeaderCell>Kategori</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {insight.criterias.map((criteria, index) => (
+                                    <Table.Row key={index}>
+                                        <Table.DataCell>{criteria.name}</Table.DataCell>
+                                        <Table.DataCell>{criteria.category.name}</Table.DataCell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table>
+                    </div>
+                    <div className={style.candidates}>
+                        <ProjectInsightCandidates candidates={candidates} />
+                    </div>
                 </Accordion.Content>
             </Accordion.Item>
         </Accordion>

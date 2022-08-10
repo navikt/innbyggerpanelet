@@ -1,33 +1,20 @@
-import { Button, Panel } from '@navikt/ds-react';
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { useParams } from 'react-router-dom';
 import { useInsightProjectById } from '../../common/api/hooks';
 import { APIHandler } from '../../common/components/apiHandler';
 import { EmployeeProjectDetails } from '../components';
-import { EmployeeInsightProjectEdit, EmployeeInsightProjectEntryList } from '../containers';
+import { EmployeeInsightProjectEntryList } from '../containers';
 
 export const EmployeeInsightProjectDetailPage = (): ReactElement => {
     const { id } = useParams();
     const { insightProject, loading, error } = useInsightProjectById(id || 0);
-    const [edit, setEdit] = useState(false);
 
     if (!insightProject) return <APIHandler error={error} loading={loading} />;
 
     return (
         <>
-            <Panel>
-                <Button onClick={() => setEdit(!edit)}>Rediger</Button>
-                {edit ? (
-                    <EmployeeInsightProjectEdit
-                        project={insightProject}
-                        setProject={() => null}
-                        submit={() => null}
-                        validationErrors={{}}
-                    />
-                ) : (
-                    <EmployeeProjectDetails project={insightProject} />
-                )}
-            </Panel>
+            <EmployeeProjectDetails project={insightProject} />
+
             <EmployeeInsightProjectEntryList projectId={insightProject.id} />
         </>
     );
