@@ -1,6 +1,6 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
-import { Alert, BodyShort, Button, Checkbox, Heading, Panel } from '@navikt/ds-react';
+import { Alert, BodyLong, BodyShort, Button, Checkbox, Heading, Link, Panel } from '@navikt/ds-react';
 import React, { ReactElement, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createCitizen } from '../../common/api/mutations';
@@ -111,37 +111,46 @@ export const RegisterCitizenConsent = (): ReactElement => {
                 <Heading size="small">Dine rettigheter</Heading>
                 <ul>
                     <li>
-                        {`Du har rett til å få innsyn i hvilke opplysninger vi behandler om deg, og å 
-                        få utlevert en kopi av opplysningene.`}
+                        <BodyLong>
+                            {`Du har rett til å få innsyn i hvilke opplysninger vi behandler om deg, og å 
+                            få utlevert en kopi av opplysningene.`}
+                        </BodyLong>
                     </li>
                     <li>
-                        {'Du har rett til å få rettet opplysninger om deg som er feil eller misvisende.'}
+                        <BodyLong>
+                            {'Du har rett til å få rettet opplysninger om deg som er feil eller misvisende.'}
+                        </BodyLong>
                     </li>
                     <li>
-                        {'Du har rett til å få slettet personopplysninger om deg.'}
+                        <BodyLong>
+                            {'Du har rett til å få slettet personopplysninger om deg.'}
+                        </BodyLong>
                     </li>
                     <li>
-                        {`Du har rett til å sende klage til Datatilsynet om behandlingen av dine 
-                        personopplysninger: `}
-                        <a href='https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/klage-til-datatilsynet/'>
-                            https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/klage-til-datatilsynet/
-                        </a>
-                        .
+                        <BodyLong>
+                            {`Du har rett til å sende klage til Datatilsynet om behandlingen av dine 
+                            personopplysninger: `}
+                            <Link href="https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/klage-til-datatilsynet/">
+                                https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/klage-til-datatilsynet/
+                            </Link>
+                        </BodyLong>
                     </li>
                 </ul>
-                <p>
+                <BodyLong>
                     {`Ønsker du å se, rette eller slette dine personopplysninger så kan du trykke på min 
                     profil å følge instruksjonene der.`}
-                </p>
-                <p>
+                </BodyLong>
+                <BodyLong>
                     {`Har du spørsmål om innbyggerpanelet eller ønsker å vite mer om dine rettigheter kan 
                     du kontakte  Ståle Kjone e-post: …..@nav.no.`}
-                </p>
-                <p className={style.moreInformationContianer}>
+                </BodyLong>
+                <BodyLong className={style.moreInformationContianer}>
                     {'Mer om personvern: '} 
-                    <a href='http://nav.no'>NAVS personvernerklæring</a> 
-                    <a href='https://www.datatilsynet.no/rettigheter-og-plikter/virksomhetenes-plikter/personvernombud/'>Kontakt personvernombudet</a>
-                </p>
+                    <Link href='http://nav.no'>NAVS personvernerklæring</Link>
+                    <Link href="https://www.datatilsynet.no/rettigheter-og-plikter/virksomhetenes-plikter/personvernombud/">
+                        Kontakt personvernombudet
+                    </Link>
+                </BodyLong>
             </Panel>
             <Panel className={style.iConsentContainer}>
                 <BodyShort>Jeg har lest og forstått samtykke til registrering i Innbyggerpanelet.</BodyShort>
