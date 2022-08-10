@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
-import { BodyLong, Button, Heading, Panel, TextField } from '@navikt/ds-react';
+import { BodyLong, Button, Panel, TextField } from '@navikt/ds-react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCriteriaCategory, useUser } from '../../common/api/hooks';
 import { updateCitizen } from '../../common/api/mutations';
 import { APIHandler } from '../../common/components/apiHandler';
+import { PageHeader } from '../../common/components/pageHeader';
 import { useFormatValidationErrors } from '../../common/hooks';
 import { CriteriaRegistrationContainer } from '../containers/registration/CriteriaRegistrationContainer';
 import style from './RegisterCitizenPage.module.scss';
@@ -46,17 +47,16 @@ export const RegisterCitizen = (): ReactElement => {
         <>
             {user ? (
                 <>
-                    <Panel className={style.registrationInfoContainer}>
-                        <div className={style.heartIconContainer}>
-                            <HandsHeart height='2rem' width='2rem'/>
-                        </div>
-                        <Heading size="large" className={style.registrationInfo}> Velkommen til innbyggerpanelet!</Heading>
+                    <PageHeader 
+                        title="Velkommen til innbyggerpanelet!"
+                        icon={<HandsHeart />}
+                    >
                         <BodyLong className={style.registrationInfo}>
                         For å bli med i innbyggerpanelet ønsker vi at du registrerer noen opplysninger om deg selv. 
                         Du kan endre dem når som helst inne på “min side”. Vi vil ha denne informasjonen for å finne 
                         de undersøkelsene som passer best til din situasjon.
                         </BodyLong>
-                    </Panel>
+                    </PageHeader>
                     <Panel className={style.citizenInfoInputContainer}>
                         <TextField 
                             label="Fornavn"
