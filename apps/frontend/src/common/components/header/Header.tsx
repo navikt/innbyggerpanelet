@@ -2,7 +2,7 @@ import { EnumUserRole, ICitizen, IEmployee } from '@innbyggerpanelet/api-interfa
 import { Hamburger } from '@navikt/ds-icons';
 import { Button, Heading, Link } from '@navikt/ds-react';
 
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useUser } from '../../api/hooks';
