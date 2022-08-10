@@ -1,16 +1,38 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
-import { Heading, Panel } from '@navikt/ds-react';
-import React, { ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Alert, BodyShort, Button, Checkbox, Heading, Panel } from '@navikt/ds-react';
+import React, { ReactElement, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { createCitizen } from '../../common/api/mutations';
 import { ConsentTextPanel } from '../components/ConsentTextPanel';
 import style from './RegisterCitizenConsent.module.scss';
 
 export const RegisterCitizenConsent = (): ReactElement => {
-    
+
+    const navigate = useNavigate();
+
     const location = useLocation();
     const citizen = location.state as ICitizen;
 
+    const [hasConsented, setHasConsented] = useState<boolean>(false);
+    const [showConsentError, setShowConsentError] = useState<boolean>(false);
+
+    const onGoBack = () => {
+        navigate('/innbygger/registrer');
+    };
+
+    const onConsent = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        if (hasConsented) {
+            setShowConsentError(false);
+
+            const { response, error, validationErrors} = await createCitizen(citizen);
+            if (error) return;
+            if (response) navigate('/inbygger/profil');
+        } else {
+            setShowConsentError(true);
+        }
+    };
 
     return (
         <>
@@ -121,6 +143,23 @@ export const RegisterCitizenConsent = (): ReactElement => {
                     <a href='https://www.datatilsynet.no/rettigheter-og-plikter/virksomhetenes-plikter/personvernombud/'>Kontakt personvernombudet</a>
                 </p>
             </Panel>
+            <Panel className={style.iConsentContainer}>
+                <BodyShort>Jeg har lest og forstått samtykke til registrering i Innbyggerpanelet.</BodyShort>
+                <Checkbox 
+                    defaultChecked={hasConsented}
+                    value={hasConsented}
+                    onChange={e => setHasConsented(e.target.checked)}
+                    error={showConsentError}
+                    className={style.consentCheckbox}
+                >
+                    Ja, jeg samtykker
+                </Checkbox>
+                {showConsentError && <Alert variant="error">Du må samtykke for å kunne registrere deg i innbyggerpanelet</Alert>}
+            </Panel>
+            <div className={style.navigationInput}>
+                <Button onClick={onGoBack} variant='secondary'>Gå tilbake</Button>
+                <Button onClick={onConsent}>Gi samtykke og oprett profil</Button>
+            </div>
         </>
     );
 };
