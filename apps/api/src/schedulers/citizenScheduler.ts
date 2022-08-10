@@ -42,9 +42,12 @@ const citizenExpirationDateDeletion = cron.schedule('0 0 * * *', async () => {
 
         if (!citizens) return;
 
+        const messageService = new MessageService(database);
         const candidateService = new CandidateService(database);
         for (const citizen of citizens) {
-            candidateService.anonymizeUser(citizen.id);
+            const candidates = await candidateService.getByUserId(citizen.id);
+            await messageService.createCitizenAnonymizationNotifications(candidates);
+            await candidateService.anonymizeUser(citizen.id);
         }
 
         const deletedCitizens = await citizenService.deleteMany(citizens);

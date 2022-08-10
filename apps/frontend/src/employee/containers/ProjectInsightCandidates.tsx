@@ -56,7 +56,6 @@ export const ProjectInsightCandidates = ({ candidates }: IProps) => {
     return (
         <>
             <Label>Deltagere:</Label>
-
             <div className={style.cardContainer}>
                 {candidates.map((candidate, index) => (
                     <div key={index} className={style.card}>

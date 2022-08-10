@@ -1,3 +1,9 @@
+@media (max-width: 769px) {
+    .projectsContainer {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 /* EmployeeCurrentProjects */
 .currentProjectsContainer {
     display: flex;
@@ -18,4 +24,11 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
     margin: 0 0 2rem;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 1rem;
 }
