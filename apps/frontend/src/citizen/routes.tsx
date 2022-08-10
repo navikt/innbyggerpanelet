@@ -6,7 +6,7 @@ import {
     CitizenProfileEditPage,
     CitizenProfilePage
 } from './pages';
-import { RegisterCitizen } from './pages/RegisterCitizen';
+import { RegisterCitizen } from './pages/RegisterCitizenPage';
 import { RegisterCitizenConsent } from './pages/RegisterCitizenConsent';
 
 const citizenRoutes = () => (
