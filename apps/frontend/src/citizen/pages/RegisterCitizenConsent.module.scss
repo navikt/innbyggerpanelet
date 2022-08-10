@@ -23,3 +23,22 @@
     width: 4rem;
     border-radius: 50%;
 }
+
+.consentTextContainer {
+    p {
+        margin: 1rem 0;
+    }
+
+    li {
+        margin: 0.5rem 0;
+    }
+
+    ul {
+        margin: 1rem 0;
+    }
+}
+
+.moreInformationContianer {
+    display: flex;
+    flex-direction: column;
+}
