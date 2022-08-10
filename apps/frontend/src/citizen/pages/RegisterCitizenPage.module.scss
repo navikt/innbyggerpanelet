@@ -1,4 +1,30 @@
-.submit {
+.citizenInfoInputContainer {
+    background-color: #E0D8E9 !important;
+}
+
+.input {
+    margin-top: 2rem;
+}
+
+.ageInput {
+    width: 5rem;
+    margin-top: 2rem;
+}
+
+.phoneInput {
+    width: 10rem;
+    margin-top: 2rem;
+}
+
+.navigationInput {
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
+    max-width: var(--body-width);
+    margin: 2.5rem auto;
+
+    button {
+        margin: 0 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
