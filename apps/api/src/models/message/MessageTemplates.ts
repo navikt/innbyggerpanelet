@@ -8,7 +8,7 @@ const candidateAccepted = (insight: IInsight) => {
         recipient: insight.project.members[0], // Needs better solution
         title: `Oppdatering vedrørende kandidat i ${insight.name}`,
         description: `En innbygger har takket ja til å delta i innsiktsarbeidet: ${insight.name}. Gå videre for å lese kontaktinformasjon.`,
-        ref: `/prosjekt/${insight.project.id}`
+        ref: `/ansatt/prosjekt/${insight.project.id}`
     });
 
     return message;
@@ -20,7 +20,7 @@ const candidateDeclined = (insight: IInsight) => {
         recipient: insight.project.members[0], // Needs better solution
         title: `Oppdatering vedrørende kandidat i ${insight.name}`,
         description: `En innbygger har takket nei til å delta i innsiktsarbeidet: ${insight.name}. Gå videre for å invitere nye kandidater.`,
-        ref: `/prosjekt/${insight.project.id}`
+        ref: `/ansatt/prosjekt/${insight.project.id}`
     });
 
     return message;
@@ -33,6 +33,18 @@ const accountExpiration = (citizen: ICitizen) => {
         title: 'Konto i ferd med å nå utløptsdato.',
         description: `Kontoen din vil utløpe den ${citizen.expirationDate}. Vennligst oppdater samtykke på Min Side om du fortsatt ønsker å ta del i Innbyggerpanelet.`,
         ref: '/profil'
+    });
+
+    return message;
+};
+
+const citizenAccountDeleted = (employee: IEmployee, insight: IInsight) => {
+    const message = plainToInstance(Message, {
+        timestamp: new Date(),
+        recipient: employee,
+        title: 'Innbygger er ikke lenger medlem av Innbyggerpanelet.',
+        description: `En innbygger som har tatt del i innsiktsarbeidet ${insight.name} er ikke lenger medlem av Innbyggerpanelet. Dette betyr at vedkommende sine samtykker også er trukket tilbake. Vennligst påse at all informasjon relatert til denne innbyggeren er anonymisert.`,
+        ref: `/ansatt/prosjekt/${insight.project.id}`
     });
 
     return message;
@@ -69,7 +81,7 @@ const insightCreation = (insight: IInsight, employee: IEmployee) => {
         recipient: employee,
         title: `Innsiktsarbeid opprettet: ${insight.name}`,
         description: `Et nytt innsiktsarbeid er opprettet under prosjektet ${insight.project.name}.`,
-        ref: `/prosjekt/${insight.project.id}`
+        ref: `/ansatt/prosjekt/${insight.project.id}`
     });
 
     return message;
@@ -91,6 +103,7 @@ export const messageTemplates = {
     accountExpiration,
     candidateAccepted,
     candidateDeclined,
+    citizenAccountDeleted,
     insightExpiration,
     insightCreation,
     insightProjectCreation,
