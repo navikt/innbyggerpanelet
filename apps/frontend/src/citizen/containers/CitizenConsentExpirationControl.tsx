@@ -29,7 +29,7 @@ export const CitizenConsentExpirationControl = ({ citizen }: IProps): ReactEleme
             <BodyLong>
                 Et år fra datoen du registrerte din bruker vil ditt generelle samtykke utløpe. Da vil alle opplysninger
                 om deg slettes fra Innbyggerpanelet, og du vil ikke lenger være tilgjengelig for innsiktsarbeid med NAV.
-                Om du ønsker å utsette utløpsdatoen kan du gjøre det ved å trykke på knappen under, da vil utløptsdatoen
+                Om du ønsker å utsette utløpsdatoen kan du gjøre det ved å trykke på knappen under, da vil utløpsdatoen
                 bli satt til et år fra i dag.
             </BodyLong>
             <Label>Utløpsdato: {expirationDate}</Label>
