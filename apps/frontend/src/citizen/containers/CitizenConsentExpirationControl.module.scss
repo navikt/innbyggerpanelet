@@ -1,20 +1,12 @@
-.expiration {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.wrapper {
     gap: 1rem;
-}
+    margin: 0 0 1rem;
 
-.expiration > div {
-    flex: 1;
-}
+    h1 {
+        margin: 0 0 1rem;
+    }
 
-.expiration button {
-    flex: 1;
-    height: 3rem;
-    margin: auto 0 0;
-}
-
-.expiration button:last-child {
-    flex: 2;
+    > p {
+        margin: 0 0 1rem;
+    }
 }
