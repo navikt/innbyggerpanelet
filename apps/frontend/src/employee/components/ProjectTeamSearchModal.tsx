@@ -33,7 +33,7 @@ export const ProjectTeamSearchModal = ({ project, setProject, open, close }: IPr
                 <div className={style.results}>
                     {employees?.map((employee, index) => (
                         <div className={style.result} key={index} onClick={() => addUser(employee)}>
-                            + {employee.firstname + ' ' + employee.surname}
+                            + {`${employee.firstname} ${employee.surname}`}
                         </div>
                     )) || <APIHandler error={error} loading={loading} />}
                 </div>
