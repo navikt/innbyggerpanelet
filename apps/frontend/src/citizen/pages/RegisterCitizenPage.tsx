@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
-import { BodyLong, Button, Panel, TextField } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, Panel, TextField } from '@navikt/ds-react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -60,7 +60,6 @@ export const RegisterCitizen = (): ReactElement => {
                     <Panel className={style.citizenInfoInputContainer}>
                         <TextField 
                             label="Fornavn"
-                            description="Obligatorisk"
                             id="firstname"
                             name="firstname"
                             value={citizen?.firstname || ''}
@@ -70,7 +69,6 @@ export const RegisterCitizen = (): ReactElement => {
                         />
                         <TextField 
                             label="Etternavn"
-                            description="Obligatorisk"
                             id="surname"
                             name="surname"
                             value={citizen?.surname || ''}
@@ -80,7 +78,6 @@ export const RegisterCitizen = (): ReactElement => {
                         />
                         <TextField 
                             label="Telefonnummer"
-                            description="Obligatorisk"
                             id="phone"
                             name="phone"
                             value={citizen?.phone || ''}
@@ -89,6 +86,9 @@ export const RegisterCitizen = (): ReactElement => {
                             className={style.phoneInput} 
                         />
                     </Panel>
+                    <div className={style.criteriaAlert}>
+                        <Alert variant='info'>Du må velge ett av de følgende vilkårlige kriteriene</Alert>
+                    </div>
                     <div>
                         {categories?.map((categorie, index) => {
                             return (
