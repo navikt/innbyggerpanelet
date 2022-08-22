@@ -39,17 +39,17 @@ export const CitizenProfileEditPage = (): ReactElement => {
                 setCitizen={setCitizen}
                 validationErrors={citizenValidationErrors}
             />
-            <CitizenEditCriterias
-                citizen={citizen}
-                setCitizen={setCitizen}
-                validationErrors={citizenValidationErrors}
-            />
             <div className={style.criteriaAlert}>
                 <Alert variant='info'>
                     Selv om du oppdaterer et kriterie som er brukt i et innsiktsarbeid,
                     må du selv trekke samtykket hvis du ikke ønsker å være en del av det.
                 </Alert>
             </div>
+            <CitizenEditCriterias
+                citizen={citizen}
+                setCitizen={setCitizen}
+                validationErrors={citizenValidationErrors}
+            />
             <Panel>
                 {putError && <APIHandler loading={loading} error={putError} />}
                 <div className={style.editButtons}>
