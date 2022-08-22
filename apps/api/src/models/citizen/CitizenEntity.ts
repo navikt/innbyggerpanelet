@@ -14,7 +14,7 @@ export class Citizen extends User implements ICitizen {
     pnr: string;
 
     @Column({})
-    @IsPhoneNumber('NO', { message: 'Påse at du har skrevet et gyldig norsk telefonnummber.' })
+    @IsPhoneNumber('NO', { message: 'Påse at du har skrevet et gyldig norsk telefonnummer.' })
     phone: string;
 
     @Column({ type: 'date', nullable: true })
