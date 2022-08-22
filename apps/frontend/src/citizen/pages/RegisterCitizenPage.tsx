@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
-import { BodyLong, Button, Panel, TextField } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, Panel, TextField } from '@navikt/ds-react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,8 @@ export const RegisterCitizen = (): ReactElement => {
 
     const [citizen, setCitizen] = useState<ICitizen>(user);
     const [citizenValidationErrors, setCitizenValidationErrors] = useFormatValidationErrors();
+    
+    const [criteriaError, setCriteriaError] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -39,8 +41,13 @@ export const RegisterCitizen = (): ReactElement => {
     const onNext = async () => {
         const { response, validationErrors, error } = await updateCitizen(citizen);
 
-        if (validationErrors) return setCitizenValidationErrors(validationErrors);
-        if (response) navigate('/innbygger/registrer/samtykke', { state: citizen });
+        if (validationErrors) {
+            if (citizen.criterias.length === 0) {
+                setCriteriaError(true);
+            }
+            return setCitizenValidationErrors(validationErrors);
+        }
+        if (response && !criteriaError) navigate('/innbygger/registrer/samtykke', { state: citizen });
     };
 
     return (
@@ -86,6 +93,9 @@ export const RegisterCitizen = (): ReactElement => {
                             className={style.phoneInput} 
                         />
                     </Panel>
+                    <div className={style.criteriaAlert}>
+                        <Alert variant='info'>Du må velge ett av de følgende vilkårlige kriteriene</Alert>
+                    </div>
                     <div>
                         {categories?.map((categorie, index) => {
                             return (
@@ -97,6 +107,11 @@ export const RegisterCitizen = (): ReactElement => {
                                 />
                             );
                         })}
+                        {criteriaError && (
+                            <Alert variant='error' className={style.criteriaAlert}>
+                                Du må velge ett vilkårlig kriterie
+                            </Alert>
+                        )}
                         <div className={style.navigationInput}>
                             <Button variant='secondary' onClick={onCancel}>Avbryt</Button>
                             <Button onClick={onNext}>Neste</Button>

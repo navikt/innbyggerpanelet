@@ -12,7 +12,7 @@
 }
 
 .phoneInput {
-    width: 10rem;
+    width: 12rem;
     margin-top: 2rem;
 }
 
@@ -27,4 +27,9 @@
         padding-left: 1rem;
         padding-right: 1rem;
     }
+}
+
+.criteriaAlert {
+    margin: 0 auto;
+    max-width: var(--body-width);
 }

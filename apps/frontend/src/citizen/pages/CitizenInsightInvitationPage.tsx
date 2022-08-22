@@ -7,6 +7,7 @@ import { acceptCandidature, declineCandidature } from '../../common/api/mutation
 import { APIHandler } from '../../common/components/apiHandler';
 import { InsightConsentForm } from '../../common/containers/insightConsentForm';
 import { useFormatValidationErrors } from '../../common/hooks';
+import DeclineConsentModal from '../components/DeclineConsentModal';
 import style from './CitizenInsightInvitationPage.module.scss';
 
 export const CitizenInsightInvitationPage = (): ReactElement => {
@@ -16,6 +17,8 @@ export const CitizenInsightInvitationPage = (): ReactElement => {
     const { candidate, loading, error } = useCandidateByInsightId(id);
     const [candidateValidationErrors, setCandidateValidationErrors] = useFormatValidationErrors();
     const [putError, setPutError] = useState<AxiosError>();
+
+    const [openDeclineModal, setOpenDeclineModal] = useState<boolean>(false);
 
     const handleAccept = async () => {
         if (!candidate) return;
@@ -34,32 +37,39 @@ export const CitizenInsightInvitationPage = (): ReactElement => {
     };
 
     return (
-        <Panel>
-            {candidate ? (
-                <>
-                    <InsightConsentForm insight={candidate.insight} />
+        <>
+            <Panel>
+                {candidate ? (
+                    <>
+                        <InsightConsentForm insight={candidate.insight} />
 
-                    {candidate.hasConsented ? (
-                        <div className={style.buttons}>
-                            <Button variant="danger" onClick={handleDecline}>
-                                Trekk samtykke
-                            </Button>
-                            <Link to="/innbygger/deltagelser">
-                                <Button as="div">Tilbake til deltagelser</Button>
-                            </Link>
-                        </div>
-                    ) : (
-                        <div className={style.buttons}>
-                            <Button variant="danger" onClick={handleDecline}>
+                        {candidate.hasConsented ? (
+                            <div className={style.buttons}>
+                                <Button variant="danger" onClick={() => setOpenDeclineModal(!openDeclineModal)}>
+                                    Trekk samtykke
+                                </Button>
+                                <Link to="/innbygger/deltagelser">
+                                    <Button as="div">Tilbake til deltagelser</Button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className={style.buttons}>
+                                <Button variant="danger" onClick={handleDecline}>
                                 Avslå
-                            </Button>
-                            <Button onClick={handleAccept}>Godta</Button>
-                        </div>
-                    )}
-                </>
-            ) : (
-                <APIHandler loading={loading} error={error} />
-            )}
-        </Panel>
+                                </Button>
+                                <Button onClick={handleAccept}>Godta</Button>
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <APIHandler loading={loading} error={error} />
+                )}
+            </Panel>
+            <DeclineConsentModal 
+                open={openDeclineModal} 
+                setOpen={setOpenDeclineModal}
+                handleDecline={handleDecline}
+            />
+        </>
     );
 };

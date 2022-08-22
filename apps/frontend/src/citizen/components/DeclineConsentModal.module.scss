@@ -1,0 +1,14 @@
+.modalText {
+    p {
+        max-width: 32rem;
+    }
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        width: 49%;
+    }
+}

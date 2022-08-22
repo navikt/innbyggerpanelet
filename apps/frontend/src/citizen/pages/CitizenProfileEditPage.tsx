@@ -1,5 +1,5 @@
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
-import { Button, Panel } from '@navikt/ds-react';
+import { Alert, Button, Panel } from '@navikt/ds-react';
 import { AxiosError } from 'axios';
 import { MouseEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -39,6 +39,12 @@ export const CitizenProfileEditPage = (): ReactElement => {
                 setCitizen={setCitizen}
                 validationErrors={citizenValidationErrors}
             />
+            <div className={style.criteriaAlert}>
+                <Alert variant='info'>
+                    Selv om du oppdaterer et kriterie som er brukt i et innsiktsarbeid,
+                    må du selv trekke samtykket hvis du ikke ønsker å være en del av det.
+                </Alert>
+            </div>
             <CitizenEditCriterias
                 citizen={citizen}
                 setCitizen={setCitizen}
