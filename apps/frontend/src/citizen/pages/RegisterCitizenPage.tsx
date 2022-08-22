@@ -60,6 +60,7 @@ export const RegisterCitizen = (): ReactElement => {
                     <Panel className={style.citizenInfoInputContainer}>
                         <TextField 
                             label="Fornavn"
+                            description="Obligatorisk"
                             id="firstname"
                             name="firstname"
                             value={citizen?.firstname || ''}
@@ -69,6 +70,7 @@ export const RegisterCitizen = (): ReactElement => {
                         />
                         <TextField 
                             label="Etternavn"
+                            description="Obligatorisk"
                             id="surname"
                             name="surname"
                             value={citizen?.surname || ''}
@@ -78,6 +80,7 @@ export const RegisterCitizen = (): ReactElement => {
                         />
                         <TextField 
                             label="Telefonnummer"
+                            description="Obligatorisk"
                             id="phone"
                             name="phone"
                             value={citizen?.phone || ''}
