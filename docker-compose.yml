@@ -4,7 +4,7 @@ services:
         container_name: 'innbyggerpanelet_frontend'
         build:
             context: .
-            dockerfile: Dockerfile.frontend.dev
+            dockerfile: Dockerfile.frontend.local
         volumes:
             - './apps/frontend/src:/app/apps/frontend/src'
         networks:
@@ -19,7 +19,7 @@ services:
         container_name: 'innbyggerpanelet_api'
         build:
             context: .
-            dockerfile: Dockerfile.backend.dev
+            dockerfile: Dockerfile.backend.local
         volumes:
             - ./apps/api/src:/app/apps/api/src
         networks:
