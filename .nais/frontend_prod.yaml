@@ -34,5 +34,7 @@ spec:
     - https://www.nav.no/innbyggerpanelet
   accessPolicy:
     outbound:
+      external:
+        - host: www.nav.no
       rules:
         - application: innbyggerpanelet-backend
