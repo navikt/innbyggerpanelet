@@ -1,7 +1,7 @@
 FROM node:14
 
 ENV IS_PROD=yes
-ENV CLIENT_URL=https://www.nav.no/innbyggerpanelet
+ENV CLIENT_URL=https://www.nav.no/innbyggerpanelet/landing
 ENV API_URL=https://innbyggerpanelet-backend.intern.nav.no
 ENV BESKJED_TOPIC=min-side.aapen-brukernotifikasjon-beskjed-v1
 
