@@ -31,7 +31,7 @@ spec:
     max: 2
     cpuThresholdPercentage: 80
   ingresses:
-    - https://www.nav.no/innbyggerpanelet/landing
+    - https://www.nav.no/innbyggerpanelet
   accessPolicy:
     outbound:
       external:
