@@ -2,7 +2,7 @@ name: Deploy backend to dev-gcp
 
 on:
     push:
-        branches: [main]
+        branches: [main, dev-**]
 
 env:
     IMAGE: ghcr.io/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
