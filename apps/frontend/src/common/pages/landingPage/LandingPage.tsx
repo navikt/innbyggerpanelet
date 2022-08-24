@@ -1,5 +1,5 @@
 import { Right } from '@navikt/ds-icons';
-import { BodyLong, BodyShort, Button, Heading } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Button, Heading, Tag } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { PanelNoBackground } from '../../components/panelNoBackground';
@@ -11,6 +11,7 @@ export const LandingPage = (): ReactElement => {
             <div className={style.introText}>
                 <Heading size="xlarge">Velkommen til innbyggerpanelet</Heading>
                 <BodyShort>Vil du hjelpe NAV med å bli bedre? I Innbyggerpanelet kan du få sjansen!</BodyShort>
+                <Tag variant='warning' size='medium'>Innbyggerpanelet er i beta!</Tag>
                 <Link to="innlogging">
                     <Button as="div">
                         Bli med <Right />
