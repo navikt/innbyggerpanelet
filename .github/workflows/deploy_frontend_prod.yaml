@@ -3,7 +3,7 @@ name: Deploy frontend to prod-gcp
 on:
   push:
     branches: [main]
-    paths: [apps/frontend/**]
+    paths: [apps/frontend/**, package.json]
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}/inbyggerpanelet-frontend:${{ github.sha }}
