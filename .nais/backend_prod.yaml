@@ -28,37 +28,33 @@ spec:
       memory: 256Mi
   replicas:
     min: 1
-    max: 2
+    max: 1
     cpuThresholdPercentage: 80
   env:
     - name: REDIS_HOST
       value: innbyggerpanelet-redis.team-researchops.svc.cluster.local
   ingresses:
-    - https://innbyggerpanelet-backend.dev.nav.no
+    - https://innbyggerpanelet-backend.intern.nav.no
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
         databases:
           - name: "innbyggerpanelet-backend-db"
-  azure: 
+  azure:
     application:
       enabled: true
-
       tenant: nav.no
-
       replyURLs:
-        - "https://innbyggerpanelet-backend.dev.nav.no/api/azure/oauth2/callback"
-        - "http://localhost/api/azure/oauth2/callback"
+        - "https://innbyggerpanelet-backend.intern.nav.no/api/azure/oauth2/callback"
   kafka:
-    pool: nav-dev
+    pool: nav-prod
   idporten:
     enabled: true
-    clientURI: "https://innbyggerpanelet-backend.dev.nav.no"
+    clientURI: "https://innbyggerpanelet-backend.intern.nav.no"
     redirectPath: "/oauth2/callback"
     frontchannelLogoutPath: "/oauth2/logout"
-    postLogoutRedirectURIs: 
-      - "https://innbyggerpanelet-backend.dev.nav.no"
-
+    postLogoutRedirectURIs:
+      - "https://innbyggerpanelet-backend.intern.nav.no"
     accessTokenLifetime: 3600
     sessionLifetime: 7200
   accessPolicy:
@@ -66,6 +62,5 @@ spec:
       rules:
         - application: innbyggerpanelet
     outbound:
-      rules: 
+      rules:
         - application: innbyggerpanelet-redis
-      

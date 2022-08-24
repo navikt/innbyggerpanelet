@@ -1,0 +1,17 @@
+FROM node:14.17.0
+
+ENV NODE_ENV=development
+ENV API_URL=http://localhost:3000
+
+WORKDIR /app
+
+COPY package.json .
+COPY yarn.lock .
+
+RUN yarn
+
+COPY . .
+
+EXPOSE 4200
+
+CMD ["yarn", "start", "--host=0.0.0.0"]

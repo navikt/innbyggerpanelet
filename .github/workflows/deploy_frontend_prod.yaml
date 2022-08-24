@@ -1,0 +1,39 @@
+name: Deploy frontend to prod-gcp
+
+on:
+  push:
+    branches: [main]
+    paths: [apps/frontend/**]
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}/inbyggerpanelet-frontend:${{ github.sha }}
+  CLUSTER: prod-gcp
+  RESOURCE: .nais/frontend_prod.yaml
+
+jobs:
+  build:
+    name: Build and push Docker container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build and publish Docker image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            docker build . -t ${IMAGE} -f Dockerfile.frontend.prod
+            docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+            docker push ${IMAGE}
+  deploy:
+    name: Deploy to prod-gcp
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+      - name: Deploy to PROD
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/frontend_prod.yaml
+          VAR: image=${{ env.IMAGE }}

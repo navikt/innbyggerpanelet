@@ -2,7 +2,8 @@ name: Deploy backend to dev-gcp
 
 on:
     push:
-        branches: [main]
+        branches: [main, dev-**]
+        paths: [apps/api/**]
 
 env:
     IMAGE: ghcr.io/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
@@ -19,8 +20,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  yarn
-                  docker build . -t ${IMAGE} -f Dockerfile.backend.prod
+                  docker build . -t ${IMAGE} -f Dockerfile.backend.dev
                   docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
                   docker push ${IMAGE}
     deploy:
