@@ -2,7 +2,7 @@ name: Deploy frontend to dev-gcp
 
 on:
     push:
-        branches: [main]
+        branches: [main, 160-prepare-for-launch]
 
 env:
     IMAGE: ghcr.io/${{ github.repository }}/innbyggerpanelet-frontend:${{ github.sha }}
