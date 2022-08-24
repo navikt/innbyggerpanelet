@@ -34,7 +34,7 @@ spec:
     - name: REDIS_HOST
       value: innbyggerpanelet-redis.team-researchops.svc.cluster.local
   ingresses:
-    - https://innbyggerpanelet-backend.dev.intern.nav.no
+    - https://innbyggerpanelet-backend.dev.nav.no
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
@@ -47,17 +47,17 @@ spec:
       tenant: nav.no
 
       replyURLs:
-        - "https://innbyggerpanelet-backend.dev.intern.nav.no/api/azure/oauth2/callback"
+        - "https://innbyggerpanelet-backend.dev.nav.no/api/azure/oauth2/callback"
         - "http://localhost/api/azure/oauth2/callback"
   kafka:
     pool: nav-dev
   idporten:
     enabled: true
-    clientURI: "https://innbyggerpanelet-backend.dev.intern.nav.no"
+    clientURI: "https://innbyggerpanelet-backend.dev.nav.no"
     redirectPath: "/oauth2/callback"
     frontchannelLogoutPath: "/oauth2/logout"
     postLogoutRedirectURIs: 
-      - "https://innbyggerpanelet-backend.dev.intern.nav.no"
+      - "https://innbyggerpanelet-backend.dev.nav.no"
 
     accessTokenLifetime: 3600
     sessionLifetime: 7200
