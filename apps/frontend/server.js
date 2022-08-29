@@ -11,7 +11,7 @@ dotenv.config();
 
 app.use(express.static(path.join(__dirname, '../../dist/apps/frontend')));
 
-app.use('/', createProxyMiddleware({ target: process.env.API_URL, changeOrigin: true }));
+app.use('/api', createProxyMiddleware({ target: process.env.API_URL, changeOrigin: true }));
 // app.get('/', (req, res) => {
 //     res.send('Hello World!')
 // })

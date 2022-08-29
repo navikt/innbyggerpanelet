@@ -53,11 +53,11 @@ spec:
     pool: nav-dev
   idporten:
     enabled: true
-    clientURI: "https://innbyggerpanelet-backend.dev.nav.no"
+    clientURI: "https://innbyggerpanelet.ekstern.dev.nav.no/api"
     redirectPath: "/oauth2/callback"
     frontchannelLogoutPath: "/oauth2/logout"
     postLogoutRedirectURIs: 
-      - "https://innbyggerpanelet-backend.dev.nav.no"
+      - "https://innbyggerpanelet.ekstern.dev.nav.no/api"
 
     accessTokenLifetime: 3600
     sessionLifetime: 7200
