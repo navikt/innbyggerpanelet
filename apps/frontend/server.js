@@ -24,7 +24,7 @@ app.get('/isready', (req, res) => {
     res.sendStatus(200);
 });
 
-app.get('/', (req, res) => {
+app.get('/innbyggerpanelet', (req, res) => {
     res.sendFile(path.join(__dirname, '../../dist/apps/frontend', 'index.html'));
 });
 

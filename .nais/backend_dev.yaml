@@ -40,7 +40,7 @@ spec:
     - name: API_URL
       value: https://innbyggerpanelet.dev.intern.nav.no
   ingresses:
-    - https://innbyggerpanelet.dev.intern.nav.no
+    - https://innbyggerpanelet.ekstern.dev.nav.no/api
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
@@ -59,11 +59,11 @@ spec:
     pool: nav-dev
   idporten:
     enabled: true
-    clientURI: "https://innbyggerpanelet.ekstern.dev.nav.no"
-    redirectPath: "https://innbyggerpanelet.ekstern.dev.nav.no/oauth2/callback"
-    frontchannelLogoutPath: "https://innbyggerpanelet.ekstern.dev.nav.no/oauth2/logout"
+    clientURI: "https://innbyggerpanelet.dev.intern.nav.no"
+    redirectPath: "/oauth2/callback"
+    frontchannelLogoutPath: "/oauth2/logout"
     postLogoutRedirectURIs: 
-      - "https://innbyggerpanelet.ekstern.dev.nav.no"
+      - "https://innbyggerpanelet.dev.intern.nav.no"
 
     accessTokenLifetime: 3600
     sessionLifetime: 7200

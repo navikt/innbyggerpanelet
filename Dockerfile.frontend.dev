@@ -1,6 +1,6 @@
 FROM node:14
 
-ENV API_URL=https://innbyggerpanelet.dev.intern.nav.no
+ENV API_URL=https://innbyggerpanelet.ekstern.dev.nav.no
 
 WORKDIR /app
 
