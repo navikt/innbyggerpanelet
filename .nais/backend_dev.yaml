@@ -33,12 +33,6 @@ spec:
   env:
     - name: REDIS_HOST
       value: innbyggerpanelet-redis.team-researchops.svc.cluster.local
-    - name: IS_PROD
-      value: "yes"
-    - name: CLIENT_URL
-      value: https://innbyggerpanelet.ekstern.dev.nav.no
-    - name: API_URL
-      value: https://innbyggerpanelet.dev.intern.nav.no
   ingresses:
     - https://innbyggerpanelet.dev.intern.nav.no
   gcp:
