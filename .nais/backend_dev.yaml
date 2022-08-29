@@ -47,7 +47,7 @@ spec:
       tenant: nav.no
 
       replyURLs:
-        - "https://innbyggerpanelet-backend.dev.nav.no/api/azure/oauth2/callback"
+        - "https://innbyggerpanelet.ekstern.dev.nav.no/api/api/azure/oauth2/callback"
         - "http://localhost/api/azure/oauth2/callback"
   kafka:
     pool: nav-dev
