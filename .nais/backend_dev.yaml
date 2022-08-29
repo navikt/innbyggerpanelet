@@ -33,8 +33,14 @@ spec:
   env:
     - name: REDIS_HOST
       value: innbyggerpanelet-redis.team-researchops.svc.cluster.local
+    - name: IS_PROD
+      value: "yes"
+    - name: CLIENT_URL
+      value: https://innbyggerpanelet.ekstern.dev.nav.no
+    - name: API_URL
+      value: https://innbyggerpanelet.dev.intern.nav.no
   ingresses:
-    - https://innbyggerpanelet.ekstern.dev.nav.no
+    - https://innbyggerpanelet.dev.intern.nav.no
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
@@ -47,7 +53,7 @@ spec:
       tenant: nav.no
 
       replyURLs:
-        - "https://innbyggerpanelet.ekstern.dev.nav.no/backend/azure/oauth2/callback"
+        - "https://innbyggerpanelet.dev.intern.nav.no/azure/oauth2/callback"
         - "http://localhost/api/azure/oauth2/callback"
   kafka:
     pool: nav-dev
