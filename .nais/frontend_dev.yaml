@@ -34,7 +34,7 @@ spec:
     enabled: false
     path: /internal/prometheus
   ingresses:
-    - https://innbyggerpanelet.ekstern.dev.nav.no/innbyggerpanelet
+    - https://innbyggerpanelet.ekstern.dev.nav.no
   accessPolicy:
     outbound:
       rules:

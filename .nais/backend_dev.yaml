@@ -40,7 +40,7 @@ spec:
     - name: API_URL
       value: https://innbyggerpanelet.dev.intern.nav.no
   ingresses:
-    - https://innbyggerpanelet.ekstern.dev.nav.no/api
+    - https://innbyggerpanelet.dev.intern.nav.no
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"
