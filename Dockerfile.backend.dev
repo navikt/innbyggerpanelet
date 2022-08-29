@@ -4,6 +4,7 @@ ENV IS_PROD=yes
 ENV CLIENT_URL=https://innbyggerpanelet.ekstern.dev.nav.no
 ENV API_URL=https://innbyggerpanelet.dev.intern.nav.no
 ENV BESKJED_TOPIC=min-side.aapen-brukernotifikasjon-beskjed-v1
+ENV IDPORTEN_REDIRECT_URI=https://innbyggerpanelet.ekstern.dev.nav.no/oauth2/callback
 
 WORKDIR /app
 
