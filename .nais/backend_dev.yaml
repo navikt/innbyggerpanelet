@@ -51,7 +51,7 @@ spec:
   idporten:
     enabled: true
     clientURI: "https://innbyggerpanelet.dev.intern.nav.no"
-    redirectPath: "https://innbyggerpanelet.ekstern.dev.nav.no/oauth2/callback"
+    redirectPath: "https://innbyggerpanelet.dev.intern.nav.no/oauth2/callback"
     frontchannelLogoutPath: "/oauth2/logout"
     postLogoutRedirectURIs: 
       - "https://innbyggerpanelet.dev.intern.nav.no"
@@ -66,8 +66,6 @@ spec:
       rules: 
         - application: innbyggerpanelet-redis
   env:
-    - name: IDPORTEN_REDIRECT_URI
-      value: "https://innbyggerpanelet.ekstern.dev.nav.no/oauth2/callback"
     - name: REDIS_HOST
       value: innbyggerpanelet-redis.team-researchops.svc.cluster.local
       
