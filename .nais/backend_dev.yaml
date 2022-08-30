@@ -51,6 +51,7 @@ spec:
   idporten:
     enabled: true
     clientURI: "https://innbyggerpanelet.dev.intern.nav.no"
+    redirectPath: "https://innbyggerpanelet.ekstern.dev.nav.no/oauth2/callback"
     frontchannelLogoutPath: "/oauth2/logout"
     postLogoutRedirectURIs: 
       - "https://innbyggerpanelet.dev.intern.nav.no"
