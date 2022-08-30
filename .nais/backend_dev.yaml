@@ -30,9 +30,6 @@ spec:
     min: 1
     max: 2
     cpuThresholdPercentage: 80
-  env:
-    - name: REDIS_HOST
-      value: innbyggerpanelet-redis.team-researchops.svc.cluster.local
   ingresses:
     - https://innbyggerpanelet.dev.intern.nav.no
   gcp:
@@ -67,4 +64,9 @@ spec:
     outbound:
       rules: 
         - application: innbyggerpanelet-redis
+  env:
+    - name: IDPORTEN_REDIRECT_URI
+      value: "https://innbyggerpanelet.ekstern.dev.nav.no/oauth2/callback"
+    - name: REDIS_HOST
+      value: innbyggerpanelet-redis.team-researchops.svc.cluster.local
       
