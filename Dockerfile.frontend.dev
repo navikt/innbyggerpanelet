@@ -11,6 +11,7 @@ RUN yarn build
 
 RUN cd apps/frontend/server
 RUN yarn build
+RUN cd ../../../
 
 EXPOSE 3000
 
