@@ -3,6 +3,8 @@ FROM node:14
 ENV API_URL=https://innbyggerpanelet.dev.intern.nav.no
 ENV PORT=3000
 
+WORKDIR /
+
 COPY . ./
 
 RUN yarn install
