@@ -5,6 +5,8 @@
     "scripts": {
         "start": "nx serve",
         "build": "nx build",
+        "build:frontend": "nx build frontend:build:production",
+        "build:proxy": "nx build proxy:build:production",
         "test": "nx test",
         "test:frontend": "nx test frontend --env=jsdom",
         "parallel": "nx run-many --target=serve --projects=api,frontend --parallel",
