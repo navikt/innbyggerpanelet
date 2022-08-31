@@ -35,6 +35,8 @@ spec:
     path: /internal/prometheus
   ingresses:
     - https://innbyggerpanelet.ekstern.dev.nav.no
+  tokenx:
+    enabled: true
   accessPolicy:
     outbound:
       rules:
