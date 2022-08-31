@@ -4,6 +4,8 @@ import config from './config';
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, '../../../dist/apps/frontend')));
+
 app.get('isalive|isready', (req: Request, res: Response) => {
     res.sendStatus(200);
 });
