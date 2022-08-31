@@ -8,7 +8,7 @@ WORKDIR /
 COPY . ./
 
 RUN yarn install
-RUN yarn build
+RUN yarn build frontend
 RUN yarn build proxy
 
 EXPOSE 3000
