@@ -3,7 +3,7 @@ FROM node:14
 ENV API_URL=https://innbyggerpanelet.dev.intern.nav.no
 ENV PORT=3000
 
-WORKDIR /
+WORKDIR /app
 
 COPY . ./
 
@@ -13,4 +13,4 @@ RUN yarn build:proxy
 
 EXPOSE 3000
 
-CMD node apps/proxy/main.js
+CMD node dist/apps/proxy/main.js
