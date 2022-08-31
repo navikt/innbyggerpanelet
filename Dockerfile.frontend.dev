@@ -9,6 +9,9 @@ COPY . ./
 RUN yarn install
 RUN yarn build
 
+RUN cd apps/frontend/server
+RUN yarn build
+
 EXPOSE 3000
 
-CMD node apps/frontend/server.js
+CMD node apps/frontend/server/server.js
