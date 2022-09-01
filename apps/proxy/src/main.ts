@@ -10,7 +10,7 @@ import proxy from './proxy';
 const app = express();
 
 const buildPath = path.resolve(__dirname, '../../../dist/apps/frontend');
-console.log(buildPath);
+
 app.use(
     rTracer.expressMiddleware({
         useHeader: true,
