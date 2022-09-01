@@ -29,7 +29,7 @@ app.get('isalive|isready', (req: Request, res: Response) => {
 logger.info('Setting up session and proxy');
 
 app.get('/session', session());
-app.use('/api', proxy(`http://localhost:${config.app.port}`));
+app.use('/api', proxy(process.env.API_URL));
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(buildPath + '/index.html'));
 
