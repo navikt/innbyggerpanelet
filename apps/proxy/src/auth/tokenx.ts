@@ -14,11 +14,10 @@ export default class TokenXClient {
     constructor() {
         logger.info('Setting up TokenX');
 
-        this.init()
-            .then((client) => {
-                this.tokenXClient = client;
-            })
-            .catch(() => process.exit(1));
+        this.init().then((client) => {
+            this.tokenXClient = client;
+        });
+        //.catch(() => process.exit(1));
     }
 
     exchangeToken = async (accessToken) => {
