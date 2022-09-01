@@ -1,6 +1,7 @@
 const app = {
     apiUrl: process.env.API_URL,
-    port: Number(process.env.PORT) || 8080
+    port: Number(process.env.PORT) || 8080,
+    targetAudience: process.env.AUDIENCE
 };
 
 const tokenX = {

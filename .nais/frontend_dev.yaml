@@ -37,6 +37,9 @@ spec:
     - https://innbyggerpanelet.ekstern.dev.nav.no
   tokenx:
     enabled: true
+  env:
+    - name: AUDIENCE
+      value: dev-gcp:team-researchops:innbyggerpanelet-backend 
   accessPolicy:
     outbound:
       rules:
