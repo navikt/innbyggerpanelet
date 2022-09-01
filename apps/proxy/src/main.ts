@@ -9,6 +9,8 @@ import proxy from './proxy';
 
 const app = express();
 
+const buildPath = path.resolve(__dirname, '../../../dist/apps/frontend');
+
 app.use(
     rTracer.expressMiddleware({
         useHeader: true,
@@ -17,20 +19,19 @@ app.use(
 );
 
 app.set('trust proxy', 1);
-app.use(express.static(path.join(__dirname, '../../../dist/apps/frontend')));
+app.use('', express.static(buildPath, { index: false }));
 app.use(parser.json());
 
 app.get('isalive|isready', (req: Request, res: Response) => {
     res.sendStatus(200);
-});
-app.get('/', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../../../dist/apps/frontend', 'index.html'));
 });
 
 logger.info('Setting up session and proxy');
 
 app.get('/session', session());
 app.use('/api', proxy(`http://localhost:${config.app.port}`));
+
+app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile('/index.html'));
 
 app.listen(config.app.port, () => {
     logger.info(`App listening at http://localhost:${config.app.port}`);
