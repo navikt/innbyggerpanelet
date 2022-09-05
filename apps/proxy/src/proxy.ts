@@ -10,7 +10,8 @@ const isOK = (status: number) => [200, 404, 409].includes(status);
 
 const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers;
-    const token = authorization.split(' ')[1];
+    //const token = authorization.split(' ')[1];
+    const token = 'Bearer AbCdEf123456';
 
     const accessToken = await exchangeToken(token).then((accessToken) => accessToken);
 
@@ -37,7 +38,6 @@ export default function proxy(host: string): RequestHandler {
         try {
             const request: any = await prepareSecuredRequest(req);
             const response = await fetch(`${host}${req.path}`, request);
-            console.log(response.url);
 
             if (isOK(response.status)) {
                 logger.info(`${response.status} ${response.statusText}: ${req.method} ${req.path}`);
