@@ -58,6 +58,8 @@ spec:
 
     accessTokenLifetime: 3600
     sessionLifetime: 7200
+  tokenx:
+    enabled: true
   accessPolicy:
     inbound:
       rules:
