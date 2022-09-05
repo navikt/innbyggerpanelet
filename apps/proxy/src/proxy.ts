@@ -37,6 +37,7 @@ export default function proxy(host: string): RequestHandler {
         try {
             const request: any = await prepareSecuredRequest(req);
             const response = await fetch(`${host}${req.path}`, request);
+            console.log(response.url);
 
             if (isOK(response.status)) {
                 logger.info(`${response.status} ${response.statusText}: ${req.method} ${req.path}`);
