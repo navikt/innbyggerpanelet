@@ -37,6 +37,20 @@ spec:
     - https://innbyggerpanelet.ekstern.dev.nav.no
   tokenx:
     enabled: true
+  idporten:
+    enabled: true
+    clientURI: https://www.dev.nav.no
+    frontchannelLogoutPath: "/logout"
+    postLogoutRedirectURIs: 
+      - "https://innbyggerpanelet.ekstern.dev.nav.no"
+    accessTokenLifetime: 3600
+    sessionLifetime: 3600
+    sidecar:
+      enabled: true
+      level: Level4
+      locale: nb
+      autoLogin: true
+      errorPath: ""
   env:
     - name: AUDIENCE
       value: dev-gcp:team-researchops:innbyggerpanelet-backend 
