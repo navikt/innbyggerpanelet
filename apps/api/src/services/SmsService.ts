@@ -34,8 +34,8 @@ export class SmsService {
                             smsMessage: message,
                             message,
                             safetyLevel: 4,
-                            emailMessage: undefined,
-                            emailTitle: undefined
+                            emailMessage: null,
+                            emailTitle: null
                         })
                     }
                 ]
