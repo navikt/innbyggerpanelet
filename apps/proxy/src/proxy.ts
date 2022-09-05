@@ -10,8 +10,7 @@ const isOK = (status: number) => [200, 404, 409].includes(status);
 
 const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers;
-    //const token = authorization.split(' ')[1];
-    const token = 'Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFUzI1NmluT1RBIiwibmFtZSI6IkpvaG4gRG9lIn0';
+    const token = authorization.split(' ')[1];
 
     const accessToken = await exchangeToken(token).then((accessToken) => accessToken);
 
