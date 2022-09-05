@@ -6,7 +6,7 @@ const { exchangeToken } = new TokenXClient();
 
 const isEmpty = (obj) => !obj || !Object.keys(obj).length;
 
-const isOK = (status) => [200, 404, 409].includes(status);
+const isOK = (status: number) => [200, 404, 409].includes(status);
 
 const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers;

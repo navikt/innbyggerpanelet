@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { StatusCodes } from 'http-status-codes';
 import kafka from '../loaders/kafka';
 import { SmsService } from '../services/SmsService';
 
@@ -13,7 +12,7 @@ smsRoutes.post('/', async (req, res, next) => {
 
         smsService.send(newSms);
 
-        res.json({ message: 'SMS sent'});
+        res.json({ message: 'SMS sent' });
     } catch (error) {
         next(error);
     }
