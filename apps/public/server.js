@@ -19,7 +19,7 @@ app.get(`${process.env.BASE_PATH}/isready`, (req, res) => {
     res.sendStatus(200);
 });
 
-app.use(/^(?!.*\/(internal|static)\/).*$/, `${buildPath}/index.html`)
+app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
