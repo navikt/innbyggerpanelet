@@ -2,7 +2,9 @@ FROM node:14
 
 ENV BASE_PATH=/innbyggerpanelet
 
-COPY ../../ .
+WORKDIR /app
+
+COPY . ./
 
 RUN yarn install
 RUN yarn build public
