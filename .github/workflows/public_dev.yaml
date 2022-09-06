@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
       - name: Deploy to dev-gcp
         uses: nais/deploy/actions/@v1
         env:
