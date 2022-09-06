@@ -1,6 +1,6 @@
-import express from 'express';
-import path from 'path';
-import dotenv from 'dotenv';
+const express = require('express');
+const path = require('path');
+const dotenv = require('dotenv');
 
 const app = express()
 const port = 3000
