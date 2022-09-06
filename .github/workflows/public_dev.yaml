@@ -25,6 +25,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./apps/public
+          file: Dockerfile.dev
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
 
