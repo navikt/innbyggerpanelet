@@ -18,7 +18,7 @@ app.get(`${process.env.BASE_PATH}/isready`, (req, res) => {
 });
 
 app.get(`${process.env.BASE_PATH}/`, (req, res) => {
-    res.sendFile(path.join(__dirname, '../../dist/apps/public', 'index.html'))
+    res.sendFile(path.join(__dirname, '../../dist/apps/public', `${process.env.BASE_PATH}/index.html`))
 })
 
 app.listen(port, () => {
