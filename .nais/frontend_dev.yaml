@@ -40,8 +40,8 @@ spec:
   idporten:
     enabled: true
     clientURI: https://www.dev.nav.no
-    redirectPath: "/oauth2/callback"
-    frontchannelLogoutPath: "/oauth2/logout"
+    redirectPath: "/idporten/oauth2/callback"
+    frontchannelLogoutPath: "/idporten/oauth2/logout"
     postLogoutRedirectURIs: 
       - "https://innbyggerpanelet.ekstern.dev.nav.no"
     accessTokenLifetime: 3600

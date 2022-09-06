@@ -1,0 +1,14 @@
+FROM node:14
+
+ENV BASE_PATH=/innbyggerpanelet
+
+WORKDIR /app
+
+COPY . ./
+
+RUN yarn install
+RUN yarn build public
+
+EXPOSE 3000
+
+CMD node apps/public/server.js

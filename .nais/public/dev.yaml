@@ -1,0 +1,37 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: innbyggerpanelet-public
+  namespace: team-researchops
+  labels:
+    team: team-researchops
+spec:
+  image: {{ image }}
+  port: 3000
+  team: team-researchops
+  liveness:
+    path: /innbyggerpanelet/isalive
+    port: 3000
+    initialDelay: 20
+    timeout: 60
+  readiness:
+    path: /innbyggerpanelet/isready
+    port: 3000
+    initialDelay: 20
+    timeout: 60
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 80
+  prometheus:
+    enabled: true
+    path: /internal/prometheus
+  ingresses:
+    - https://innbyggerpanelet.dev.nav.no/innbyggerpanelet

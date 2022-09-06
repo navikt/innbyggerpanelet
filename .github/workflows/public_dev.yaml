@@ -1,0 +1,42 @@
+name: Deploy public
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, dev-**, 170-**]
+    #paths: [apps/public/**]
+
+env:
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-public:${{ github.sha }}
+
+jobs:
+  build:
+    name: Build and push Docker container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to docker
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-actions@v2
+        with:
+          context: ./apps/public
+          push: true
+          tags: ${{ env.DOCKER_IMAGE }}
+
+  deploy:
+    name: Deploy to dev-gcp
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nais/deploy/actions/@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/public/dev.yaml
+          VAR: image=${{ env.IMAGE }}

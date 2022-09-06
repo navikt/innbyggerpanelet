@@ -3,8 +3,11 @@
     "projects": {
         "api": "apps/api",
         "api-interfaces": "libs/api-interfaces",
+        "citizen": "apps/citizen",
+        "employee": "apps/employee",
         "frontend": "apps/frontend",
-        "proxy": "apps/proxy"
+        "proxy": "apps/proxy",
+        "public": "apps/public"
     },
     "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
