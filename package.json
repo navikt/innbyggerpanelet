@@ -63,6 +63,7 @@
         "node-jose": "^2.1.1",
         "normalize.css": "^8.0.1",
         "norwegian-birth-number-validator": "^2.0.1",
+        "oidc-react": "^2.0.3",
         "openid-client": "^5.1.9",
         "passport": "^0.6.0",
         "passport-openidconnect": "^0.1.1",

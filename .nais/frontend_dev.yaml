@@ -46,6 +46,13 @@ spec:
       - "https://innbyggerpanelet.ekstern.dev.nav.no"
     accessTokenLifetime: 3600
     sessionLifetime: 3600
+  azure: 
+    application:
+      enabled: true
+      tenant: nav.no
+      replyURLs:
+        - "https://innbyggerpanelet.ekstern.dev.nav.no/azure/oauth2/callback"
+        - "http://localhost/api/azure/oauth2/callback"
   env:
     - name: AUDIENCE
       value: dev-gcp:team-researchops:innbyggerpanelet-backend 
