@@ -2,7 +2,7 @@ name: Deploy frontend to dev-gcp
 
 on:
     push:
-        branches: [main, dev-**]
+        branches: [main, dev-**, 170-**]
         #paths: [apps/frontend/**]
 
 env:
