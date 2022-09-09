@@ -13,4 +13,4 @@ RUN yarn build:proxy
 
 EXPOSE 3000
 
-CMD node dist/apps/proxy/main.js
+CMD node apps/frontend/server.js
