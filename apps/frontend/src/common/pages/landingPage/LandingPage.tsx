@@ -1,5 +1,5 @@
 import { Right } from '@navikt/ds-icons';
-import { BodyLong, BodyShort, Button, Heading, Tag } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Button, Heading } from '@navikt/ds-react';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { PanelNoBackground } from '../../components/panelNoBackground';
@@ -9,9 +9,13 @@ export const LandingPage = (): ReactElement => {
     return (
         <>
             <div className={style.introText}>
-                <Heading size="xlarge">Velkommen til innbyggerpanelet</Heading>
-                <BodyShort>Vil du hjelpe NAV med å bli bedre? I Innbyggerpanelet kan du få sjansen!</BodyShort>
-                <Tag variant='warning' size='medium'>Innbyggerpanelet er i beta!</Tag>
+                <PanelNoBackground className={style.textBox}>
+                    <Heading size="xlarge">Bli med på å gjøre NAV bedre</Heading>
+                    <BodyShort className={style.textBox}>
+                        Som deltaker i Innbyggerpanelet har du muligheten til å bidra til at NAVs tjenester forbedres. 
+                        Du inviteres til ulike undersøkelser som du selv velger om du vil delta på.
+                    </BodyShort>
+                </PanelNoBackground>
                 <Link to="innlogging">
                     <Button as="div">
                         Bli med <Right />
@@ -26,15 +30,23 @@ export const LandingPage = (): ReactElement => {
             />
             <PanelNoBackground className={style.textBox}>
                 <Heading size="large">Hva er Innbyggerpanelet?</Heading>
+                <BodyShort>
+                    For å levere gode tjenester er NAV avhengig av å involvere og få tilbakemelding fra Navs brukere.
+                </BodyShort>
+                <BodyShort>
+                    Som frivillig deltager i Innbyggerpanelet har du muligheten til å gi dine tilbakemeldinger og 
+                    innspill på Navs løsninger og tjenester.
+                </BodyShort>
                 <BodyLong>
-                    Kort fortalt :) Kort fortalt :) HVa kan man bli med på? Hvordan? HVorfor? osv... Innbyggerpanelet er
-                    et digitalt panel bestående av innbyggere i Norge som har registrert seg og dermed sagt seg villige
-                    til å bli kontaktet angående å delta på ulike typer innsiktsarbeid. Under registreringen vil
-                    innbyggeren registrere relevante opplysninger slik at man blir inviteret til det innsiktsarbeidet
-                    som er mest relevant for dem. Både registreringen og deltakelse på innsiktsarbeid er samtykkebasert
-                    og innbyggeren bestemmer selv hva de vil bli med på. De er anonym fram til de har godtatt samtykket
-                    til å være med på innsiktsarbeidet.
+                    Hvis du velger å registrere deg, kan du bli kontaktet for å delta på konkrete innsiktarbeid. 
+                    Slike innsiktsarbeid kan være intervju, brukertest, spørreundersøkelser, osv.  Løsningen håndterer 
+                    kommunikasjonen og samtykke til dette. Opplysningene du oppgir under denne registeringen, brukes 
+                    kun for å finne relevante løsninger og tjenester du kan gi innspill til. 
                 </BodyLong>
+                <BodyShort>
+                    Som deltaker i Innbyggerpanelet har du god kontroll over dine perosnopplysninger, og kan når som helst se, 
+                    redigere eller slette ditt samtykke til å være deltaker i panelet eller et konkret innsiktsarbeid. 
+                </BodyShort>
             </PanelNoBackground>
             <div className={style.userStory}>
                 <PanelNoBackground>

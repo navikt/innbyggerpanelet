@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { ICitizen } from '@innbyggerpanelet/api-interfaces';
 import { HandsHeart } from '@navikt/ds-icons';
-import { Alert, BodyLong, Button, Panel, TextField } from '@navikt/ds-react';
+import { Alert, BodyLong, BodyShort, Button, Heading, Panel, TextField } from '@navikt/ds-react';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -64,6 +64,10 @@ export const RegisterCitizen = (): ReactElement => {
                         de undersøkelsene som passer best til din situasjon.
                         </BodyLong>
                     </PageHeader>
+                    <div className={style.criteriaInfo}>
+                        <Heading level="1" size="large">Obligatorisk:</Heading>
+                        <BodyShort>Disse opplysningene må vi ha for å kunne kontakte deg på sms.</BodyShort>
+                    </div>
                     <Panel className={style.citizenInfoInputContainer}>
                         <TextField 
                             label="Fornavn"
@@ -93,19 +97,36 @@ export const RegisterCitizen = (): ReactElement => {
                             className={style.phoneInput} 
                         />
                     </Panel>
-                    <div className={style.criteriaAlert}>
-                        <Alert variant='info'>Du må velge ett av de følgende vilkårlige kriteriene</Alert>
-                    </div>
                     <div>
                         {categories?.map((categorie, index) => {
-                            return (
-                                <CriteriaRegistrationContainer
-                                    key={index}
-                                    criteriaCategory={categorie}
-                                    citizen={citizen}
-                                    setCitizen={setCitizen}
-                                />
-                            );
+                            if (index === 1) {
+                                return (
+                                    <div> 
+                                        <div className={style.criteriaInfo}>
+                                            <Heading level="1" size="large">Valgfritt:</Heading>
+                                            <BodyShort>
+                                            Kryss kun av for det som passer for deg og det du er komfortabel med. 
+                                            Vi bruker disse opplysningene til å finne relevante undersøkelser for deg.
+                                            </BodyShort>
+                                        </div>
+                                        <CriteriaRegistrationContainer 
+                                            key={index}
+                                            criteriaCategory={categorie}
+                                            citizen={citizen}
+                                            setCitizen={setCitizen}
+                                        />
+                                    </div>
+                                );
+                            } else {
+                                return (
+                                    <CriteriaRegistrationContainer
+                                        key={index}
+                                        criteriaCategory={categorie}
+                                        citizen={citizen}
+                                        setCitizen={setCitizen}
+                                    />
+                                );
+                            }
                         })}
                         {criteriaError && (
                             <Alert variant='error' className={style.criteriaAlert}>
@@ -113,8 +134,8 @@ export const RegisterCitizen = (): ReactElement => {
                             </Alert>
                         )}
                         <div className={style.navigationInput}>
-                            <Button variant='secondary' onClick={onCancel}>Avbryt</Button>
-                            <Button onClick={onNext}>Neste</Button>
+                            <Button variant='secondary' onClick={onCancel}>Gå tilbake</Button>
+                            <Button onClick={onNext}>Opprett profil</Button>
                         </div>
                     </div>
                 </>

@@ -48,62 +48,65 @@ export const RegisterCitizenConsent = (): ReactElement => {
             <ConsentTextPanel 
                 header='Hva er Innbyggerpanelet?'
                 paragraphs={[
-                    `For å levere gode tjenester er NAV avhengig av å involvere og 
-                    få tilbakemelding fra Navs brukere.`,
-                    `Som frivillig deltager i Innbyggerpanelet har du muligheten til 
-                    å gi dine tilbakemeldinger og innspill på Navs løsninger og tjenester.`,
+                    `For å levere gode tjenester er NAV avhengig av å involvere og få 
+                    tilbakemelding fra våre brukere .`,
+                    `Som frivillig deltager i Innbyggerpanelet har du muligheten til å gi 
+                    dine tilbakemeldinger og innspill på Navs løsninger og tjenester.`,
                     `Hvis du velger å registrere deg, kan du bli kontaktet for å delta på 
-                    konkrete innsiktarbeid. Løsningen håndterere kommunikasjonen og 
-                    samtykke til dette. Opplysningene du oppgir under denne registeringen, 
-                    brukes kun for å finne relevante løsninger og tjenester du kan gi innspill til.`
+                    konkrete undersøkelser. Løsningen håndterere kommunikasjonen og samtykke 
+                    til dette. Opplysningene du oppgir under denne registeringen, brukes 
+                    kun for å finne relevante undersøkelser du kan gi innspill til. `
                 ]}
             />
             <ConsentTextPanel 
                 header='Hvem har ansvar for Innbyggerpanelet?'
                 paragraphs={[
-                    `NAV Arbeid- og velferdsdirektoratet er behandlingsansvarlig for Innbyggerpanelet. 
-                    Innbyggerpanelet driftes av IT-avdelingen til Arbeid- og velferdsdirektoratet (NAV). `
+                    `NAV Arbeid- og velferdsdirektoratet er behandlingsansvarlig for 
+                    Innbyggerpanelet. Innbyggerpanelet driftes av IT-avdelingen til Arbeid- 
+                    og velferdsdirektoratet (NAV).`
                 ]}
             />
             <ConsentTextPanel 
                 header='Hva innebærer det for meg å registrere meg i Innbyggerpanelet?'
                 paragraphs={[
-                    `Er du aktuell for en undersøkelse vil du få en tekstmelding på din mobiltelefon 
-                    om at du har en ny invitasjon i Innbyggerpanelet.  Invitasjonen kan du lese 
-                    ved å logge på innbyggerpanelet.`,
-                    `Der står det hva innsiktsarbeidet innebærer, og du vil få muligheten til å delta 
-                    dersom du samtykker til vilkårene. Dersom du samtykker vil ansvarlig for 
-                    innsiktsarbeid få din kontaktformasjon. Deretter tar vi kontakt.`
+                    `Er du aktuell for en undersøkelse vil du få en tekstmelding på din 
+                    mobiltelefon om at du har en ny invitasjon i Innbyggerpanelet.  
+                    Invitasjonen kan du lese ved å logge på Innbyggerpanelet. `,
+                    `Der står det hva undersøkelsen innebærer, og du vil få muligheten 
+                    til å delta dersom du samtykker til vilkårene. Hvis du samtykker 
+                    vil ansvarlig for undersøkelse få din kontaktformasjon, som deretter 
+                    tar kontakt.`
                 ]}
             />
             <ConsentTextPanel 
                 header='Innbyggerpanelet er frivillig'
                 paragraphs={[
-                    `Det er frivillig å registrere seg i innbyggerpanelet. Du kan når som helst trekke 
-                    tilbake samtykke uten å oppgi grunn.`
+                    `Det er frivillig å registrere seg i innbyggerpanelet. Du kan når 
+                    som helst trekke tilbake samtykke uten å oppgi grunn.  `
                 ]}
             />
             <ConsentTextPanel 
                 header='Mottar du tjenester fra NAV?'
                 paragraphs={[
                     'Deltakelse i Innbyggerpanelet påvirket ikke dine rettigheter i NAV.',
-                    `Vi har ikke tilgang til dine saker, og opplysningene du registrer her kan ikke 
-                    kobles til disse. `
+                    `Vi har ikke tilgang til dine saker, og opplysningene du registrer her 
+                    kan ikke kobles til disse.`
                 ]}
             />
             <ConsentTextPanel 
                 header='Hvilke personopplysninger behandles i Innbyggerpanelet og hvordan oppbevares de?'
                 paragraphs={[
-                    `Velger du å registrere deg i innbyggerpanelet må du oppgi: navn, telefonnummer og 
-                    personnummer.`,
-                    `I tillegg har du mulighet til å registrere aktuell landsdel, morsmål, utdanning, 
-                    digitale ferdigheter, bransje, type pengestøtte du mottar fra NAV, funksjonsvariasjon, 
-                    eller hjelpemiddelkategori.`,
-                    `Det er kun du som har tilgang til å se din profil. Dersom du samtykker til å være 
-                    med på en konkret undersøkelse vil det aktuelle prosjektet se din kontaktinformasjon 
+                    `Velger du å delta i Innbyggerpanelet må du registrere: navn, telefonnummer, e-post, 
+                    personnummer, alder og hvilke type undersøkelser du ønsker å delta i. Det vil også 
+                    lagres en oversikt over de undersøkelsene du har godtatt.`,
+                    `I tillegg er det frivillig å registrere kjønn, morsmål, hvilke språk du behersker, 
+                    hvilken landsdel du bor i, utdanning, digitale ferdigheter, om du mottar langvarig 
+                    pengestøtte fra NAV, om du har barn og eventuell funksjonsvariasjon.`,
+                    `Det er kun du som har tilgang til å se din profil. Dersom du samtykker til å 
+                    være med på en konkret undersøkelse vil det aktuelle prosjektet se din kontaktinformasjon 
                     og de kriteriene som er relevant for denne undersøkelsen. Disse personene har taushetsplikt.`,
-                    `Du kan når som helst se, redigere eller slette profilen din ved å logge deg på 
-                    innbyggerpanelet. Profilen din vil bli slettet etter 12 måneder dersom du ikke fornyer 
+                    `Du kan når som helst se, redigere, laste ned eller slette profilen din ved å logge deg 
+                    på innbyggerpanelet. Profilen din vil bli slettet etter 18 måneder dersom du ikke fornyer 
                     samtykke ditt innen den tid. Du vil få varsel når utløpsdato nærmer seg. `
                 ]}
             />
