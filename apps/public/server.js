@@ -17,7 +17,7 @@ app.get(`${process.env.BASE_PATH}/isready`, (req, res) => {
     res.sendStatus(200);
 });
 
-app.get('/', (req, res) => {
+app.get(process.env.BASE_PATH, (req, res) => {
     res.sendFile(path.join(__dirname, '../../dist/apps/public', 'index.html'))
 })
 
