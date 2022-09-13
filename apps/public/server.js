@@ -7,7 +7,7 @@ const port = 3000
 
 dotenv.config()
 
-app.use(express.static(path.join(__dirname, '../../dist/apps/public')))
+app.use(process.env.BASE_PATH, express.static(path.join(__dirname, '../../dist/apps/public')))
 
 app.get(`${process.env.BASE_PATH}/isalive`, (req, res) => {
     res.sendStatus(200);
