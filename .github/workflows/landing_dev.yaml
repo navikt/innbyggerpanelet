@@ -1,13 +1,13 @@
-name: Deploy public
+name: Deploy landing
 
 on:
   workflow_dispatch:
   push:
     branches: [main, dev-**, 170-**]
-    #paths: [apps/public/**]
+    #paths: [apps/landing/**]
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-public:${{ github.sha }}
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-landing:${{ github.sha }}
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./apps/public/Dockerfile.dev
+          file: ./apps/landing/Dockerfile.dev
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
 
@@ -41,5 +41,5 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/public/dev.yaml
+          RESOURCE: .nais/landing/dev.yaml
           VAR: image=${{ env.DOCKER_IMAGE }}

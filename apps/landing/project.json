@@ -1,6 +1,6 @@
 {
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/public/src",
+    "sourceRoot": "apps/landing/src",
     "projectType": "application",
     "targets": {
         "build": {
@@ -9,14 +9,14 @@
             "defaultConfiguration": "production",
             "options": {
                 "compiler": "babel",
-                "outputPath": "dist/apps/public",
-                "index": "apps/public/src/index.html",
+                "outputPath": "dist/apps/landing",
+                "index": "apps/landing/src/index.html",
                 "baseHref": "/",
-                "main": "apps/public/src/main.tsx",
-                "polyfills": "apps/public/src/polyfills.ts",
-                "tsConfig": "apps/public/tsconfig.app.json",
-                "assets": ["apps/public/src/favicon.ico", "apps/public/src/assets"],
-                "styles": ["apps/public/src/styles.scss"],
+                "main": "apps/landing/src/main.tsx",
+                "polyfills": "apps/landing/src/polyfills.ts",
+                "tsConfig": "apps/landing/tsconfig.app.json",
+                "assets": ["apps/landing/src/favicon.ico", "apps/landing/src/assets"],
+                "styles": ["apps/landing/src/styles.scss"],
                 "scripts": [],
                 "webpackConfig": "@nrwl/react/plugins/webpack"
             },
@@ -30,8 +30,8 @@
                 "production": {
                     "fileReplacements": [
                         {
-                            "replace": "apps/public/src/environments/environment.ts",
-                            "with": "apps/public/src/environments/environment.prod.ts"
+                            "replace": "apps/landing/src/environments/environment.ts",
+                            "with": "apps/landing/src/environments/environment.prod.ts"
                         }
                     ],
                     "optimization": true,
@@ -47,15 +47,15 @@
             "executor": "@nrwl/web:dev-server",
             "defaultConfiguration": "development",
             "options": {
-                "buildTarget": "public:build",
+                "buildTarget": "landing:build",
                 "hmr": true
             },
             "configurations": {
                 "development": {
-                    "buildTarget": "public:build:development"
+                    "buildTarget": "landing:build:development"
                 },
                 "production": {
-                    "buildTarget": "public:build:production",
+                    "buildTarget": "landing:build:production",
                     "hmr": false
                 }
             }
@@ -64,14 +64,14 @@
             "executor": "@nrwl/linter:eslint",
             "outputs": ["{options.outputFile}"],
             "options": {
-                "lintFilePatterns": ["apps/public/**/*.{ts,tsx,js,jsx}"]
+                "lintFilePatterns": ["apps/landing/**/*.{ts,tsx,js,jsx}"]
             }
         },
         "test": {
             "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/apps/public"],
+            "outputs": ["coverage/apps/landing"],
             "options": {
-                "jestConfig": "apps/public/jest.config.ts",
+                "jestConfig": "apps/landing/jest.config.ts",
                 "passWithNoTests": true
             }
         }

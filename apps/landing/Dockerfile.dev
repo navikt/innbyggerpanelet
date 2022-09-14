@@ -7,8 +7,8 @@ WORKDIR /app
 COPY . ./
 
 RUN yarn install
-RUN yarn build public
+RUN yarn build landing
 
 EXPOSE 3000
 
-CMD node apps/public/server.js
+CMD node apps/landing/server.js

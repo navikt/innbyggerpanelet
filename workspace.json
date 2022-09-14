@@ -6,8 +6,8 @@
         "citizen": "apps/citizen",
         "employee": "apps/employee",
         "frontend": "apps/frontend",
-        "proxy": "apps/proxy",
-        "public": "apps/public"
+        "landing": "apps/landing",
+        "proxy": "apps/proxy"
     },
     "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
