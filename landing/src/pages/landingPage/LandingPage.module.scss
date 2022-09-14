@@ -1,0 +1,43 @@
+@media (max-width: 769px) {
+    .introText {
+        padding: 2rem 0 !important;
+    }
+}
+
+.introText {
+    width: 100%;
+    padding: 10rem 0;
+    background-color: #75c4c5;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.backgroundImage {
+    width: 100%;
+    height: calc(100vh - 6rem - 50px);
+    object-fit: cover;
+}
+
+.textBox {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 4rem auto;
+}
+
+.userStory {
+    background-color: #c0b2d2;
+
+    img {
+        object-fit: cover;
+        width: 100%;
+    }
+}
+
+.footer {
+    background-color: black;
+    padding: 4rem 0;
+}

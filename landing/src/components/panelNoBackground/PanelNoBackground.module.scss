@@ -1,0 +1,16 @@
+@media (max-width: 769px) {
+    .wrapper {
+        max-width: 100% !important;
+        margin: 2.5rem 1rem !important;
+    }
+}
+
+.wrapper {
+    max-width: var(--body-width);
+    margin: 2.5rem auto;
+}
+
+.wrapper > button {
+    position: absolute;
+    left: calc(((100% - var(--body-width)) / 2) + var(--body-width) + 1rem);
+}
