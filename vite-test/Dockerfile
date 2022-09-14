@@ -4,6 +4,7 @@ ENV BASE_PATH=/innbyggerpanelet
 
 COPY . ./
 
+RUN cd vite.test
 RUN yarn install
 RUN yarn build
 
