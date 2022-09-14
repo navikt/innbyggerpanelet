@@ -1,19 +1,14 @@
 {
-  "name": "vite-test",
+  "name": "landing",
   "private": true,
   "version": "0.0.0",
-  "type": "commonjs",
-  "homepage": "/innbyggerpanelet",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "dotenv": "^16.0.2",
-    "express": "^4.18.1",
-    "express-static-gzip": "^2.1.7",
-    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

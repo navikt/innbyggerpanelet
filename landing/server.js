@@ -22,5 +22,4 @@ app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
     res.send('OK')
 })
 
-
-app.listen(port, () => { console.log('listening on port 3000')})
+app.listen(port, () => { console.log('Listening on port 3000')})

@@ -3,8 +3,8 @@ name: Deploy landing
 on:
   workflow_dispatch:
   push:
-    branches: [main, dev-**]
-    paths: [apps/landing/**]
+    branches: [main, dev-**, 170-**]
+    #paths: [landing/**]
 
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-landing:${{ github.sha }}
@@ -24,8 +24,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./apps/landing/Dockerfile.dev
+          context: ./landing
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
 
