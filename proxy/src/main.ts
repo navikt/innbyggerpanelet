@@ -19,17 +19,17 @@ app.use(
 )
 
 app.set('trust proxy', 1)
-app.use('/', express.static(buildPath, { index: false }))
+app.use(process.env.BASE_PATH!, express.static(buildPath, { index: false }))
 app.use(parser.json())
 
-app.get('isalive|isready', (req: Request, res: Response) => {
+app.get(`${process.env.BASE_PATH}/isalive|${process.env.BASE_PATH}/isready`, (req: Request, res: Response) => {
     res.sendStatus(200)
 })
 
 logger.info('Setting up session and proxy')
 
-app.get('/session', session())
-app.use('/api', proxy(process.env.API_URL!!))
+app.get(`${process.env.BASE_PATH}/session`, session())
+app.use(`${process.env.BASE_PATH}/api`, proxy(process.env.API_URL!!))
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(buildPath + '/index.html'))
 
