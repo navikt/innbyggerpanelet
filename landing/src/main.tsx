@@ -1,3 +1,4 @@
+import './styles.scss'
 import '@navikt/ds-css/index.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'

@@ -41,3 +41,14 @@
     background-color: black;
     padding: 4rem 0;
 }
+
+.joinButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    svg {
+        margin-left: 0.5rem;
+    }
+}

@@ -18,7 +18,7 @@ export const LandingPage = (): ReactElement => {
                 </PanelNoBackground>
                 <Link to="innlogging">
                     <Button as="div">
-                        Bli med <Right />
+                        <div className={style.joinButton}>Bli med <Right /></div>
                     </Button>
                 </Link>
             </div>
