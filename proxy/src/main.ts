@@ -12,7 +12,7 @@ dotenv.config()
 
 const app = express()
 
-const buildPath = path.resolve(__dirname, './dist')
+const buildPath = path.resolve(__dirname, '../dist')
 
 app.use(
     rTracer.expressMiddleware({
