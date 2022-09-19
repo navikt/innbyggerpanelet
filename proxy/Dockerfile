@@ -1,6 +1,6 @@
 FROM node:14
 
-COPY build ./server
+COPY dist ./server
 COPY node_modules ./node_modules
 
 ENV NODE_ENV="production"
