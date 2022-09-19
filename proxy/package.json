@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "ts-node-dev --project ./tsconfig.json src/main.ts",
-    "build": "NODE_ENV=production tsc --project ./tsconfig.json"
+    "build": "NODE_ENV=production BUILD_PATH='./dist' tsc --project ./tsconfig.json"
   },
   "author": "NAVIKT",
   "license": "MIT"
