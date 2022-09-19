@@ -6,6 +6,9 @@ import session from './auth/session'
 import config from './config'
 import logger from './monitoring/logger'
 import proxy from './proxy'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 
