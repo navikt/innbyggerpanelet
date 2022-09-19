@@ -1,0 +1,29 @@
+.buttonGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto 0;
+    height: 20rem;
+    gap: 5rem;
+
+    > a,
+    > a > button {
+        margin: 0 auto;
+    }
+}
+
+.breakLine {
+    display: grid;
+    grid-template-columns: auto 5rem auto;
+    :first-child,
+    :last-child {
+        height: 2px;
+        background-color: var(--navds-semantic-color-text-muted);
+        margin: auto 0;
+    }
+
+    > p {
+        margin: auto auto;
+        color: var(--navds-semantic-color-text-muted);
+    }
+}

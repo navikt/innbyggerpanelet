@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import { Header } from './components/header/Header'
 import { LandingPage } from './pages/landingPage/LandingPage'
+import { SignInPage } from './pages/signInPage/SignInPage'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Header />
             <Routes>
                 <Route path="/" element={<LandingPage />}/>
+                <Route path="/innlogging" element={<SignInPage />} />
             </Routes>
         </HashRouter>
     </React.StrictMode>
