@@ -7,12 +7,14 @@ import config from './config'
 import logger from './monitoring/logger'
 import proxy from './proxy'
 import dotenv from 'dotenv'
+import expressStaticGzip from 'express-static-gzip'
 
 dotenv.config()
 
 const app = express()
 
-const buildPath = path.resolve(__dirname, '../dist')
+const basePath = process.env.BASE_PATH!
+const buildPath = path.join(path.resolve(__dirname, '../dist'))
 
 app.use(
     rTracer.expressMiddleware({
@@ -22,20 +24,24 @@ app.use(
 )
 
 app.set('trust proxy', 1)
-app.use(process.env.BASE_PATH!, express.static(buildPath, { index: false }))
+app.use(
+    basePath,
+    expressStaticGzip(`${buildPath}`, {
+        enableBrotli: true,
+        orderPreference: ['br'],
+    }),
+)
 app.use(parser.json())
 
-app.get(`${process.env.BASE_PATH}/isalive|${process.env.BASE_PATH}/isready`, (req: Request, res: Response) => {
-    res.sendStatus(200)
+app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response) => {
+    res.send('OK')
 })
 
 logger.info('Setting up session and proxy')
 
-app.get(`${process.env.BASE_PATH}/session`, session())
-app.use(`${process.env.BASE_PATH}/api`, proxy(process.env.API_URL!!))
+app.get(`${basePath}/session`, session())
+app.use(`${basePath}/api`, proxy(process.env.API_URL!!))
 
-app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(buildPath + '/index.html'))
-
-app.listen(config.app.port, () => {
+app.listen(config.app.port, '127.0.0.1', () => {
     logger.info(`App listening at http://localhost:${config.app.port}`)
 })
