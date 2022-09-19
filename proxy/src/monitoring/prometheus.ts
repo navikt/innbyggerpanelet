@@ -1,17 +1,17 @@
-import client from 'prom-client';
+import client from 'prom-client'
 
 class Prometheus {
-    public register = null;
+    public register
 
     constructor() {
-        const { collectDefaultMetrics } = client;
+        const { collectDefaultMetrics } = client
 
-        this.register = new client.Registry();
+        this.register = new client.Registry()
 
         collectDefaultMetrics({
-            register: this.register
-        });
+            register: this.register,
+        })
     }
 }
 
-export default new Prometheus();
+export default new Prometheus()
