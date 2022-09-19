@@ -1,13 +1,13 @@
-name: Deploy proxy
+name: Deploy citizen
 
 on:
   workflow_dispatch:
-  push:
+  push: 
     branches: [main, dev-**, 170-**]
-    paths: [proxy/**]
+    #paths: [citizen/**]
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-proxy:${{ github.sha }}
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-citizen:${{ github.sha }}
 
 jobs:
   build:
@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: "14.x"
       - name: Yarn install
-        working-directory: proxy
+        working-directory: citizen
         run: yarn install
       - name: Yarn build
-        working-directory: proxy
+        working-directory: citizen
         run: yarn build
       - name: Login to docker
         uses: docker/login-action@v1
@@ -33,6 +33,20 @@ jobs:
       - name: Build and publish Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./proxy
+          context: proxy
+          file: Dockerfile.web
           push: true
-          tags: ${{ env.DOCKER_IMAGE }}
+          tags: ${{ env.DOCKER_IMAGE }} 
+  
+  deploy:
+    name: Deploy to dev-gcp
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/citizen/dev.yaml
+          VAR: image=${{ env.DOCKER_IMAGE }}
