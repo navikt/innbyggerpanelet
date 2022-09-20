@@ -6,7 +6,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import { Header } from './components/header/Header'
 import { LandingPage } from './pages/landingPage/LandingPage'
 import { SignInPage } from './pages/signInPage/SignInPage'
-
+//Main file
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
         <HashRouter basename={process.env.BASE_PATH}>
