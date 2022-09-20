@@ -30,10 +30,11 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
     res.send('OK')
 })
 
-logger.info('Setting up session and proxy')
-
-app.get(`${basePath}/session`, session())
-app.use(`${basePath}/api`, proxy(config.app.apiUrl))
+if (process.env.NEEDS_API === 'yes') {
+    logger.info('Setting up session and proxy')
+    app.get(`${basePath}/session`, session())
+    app.use(`${basePath}/api`, proxy(config.app.apiUrl))
+}
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
 

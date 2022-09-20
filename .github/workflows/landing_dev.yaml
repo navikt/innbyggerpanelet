@@ -24,7 +24,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./landing
+          context: landing
+          file: Dockerfile.web
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
 

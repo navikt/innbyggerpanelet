@@ -58,6 +58,8 @@ spec:
       value: http://innbyggerpanelet-backend
     - name: AUDIENCE
       value: dev-gcp:team-researchops:innbyggerpanelet-backend
+    - name: NEEDS_API
+      value: yes
   accessPolicy:
     outbound:
       external:
