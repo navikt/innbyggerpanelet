@@ -7,16 +7,16 @@ metadata:
     team: team-researchops
 spec:
   image: {{ image }}
-  port: 3000
+  port: 8080
   team: team-researchops
   liveness:
     path: /innbyggerpanelet/isalive
-    port: 3000
+    port: 8080
     initialDelay: 20
     timeout: 60
   readiness:
     path: /innbyggerpanelet/isready
-    port: 3000
+    port: 8080
     initialDelay: 20
     timeout: 60
   resources:
