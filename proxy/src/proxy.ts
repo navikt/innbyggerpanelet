@@ -20,7 +20,7 @@ const prepareSecuredRequest = async (req: Request) => {
         x_correlation_id: logger.defaultMeta.x_correlation_id,
     }
 
-    let body = undefined
+    let body: any = undefined
     if (!isEmpty(req.body) && req.method === 'POST') {
         body = JSON.stringify(req.body)
     }

@@ -1,5 +1,9 @@
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 const app = {
-    apiUrl: process.env.API_URL,
+    apiUrl: process.env.API_URL || 'http://localhost:1234',
     port: Number(process.env.PORT) || 8080,
     targetAudience: process.env.AUDIENCE,
 }

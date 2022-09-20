@@ -7,7 +7,6 @@ import config from './config'
 import logger from './monitoring/logger'
 import proxy from './proxy'
 import dotenv from 'dotenv'
-import expressStaticGzip from 'express-static-gzip'
 
 dotenv.config()
 
@@ -34,7 +33,7 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
 logger.info('Setting up session and proxy')
 
 app.get(`${basePath}/session`, session())
-//app.use(`${basePath}/api`, proxy(process.env.API_URL!!))
+app.use(`${basePath}/api`, proxy(config.app.apiUrl))
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
 

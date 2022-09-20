@@ -60,5 +60,7 @@ spec:
       value: dev-gcp:team-researchops:innbyggerpanelet-backend
   accessPolicy:
     outbound:
+      external:
+        - host: tokendings.dev-gcp.nais.io
       rules:
         - application: innbyggerpanelet-backend

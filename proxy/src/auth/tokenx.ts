@@ -14,11 +14,10 @@ export default class TokenXClient {
     constructor() {
         logger.info('Setting up TokenX')
 
-        this.init()
-            .then((client) => {
-                this.tokenXClient = client
-            })
-            .catch(() => process.exit(1))
+        this.init().then((client) => {
+            this.tokenXClient = client
+        })
+        //.catch(() => process.exit(1))
     }
 
     exchangeToken = async (accessToken: any) => {
@@ -79,7 +78,7 @@ export default class TokenXClient {
     }
 
     private init = async () => {
-        const tokenX = await Issuer.discover(tokenXConfig.discoveryUrl!!)
+        const tokenX = await Issuer.discover(tokenXConfig.discoveryUrl!)
         this.audience = tokenX.token_endpoint
 
         logger.info(`Discovered TokenX @ ${tokenX.issuer}`)
