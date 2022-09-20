@@ -30,7 +30,7 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
     res.send('OK')
 })
 
-if (process.env.NEEDS_API === 'yes') {
+if (process.env.NEEDS_API === 'ja') {
     logger.info('Setting up session and proxy')
     app.get(`${basePath}/session`, session())
     app.use(`${basePath}/api`, proxy(config.app.apiUrl))
