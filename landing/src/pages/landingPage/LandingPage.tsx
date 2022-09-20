@@ -4,6 +4,8 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { PanelNoBackground } from '../../components/panelNoBackground/PanelNoBackground'
 import style from './LandingPage.module.scss'
+import reops from '../../assets/reops.png'
+import userstory from '../../assets/userstory.png'
 
 export const LandingPage = (): ReactElement => {
     return (
@@ -25,7 +27,7 @@ export const LandingPage = (): ReactElement => {
 
             <img
                 className={style.backgroundImage}
-                src="src/assets/reops.png" //Requires longer path for some reason...
+                src={reops} //Requires longer path for some reason...
                 alt="Illustrasjon av mennesker som bærer forskjellige geometrisk objekter."
             />
             <PanelNoBackground className={style.textBox}>
@@ -51,7 +53,7 @@ export const LandingPage = (): ReactElement => {
             <div className={style.userStory}>
                 <PanelNoBackground>
                     <img
-                        src="src/assets/userstory.png"
+                        src={userstory}
                         alt="Illustrasjon som forklarer brukerreisen i Innbyggerpanelet."
                     />
                 </PanelNoBackground>
