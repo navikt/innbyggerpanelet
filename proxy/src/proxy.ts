@@ -2,13 +2,13 @@ import { Request, RequestHandler, Response } from 'express'
 import TokenXClient from './auth/tokenx'
 import logger from './monitoring/logger'
 
-const { exchangeToken } = new TokenXClient()
-
 const isEmpty = (obj: any) => !obj || !Object.keys(obj).length
 
 const isOK = (status: number) => [200, 404, 409].includes(status)
 
 const prepareSecuredRequest = async (req: Request) => {
+    const { exchangeToken } = new TokenXClient()
+
     const { authorization } = req.headers
     const token = authorization!!.split(' ')[1]
 

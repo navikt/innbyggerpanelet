@@ -5,8 +5,8 @@ import path from 'path'
 import session from './auth/session'
 import config from './config'
 import logger from './monitoring/logger'
-import proxy from './proxy'
 import dotenv from 'dotenv'
+import proxy from './proxy'
 
 dotenv.config()
 
@@ -14,6 +14,7 @@ const app = express()
 
 const basePath = process.env.BASE_PATH!
 const buildPath = path.resolve(__dirname, '../dist')
+const needAPI = process.env.NEEDS_API || 'no'
 
 app.use(
     rTracer.expressMiddleware({
@@ -30,8 +31,7 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
     res.send('OK')
 })
 
-if (process.env.NEEDS_API === 'ja') {
-    logger.info('Setting up session and proxy')
+if (needAPI === 'ja') {
     app.get(`${basePath}/session`, session())
     app.use(`${basePath}/api`, proxy(config.app.apiUrl))
 }
