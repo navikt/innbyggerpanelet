@@ -1,10 +1,14 @@
+import './styles.scss'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import { HashRouter, Route, Routes } from 'react-router-dom'
+import '@navikt/ds-css/index.css'
+import { Header } from './components/header/Header'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <App />
+        <HashRouter basename={process.env.BASE_PATH}>
+            <Header />
+        </HashRouter>
     </React.StrictMode>
 )

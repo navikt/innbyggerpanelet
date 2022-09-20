@@ -6,7 +6,7 @@ export const SignInPage = (): ReactElement => {
     return (
         <Panel>
             <div className={style.buttonGroup}>
-                <Link href="/api/idporten/login">
+                <Link href="/innbygger">
                     <Button as="div">Innlogging for innbyggere</Button>
                 </Link>
                 <div className={style.breakLine}>
@@ -14,7 +14,7 @@ export const SignInPage = (): ReactElement => {
                     <BodyShort>eller</BodyShort>
                     <div></div>
                 </div>
-                <Link href="/api/azure/login">
+                <Link href="/ansatt">
                     <Button variant="secondary" as="div">
                         Innlogging for ansatte
                     </Button>
