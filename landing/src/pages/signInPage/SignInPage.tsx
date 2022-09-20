@@ -6,7 +6,7 @@ export const SignInPage = (): ReactElement => {
     return (
         <Panel>
             <div className={style.buttonGroup}>
-                <Link href="/innbygger">
+                <Link href="/innbyggerpanelet/innbygger">
                     <Button as="div">Innlogging for innbyggere</Button>
                 </Link>
                 <div className={style.breakLine}>
