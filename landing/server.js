@@ -1,7 +1,7 @@
-const express = require('express');
-const path = require('path');
-const dotenv = require('dotenv');
-const expressStaticGzip = require('express-static-gzip');
+const express = require('express')
+const path = require('path')
+const dotenv = require('dotenv')
+const expressStaticGzip = require('express-static-gzip')
 
 dotenv.config()
 
@@ -16,7 +16,7 @@ app.use(
         enableBrotli: true,
         orderPreference: ['br']
     })
-);
+)
 
 app.get(`${basePath}/isAlive|${basePath}/isReady`, (req, res) => {
     res.send('OK')

@@ -14,7 +14,7 @@ dotenv.config()
 const app = express()
 
 const basePath = process.env.BASE_PATH!
-const buildPath = path.join(path.resolve(__dirname, '../dist'))
+const buildPath = path.resolve(__dirname, '../dist')
 
 app.use(
     rTracer.expressMiddleware({
@@ -24,13 +24,7 @@ app.use(
 )
 
 app.set('trust proxy', 1)
-app.use(
-    basePath,
-    expressStaticGzip(`${buildPath}`, {
-        enableBrotli: true,
-        orderPreference: ['br'],
-    }),
-)
+app.use(basePath, express.static(buildPath, { index: false }))
 app.use(parser.json())
 
 app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response) => {
@@ -40,8 +34,10 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
 logger.info('Setting up session and proxy')
 
 app.get(`${basePath}/session`, session())
-app.use(`${basePath}/api`, proxy(process.env.API_URL!!))
+//app.use(`${basePath}/api`, proxy(process.env.API_URL!!))
 
-app.listen(config.app.port, '127.0.0.1', () => {
+app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
+
+app.listen(config.app.port, () => {
     logger.info(`App listening at http://localhost:${config.app.port}`)
 })
