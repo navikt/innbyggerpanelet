@@ -2,9 +2,9 @@ name: Deploy citizen
 
 on:
   workflow_dispatch:
-  push: 
+  push:
     branches: [main, dev-**]
-    paths: [citizen/**]
+    #paths: [citizen/**]
 
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-citizen:${{ github.sha }}
@@ -36,8 +36,8 @@ jobs:
           context: citizen
           file: Dockerfile.web
           push: true
-          tags: ${{ env.DOCKER_IMAGE }} 
-  
+          tags: ${{ env.DOCKER_IMAGE }}
+
   deploy:
     name: Deploy to dev-gcp
     needs: build
