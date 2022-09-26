@@ -36,7 +36,7 @@ spec:
   ingresses:
     - https://innbyggerpanelet.dev.nav.no/innbyggerpanelet/ansatt
   tokenx:
-    enabled:
+    enabled: true
   azure:
     application:
       enabled: true
