@@ -1,0 +1,64 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: innbyggerpanelet-employee
+  namespace: team-researchops
+  labels:
+    team: team-researchops
+spec:
+  image: {{ image }}
+  port: 8080
+  team: team-researchops
+  liveness:
+    path: /innbyggerpanelet/ansatt/isalive
+    port: 8080
+    initialDelay: 20
+    timeout: 60
+  readiness:
+    path: /innbyggerpanelet/ansatt/isready
+    port: 8080
+    initialDelay: 20
+    timeout: 60
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 80
+  prometheus:
+    enabled: true
+    path: /internal/prometheus
+  ingresses:
+    - https://innbyggerpanelet.dev.nav.no/innbyggerpanelet/ansatt
+  tokenx:
+    enabled:
+  azure:
+    application:
+      enabled: true
+      tenant: nav.no
+      replyURLs:
+        - "https://innbyggerpanelet.dev.nav.no/innbyggerpanelet/ansatt/oauth2/callback"
+    sidecar:
+      enabled: true
+      autoLogin: true
+      errorPath: ""
+  env:
+    - name: BASE_PATH
+      value: /innbyggerpanelet/ansatt
+    - name: API_URL
+      value: http://innbyggerpanelet-backend
+    - name: AUDIENCE
+      value: dev-gcp:team-researchops:innbyggerpanelet-backend
+    - name: NEEDS_API
+      value: ja
+  accessPolicy:
+    outbound:
+      external:
+        - host: tokendings.dev-gcp.nais.io
+      rules:
+        - application: innbyggerpanelet-backend

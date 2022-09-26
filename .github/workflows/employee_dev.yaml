@@ -1,13 +1,13 @@
-name: Deploy landing
+name: Deploy employee
 
 on:
   workflow_dispatch:
   push:
-    branches: [main, dev-**]
-    paths: [landing/**]
+    branches: [main, dev-**, 170-**]
+    #paths: [employee/**]
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-landing:${{ github.sha }}
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-employee:${{ github.sha }}
 
 jobs:
   build:
@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: "14.x"
       - name: Yarn install
-        working-directory: landing
+        working-directory: employee
         run: yarn install
       - name: Yarn build
-        working-directory: landing
+        working-directory: employee
         run: yarn build
       - name: Login to docker
         uses: docker/login-action@v1
@@ -30,25 +30,23 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push Docker image
+      - name: Buld and publish Docker image
         uses: docker/build-push-action@v2
         with:
-          context: landing
+          context: employee
           file: Dockerfile.web
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
-
+  
   deploy:
     name: Deploy to dev-gcp
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
-        uses: actions/checkout@v2
-      - name: Deploy to dev-gcp
-        uses: nais/deploy/actions/deploy@v1
+      - uses: actions/checkout@v2
+      - uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/landing/dev.yaml
-          VAR: image=${{ env.DOCKER_IMAGE }}
+          RESOURCE: .nais/employee/dev.yaml
+          var: image=${{ env.DOCKER_IMAGE }}
