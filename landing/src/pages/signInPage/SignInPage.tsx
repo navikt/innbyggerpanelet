@@ -14,7 +14,7 @@ export const SignInPage = (): ReactElement => {
                     <BodyShort>eller</BodyShort>
                     <div></div>
                 </div>
-                <Link href="/ansatt">
+                <Link href="/innbyggerpanelet/ansatt">
                     <Button variant="secondary" as="div">
                         Innlogging for ansatte
                     </Button>
