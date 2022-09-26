@@ -5,7 +5,7 @@ metadata:
   namespace: team-researchops
   labels:
     team: team-researchops
-spec:
+spec: 
   image: {{ image }}
   port: 8080
   team: team-researchops
