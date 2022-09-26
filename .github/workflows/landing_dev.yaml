@@ -3,8 +3,8 @@ name: Deploy landing
 on:
   workflow_dispatch:
   push:
-    branches: [main, dev-**]
-    paths: [landing/**]
+    branches: [main, dev-**, 170-**]
+    #paths: [landing/**]
 
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-landing:${{ github.sha }}
