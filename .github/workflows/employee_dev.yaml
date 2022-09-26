@@ -37,7 +37,7 @@ jobs:
           file: Dockerfile.web
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
-  
+
   deploy:
     name: Deploy to dev-gcp
     needs: build
@@ -48,5 +48,5 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/employee/dev.yaml
-          var: image=${{ env.DOCKER_IMAGE }}
+          RESOURCE: .nais/citizen/dev.yaml
+          VAR: image=${{ env.DOCKER_IMAGE }}
