@@ -41,14 +41,9 @@ spec:
     application:
       enabled: true
       tenant: nav.no
-      claims:
-        extra:
-          - "NAVident"
     sidecar:
       enabled: true
       autoLogin: true
-      autoLoginIgnorePaths:
-        - /internal/*
   env:
     - name: BASE_PATH
       value: /innbyggerpanelet/ansatt
