@@ -41,12 +41,14 @@ spec:
     application:
       enabled: true
       tenant: nav.no
-      replyURLs:
-        - "https://innbyggerpanelet.dev.nav.no/innbyggerpanelet/ansatt/oauth2/callback"
+      claims:
+        extra:
+          - "NAVident"
     sidecar:
       enabled: true
       autoLogin: true
-      errorPath: ""
+      autoLoginIgnorePaths:
+        - /internal/*
   env:
     - name: BASE_PATH
       value: /innbyggerpanelet/ansatt
