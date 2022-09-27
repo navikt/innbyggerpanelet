@@ -1,0 +1,12 @@
+/* Project entry list */
+.insightHeader {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.insightHeader > p {
+    font-variant-position: sub;
+}
