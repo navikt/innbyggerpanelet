@@ -9,4 +9,14 @@ export default defineConfig({
     },
     plugins: [react(), eslintPlugin()],
     base: '/innbyggerpanelet/ansatt',
+    server: {
+        proxy: {
+            '/api': {
+                target: 'localhost:8080',
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => path.replace(/^\/api/, ''),
+            },
+        },
+    },
 })

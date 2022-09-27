@@ -10,7 +10,7 @@ import { EmployeeInsightCreationPage } from './pages/employeeInsightCreationPage
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <HashRouter basename={process.env.BASE_PATH}>
+        <HashRouter>
             <Header />
             <Breadcrumbs />
             <Routes>
