@@ -1,0 +1,20 @@
+@media (max-width: 769px) {
+    .wrapper {
+        display: none !important;
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+    text-transform: capitalize;
+    margin: 0.5rem;
+    position: absolute;
+}
+
+.wrapper > span {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+}
