@@ -1,0 +1,17 @@
+@media (max-width: 769px) {
+    .editModal {
+        width: 90vw !important;
+        margin: 2.5rem auto !important;
+    }
+}
+
+.editModal {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 30rem;
+}
+
+.editWarning {
+    color: red;
+}

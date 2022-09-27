@@ -1,0 +1,21 @@
+@media (max-width: 769px) {
+    .wrapper {
+        flex-direction: column !important;
+    }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    margin: 2.5rem auto;
+    justify-content: center;
+}
+
+.candidatesHeader > p {
+    margin: auto 0;
+}
+
+.submit > button {
+    width: 100%;
+}

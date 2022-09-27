@@ -6,6 +6,7 @@ import { Header } from './components/common/header/Header'
 import '@navikt/ds-css/index.css'
 import { Breadcrumbs } from './components/common/breadcrumbs/Breadcrumbs'
 import { EmployeeLandingPage } from './pages/employeeLanding/EmployeeLandingPage'
+import { EmployeeInsightCreationPage } from './pages/employeeInsightCreationPage/EmployeeInsightCreationPage'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Breadcrumbs />
             <Routes>
                 <Route path="/" element={<EmployeeLandingPage />} />
+                <Route path="/prosjekt/ny" element={<EmployeeInsightCreationPage />} />
             </Routes>
         </HashRouter>
     </React.StrictMode>

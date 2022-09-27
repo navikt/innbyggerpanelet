@@ -1,0 +1,50 @@
+/* Candidate Picker */
+
+.candidateWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.header {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--nav-light-gray);
+    border-radius: 4px;
+}
+
+.candidateName {
+    flex: 1;
+    margin: auto 0 !important; // Local overwrite for navds-label component
+}
+
+.criterias {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: var(--nav-light-gray);
+    border-radius: 4px;
+}
+
+.selected > .header {
+    background-color: var(--navds-button-color-primary-background);
+    color: white;
+}
+
+.relevantcriteria {
+    color: green;
+}
+
+.irrelevantcriteria {
+    color: red;
+}
+
+.candidateWrapper + .candidateWrapper {
+    margin-top: 1rem;
+}
+
+.hidden {
+    display: none;
+}
