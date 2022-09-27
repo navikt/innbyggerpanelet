@@ -1,0 +1,85 @@
+@media (max-width: 769px) {
+    .hidden {
+        display: none !important;
+    }
+
+    .hamburger {
+        display: block !important;
+        margin: auto 0 auto 3rem;
+    }
+
+    .hamburgerMenu {
+        display: flex !important;
+        gap: 0 !important;
+        width: 100%;
+    }
+
+    .banner > .buttonGroup {
+        background-color: white;
+        position: absolute;
+        display: flex;
+        flex-direction: column !important;
+        justify-content: center;
+        gap: 1rem;
+        left: 0;
+        top: 8rem;
+
+        > a {
+            margin: auto 0;
+            border-bottom: 1px solid var(--navds-semantic-color-border);
+            text-align: center;
+            padding: 1rem;
+            display: block;
+        }
+
+        > a:nth-child(odd) {
+            background-color: var(--navds-semantic-color-canvas-background);
+        }
+    }
+
+    .mobile {
+        display: block !important;
+    }
+}
+
+.hamburger {
+    display: none;
+}
+
+.banner {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #fefefe;
+    padding: 3rem;
+}
+
+.banner > a {
+    color: black;
+    text-decoration: none;
+}
+
+.banner > .buttonGroup {
+    z-index: 5;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    flex: 0.4;
+    gap: 1rem;
+
+    > a {
+        margin: auto 0;
+    }
+}
+
+.buttonGroup > a {
+    text-decoration: none;
+}
+
+.admin span,
+.home span,
+.inbox span {
+    border-bottom: 2px solid var(--navds-button-color-tertiary-text);
+}

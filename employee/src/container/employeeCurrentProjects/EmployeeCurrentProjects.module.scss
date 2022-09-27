@@ -1,0 +1,34 @@
+@media (max-width: 769px) {
+    .projectsContainer {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* EmployeeCurrentProjects */
+.currentProjectsContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+
+    h1 {
+        margin: 0 0 0.5rem;
+    }
+
+    > * {
+        margin-top: 1rem;
+    }
+}
+
+.projectsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    margin: 0 0 2rem;
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 1rem;
+}
