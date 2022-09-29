@@ -8,5 +8,5 @@ export default defineConfig({
         'process.env': process.env,
     },
     plugins: [react(), eslintPlugin()],
-    base: '/innbyggerpanelet/innbygger',
+    base: '/innbyggerpanelet/innbygger/',
 })

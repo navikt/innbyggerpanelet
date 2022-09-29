@@ -8,7 +8,7 @@ export default defineConfig({
         'process.env': process.env,
     },
     plugins: [react(), eslintPlugin()],
-    base: '/innbyggerpanelet/ansatt',
+    base: '/innbyggerpanelet/ansatt/',
     server: {
         proxy: {
             '/api': {
