@@ -43,6 +43,8 @@ spec:
   env:
     - name: BESKJED_TOPIC
       value: min-side.aapen-brukernotifikasjon-beskjed-v1
+    - name: IS_PROD
+      value: ja
   accessPolicy:
     inbound:
       rules:
