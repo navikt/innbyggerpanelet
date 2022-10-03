@@ -1,0 +1,50 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: innbyggerpanelet-api
+  namespace: team-researchops
+  labels:
+    team: team-researchops
+spec:
+  image: { { image } }
+  port: 8080
+  team: team-researchops
+  liveness:
+    path: /isalive
+    port: 8080
+    initialDelay: 20
+    timeout: 60
+  readiness:
+    path: /isready
+    port: 8080
+    initialDelay: 20
+    timeout: 60
+  resources:
+    limits:
+      cpu: 400m
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  replicas:
+    min: 1
+    max: 2
+  ingresses:
+    - https://innbyggerpanelet-api.dev.intern.no
+  gcp:
+    sqlInstances:
+      - type: "POSTGRES_12"
+        databases:
+          - name: "innbyggerpanelet-db"
+  kafka:
+    pool: nav-dev
+  tokenx:
+    enabled: true
+  env:
+    - name: BESKJED_TOPIC
+      value: min-side.aapen-brukernotifikasjon-beskjed-v1
+  accessPolicy:
+    inbound:
+      rules:
+        - application: innbyggerpanelet-employee
+        - application: innbyggerpanelet-citizen

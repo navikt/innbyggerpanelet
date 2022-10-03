@@ -1,13 +1,13 @@
-name: Deploy citizen
+name: Deploy api
 
 on:
   workflow_dispatch:
   push:
     branches: [main, dev-**, 170-**]
-    #paths: [citizen/**]
+    #paths: [api/**]
 
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-citizen:${{ github.sha }}
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}-api:${{ github.sha }}
 
 jobs:
   build:
@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: "14.x"
       - name: Yarn install
-        working-directory: citizen
+        working-directory: api
         run: yarn install
       - name: Yarn build
-        working-directory: citizen
+        working-directory: api
         run: yarn build
       - name: Login to docker
         uses: docker/login-action@v1
@@ -33,8 +33,7 @@ jobs:
       - name: Build and publish Docker image
         uses: docker/build-push-action@v2
         with:
-          context: citizen
-          file: Dockerfile.web
+          context: api
           push: true
           tags: ${{ env.DOCKER_IMAGE }}
 
@@ -49,4 +48,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/citizen/dev.yaml
-          VAR: image=${{ env.DOCKER_IMAGE }}
+          VAR: image=${{ env.DOCKER_IMAGE}}

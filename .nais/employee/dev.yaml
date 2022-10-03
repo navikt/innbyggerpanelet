@@ -5,8 +5,8 @@ metadata:
   namespace: team-researchops
   labels:
     team: team-researchops
-spec: 
-  image: {{ image }}
+spec:
+  image: { { image } }
   port: 8080
   team: team-researchops
   liveness:
@@ -48,9 +48,9 @@ spec:
     - name: BASE_PATH
       value: /innbyggerpanelet/ansatt
     - name: API_URL
-      value: http://innbyggerpanelet-backend
+      value: http://innbyggerpanelet-api
     - name: AUDIENCE
-      value: dev-gcp:team-researchops:innbyggerpanelet-backend
+      value: dev-gcp:team-researchops:innbyggerpanelet-api
     - name: NEEDS_API
       value: ja
   accessPolicy:
@@ -58,4 +58,4 @@ spec:
       external:
         - host: tokendings.dev-gcp.nais.io
       rules:
-        - application: innbyggerpanelet-backend
+        - application: innbyggerpanelet-api

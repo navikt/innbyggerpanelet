@@ -12,14 +12,11 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'localhost:8080',
+                target: process.env.IS_LABS ? process.env.LABS_URL : 'localhost:8080',
                 changeOrigin: true,
                 secure: false,
                 rewrite: (path) => path.replace(/^\/api/, ''),
             },
         },
-    },
-    build: {
-        target: 'esnext',
     },
 })

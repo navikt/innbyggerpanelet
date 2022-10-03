@@ -1,0 +1,19 @@
+/* eslint-disable indent */
+import { IsEmail, IsNotEmpty } from 'class-validator'
+import { ChildEntity, Column, ManyToMany } from 'typeorm'
+import { IEmployee } from '../../types'
+import { InsightProject } from '../insightProject/InsightProjectEntity'
+import { User } from '../user/UserEntity'
+
+@ChildEntity()
+export class Employee extends User implements IEmployee {
+    @Column({
+        unique: true,
+    })
+    @IsEmail({}, { message: 'Epost må være på riktig format (ola@eksempel.no).' })
+    @IsNotEmpty({ message: 'E-Post må være fylt ut.' })
+    email!: string
+
+    @ManyToMany(() => InsightProject, (insightProject) => insightProject.members)
+    insightProjects!: InsightProject[]
+}

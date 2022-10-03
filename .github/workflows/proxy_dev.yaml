@@ -3,7 +3,7 @@ name: Deploy proxy
 on:
   workflow_dispatch:
   push:
-    branches: [main, dev-**, 170-**]
+    branches: [main, dev-**]
     paths: [proxy/**]
 
 env:
