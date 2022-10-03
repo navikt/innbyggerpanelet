@@ -1,7 +1,8 @@
-import { ConnectionOptions, createConnection } from 'typeorm';
-import config from '../config';
-import models from '../models';
+import { ConnectionOptions, createConnection } from 'typeorm'
+import config from '../config'
+import models from '../models'
 
+// Config for setting up connection to database
 export default async () => {
     const typeormConfig: ConnectionOptions = {
         type: 'postgres',
@@ -11,10 +12,8 @@ export default async () => {
         username: config.database.user,
         password: config.database.password,
         synchronize: true,
-        entities: models
-    };
+        entities: models,
+    }
 
-    const connection = await createConnection(typeormConfig);
-
-    return connection;
-};
+    return await createConnection(typeormConfig)
+}
