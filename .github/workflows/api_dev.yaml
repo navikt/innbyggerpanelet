@@ -47,5 +47,5 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/citizen/dev.yaml
+          RESOURCE: .nais/api/dev.yaml
           VAR: image=${{ env.DOCKER_IMAGE}}
