@@ -28,6 +28,7 @@ const kafka = {
     topic: process.env.BESKJED_TOPIC,
 }
 
+// DB config var's
 if (process.env.IS_PROD === 'yes') {
     host = process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DB_HOST
     port = process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DB_PORT
