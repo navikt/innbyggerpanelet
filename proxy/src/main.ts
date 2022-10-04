@@ -31,7 +31,7 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
     res.send('OK')
 })
 
-if (needAPI === 'ja') {
+if (needAPI == 'ja') {
     app.get(`${basePath}/session`, session())
     app.use(`${basePath}/api`, proxy(config.app.apiUrl))
 }
