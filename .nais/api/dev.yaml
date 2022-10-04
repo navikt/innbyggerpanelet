@@ -29,8 +29,6 @@ spec:
   replicas:
     min: 1
     max: 2
-  ingresses:
-    - https://innbyggerpanelet-api.dev.intern.nav.no
   gcp:
     sqlInstances:
       - type: "POSTGRES_12"

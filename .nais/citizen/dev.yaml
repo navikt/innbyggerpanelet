@@ -55,7 +55,7 @@ spec:
     - name: BASE_PATH
       value: /innbyggerpanelet/innbygger
     - name: API_URL
-      value: https://innbyggerpanelet-api.dev.intern.nav.no
+      value: http://innbyggerpanelet-api
     - name: AUDIENCE
       value: dev-gcp:team-researchops:innbyggerpanelet-api
     - name: NEEDS_API

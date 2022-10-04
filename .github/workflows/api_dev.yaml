@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main, dev-**, 170-**]
-    paths: [api/**]
+    #paths: [api/**]
 
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.repository }}-api:${{ github.sha }}
