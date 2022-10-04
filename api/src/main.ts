@@ -13,8 +13,8 @@ async function boot() {
 
         await load({ server })
 
-        server.listen(8080, () => {
-            logger.info(`Listening on ${8080}`)
+        server.listen(8081, () => {
+            logger.info(`Listening on ${8081}`)
             logger.info('======== API STARTED ========')
         })
     } catch (error) {

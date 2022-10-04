@@ -1,14 +1,15 @@
 import { Request, RequestHandler, Response } from 'express'
 import TokenXClient from './auth/tokenx'
 import logger from './monitoring/logger'
+import fetch from 'cross-fetch'
 
 const isEmpty = (obj: any) => !obj || !Object.keys(obj).length
 
 const isOK = (status: number) => [200, 404, 409].includes(status)
 
-const prepareSecuredRequest = async (req: Request) => {
-    const { exchangeToken } = new TokenXClient()
+const { exchangeToken } = new TokenXClient()
 
+const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers
     const token = authorization!!.split(' ')[1]
 
@@ -16,7 +17,7 @@ const prepareSecuredRequest = async (req: Request) => {
 
     const headers = {
         ...req.headers,
-        authorization: `Bearer ${accessToken}`,
+        authorization: `Bearer ${'accessToken'}`,
         x_correlation_id: logger.defaultMeta.x_correlation_id,
     }
 
@@ -24,7 +25,6 @@ const prepareSecuredRequest = async (req: Request) => {
     if (!isEmpty(req.body) && req.method === 'POST') {
         body = JSON.stringify(req.body)
     }
-
     return {
         method: req.method,
         body,
