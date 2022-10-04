@@ -19,7 +19,7 @@ const publicRoutes = Router().use('/auth', authRoutes)
 
 const routes = Router()
     .use(logger)
-    //.use(checkAuth)
+    .use(checkAuth)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
     .use('/consentTemplate', consentTemplateRoutes)

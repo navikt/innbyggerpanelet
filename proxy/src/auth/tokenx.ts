@@ -45,7 +45,7 @@ export default class TokenXClient {
 
     private createClientAssertion = async () => {
         const now = Math.floor(Date.now() / 1000)
-
+        // TODO: add if citizen, employee or admin
         const payload = {
             sub: tokenXConfig.clientID,
             iss: tokenXConfig.clientID,
