@@ -41,4 +41,4 @@ export default Router()
     .use('/isReady', (req, res) => {
         res.send('Ready').status(200)
     })
-    .use('/api', routes)
+    .use(routes)
