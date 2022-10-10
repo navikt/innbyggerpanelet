@@ -20,7 +20,6 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         })
 
         if (!payload || !protectedHeader) throw new UnathorizedError({ message: ServerErrorMessage.unauthorized() })
-        console.log('Very well, nice token sir')
     } catch (err) {
         next(err)
     }
