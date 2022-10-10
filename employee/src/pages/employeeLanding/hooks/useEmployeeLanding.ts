@@ -13,7 +13,7 @@ export const useFilterInsightProjects = (): {
 
     const { insightProjects, loading, error } = useInsightProjectByCurrentUser()
 
-    if (insightProjects) {
+    if (insightProjects && insightProjects.length > 0) {
         for (const project of insightProjects) {
             if (
                 isWithinInterval(new Date(), {
