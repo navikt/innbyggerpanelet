@@ -21,7 +21,6 @@
     "class-validator": "^0.13.2",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
-    "dotenv": "^16.0.3",
     "eslint": "^8.23.1",
     "eslint-plugin-react": "^7.31.8",
     "normalize.css": "^8.0.1",
