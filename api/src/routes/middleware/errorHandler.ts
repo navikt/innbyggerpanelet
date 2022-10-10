@@ -9,6 +9,7 @@ import { InvalidTokenError } from 'jwt-decode'
 import { UnathorizedError } from '../../lib/errors/http/UnauthorizedError'
 
 export function errorHandler(error: Error, request: Request, response: Response, next: NextFunction) {
+    console.log('sdiogj')
     if (error instanceof BaseError) {
         return response.status(error.httpStatus).json(error.toResponse())
     }
@@ -16,11 +17,6 @@ export function errorHandler(error: Error, request: Request, response: Response,
     if (error instanceof QueryFailedError) {
         const error = new BadRequestError({ message: ServerErrorMessage.invalidQuery() })
         return response.status(error.httpStatus).json(error.toResponse())
-    }
-
-    if (error instanceof InvalidTokenError) {
-        const error = new UnathorizedError({ message: 'Token not valid' })
-        return response.status(401).json({ message: error.message })
     }
 
     if (!config.backend.prod)

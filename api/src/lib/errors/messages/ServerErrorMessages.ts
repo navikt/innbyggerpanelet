@@ -11,4 +11,5 @@ export const ServerErrorMessage = {
     expiredToken: () => 'Provided token has expired',
     wrongAudience: () => 'Wrong audience in token',
     wrongIssuer: () => 'Not correct issuer in token',
+    unauthorized: () => 'You are not authorized',
 }

@@ -13,9 +13,6 @@ import { checkAuth } from './middleware/authentication'
 import { errorHandler } from './middleware/errorHandler'
 import { logger } from './middleware/httpLogging'
 import smsRoutes from './SmsRoutes'
-import authRoutes from './AuthRoutes'
-
-const publicRoutes = Router().use('/auth', authRoutes)
 
 const routes = Router()
     .use(logger)
@@ -31,8 +28,6 @@ const routes = Router()
     .use('/insightProject', insightProjectRoutes)
     .use('/sms', smsRoutes)
     .use('/message', messageRoutes)
-    .use(errorHandler)
-    .use(publicRoutes)
 
 export default Router()
     .use('/isAlive', (req, res) => {
@@ -41,4 +36,5 @@ export default Router()
     .use('/isReady', (req, res) => {
         res.send('Ready').status(200)
     })
+    .use(errorHandler)
     .use(routes)
