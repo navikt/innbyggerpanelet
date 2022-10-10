@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios'
 import useSWR from 'swr'
+import config from '../../config'
 import { ICitizen, ICriteria } from '../../types'
 import { fetcher } from '../operations'
 
@@ -8,7 +9,7 @@ export const useCitizenByCriterias = (criterias: ICriteria[], insightEndDate: st
     const insightEndDateQueryString = `&insightEndDate=${insightEndDate}`
 
     const { data, error } = useSWR<ICitizen[], AxiosError>(
-        `/api/citizen/prioritized?${criteriasQueryString + insightEndDateQueryString}`,
+        `${config.basePath}/api/citizen/prioritized?${criteriasQueryString + insightEndDateQueryString}`,
         fetcher,
     )
 
@@ -16,7 +17,7 @@ export const useCitizenByCriterias = (criterias: ICriteria[], insightEndDate: st
 }
 
 export const useFullCitizen = () => {
-    const { data, error } = useSWR<ICitizen, AxiosError>('/api/citizen/full', fetcher)
+    const { data, error } = useSWR<ICitizen, AxiosError>(`${config.basePath}/api/citizen/full`, fetcher)
 
     return { fullCitizen: data, loading: !data && !error, error }
 }
