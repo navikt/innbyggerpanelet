@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import jose from 'jose'
+import * as jose from 'jose'
 import { UnathorizedError } from '../../lib/errors/http/UnauthorizedError'
 import { ServerErrorMessage } from '../../lib/errors/messages/ServerErrorMessages'
 import config from '../../config'
