@@ -28,6 +28,11 @@ const kafka = {
     topic: process.env.BESKJED_TOPIC,
 }
 
+const tokenX = {
+    wellKnownURL: process.env.TOKEN_X_WELL_KNOWN_URL,
+    issuer: process.env.TOKEN_X_ISSUER,
+}
+
 // DB config var's
 if (process.env.IS_PROD === 'yes') {
     host = process.env.NAIS_DATABASE_INNBYGGERPANELET_API_INNBYGGERPANELET_DB_HOST
@@ -55,4 +60,5 @@ export default {
     backend,
     nais,
     kafka,
+    tokenX,
 }
