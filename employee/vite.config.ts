@@ -11,8 +11,8 @@ export default defineConfig({
     base: '/innbyggerpanelet/ansatt/',
     server: {
         proxy: {
-            '/api': {
-                target: process.env.IS_LABS ? process.env.LABS_URL : 'localhost:8081',
+            '/innbyggerpanelet/ansatt/api': {
+                target: 'http://localhost:8081',
                 changeOrigin: true,
                 secure: false,
                 rewrite: (path) => path.replace(/^\/api/, ''),
