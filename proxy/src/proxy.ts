@@ -11,13 +11,13 @@ const { exchangeToken } = new TokenXClient()
 
 const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers
-    //const token = authorization!!.split(' ')[1]
+    const token = authorization!!.split(' ')[1]
 
-    //const accessToken = await exchangeToken(token).then((accessToken) => accessToken)
+    const accessToken = await exchangeToken(token).then((accessToken) => accessToken)
 
     const headers = {
         ...req.headers,
-        authorization: `Bearer ${'accessToken'}`,
+        authorization: `Bearer ${accessToken}`,
         x_correlation_id: logger.defaultMeta.x_correlation_id,
     }
 

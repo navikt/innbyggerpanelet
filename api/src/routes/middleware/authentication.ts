@@ -13,32 +13,14 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         if (!token) throw new UnathorizedError({ message: ServerErrorMessage.noTokenInSchema() })
 
         const JWKS = jose.createRemoteJWKSet(new URL(config.tokenX.jwksURI!))
-        console.log(JWKS)
+
         const { payload, protectedHeader } = await jose.jwtVerify(token, JWKS, {
             issuer: config.tokenX.issuer,
             audience: `${config.nais.cluster}:${config.nais.namespace}:${config.nais.appName}`,
         })
 
-        console.log(payload)
-        console.log(protectedHeader)
-        // const decodedToken: any = await jwt_decode(token)
-
-        // // TODO: validate signature of token from public key given by tokendings well-known url
-
-        // // 1. check if token is expired or not
-        // if (decodedToken.exp < Date.now() / 1000)
-        //     throw new UnathorizedError({ message: ServerErrorMessage.expiredToken() })
-
-        // // 2. check if audience of token is this audience
-        // if (decodedToken.aud !== process.env.TOKEN_X_CLIENT_ID)
-        //     throw new UnathorizedError({ message: ServerErrorMessage.wrongAudience() })
-
-        // // 3. check if issuer of token is either citizen or employee
-        // if (
-        //     decodedToken.iss === 'dev-gcp:team-researchops:innbyggerpanelet-citizen' ||
-        //     decodedToken.iss === 'dev-gcp:team-researchops:innbyggerpanelet-employee'
-        // )
-        //     throw new UnathorizedError({ message: ServerErrorMessage.wrongIssuer() })
+        if (!payload || !protectedHeader) throw new UnathorizedError({ message: ServerErrorMessage.unauthorized() })
+        console.log('Very well, nice token sir')
     } catch (err) {
         next(err)
     }

@@ -9,7 +9,6 @@ import { InvalidTokenError } from 'jwt-decode'
 import { UnathorizedError } from '../../lib/errors/http/UnauthorizedError'
 
 export function errorHandler(error: Error, request: Request, response: Response, next: NextFunction) {
-    console.log('sdiogj')
     if (error instanceof BaseError) {
         return response.status(error.httpStatus).json(error.toResponse())
     }
