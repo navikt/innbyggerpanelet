@@ -7,13 +7,13 @@ import config from '../../config'
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const bearerSchema = req.headers.authorization
-        if (!bearerSchema) return res.status(401).json('No bearer schema provided')
+        if (!bearerSchema) throw new UnathorizedError({ message: ServerErrorMessage.noBearerSchema() })
 
         const token = bearerSchema.split(' ')[1]
-        if (!token) return res.status(401).json('No token in provided schema')
+        if (!token) throw new UnathorizedError({ message: ServerErrorMessage.noTokenInSchema() })
 
         const JWKS = jose.createRemoteJWKSet(new URL(config.tokenX.jwksURI!))
-
+        console.log(JWKS)
         const { payload, protectedHeader } = await jose.jwtVerify(token, JWKS, {
             issuer: config.tokenX.issuer,
             audience: `${config.nais.cluster}:${config.nais.namespace}:${config.nais.appName}`,
