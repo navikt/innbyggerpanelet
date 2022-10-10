@@ -16,7 +16,7 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
 
         const { payload, protectedHeader } = await jose.jwtVerify(token, JWKS, {
             issuer: config.tokenX.issuer,
-            audience: `${config.nais.cluster}:${config.nais.namespace}:${config.nais.appName}`,
+            audience: config.tokenX.clientId,
         })
 
         if (!payload || !protectedHeader) throw new UnathorizedError({ message: ServerErrorMessage.unauthorized() })

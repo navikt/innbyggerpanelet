@@ -31,6 +31,7 @@ const kafka = {
 const tokenX = {
     jwksURI: process.env.TOKEN_X_JWKS_URI,
     issuer: process.env.TOKEN_X_ISSUER,
+    clientId: process.env.TOKEN_X_CLIENT_ID,
 }
 
 // DB config var's
