@@ -19,6 +19,8 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
             audience: config.tokenX.clientId,
         })
 
+        console.log(payload)
+
         if (!payload || !protectedHeader) throw new UnathorizedError({ message: ServerErrorMessage.unauthorized() })
     } catch (err) {
         next(err)

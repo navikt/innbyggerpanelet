@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "@types/passport": "^1.0.11",
     "cls-rtracer": "^2.6.0",
     "cross-fetch": "^3.1.5",
     "dotenv": "^16.0.2",
@@ -14,6 +15,7 @@
     "node-fetch": "^3.2.10",
     "node-jose": "2.0.0",
     "openid-client": "4.7.4",
+    "passport": "^0.6.0",
     "prom-client": "^14.0.1",
     "tsconfig-paths": "^4.1.0",
     "typescript": "4.3.5",

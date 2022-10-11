@@ -53,6 +53,10 @@ spec:
       value: dev-gcp:team-researchops:innbyggerpanelet-api
     - name: NEEDS_API
       value: ja
+    - name: AUTH_TYPE
+      value: azureAD
+    - name: URL
+      value: https://innbyggerpanelet.dev.nav.no/innbyggerpanelet/ansatt
   accessPolicy:
     outbound:
       external:

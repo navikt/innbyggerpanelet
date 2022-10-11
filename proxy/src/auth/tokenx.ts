@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken'
 import { JWK } from 'node-jose'
-import { Issuer } from 'openid-client'
+import { Issuer, Strategy, TokenSet } from 'openid-client'
 import { v4 as uuid } from 'uuid'
 import config from '../config'
 import logger from '../monitoring/logger'
+import passport from 'passport'
 
 const tokenXConfig = config.tokenX
 
@@ -46,7 +47,7 @@ export default class TokenXClient {
     private createClientAssertion = async () => {
         const now = Math.floor(Date.now() / 1000)
         // TODO: add if citizen, employee or admin
-        const payload = {
+        let payload = {
             sub: tokenXConfig.clientID,
             iss: tokenXConfig.clientID,
             aud: this.audience,
@@ -54,6 +55,14 @@ export default class TokenXClient {
             nbf: now,
             iat: now,
             exp: now + 60,
+            employee: {},
+        }
+
+        if (config.authType == 'azureAD') {
+            payload = {
+                ...payload,
+                employee: this.getAzureUser(),
+            }
         }
 
         const key = await this.asKey(tokenXConfig.privateJwk)
@@ -98,5 +107,43 @@ export default class TokenXClient {
             logger.error('Error in parsing of jwt or creation of TokenX client: ', error)
             return Promise.reject(error)
         }
+    }
+
+    private async getAzureUser() {
+        let employee
+
+        const azureADIssuer = await Issuer.discover(
+            `https://login.microsoftonline.com/${config.azureAd.tenantId}/v2.0/.well-known/openid-configuration`,
+        )
+
+        const azureClient = new azureADIssuer.Client({
+            client_id: config.azureAd.clientId!,
+            client_secret: config.azureAd.secret,
+            redirect_uris: [`${config.app.url}/oauth2/callback`],
+            response_types: ['code'],
+            token_endpoint_auth_method: 'client_secret_post',
+        })
+
+        passport.use(
+            'azureAD',
+            new Strategy({ client: azureClient, usePKCE: 'S256' }, async (tokenSet: TokenSet, done: any) => {
+                if (tokenSet.expired()) return done(null, false)
+
+                const user = {
+                    tokenSets: {
+                        self: tokenSet,
+                    },
+                    claims: tokenSet.claims(),
+                }
+
+                if (user.claims.aud !== config.azureAd.clientId) return done(null, false)
+
+                employee = user
+
+                return done(null, user)
+            }),
+        )
+
+        return employee
     }
 }

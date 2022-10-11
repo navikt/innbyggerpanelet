@@ -60,6 +60,10 @@ spec:
       value: dev-gcp:team-researchops:innbyggerpanelet-api
     - name: NEEDS_API
       value: ja
+    - name: AUTH_TYPE
+      value: IDPorten
+    - name: URL
+      value: https://innbyggerpanelet.dev.nav.no/innbyggerpanelet/innbygger
   accessPolicy:
     outbound:
       external:
