@@ -14,11 +14,9 @@
     "@navikt/ds-icons": "^0.8.18",
     "@navikt/ds-react": "^0.19.18",
     "@navikt/ds-tokens": "^0.9.7",
-    "@rollup/plugin-inject": "^5.0.0",
     "@types/node": "^18.7.21",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
-    "acorn-private-methods": "^1.0.0",
     "axios": "^0.27.2",
     "class-validator": "^0.13.2",
     "date-fns": "^2.29.3",
@@ -43,8 +41,5 @@
     "@vitejs/plugin-react": "^2.1.0",
     "typescript": "^4.8.4",
     "vite": "^3.1.7"
-  },
-  "engines": {
-    "node": ">=16"
   }
 }

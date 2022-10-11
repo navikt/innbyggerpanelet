@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import eslintPlugin from 'vite-plugin-eslint'
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
-import inject from '@rollup/plugin-inject'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
