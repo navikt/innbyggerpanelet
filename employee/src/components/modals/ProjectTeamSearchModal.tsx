@@ -31,11 +31,11 @@ export const ProjectTeamSearchModal = ({ project, setProject, open, close }: IPr
                 <Heading size="medium">Legg til et nytt medlem.</Heading>
                 <Search variant="simple" label="Brukere" onChange={handleSearch} value={search} />
                 <div className={style.results}>
-                    {employees?.map((employee, index) => (
+                    {Array.isArray(employees) ? employees?.map((employee, index) => (
                         <div className={style.result} key={index} onClick={() => addUser(employee)}>
                             + {employee.firstname + ' ' + employee.surname}
                         </div>
-                    )) || <APIHandler error={error} loading={loading} />}
+                    )) || <APIHandler error={error} loading={loading} /> : <APIHandler error={error} loading={loading} /> }
                 </div>
             </Modal.Content>
         </Modal>
