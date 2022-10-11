@@ -5,7 +5,7 @@ import { fetcher } from '../operations'
 
 // Gets currently authenticated user
 export const useUser = <T>() => {
-    const { data, error } = useSWR<T, AxiosError>('/api/auth/currentUser', fetcher)
+    const { data, error } = useSWR<T, AxiosError>('/api/candidate/', fetcher)
 
     return { user: data as T, loading: !data && !error, error }
 }
