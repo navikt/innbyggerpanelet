@@ -15,6 +15,8 @@ const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers
     const token = authorization!!.split(' ')[1]
 
+    console.log(token)
+
     let employee: any = undefined
     if (config.authType == 'auzureAD') {
         employee = await getAzureUser(token)
@@ -39,7 +41,6 @@ const prepareSecuredRequest = async (req: Request) => {
         method: req.method,
         body,
         headers,
-        employee,
     }
 }
 
