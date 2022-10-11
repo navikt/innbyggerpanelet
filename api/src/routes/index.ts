@@ -15,11 +15,9 @@ import { logger } from './middleware/httpLogging'
 import smsRoutes from './SmsRoutes'
 import config from '../config'
 
-const routes = Router().use(logger)
-if (config.backend.prod) {
-    routes.use(checkAuth)
-}
-routes
+const routes = Router()
+    .use(logger)
+    .use(checkAuth)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
     .use('/consentTemplate', consentTemplateRoutes)
