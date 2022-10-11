@@ -15,14 +15,8 @@ const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers
     const token = authorization!!.split(' ')[1]
 
-    console.log(token)
-
-    let employee: any = undefined
-    if (config.authType == 'auzureAD') {
-        employee = await getAzureUser(token)
-    }
-
-    console.log(employee)
+    const claims = jose.decodeJwt(token)
+    console.log(claims)
 
     const accessToken = await exchangeToken(token).then((accessToken) => accessToken)
 
@@ -63,13 +57,4 @@ export default function proxy(host: string): RequestHandler {
             return res.status(500).send('Error')
         }
     }
-}
-
-async function getAzureUser(token: string) {
-    const JWKS = jose.createRemoteJWKSet(new URL(process.env.AZURE_OPENID_CONFIG_JWKS_URI!))
-
-    return await jose.jwtVerify(token, JWKS, {
-        issuer: process.env.AZURE_OPENID_CONFIG_ISSUER,
-        audience: config.azureAd.clientId,
-    })
 }
