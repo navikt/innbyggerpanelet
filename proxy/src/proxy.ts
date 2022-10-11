@@ -2,8 +2,7 @@ import { Request, RequestHandler, Response } from 'express'
 import TokenXClient from './auth/tokenx'
 import logger from './monitoring/logger'
 import fetch from 'cross-fetch'
-import { Issuer, Strategy, TokenSet } from 'openid-client'
-import passport from 'passport'
+import * as jose from 'jose'
 import config from './config'
 
 const isEmpty = (obj: any) => !obj || !Object.keys(obj).length
@@ -18,8 +17,10 @@ const prepareSecuredRequest = async (req: Request) => {
 
     let employee: any = undefined
     if (config.authType == 'auzureAD') {
-        employee = await getAzureUser()
+        employee = await getAzureUser(token)
     }
+
+    console.log(employee)
 
     const accessToken = await exchangeToken(token).then((accessToken) => accessToken)
 
@@ -63,40 +64,11 @@ export default function proxy(host: string): RequestHandler {
     }
 }
 
-async function getAzureUser() {
-    let employee
+async function getAzureUser(token: string) {
+    const JWKS = jose.createRemoteJWKSet(new URL(process.env.AZURE_OPENID_CONFIG_JWKS_URI!))
 
-    const azureADIssuer = await Issuer.discover(
-        `https://login.microsoftonline.com/${config.azureAd.tenantId}/v2.0/.well-known/openid-configuration`,
-    )
-
-    const azureClient = new azureADIssuer.Client({
-        client_id: config.azureAd.clientId!,
-        client_secret: config.azureAd.secret,
-        redirect_uris: [`${config.app.url}/oauth2/callback`],
-        response_types: ['code'],
-        token_endpoint_auth_method: 'client_secret_post',
+    return await jose.jwtVerify(token, JWKS, {
+        issuer: process.env.AZURE_OPENID_CONFIG_ISSUER,
+        audience: config.azureAd.clientId,
     })
-
-    passport.use(
-        'azureAD',
-        new Strategy({ client: azureClient, usePKCE: 'S256' }, async (tokenSet: TokenSet, done: any) => {
-            if (tokenSet.expired()) return done(null, false)
-
-            const user = {
-                tokenSets: {
-                    self: tokenSet,
-                },
-                claims: tokenSet.claims(),
-            }
-
-            if (user.claims.aud !== config.azureAd.clientId) return done(null, false)
-
-            employee = user
-
-            return done(null, user)
-        }),
-    )
-
-    return employee
 }
