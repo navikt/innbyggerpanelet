@@ -16,6 +16,11 @@ const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers
     const token = authorization!!.split(' ')[1]
 
+    let employee: any = undefined
+    if (config.authType == 'auzureAD') {
+        employee = await getAzureUser()
+    }
+
     const accessToken = await exchangeToken(token).then((accessToken) => accessToken)
 
     const headers = {
@@ -27,11 +32,6 @@ const prepareSecuredRequest = async (req: Request) => {
     let body: any = undefined
     if (!isEmpty(req.body) && req.method === 'POST') {
         body = JSON.stringify(req.body)
-    }
-
-    let employee: any = undefined
-    if (config.authType == 'auzureAD') {
-        employee = getAzureUser()
     }
 
     return {
