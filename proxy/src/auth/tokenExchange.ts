@@ -32,20 +32,12 @@ export default class TokenExchangeClient {
             requested_token_use: 'on_behalf_of',
         }
 
-        let formBody: any = []
-        for (const option in tokenOptions) {
-            const encodedKey = encodeURIComponent(option)
-            const encodedValue = encodeURIComponent(tokenOptions[option])
-            formBody.push(`${encodedKey}=${encodedValue}`)
-        }
-        formBody = formBody.join('&')
-
         return await fetch(`https://login.microsoftonline.com/${config.azureAd.tenantId}/oauth2/v2.0/token`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: formBody,
+            body: new URLSearchParams(tokenOptions),
         })
             .then((tokenSet: any) => {
                 console.log(tokenSet)
