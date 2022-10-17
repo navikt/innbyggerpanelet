@@ -23,19 +23,29 @@ export default class TokenExchangeClient {
     }
 
     exchangeAzureADToken = async (accessToken: any) => {
+        const tokenOptions: any = {
+            grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+            client_id: config.azureAd.clientId,
+            client_secret: config.azureAd.secret,
+            assertion: accessToken,
+            scope: `api://${config.app.targetAudience}/.default`,
+            requested_token_use: 'on_behalf_of',
+        }
+
+        let formBody: any = []
+        for (const option in tokenOptions) {
+            const encodedKey = encodeURIComponent(option)
+            const encodedValue = encodeURIComponent(tokenOptions[option])
+            formBody.push(`${encodedKey}=${encodedValue}`)
+        }
+        formBody = formBody.join('&')
+
         return await fetch(`https://login.microsoftonline.com/${config.azureAd.tenantId}/oauth2/v2.0/token`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
             },
-            body: JSON.stringify({
-                grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-                client_id: config.azureAd.clientId,
-                client_secret: config.azureAd.secret,
-                assertion: accessToken,
-                scope: `api://${config.app.targetAudience}/.default`,
-                requested_token_use: 'on_behalf_of',
-            }),
+            body: formBody,
         })
             .then((tokenSet: any) => {
                 console.log(tokenSet)
