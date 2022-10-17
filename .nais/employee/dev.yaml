@@ -42,6 +42,9 @@ spec:
       enabled: true
       tenant: nav.no
       singlePageApplication: true
+      claims:
+        extra:
+          - "azp_name"
     sidecar:
       enabled: true
       autoLogin: true
