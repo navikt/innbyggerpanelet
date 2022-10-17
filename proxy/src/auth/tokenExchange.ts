@@ -28,7 +28,7 @@ export default class TokenExchangeClient {
             client_id: config.azureAd.clientId,
             client_secret: config.azureAd.secret,
             assertion: accessToken,
-            scope: `api://${config.app.targetAudience}/.default`,
+            scope: `api://dev-gcp:team-researchops:innbyggerpanelet/.default`,
             requested_token_use: 'on_behalf_of',
         }
 
