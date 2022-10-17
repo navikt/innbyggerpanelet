@@ -30,7 +30,7 @@ export default class TokenXClient {
                   client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
                   token_endpoint_auth_method: 'private_key_jwt',
                   client_assertion: clientAssertion,
-                  audience: config.azureAd.secret,
+                  audience: config.azureAd.clientId,
                   subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
                   subject_token: accessToken,
               })
