@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
-import TokenXClient from './auth/tokenx'
+import TokenExchangeClient from './auth/tokenExchange'
 import logger from './monitoring/logger'
 import fetch from 'cross-fetch'
 import * as jose from 'jose'
@@ -9,16 +9,25 @@ const isEmpty = (obj: any) => !obj || !Object.keys(obj).length
 
 const isOK = (status: number) => [200, 404, 409].includes(status)
 
-const { exchangeToken } = new TokenXClient()
+const { exchangeIDPortenToken, exchangeAzureADToken } = new TokenExchangeClient()
 
 const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers
     const token = authorization!!.split(' ')[1]
 
-    const claims = jose.decodeJwt(token)
-    console.log(claims)
+    //const claims = jose.decodeJwt(token)
+    //console.log(claims)
 
-    const accessToken = await exchangeToken(token).then((accessToken) => accessToken)
+    let accessToken = ''
+
+    if (config.authType === 'azureAD') {
+        accessToken = await exchangeAzureADToken(token).then((accessToken) => accessToken)
+    } else {
+        accessToken = await exchangeIDPortenToken(token).then((accessToken) => accessToken)
+    }
+
+    const claims = jose.decodeJwt(accessToken)
+    console.log(claims)
 
     const headers = {
         ...req.headers,

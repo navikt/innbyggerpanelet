@@ -7,7 +7,7 @@ import logger from '../monitoring/logger'
 
 const tokenXConfig = config.tokenX
 
-export default class TokenXClient {
+export default class TokenExchangeClient {
     private tokenXClient: any = null
     private audience: any = null
 
@@ -21,36 +21,50 @@ export default class TokenXClient {
             .catch(() => process.exit(1))
     }
 
-    exchangeToken = async (accessToken: any) => {
+    exchangeAzureADToken = async (accessToken: any) => {
+        return await fetch(`https://login.microsoftonline.com/${config.azureAd.tenantId}/oauth2/v2.0/token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                client_id: config.azureAd.clientId,
+                client_secret: config.azureAd.secret,
+                assertion: accessToken,
+                scope: `api://${config.app.targetAudience}/.default`,
+                requested_token_use: 'on_behalf_of',
+            }),
+        })
+            .then((tokenSet: any) => {
+                return Promise.resolve(tokenSet.access_token)
+            })
+            .catch((error: any) => {
+                logger.error('Error in exchange of token ', error)
+                return Promise.reject(error)
+            })
+    }
+
+    exchangeIDPortenToken = async (accessToken: any) => {
         const clientAssertion = await this.createClientAssertion()
 
-        return config.authType === 'azureAD'
-            ? this.tokenXClient.grant({
-                  grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
-                  client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                  token_endpoint_auth_method: 'private_key_jwt',
-                  client_assertion: clientAssertion,
-                  audience: config.azureAd.clientId,
-                  subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-                  subject_token: accessToken,
-              })
-            : this.tokenXClient
-                  .grant({
-                      grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
-                      client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                      token_endpoint_auth_method: 'private_key_jwt',
-                      client_assertion: clientAssertion,
-                      subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-                      subject_token: accessToken,
-                      audience: config.app.targetAudience,
-                  })
-                  .then((tokenSet: any) => {
-                      return Promise.resolve(tokenSet.access_token)
-                  })
-                  .catch((error: any) => {
-                      logger.error('Error in exchange of token: ', error)
-                      return Promise.reject(error)
-                  })
+        return this.tokenXClient
+            .grant({
+                grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
+                client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                token_endpoint_auth_method: 'private_key_jwt',
+                client_assertion: clientAssertion,
+                subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
+                subject_token: accessToken,
+                audience: config.app.targetAudience,
+            })
+            .then((tokenSet: any) => {
+                return Promise.resolve(tokenSet.access_token)
+            })
+            .catch((error: any) => {
+                logger.error('Error in exchange of token: ', error)
+                return Promise.reject(error)
+            })
     }
 
     private createClientAssertion = async () => {
