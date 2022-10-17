@@ -28,10 +28,9 @@ export default class TokenXClient {
             ? this.tokenXClient.grant({
                   grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
                   client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                  token_endpoint_auth_method: 'client_secret_jwt',
+                  token_endpoint_auth_method: 'private_key_jwt',
                   client_assertion: clientAssertion,
-                  audience: config.app.targetAudience,
-                  client_id: process.env.AZURE_APP_CLIENT_ID,
+                  audience: config.azureAd.secret,
                   subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
                   subject_token: accessToken,
               })
