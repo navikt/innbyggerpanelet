@@ -28,7 +28,7 @@ export default class TokenExchangeClient {
             client_id: config.azureAd.clientId,
             client_secret: config.azureAd.secret,
             assertion: accessToken,
-            scope: `api://dev-gcp:team-researchops:innbyggerpanelet/.default`,
+            scope: `api://${config.app.targetAudience}/.default`,
             requested_token_use: 'on_behalf_of',
         }
 
@@ -36,6 +36,7 @@ export default class TokenExchangeClient {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
+                authorization: `Bearer ${accessToken}`,
             },
             body: new URLSearchParams(Object.entries(tokenOptions)).toString(),
         })
