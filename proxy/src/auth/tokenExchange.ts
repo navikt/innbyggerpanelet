@@ -37,7 +37,7 @@ export default class TokenExchangeClient {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: new URLSearchParams(tokenOptions),
+            body: new URLSearchParams(Object.entries(tokenOptions)).toString(),
         })
             .then((tokenSet: any) => {
                 console.log(tokenSet)
