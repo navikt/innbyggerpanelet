@@ -26,8 +26,7 @@ const prepareSecuredRequest = async (req: Request) => {
         accessToken = await exchangeIDPortenToken(token).then((accessToken) => accessToken)
     }
 
-    const claims = jose.decodeJwt(accessToken)
-    console.log(claims)
+    console.log(accessToken)
 
     const headers = {
         ...req.headers,
