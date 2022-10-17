@@ -33,6 +33,7 @@ export default class TokenXClient {
                   audience: config.app.targetAudience,
                   client_id: process.env.AZURE_APP_CLIENT_ID,
                   subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
+                  subject_token: accessToken,
               })
             : this.tokenXClient
                   .grant({
