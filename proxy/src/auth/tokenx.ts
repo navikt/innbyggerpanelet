@@ -23,7 +23,7 @@ export default class TokenXClient {
 
     exchangeToken = async (accessToken: any) => {
         const clientAssertion = await this.createClientAssertion()
-
+        console.log('Got here yes!')
         return this.tokenXClient
             .grant({
                 grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
@@ -38,6 +38,7 @@ export default class TokenXClient {
                 return Promise.resolve(tokenSet.access_token)
             })
             .catch((error: any) => {
+                console.log(`Very nasty error: ${error}`)
                 logger.error('Error in exchange of token: ', error)
                 return Promise.reject(error)
             })
