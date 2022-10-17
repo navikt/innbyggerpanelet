@@ -38,7 +38,7 @@ export default class TokenExchangeClient {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 authorization: `Bearer ${accessToken}`,
             },
-            body: new URLSearchParams(Object.entries(tokenOptions)).toString(),
+            body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&client_id=${config.azureAd.clientId}&client_secret=${config.azureAd.secret}&assertion=${accessToken}&scope=api://${config.app.targetAudience}/.default&requested_token_use=on_behalf_of`,
         })
             .then((tokenSet: any) => {
                 console.log(tokenSet)
