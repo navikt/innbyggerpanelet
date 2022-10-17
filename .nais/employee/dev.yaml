@@ -41,6 +41,7 @@ spec:
     application:
       enabled: true
       tenant: nav.no
+      singlePageApplication: true
     sidecar:
       enabled: true
       autoLogin: true
