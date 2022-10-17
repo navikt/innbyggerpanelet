@@ -4,6 +4,7 @@ import { Issuer, Strategy, TokenSet } from 'openid-client'
 import { v4 as uuid } from 'uuid'
 import config from '../config'
 import logger from '../monitoring/logger'
+import fetch from 'cross-fetch'
 
 const tokenXConfig = config.tokenX
 
