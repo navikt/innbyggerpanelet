@@ -23,7 +23,16 @@ export default class TokenXClient {
 
     exchangeToken = async (accessToken: any) => {
         const clientAssertion = await this.createClientAssertion()
-        console.log('Got here yes!')
+        if (config.authType === 'azureAD') {
+            return this.tokenXClient.grant({
+                grant_type: 'client_credentials&',
+                client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                token_endpoint_auth_method: 'private_key_jwt',
+                client_assertion: `${clientAssertion}&`,
+                audience: config.app.targetAudience,
+                client_id: process.env.AZURE_APP_CLIENT_ID,
+            })
+        }
         return this.tokenXClient
             .grant({
                 grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
@@ -38,7 +47,6 @@ export default class TokenXClient {
                 return Promise.resolve(tokenSet.access_token)
             })
             .catch((error: any) => {
-                console.log(`Very nasty error: ${error}`)
                 logger.error('Error in exchange of token: ', error)
                 return Promise.reject(error)
             })
@@ -47,7 +55,7 @@ export default class TokenXClient {
     private createClientAssertion = async () => {
         const now = Math.floor(Date.now() / 1000)
         // TODO: add if citizen, employee or admin
-        let payload = {
+        const payload = {
             sub: tokenXConfig.clientID,
             iss: tokenXConfig.clientID,
             aud: this.audience,
@@ -59,13 +67,25 @@ export default class TokenXClient {
 
         const key = await this.asKey(tokenXConfig.privateJwk)
 
-        const options: any = {
+        let options: any = {
             algorithm: 'RS256',
             header: {
                 kid: key.kid,
                 typ: 'JWT',
                 alg: 'RS256',
             },
+        }
+
+        if (config.authType === 'azureAD') {
+            options = {
+                algorithm: 'RS256',
+                header: {
+                    kid: key.kid,
+                    typ: 'JWT',
+                    alg: 'RS256',
+                    x5t: 'x5t',
+                },
+            }
         }
 
         return jwt.sign(payload, key.toPEM(true), options)
