@@ -23,33 +23,33 @@ export default class TokenXClient {
 
     exchangeToken = async (accessToken: any) => {
         const clientAssertion = await this.createClientAssertion()
-        if (config.authType === 'azureAD') {
-            return this.tokenXClient.grant({
-                grant_type: 'client_credentials&',
-                client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                token_endpoint_auth_method: 'private_key_jwt',
-                client_assertion: `${clientAssertion}&`,
-                audience: config.app.targetAudience,
-                client_id: process.env.AZURE_APP_CLIENT_ID,
-            })
-        }
-        return this.tokenXClient
-            .grant({
-                grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
-                client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                token_endpoint_auth_method: 'private_key_jwt',
-                client_assertion: clientAssertion,
-                subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
-                subject_token: accessToken,
-                audience: config.app.targetAudience,
-            })
-            .then((tokenSet: any) => {
-                return Promise.resolve(tokenSet.access_token)
-            })
-            .catch((error: any) => {
-                logger.error('Error in exchange of token: ', error)
-                return Promise.reject(error)
-            })
+
+        return config.authType === 'azureAD'
+            ? this.tokenXClient.grant({
+                  grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
+                  client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                  token_endpoint_auth_method: 'private_key_jwt',
+                  client_assertion: clientAssertion,
+                  audience: config.app.targetAudience,
+                  client_id: process.env.AZURE_APP_CLIENT_ID,
+              })
+            : this.tokenXClient
+                  .grant({
+                      grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
+                      client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                      token_endpoint_auth_method: 'private_key_jwt',
+                      client_assertion: clientAssertion,
+                      subject_token_type: 'urn:ietf:params:oauth:token-type:jwt',
+                      subject_token: accessToken,
+                      audience: config.app.targetAudience,
+                  })
+                  .then((tokenSet: any) => {
+                      return Promise.resolve(tokenSet.access_token)
+                  })
+                  .catch((error: any) => {
+                      logger.error('Error in exchange of token: ', error)
+                      return Promise.reject(error)
+                  })
     }
 
     private createClientAssertion = async () => {
