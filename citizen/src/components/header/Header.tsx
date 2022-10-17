@@ -8,6 +8,8 @@ import { Link as RouterLink, useLocation } from 'react-router-dom'
 import style from './Header.module.scss'
 
 export const Header = (): ReactElement => {
+    fetch('/innbyggerpanelet/innbygger/api/candidate')
+
     return (
         <HeaderWrapper>
             <RouterLink className={style.home} to={'/'}>
