@@ -22,10 +22,6 @@ const prepareSecuredRequest = async (req: Request) => {
         config.authType === 'azureAD'
             ? await exchangeAzureADToken(token).then((accessToken) => accessToken.access_token)
             : (await exchangeIDPortenToken(token).then((accessToken) => accessToken)) || ''
-    console.log(accessToken)
-
-    const claims = jose.decodeJwt(accessToken)
-    console.log(claims)
 
     const headers = {
         ...req.headers,
