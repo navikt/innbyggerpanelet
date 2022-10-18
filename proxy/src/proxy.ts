@@ -20,7 +20,7 @@ const prepareSecuredRequest = async (req: Request) => {
 
     const accessToken =
         config.authType === 'azureAD'
-            ? await exchangeAzureADToken(token).then((accessToken) => accessToken)
+            ? await exchangeAzureADToken(token).then((accessToken) => accessToken.access_token)
             : (await exchangeIDPortenToken(token).then((accessToken) => accessToken)) || ''
     console.log(accessToken)
 
