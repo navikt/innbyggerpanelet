@@ -3,6 +3,10 @@ import * as jose from 'jose'
 import { UnathorizedError } from '../../lib/errors/http/UnauthorizedError'
 import { ServerErrorMessage } from '../../lib/errors/messages/ServerErrorMessages'
 import config from '../../config'
+import { EmployeeService } from '../../services'
+import { database } from '../../loaders'
+import { Employee } from '../../models/employee/EmployeeEntity'
+import { EnumUserRole } from '../../types'
 
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -41,9 +45,30 @@ export const checkAzureAuth = async (req: Request, res: Response, next: NextFunc
             audience: process.env.AZURE_APP_CLIENT_ID,
         })
 
-        console.log(payload)
-
         if (!payload || !protectedHeader) throw new UnathorizedError({ message: ServerErrorMessage.unauthorized() })
+
+        const employeeService = new EmployeeService(database)
+        await employeeService
+            .getById(payload.oid as string)
+            .then((user) => {
+                return user
+            })
+            .catch(async (error) => {
+                // TODO: check azureAD group for team-researchops
+                return await employeeService.create({
+                    id: payload.oid as string,
+                    firstname: (payload.name as string).split(',')[1],
+                    surname: (payload.name as string).split(',')[0],
+                    email: payload.preferred_username as string,
+                    role: (payload.groups as Array<string>).includes('2d7f1c0d-5784-4f81-8bb2-8f3a79f8f949')
+                        ? EnumUserRole.Admin
+                        : EnumUserRole.InsightWorker,
+                    registered: true,
+                    insightProjects: [],
+                    messages: [],
+                })
+            })
+        console.log(await employeeService.getById(payload.oid as string))
     } catch (err) {
         next(err)
     }
