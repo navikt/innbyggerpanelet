@@ -38,6 +38,10 @@ spec:
     pool: nav-dev
   tokenx:
     enabled: true
+  azure:
+    application:
+      enabled: true
+      tenant: nav.no
   env:
     - name: BESKJED_TOPIC
       value: min-side.aapen-brukernotifikasjon-beskjed-v1
