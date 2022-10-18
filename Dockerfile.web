@@ -1,3 +1,3 @@
-FROM ghcr.io/navikt/innbyggerpanelet-proxy:c2a20251f56fad027411fdc7b8ae11eae4af0d19
+FROM ghcr.io/navikt/innbyggerpanelet-proxy:e7c23914fac0a59f0a67ca77463738bd073d4de7
 
 COPY dist ./dist
