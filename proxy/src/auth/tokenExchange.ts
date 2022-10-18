@@ -46,7 +46,7 @@ export default class TokenExchangeClient {
                         throw new Error(text)
                     })
                 }
-                return Promise.resolve(tokenSet.access_token)
+                return Promise.resolve(tokenSet.json())
             })
             .catch((error: any) => {
                 logger.error('Error in exchange of token ', error)
