@@ -18,14 +18,10 @@ const prepareSecuredRequest = async (req: Request) => {
     //const claims = jose.decodeJwt(token)
     //console.log(claims)
 
-    let accessToken = ''
-
-    if (config.authType === 'azureAD') {
-        accessToken = await exchangeAzureADToken(token).then((accessToken) => accessToken)
-    } else {
-        accessToken = await exchangeIDPortenToken(token).then((accessToken) => accessToken)
-    }
-
+    const accessToken =
+        config.authType === 'azureAD'
+            ? await exchangeAzureADToken(token).then((accessToken) => accessToken)
+            : (await exchangeIDPortenToken(token).then((accessToken) => accessToken)) || ''
     console.log(accessToken)
 
     const headers = {
