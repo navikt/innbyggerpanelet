@@ -41,7 +41,11 @@ export default class TokenExchangeClient {
             body: new URLSearchParams(tokenOptions).toString(),
         })
             .then((tokenSet: any) => {
-                console.log(tokenSet)
+                if (!tokenSet.ok) {
+                    return tokenSet.text().then((text: any) => {
+                        throw new Error(text)
+                    })
+                }
                 return Promise.resolve(tokenSet)
             })
             .catch((error: any) => {
