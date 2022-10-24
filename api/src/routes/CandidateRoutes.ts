@@ -4,7 +4,12 @@ import { database } from '../loaders'
 import { Candidate } from '../models/candidate/CandidateEntity'
 import { CandidateService, ICandidateSearch } from '../services'
 import { MessageService } from '../services/MessageService'
-
+import {
+    authenticated,
+    citizenAuthenticated,
+    IReqWithUserPermissions,
+    navAuthenticated,
+} from './middleware/authentication'
 const candidateRouter = Router()
 
 candidateRouter.get('/', async (req, res, next) => {
@@ -21,7 +26,7 @@ candidateRouter.get('/', async (req, res, next) => {
     }
 })
 
-candidateRouter.get('/byInsightId/:id', async (req, res, next) => {
+candidateRouter.get('/byInsightId/:id', navAuthenticated, async (req, res, next) => {
     try {
         const { id } = req.params
         const candidateService = new CandidateService(database)
@@ -33,12 +38,12 @@ candidateRouter.get('/byInsightId/:id', async (req, res, next) => {
     }
 })
 
-candidateRouter.get('/currentUser', async (req, res, next) => {
+candidateRouter.get('/currentUser', citizenAuthenticated, async (req: IReqWithUserPermissions, res, next) => {
     try {
-        //const { id } = req.user
+        const { id } = req.user
         const candidateService = new CandidateService(database)
 
-        const result: Candidate[] | undefined = await candidateService.getByUserId(0)
+        const result: Candidate[] | undefined = await candidateService.getByUserId(id)
 
         res.json(result)
     } catch (error) {
@@ -46,20 +51,24 @@ candidateRouter.get('/currentUser', async (req, res, next) => {
     }
 })
 
-candidateRouter.get('/currentUser/:insightId', async (req, res, next) => {
-    try {
-        //const { id } = req.user
-        const insightId = parseInt(req.params.insightId)
+candidateRouter.get(
+    '/currentUser/:insightId',
+    citizenAuthenticated,
+    async (req: IReqWithUserPermissions, res, next) => {
+        try {
+            const { id } = req.user
+            const insightId = parseInt(req.params.insightId)
 
-        const candidateService = new CandidateService(database)
+            const candidateService = new CandidateService(database)
 
-        const result: Candidate = await candidateService.getByUserIdAndInsightId(insightId, 0)
+            const result: Candidate = await candidateService.getByUserIdAndInsightId(insightId, id)
 
-        res.json(result)
-    } catch (error) {
-        next(error)
-    }
-})
+            res.json(result)
+        } catch (error) {
+            next(error)
+        }
+    },
+)
 
 candidateRouter.post('/', async (req, res, next) => {
     try {
@@ -74,13 +83,13 @@ candidateRouter.post('/', async (req, res, next) => {
     }
 })
 
-candidateRouter.put('/accept', async (req, res, next) => {
+candidateRouter.put('/accept', authenticated, async (req: IReqWithUserPermissions, res, next) => {
     try {
-        //const { id } = req.user
+        const { id } = req.user
 
         const candidateService = new CandidateService(database)
         const updatedCandidate = plainToInstance(Candidate, req.body)
-        const result = await candidateService.accept(updatedCandidate.insight.id, String(0))
+        const result = await candidateService.accept(updatedCandidate.insight.id, id)
 
         const messageService = new MessageService(database)
         await messageService.createAcceptCandidatureMessage(updatedCandidate.insight.id)
@@ -91,13 +100,13 @@ candidateRouter.put('/accept', async (req, res, next) => {
     }
 })
 
-candidateRouter.put('/decline', async (req, res, next) => {
+candidateRouter.put('/decline', authenticated, async (req: IReqWithUserPermissions, res, next) => {
     try {
-        //const { id } = req.user
+        const { id } = req.user
 
         const candidateService = new CandidateService(database)
         const updatedCandidate = plainToInstance(Candidate, req.body)
-        const result = await candidateService.decline(updatedCandidate.insight.id, String(0))
+        const result = await candidateService.decline(updatedCandidate.insight.id, id)
 
         const messageService = new MessageService(database)
         await messageService.createDeclineCandidatureMessage(updatedCandidate.insight.id)

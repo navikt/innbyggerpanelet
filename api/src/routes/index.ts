@@ -9,7 +9,6 @@ import employeeRoutes from './EmployeeRoutes'
 import insightProjectRoutes from './InsightProjectRoutes'
 import insightRoutes from './InsightRoutes'
 import messageRoutes from './MessageRoutes'
-import { checkAzureAuth } from './middleware/authentication'
 import { errorHandler } from './middleware/errorHandler'
 import { logger } from './middleware/httpLogging'
 import smsRoutes from './SmsRoutes'
@@ -17,7 +16,6 @@ import config from '../config'
 
 const routes = Router()
     .use(logger)
-    .use(checkAzureAuth)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
     .use('/consentTemplate', consentTemplateRoutes)
