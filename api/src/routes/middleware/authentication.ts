@@ -55,10 +55,8 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
 
         // Add employee to req
         if (existingEmployee) {
-            const employeeCopy = { ...existingEmployee }
-            console.log(employeeCopy)
-            req.user.id = employeeCopy.id
-            req.user.role = employeeCopy.role
+            req.user.id = existingEmployee.id as string
+            req.user.role = existingEmployee.role
         } else {
             const createdEmployee: Employee = await employeeService.create({
                 id: payload.oid as string,
@@ -72,7 +70,7 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
                 insightProjects: [],
                 messages: [],
             })
-            req.user.id = createdEmployee.id
+            req.user.id = createdEmployee.id as string
             req.user.role = createdEmployee.role
         }
 
