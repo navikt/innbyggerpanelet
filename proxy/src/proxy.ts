@@ -46,7 +46,7 @@ export default function proxy(host: string): RequestHandler {
         try {
             const request: any = await prepareSecuredRequest(req)
             const response = await fetch(`${host}${req.path}`, request).then((res) => {
-                console.log(res.json)
+                console.log(res.json())
                 return res
             })
 
