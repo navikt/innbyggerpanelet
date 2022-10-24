@@ -24,6 +24,8 @@ declare module 'express-serve-static-core' {
 
 // TODO: Add this instead of auth check above
 const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+    req.user = req.user || {}
+
     let isAzureAuthenticated = false
     let isIDPortenAuthenticated = false
 
