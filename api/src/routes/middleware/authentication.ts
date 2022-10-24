@@ -49,13 +49,15 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
 
         // Create employee if not exists
         const employeeService = new EmployeeService(database)
-        const existingEmployee: Employee = await employeeService.getById(payload.oid as string)
+        const existingEmployee: Employee = await employeeService.getById(payload.oid as string).then((user) => {
+            return user
+        })
 
         console.log(existingEmployee)
 
         // Add employee to req
         if (existingEmployee) {
-            req.user.id = existingEmployee.id as string
+            req.user.id = existingEmployee.id
             req.user.role = existingEmployee.role
         } else {
             const createdEmployee: Employee = await employeeService.create({
@@ -70,7 +72,7 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
                 insightProjects: [],
                 messages: [],
             })
-            req.user.id = createdEmployee.id as string
+            req.user.id = createdEmployee.id
             req.user.role = createdEmployee.role
         }
 
