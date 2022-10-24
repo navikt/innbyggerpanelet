@@ -76,7 +76,9 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
     } catch (error) {
         // Not azure authenticated
         // TODO: throw errors given by employee service
+        console.log(error)
     }
+
     if (!isAzureAuthenticated) {
         try {
             const { payload, protectedHeader } = await jose.jwtVerify(
