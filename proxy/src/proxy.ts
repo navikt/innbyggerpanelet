@@ -53,7 +53,7 @@ export default function proxy(host: string): RequestHandler {
                 logger.error(`${response.status} ${response.statusText}: ${req.method} ${req.path}`)
             }
 
-            return res
+            return res.json()
         } catch (error) {
             logger.error(`Call failed (${req.method} - ${req.path}): `, error)
 
