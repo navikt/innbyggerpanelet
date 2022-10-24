@@ -13,7 +13,7 @@ export const EmployeeLandingPage = (): ReactElement => {
 
     const { onGoingProjects, futureProjects, completedProjects } = useFilterInsightProjects()
     console.log(user)
-    console.log(user.firstname)
+
     return (
         <>
             <PageHeader title={user?.firstname + ' ' + user?.surname} icon={<People />} />
