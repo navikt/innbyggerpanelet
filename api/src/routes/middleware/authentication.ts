@@ -69,12 +69,8 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
                 })
             })
 
-        if (employee.id) {
-            console.log(employee)
-            console.log(employee.id)
-            req.user.id = employee.id
-            req.user.role = employee.role
-        }
+        req.user.id = employee.id
+        req.user.role = employee.role
 
         isAzureAuthenticated = true
     } catch (error) {
@@ -126,6 +122,7 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
         } catch (error) {
             // Not IDporten authenticated
             // TODO: throw errors given by citizen service
+            console.log(error)
         }
     }
     if (!isAzureAuthenticated && !isIDPortenAuthenticated) {
