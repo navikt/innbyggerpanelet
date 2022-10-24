@@ -55,10 +55,11 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
 
         // Add employee to req
         if (existingEmployee) {
+            console.log(existingEmployee)
             req.user.id = existingEmployee.id
             req.user.role = existingEmployee.role
         } else {
-            const createdEmployee = await employeeService.create({
+            const createdEmployee: Employee = await employeeService.create({
                 id: payload.oid as string,
                 firstname: (payload.name as string).split(',')[1],
                 surname: (payload.name as string).split(',')[0],
@@ -72,7 +73,6 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
             })
             req.user.id = createdEmployee.id
             req.user.role = createdEmployee.role
-            console.log(createdEmployee)
         }
 
         isAzureAuthenticated = true
