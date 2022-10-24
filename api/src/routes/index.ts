@@ -12,10 +12,11 @@ import messageRoutes from './MessageRoutes'
 import { errorHandler } from './middleware/errorHandler'
 import { logger } from './middleware/httpLogging'
 import smsRoutes from './SmsRoutes'
-import config from '../config'
+import authRoutes from './authRoutes'
 
 const routes = Router()
     .use(logger)
+    .use('/auth', authRoutes)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
     .use('/consentTemplate', consentTemplateRoutes)
