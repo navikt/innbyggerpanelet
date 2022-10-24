@@ -1,15 +1,11 @@
 import { plainToInstance } from 'class-transformer'
-import { Router } from 'express'
+import { NextFunction, Router, Request, Response } from 'express'
 import { database } from '../loaders'
 import { Candidate } from '../models/candidate/CandidateEntity'
 import { CandidateService, ICandidateSearch } from '../services'
 import { MessageService } from '../services/MessageService'
-import {
-    authenticated,
-    citizenAuthenticated,
-    IReqWithUserPermissions,
-    navAuthenticated,
-} from './middleware/authentication'
+import { authenticated, citizenAuthenticated, navAuthenticated } from './middleware/authentication'
+
 const candidateRouter = Router()
 
 candidateRouter.get('/', async (req, res, next) => {
@@ -26,7 +22,7 @@ candidateRouter.get('/', async (req, res, next) => {
     }
 })
 
-candidateRouter.get('/byInsightId/:id', navAuthenticated, async (req, res, next) => {
+candidateRouter.get('/byInsightId/:id', navAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params
         const candidateService = new CandidateService(database)
@@ -38,7 +34,7 @@ candidateRouter.get('/byInsightId/:id', navAuthenticated, async (req, res, next)
     }
 })
 
-candidateRouter.get('/currentUser', citizenAuthenticated, async (req: IReqWithUserPermissions, res, next) => {
+candidateRouter.get('/currentUser', citizenAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.user
         const candidateService = new CandidateService(database)
@@ -54,7 +50,7 @@ candidateRouter.get('/currentUser', citizenAuthenticated, async (req: IReqWithUs
 candidateRouter.get(
     '/currentUser/:insightId',
     citizenAuthenticated,
-    async (req: IReqWithUserPermissions, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.user
             const insightId = parseInt(req.params.insightId)
@@ -83,7 +79,7 @@ candidateRouter.post('/', async (req, res, next) => {
     }
 })
 
-candidateRouter.put('/accept', authenticated, async (req: IReqWithUserPermissions, res, next) => {
+candidateRouter.put('/accept', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.user
 
@@ -100,7 +96,7 @@ candidateRouter.put('/accept', authenticated, async (req: IReqWithUserPermission
     }
 })
 
-candidateRouter.put('/decline', authenticated, async (req: IReqWithUserPermissions, res, next) => {
+candidateRouter.put('/decline', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.user
 

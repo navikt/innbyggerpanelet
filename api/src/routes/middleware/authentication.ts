@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Request, RequestHandler, Response } from 'express'
 import * as jose from 'jose'
 import { UnathorizedError } from '../../lib/errors/http/UnauthorizedError'
 import { ServerErrorMessage } from '../../lib/errors/messages/ServerErrorMessages'
@@ -10,17 +10,20 @@ import { EnumUserRole } from '../../types'
 import { Citizen } from '../../models/citizen/CitizenEntity'
 import { ForbiddenError } from '../../lib/errors/http/ForbiddenError'
 
-export interface IReqWithUserPermissions extends Request {
-    user: {
-        role: EnumUserRole
-        id: string
+// A little bit dirty, but it works
+declare module 'express-serve-static-core' {
+    export interface Request {
+        user: {
+            role: EnumUserRole
+            id: string
+        }
     }
 }
 
 // TODO: Add method that checks if authenticated
 
 // TODO: Add this instead of auth check above
-const addUserDetailsToRequest = async (req: IReqWithUserPermissions, res: Response, next: NextFunction) => {
+const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     const bearerSchema = req.headers.authorization
     if (!bearerSchema) throw new UnathorizedError({ message: ServerErrorMessage.noBearerSchema() })
 
@@ -117,7 +120,7 @@ const addUserDetailsToRequest = async (req: IReqWithUserPermissions, res: Respon
     next()
 }
 
-const isCitizen = (req: IReqWithUserPermissions, res: Response, next: NextFunction) => {
+const isCitizen: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
     if (req.user.role === EnumUserRole.Citizen) {
         next()
     } else {
@@ -125,7 +128,7 @@ const isCitizen = (req: IReqWithUserPermissions, res: Response, next: NextFuncti
     }
 }
 
-const isNAV = (req: IReqWithUserPermissions, res: Response, next: NextFunction) => {
+const isNAV: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
     if (req.user.role === EnumUserRole.InsightWorker || req.user.role === EnumUserRole.Admin) {
         next()
     } else {
@@ -133,7 +136,7 @@ const isNAV = (req: IReqWithUserPermissions, res: Response, next: NextFunction) 
     }
 }
 
-const isAdmin = (req: IReqWithUserPermissions, res: Response, next: NextFunction) => {
+const isAdmin: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
     if (req.user.role === EnumUserRole.Admin) {
         next()
     } else {
