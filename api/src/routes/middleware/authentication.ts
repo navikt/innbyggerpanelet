@@ -45,9 +45,13 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
 
         if (!payload || !protectedHeader) throw new Error('Not azure authenticated')
 
+        console.log(payload)
+
         // Create employee if not exists
         const employeeService = new EmployeeService(database)
         const existingEmployee: Employee = await employeeService.getById(payload.oid as string)
+
+        console.log(existingEmployee)
 
         // Add employee to req
         if (existingEmployee) {
@@ -68,6 +72,7 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
             })
             req.user.id = createdEmployee.id
             req.user.role = createdEmployee.role
+            console.log(createdEmployee)
         }
 
         isAzureAuthenticated = true
