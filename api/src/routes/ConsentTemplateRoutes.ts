@@ -1,12 +1,13 @@
 import { plainToInstance } from 'class-transformer'
-import { Router } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 import { database } from '../loaders'
 import { ConsentTemplate } from './../models/consentTemplate/ConsentTemplateEntity'
 import { ConsentTemplateService, IConsentTemplateSearch } from './../services/ConsentTemplateService'
+import { navAuthenticated, adminAuthenticated } from './middleware/authentication'
 
 const consentTemplateRoutes = Router()
 
-consentTemplateRoutes.get('/', async (req, res, next) => {
+consentTemplateRoutes.get('/', navAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const queries = req.query as unknown as IConsentTemplateSearch
 
@@ -19,7 +20,7 @@ consentTemplateRoutes.get('/', async (req, res, next) => {
     }
 })
 
-consentTemplateRoutes.get('/:id', async (req, res, next) => {
+consentTemplateRoutes.get('/:id', adminAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const consentTemplateId = parseInt(req.params.id)
 
@@ -32,7 +33,7 @@ consentTemplateRoutes.get('/:id', async (req, res, next) => {
     }
 })
 
-consentTemplateRoutes.post('/', async (req, res, next) => {
+consentTemplateRoutes.post('/', adminAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const consentTemplateService = new ConsentTemplateService(database)
         const newConsentTemplate: ConsentTemplate = plainToInstance(ConsentTemplate, req.body)
@@ -44,7 +45,7 @@ consentTemplateRoutes.post('/', async (req, res, next) => {
     }
 })
 
-consentTemplateRoutes.put('/', async (req, res, next) => {
+consentTemplateRoutes.put('/', adminAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const consentTemplateService = new ConsentTemplateService(database)
         const updatedConsentTemplate: ConsentTemplate = plainToInstance(ConsentTemplate, req.body)
@@ -59,7 +60,7 @@ consentTemplateRoutes.put('/', async (req, res, next) => {
     }
 })
 
-consentTemplateRoutes.put('/disable', async (req, res, next) => {
+consentTemplateRoutes.put('/disable', adminAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const consentTemplateService = new ConsentTemplateService(database)
         const disabledConsentTemplate: ConsentTemplate = plainToInstance(ConsentTemplate, req.body)

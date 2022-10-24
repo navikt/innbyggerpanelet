@@ -1,18 +1,19 @@
 import { plainToInstance } from 'class-transformer'
 import { add } from 'date-fns'
-import { Router } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 import { database } from '../loaders'
 import { Citizen } from '../models/citizen/CitizenEntity'
 import { CitizenService } from '../services/CitizenService'
+import { authenticated, navAuthenticated } from './middleware/authentication'
 
 const citizenRoutes = Router()
 
-citizenRoutes.get('/currentUser', async (req, res, next) => {
+citizenRoutes.get('/currentUser', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        //const { id } = req.user
+        const { id } = req.user
 
         const citizenService = new CitizenService(database)
-        const result: Citizen = await citizenService.getById(String(0))
+        const result: Citizen = await citizenService.getById(id)
 
         res.json(result)
     } catch (error) {
@@ -20,7 +21,7 @@ citizenRoutes.get('/currentUser', async (req, res, next) => {
     }
 })
 
-citizenRoutes.get('/prioritized', async (req, res, next) => {
+citizenRoutes.get('/prioritized', navAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const criterias = (req.query.criterias as unknown as string[]) || []
         const insightEndDate = req.query.insightEndDate as unknown as string
@@ -33,19 +34,19 @@ citizenRoutes.get('/prioritized', async (req, res, next) => {
     }
 })
 
-citizenRoutes.get('/full', async (req, res, next) => {
+citizenRoutes.get('/full', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // const { id } = req.user
+        const { id } = req.user
 
         const citizenService = new CitizenService(database)
-        const result: Citizen = await citizenService.getFullCitizenById(String(0))
+        const result: Citizen = await citizenService.getFullCitizenById(id)
         return res.json(result)
     } catch (error) {
         next(error)
     }
 })
 
-citizenRoutes.post('/', async (req, res, next) => {
+citizenRoutes.post('/', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const citizenService = new CitizenService(database)
         req.body.registered = true
@@ -58,7 +59,7 @@ citizenRoutes.post('/', async (req, res, next) => {
     }
 })
 
-citizenRoutes.put('/', async (req, res, next) => {
+citizenRoutes.put('/', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const citizenService = new CitizenService(database)
         const updatedCitizen = plainToInstance(Citizen, req.body)
@@ -70,16 +71,16 @@ citizenRoutes.put('/', async (req, res, next) => {
     }
 })
 
-citizenRoutes.put('/extend', async (req, res, next) => {
+citizenRoutes.put('/extend', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        //const { id } = req.user
+        const { id } = req.user
 
         const citizenService = new CitizenService(database)
         const updatedCitizen = plainToInstance(Citizen, {
             ...req.body,
             expirationDate: add(new Date(), { years: 1 }).toISOString().slice(0, 10),
         })
-        const result = await citizenService.update(String(0), updatedCitizen)
+        const result = await citizenService.update(id, updatedCitizen)
 
         res.json(result)
     } catch (error) {
@@ -87,12 +88,12 @@ citizenRoutes.put('/extend', async (req, res, next) => {
     }
 })
 
-citizenRoutes.delete('/', async (req, res, next) => {
+citizenRoutes.delete('/', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        //const { id } = req.user
+        const { id } = req.user
 
         const citizenService = new CitizenService(database)
-        await citizenService.delete(String(0))
+        await citizenService.delete(id)
 
         res.json({ message: 'User deleted' })
     } catch (error) {

@@ -1,12 +1,13 @@
 import { plainToInstance } from 'class-transformer'
-import { Router } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 import { database } from '../loaders'
 import { Employee } from '../models/employee/EmployeeEntity'
 import { EmployeeService, IEmployeeSearch } from '../services/EmployeeService'
+import { adminAuthenticated, navAuthenticated } from './middleware/authentication'
 
 const employeeRoutes = Router()
 
-employeeRoutes.get('/', async (req, res, next) => {
+employeeRoutes.get('/', adminAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const queries = req.query as unknown as IEmployeeSearch
 
@@ -19,12 +20,12 @@ employeeRoutes.get('/', async (req, res, next) => {
     }
 })
 
-employeeRoutes.get('/teamMember', async (req, res, next) => {
+employeeRoutes.get('/teamMember', navAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        //const name = req.query.name || '';
+        const name = req.query.name || ''
 
         const employeeService = new EmployeeService(database)
-        const result: Employee[] | undefined = await employeeService.getEmployeesByName('')
+        const result: Employee[] | undefined = await employeeService.getEmployeesByName(name.toString())
 
         res.json(result)
     } catch (error) {
@@ -32,7 +33,7 @@ employeeRoutes.get('/teamMember', async (req, res, next) => {
     }
 })
 
-employeeRoutes.put('/', async (req, res, next) => {
+employeeRoutes.put('/', adminAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const employeeService = new EmployeeService(database)
         const newEmployee = plainToInstance(Employee, req.body)

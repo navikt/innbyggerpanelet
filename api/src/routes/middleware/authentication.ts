@@ -24,6 +24,9 @@ declare module 'express-serve-static-core' {
 
 // TODO: Add this instead of auth check above
 const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+    let isAzureAuthenticated = false
+    let isIDPortenAuthenticated = false
+
     const bearerSchema = req.headers.authorization
     if (!bearerSchema) throw new UnathorizedError({ message: ServerErrorMessage.noBearerSchema() })
 
@@ -68,10 +71,11 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
         // Add employee to req
         req.user.id = employee.id
         req.user.role = employee.role
+
+        isAzureAuthenticated = true
     } catch (error) {
         // Not azure authenticated
         // TODO: throw errors given by employee service
-        next(error)
     }
 
     try {
@@ -111,10 +115,15 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
 
         req.user.id = citizen.id
         req.user.role = citizen.role
+
+        isIDPortenAuthenticated = true
     } catch (error) {
         // Not IDporten authenticated
         // TODO: throw errors given by citizen service
-        next(error)
+    }
+
+    if (!isAzureAuthenticated && !isIDPortenAuthenticated) {
+        throw new ForbiddenError({ message: ServerErrorMessage.forbidden() })
     }
 
     next()

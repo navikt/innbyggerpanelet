@@ -1,21 +1,22 @@
-import { Router } from 'express';
-import kafka from '../loaders/kafka';
-import { SmsService } from '../services/SmsService';
+import { Router, Request, Response, NextFunction } from 'express'
+import kafka from '../loaders/kafka'
+import { SmsService } from '../services/SmsService'
+import { navAuthenticated } from './middleware/authentication'
 
-const smsRoutes = Router();
+const smsRoutes = Router()
 
-smsRoutes.post('/', async (req, res, next) => {
+smsRoutes.post('/', navAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const smsService = new SmsService(kafka);
+        const smsService = new SmsService(kafka)
 
-        const newSms = req.body;
+        const newSms = req.body
 
-        smsService.send(newSms);
+        smsService.send(newSms)
 
-        res.json({ message: 'SMS sent' });
+        res.json({ message: 'SMS sent' })
     } catch (error) {
-        next(error);
+        next(error)
     }
-});
+})
 
-export default smsRoutes;
+export default smsRoutes

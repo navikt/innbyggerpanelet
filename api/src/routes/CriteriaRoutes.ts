@@ -1,8 +1,9 @@
 import { plainToInstance } from 'class-transformer'
-import { Router } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 import { database } from '../loaders'
 import { Criteria } from '../models/criteria/CriteriaEntity'
 import { CriteriaService, ICriteriaSearch } from '../services'
+import { authenticated } from './middleware/authentication'
 
 const criteriaRouter = Router()
 
@@ -34,7 +35,7 @@ criteriaRouter.post('/', async (req, res, next) => {
     }
 })
 
-criteriaRouter.put('/', async (req, res, next) => {
+criteriaRouter.put('/', authenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const criteriaService = new CriteriaService(database)
         const updatedCriteria = plainToInstance(Criteria, req.body)

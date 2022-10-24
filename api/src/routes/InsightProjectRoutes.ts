@@ -1,9 +1,10 @@
 import { plainToInstance } from 'class-transformer'
-import { Router } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 import { database } from '../loaders'
 import { InsightProject } from '../models/insightProject/InsightProjectEntity'
 import { IInsightProjectSearch, InsightProjectService } from '../services/'
 import { IInsight } from '../types'
+import { navAuthenticated } from './middleware/authentication'
 
 const insightProjectRoutes = Router()
 
@@ -20,13 +21,13 @@ insightProjectRoutes.get('/', async (req, res, next) => {
     }
 })
 
-insightProjectRoutes.get('/currentUser', async (req, res, next) => {
+insightProjectRoutes.get('/currentUser', navAuthenticated, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        //const { id } = req.user;
+        const { id } = req.user
 
         const insightProjectService = new InsightProjectService(database)
 
-        const result: InsightProject[] | undefined = await insightProjectService.getByCurrentUser(String(0))
+        const result: InsightProject[] | undefined = await insightProjectService.getByCurrentUser(id)
 
         res.json(result)
     } catch (error) {
