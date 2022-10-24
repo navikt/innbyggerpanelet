@@ -47,30 +47,28 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
 
         // Create employee if not exists
         const employeeService = new EmployeeService(database)
-        const employee: Employee = await employeeService
-            .getById(payload.oid as string)
-            .then((user) => {
-                return user
-            })
-            .catch(async (error) => {
-                // TODO: update azureAD group depending on dev/prod
-                return await employeeService.create({
-                    id: payload.oid as string,
-                    firstname: (payload.name as string).split(',')[1],
-                    surname: (payload.name as string).split(',')[0],
-                    email: payload.preferred_username as string,
-                    role: (payload.groups as Array<string>).includes('2d7f1c0d-5784-4f81-8bb2-8f3a79f8f949')
-                        ? EnumUserRole.Admin
-                        : EnumUserRole.InsightWorker,
-                    registered: true,
-                    insightProjects: [],
-                    messages: [],
-                })
-            })
+        const existingEmployee: Employee = await employeeService.getById(payload.oid as string)
 
         // Add employee to req
-        req.user.id = employee.id
-        req.user.role = employee.role
+        if (existingEmployee) {
+            req.user.id = existingEmployee.id
+            req.user.role = existingEmployee.role
+        } else {
+            const createdEmployee = await employeeService.create({
+                id: payload.oid as string,
+                firstname: (payload.name as string).split(',')[1],
+                surname: (payload.name as string).split(',')[0],
+                email: payload.preferred_username as string,
+                role: (payload.groups as Array<string>).includes('2d7f1c0d-5784-4f81-8bb2-8f3a79f8f949')
+                    ? EnumUserRole.Admin
+                    : EnumUserRole.InsightWorker,
+                registered: true,
+                insightProjects: [],
+                messages: [],
+            })
+            req.user.id = createdEmployee.id
+            req.user.role = createdEmployee.role
+        }
 
         isAzureAuthenticated = true
     } catch (error) {
