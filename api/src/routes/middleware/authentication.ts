@@ -77,51 +77,51 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
         // Not azure authenticated
         // TODO: throw errors given by employee service
     }
+    if (!isAzureAuthenticated) {
+        try {
+            const { payload, protectedHeader } = await jose.jwtVerify(
+                token,
+                jose.createRemoteJWKSet(new URL(config.tokenX.jwksURI!)),
+                {
+                    issuer: config.tokenX.issuer,
+                    audience: config.tokenX.clientId,
+                },
+            )
 
-    try {
-        const { payload, protectedHeader } = await jose.jwtVerify(
-            token,
-            jose.createRemoteJWKSet(new URL(config.tokenX.jwksURI!)),
-            {
-                issuer: config.tokenX.issuer,
-                audience: config.tokenX.clientId,
-            },
-        )
+            if (!payload || !protectedHeader) throw new Error('Not idporten authenticated')
 
-        if (!payload || !protectedHeader) throw new Error('Not idporten authenticated')
-
-        // Create citizen if not exists
-        const citizenService = new CitizenService(database)
-        const citizen: Citizen = await citizenService
-            .getById(payload.sub as string)
-            .then((user) => {
-                return user
-            })
-            .catch(async (error) => {
-                return await citizenService.create({
-                    id: payload.sub as string,
-                    pnr: payload.pid as string,
-                    firstname: '',
-                    surname: '',
-                    phone: '',
-                    registered: false,
-                    role: EnumUserRole.Citizen,
-                    expirationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
-                    candidates: [],
-                    criterias: [],
-                    messages: [],
+            // Create citizen if not exists
+            const citizenService = new CitizenService(database)
+            const citizen: Citizen = await citizenService
+                .getById(payload.sub as string)
+                .then((user) => {
+                    return user
                 })
-            })
+                .catch(async (error) => {
+                    return await citizenService.create({
+                        id: payload.sub as string,
+                        pnr: payload.pid as string,
+                        firstname: '',
+                        surname: '',
+                        phone: '',
+                        registered: false,
+                        role: EnumUserRole.Citizen,
+                        expirationDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
+                        candidates: [],
+                        criterias: [],
+                        messages: [],
+                    })
+                })
 
-        req.user.id = citizen.id
-        req.user.role = citizen.role
+            req.user.id = citizen.id
+            req.user.role = citizen.role
 
-        isIDPortenAuthenticated = true
-    } catch (error) {
-        // Not IDporten authenticated
-        // TODO: throw errors given by citizen service
+            isIDPortenAuthenticated = true
+        } catch (error) {
+            // Not IDporten authenticated
+            // TODO: throw errors given by citizen service
+        }
     }
-
     if (!isAzureAuthenticated && !isIDPortenAuthenticated) {
         throw new ForbiddenError({ message: ServerErrorMessage.forbidden() })
     }
