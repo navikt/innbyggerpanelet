@@ -4,6 +4,7 @@ export const fetcher = async (url: string) =>
     await axios
         .get(url)
         .then((res) => {
+            console.log(res)
             return res.data
         })
         .catch((error: AxiosError) => {
