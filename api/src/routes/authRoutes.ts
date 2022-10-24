@@ -14,10 +14,12 @@ authRoutes.get('/currentUser', authenticated, async (req: Request, res: Response
         if (role === EnumUserRole.Citizen) {
             const citizenService = new CitizenService(database)
             const result = await citizenService.getById(id)
+            console.log(result)
             res.json(result)
         } else {
             const employeeService = new EmployeeService(database)
             const result = await employeeService.getById(id)
+            console.log(result)
             res.json(result)
         }
     } catch (error) {
