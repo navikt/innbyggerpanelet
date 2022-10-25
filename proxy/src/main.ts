@@ -35,7 +35,13 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
 if (needAPI == 'ja') {
     app.get(`${basePath}/session`, session())
     app.use(`${basePath}/api`, prepareSecuredRequest)
-    app.use(`${basePath}/api`, createProxyMiddleware('/', { target: config.app.apiUrl, changeOrigin: true }))
+    app.use(
+        `${basePath}/api`,
+        createProxyMiddleware({ target: config.app.apiUrl, changeOrigin: true }),
+        (req: Request, res: Response) => {
+            console.log(res)
+        },
+    )
 }
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))
