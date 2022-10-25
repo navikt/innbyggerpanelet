@@ -9,7 +9,6 @@ export const fetcher = async (url: string) =>
         })
         .catch((error: AxiosError) => {
             console.log(error)
-
             throw error
         })
 
