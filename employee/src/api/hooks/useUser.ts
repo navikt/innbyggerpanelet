@@ -2,7 +2,6 @@ import { AxiosError } from 'axios'
 import useSWR from 'swr'
 import { fetcher } from '../operations'
 
-// Gets currently authenticated user
 export const useUser = <T>() => {
     const { data, error } = useSWR<T, AxiosError>('/innbyggerpanelet/ansatt/api/auth/currentUser', fetcher)
 

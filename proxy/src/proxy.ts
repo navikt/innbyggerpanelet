@@ -45,6 +45,8 @@ export default function proxy(host: string): RequestHandler {
     return async (req: Request, res: Response) => {
         let code = 500
 
+        //TODO: switch case for status codes, based on status code respond appropietly
+
         try {
             const request: any = await prepareSecuredRequest(req)
 
