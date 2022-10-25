@@ -46,21 +46,15 @@ export default function proxy(host: string): RequestHandler {
         try {
             const request: any = await prepareSecuredRequest(req)
 
-            await fetch(`${host}${req.path}`, request)
-                .then((res) => {
-                    res.json()
-                })
-                .then((data) => {
-                    console.log(data)
-                })
+            const response = await fetch(`${host}${req.path}`, request)
 
-            // if (isOK(response.status)) {
-            //     logger.info(`${response.status} ${response.statusText}: ${req.method} ${req.path}`)
-            // } else {
-            //     logger.error(`${response.status} ${response.statusText}: ${req.method} ${req.path}`)
-            // }
+            if (isOK(response.status)) {
+                logger.info(`${response.status} ${response.statusText}: ${req.method} ${req.path}`)
+            } else {
+                logger.error(`${response.status} ${response.statusText}: ${req.method} ${req.path}`)
+            }
 
-            return res.status(200)
+            return res.status(response.status).json(await response.json())
         } catch (error) {
             logger.error(`Call failed (${req.method} - ${req.path}): `, error)
 
