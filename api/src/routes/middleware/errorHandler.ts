@@ -31,6 +31,7 @@ export function errorHandler(error: Error, request: Request, response: Response,
         : 'Something went wrong.. Try again later.'
 
     if (error instanceof BaseError) {
+        console.log('git here')
         errorStatus = error.httpStatus
         errorMessage = error.toResponse()
     }
