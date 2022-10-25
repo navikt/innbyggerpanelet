@@ -45,7 +45,7 @@ if (needAPI == 'ja') {
                 proxyReq.setHeader('x_correlation_id', authReq.x_correlation_id)
                 proxyReq.end()
             },
-            pathRewrite: { '^/innbyggerpanelet/ansatt': '/' },
+            pathRewrite: { '^/innbyggerpanelet/ansatt/api': '' },
         }),
     )
 }
