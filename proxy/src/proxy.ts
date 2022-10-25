@@ -77,16 +77,12 @@ export default function proxy(host: string): RequestHandler {
                     break
             }
 
-            if (isOK(axiosRes!.status)) {
-                logger.info(`${axiosRes?.status} ${axiosRes?.statusText}: ${req.method} ${req.path}`)
-            } else {
-                logger.error(`${axiosRes?.status} ${axiosRes?.statusText}: ${req.method} ${req.path}`)
-            }
+            logger.info(`${axiosRes?.status} ${axiosRes?.statusText}: ${req.method} ${req.path}`)
 
             return res.status(axiosRes?.status!).json(axiosRes?.data)
         } catch (error) {
             if (error instanceof AxiosError) {
-                logger.error(`Call failed (${req.method} - ${req.path}): `, error.response?.statusText)
+                logger.error(`Call failed (${req.method} - ${req.path}): `, error.cause)
             } else {
                 logger.error(`Call failed (${req.method} - ${req.path}): `, error)
             }
