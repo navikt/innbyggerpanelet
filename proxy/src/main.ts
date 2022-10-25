@@ -34,13 +34,18 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
 
 if (needAPI == 'ja') {
     app.get(`${basePath}/session`, session())
-    app.use(`${basePath}/api`, prepareSecuredRequest)
     app.use(
         `${basePath}/api`,
-        createProxyMiddleware({ target: config.app.apiUrl, changeOrigin: true }),
-        (req: Request, res: Response) => {
-            console.log(res)
-        },
+        createProxyMiddleware({
+            target: config.app.apiUrl,
+            changeOrigin: true,
+            async onProxyReq(proxyReq, req, res) {
+                const authReq = await prepareSecuredRequest(req)
+                proxyReq.setHeader('authorization', authReq.authorization)
+                proxyReq.setHeader('x_correlation_id', authReq.x_correlation_id)
+                proxyReq.end()
+            },
+        }),
     )
 }
 
