@@ -29,7 +29,6 @@ const routes = Router()
     .use('/insightProject', insightProjectRoutes)
     .use('/sms', smsRoutes)
     .use('/message', messageRoutes)
-    .use(errorHandler)
 
 export default Router()
     .use('/isAlive', (req, res) => {
@@ -39,3 +38,4 @@ export default Router()
         res.send('Ready').status(200)
     })
     .use(routes)
+    .use(errorHandler)
