@@ -6,7 +6,8 @@ import session from './auth/session'
 import config from './config'
 import logger from './monitoring/logger'
 import dotenv from 'dotenv'
-import proxy from './proxy'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import { prepareSecuredRequest } from './proxy'
 
 dotenv.config()
 
@@ -33,7 +34,11 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
 
 if (needAPI == 'ja') {
     app.get(`${basePath}/session`, session())
-    app.use(`${basePath}/api`, proxy(config.app.apiUrl))
+    app.use(
+        `${basePath}/api`,
+        prepareSecuredRequest,
+        createProxyMiddleware({ target: config.app.apiUrl, changeOrigin: true }),
+    )
 }
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req, res) => res.sendFile(`${buildPath}/index.html`))

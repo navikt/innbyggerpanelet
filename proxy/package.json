@@ -11,6 +11,7 @@
     "dotenv": "^16.0.2",
     "express": "4.17.1",
     "express-static-gzip": "^2.1.7",
+    "http-proxy-middleware": "^2.0.6",
     "jose": "^4.10.0",
     "jsonwebtoken": "8.5.1",
     "node-cache": "5.1.2",
