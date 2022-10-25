@@ -4,6 +4,7 @@ import logger from './monitoring/logger'
 import fetch from 'cross-fetch'
 import * as jose from 'jose'
 import config from './config'
+import axios, { AxiosError } from 'axios'
 
 const isEmpty = (obj: any) => !obj || !Object.keys(obj).length
 
@@ -43,30 +44,50 @@ const prepareSecuredRequest = async (req: Request) => {
 
 export default function proxy(host: string): RequestHandler {
     return async (req: Request, res: Response) => {
-        let code = 500
-
         //TODO: switch case for status codes, based on status code respond appropietly
-
         try {
             const request: any = await prepareSecuredRequest(req)
 
-            const response = await fetch(`${host}${req.path}`, request)
+            let axiosRes = null
 
-            code = response.status
-
-            if (isOK(response.status)) {
-                logger.info(`${response.status} ${response.statusText}: ${req.method} ${req.path}`)
-            } else {
-                logger.error(`${response.status} ${response.statusText}: ${req.method} ${req.path}`)
+            switch (request.method) {
+                case 'GET':
+                    axiosRes = await axios.get(`${host}${req.path}`, { headers: request.headers }).then((res) => {
+                        return res
+                    })
+                    break
+                case 'POST':
+                    axiosRes = await axios
+                        .post(`${host}${req.path}`, request.body, { headers: request.headers })
+                        .then((res) => {
+                            return res
+                        })
+                    break
+                case 'PUT':
+                    axiosRes = await axios
+                        .put(`${host}${req.path}`, request.body, { headers: request.headers })
+                        .then((res) => {
+                            return res
+                        })
+                    break
+                case 'DELETE':
+                    axiosRes = await axios.delete(`${host}${req.path}`, { headers: request.headers }).then((res) => {
+                        return res
+                    })
+                    break
             }
 
-            const data = await response.json()
+            if (isOK(axiosRes!.status)) {
+                logger.info(`${axiosRes?.status} ${axiosRes?.statusText}: ${req.method} ${req.path}`)
+            } else {
+                logger.error(`${axiosRes?.status} ${axiosRes?.statusText}: ${req.method} ${req.path}`)
+            }
 
-            return res.status(response.status).send(data)
+            return axiosRes
         } catch (error) {
             logger.error(`Call failed (${req.method} - ${req.path}): `, error)
 
-            return res.status(code).send('Error')
+            return res.status(500).send('Error')
         }
     }
 }
