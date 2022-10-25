@@ -87,8 +87,9 @@ export default function proxy(host: string): RequestHandler {
         } catch (error) {
             if (error instanceof AxiosError) {
                 logger.error(`Call failed (${req.method} - ${req.path}): `, error.response?.statusText)
+            } else {
+                logger.error(`Call failed (${req.method} - ${req.path}): `, error)
             }
-            logger.error(`Call failed (${req.method} - ${req.path}): `, error)
 
             return res.status(500).send('Error')
         }
