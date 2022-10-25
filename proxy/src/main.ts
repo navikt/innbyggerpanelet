@@ -32,6 +32,8 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
     res.send('OK')
 })
 
+const pathToRewrite = `^${basePath}`
+
 if (needAPI == 'ja') {
     app.get(`${basePath}/session`, session())
     app.use(
@@ -45,6 +47,7 @@ if (needAPI == 'ja') {
                 proxyReq.setHeader('x_correlation_id', authReq.x_correlation_id)
                 proxyReq.end()
             },
+            pathRewrite: { pathToRewrite: '/' },
         }),
     )
 }
