@@ -6,7 +6,7 @@ import { fetcher } from '../operations'
 
 export const useConsentTemplateSearchByTitle = (title: string) => {
     const { data, error } = useSWR<IConsentTemplate[], AxiosError>(
-        `${config.basePath}/api/consentTemplate?where[title]=%${title}%`,
+        `/innbyggerpanelet/ansatt/api/consentTemplate?where[title]=%${title}%`,
         fetcher,
     )
 

@@ -5,7 +5,10 @@ import { IInsightProject, IUser } from '../../types'
 import { fetcher } from '../operations'
 
 export const useInsightProjects = () => {
-    const { data, error } = useSWR<IInsightProject[], AxiosError>(`${config.basePath}/api/insightProject`, fetcher)
+    const { data, error } = useSWR<IInsightProject[], AxiosError>(
+        '/innbyggerpanelet/ansatt/api/insightProject',
+        fetcher,
+    )
 
     return {
         insightProjects: data,
@@ -15,14 +18,17 @@ export const useInsightProjects = () => {
 }
 
 export const useInsightProjectMembers = (id: number | string) => {
-    const { data, error } = useSWR<IUser[], AxiosError>(`${config.basePath}/api/insightProject/${id}/members`, fetcher)
+    const { data, error } = useSWR<IUser[], AxiosError>(
+        `/innbyggerpanelet/ansatt/api/insightProject/${id}/members`,
+        fetcher,
+    )
 
     return { members: data, loading: !error && !data, error: error }
 }
 
 export const useInsightProjectById = (id: string | number) => {
     const { data, error } = useSWR<IInsightProject[], AxiosError>(
-        `${config.basePath}/api/insightProject?relations=members&where[id]=${id}`,
+        `/innbyggerpanelet/ansatt/api/insightProject?relations=members&where[id]=${id}`,
         fetcher,
     )
 
@@ -37,7 +43,7 @@ export const useInsightProjectById = (id: string | number) => {
 
 export const useInsightProjectByCurrentUser = () => {
     const { data, error } = useSWR<IInsightProject[], AxiosError>(
-        `${config.basePath}/api/insightProject/currentUser`,
+        '/innbyggerpanelet/ansatt/api/insightProject/currentUser',
         fetcher,
     )
 

@@ -6,7 +6,7 @@ import { fetcher } from '../operations'
 
 export const useCandidatesByInsightId = (id: string | number) => {
     const { data, error } = useSWR<ICandidate[], AxiosError>(
-        `${config.basePath}/api/candidate/byInsightId/${id}`,
+        `/innbyggerpanelet/ansatt/api/candidate/byInsightId/${id}`,
         fetcher,
     )
 

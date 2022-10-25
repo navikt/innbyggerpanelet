@@ -5,7 +5,7 @@ import { IInsight } from '../../types'
 import { poster } from '../operations'
 
 export const createInsight = async (insight: IInsight) => {
-    const { data, error } = await poster<IInsight>(`${config.basePath}/api/insight`, insight)
+    const { data, error } = await poster<IInsight>('/innbyggerpanelet/ansatt/api/insight', insight)
 
     if (error?.response?.status === 406) {
         return {

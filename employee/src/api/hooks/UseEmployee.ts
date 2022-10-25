@@ -6,7 +6,7 @@ import { fetcher } from '../operations'
 
 export const useTeamMemberByName = (name: string) => {
     const { data, error } = useSWR<IEmployee[], AxiosError>(
-        `${config.basePath}/api/employee/teamMember?name=%${name}%`,
+        `/innbyggerpanelet/ansatt/api/employee/teamMember?name=%${name}%`,
         fetcher,
     )
 
@@ -15,7 +15,7 @@ export const useTeamMemberByName = (name: string) => {
 
 export const useEmployeesByNameAndRole = (firstname: string, surname: string, role: EnumUserRole) => {
     const { data, error } = useSWR<IEmployee[], AxiosError>(
-        `${config.basePath}/api/employee?where[firstname]=%${firstname}%&where[surname]=%${surname}%&where[role]=${role}`,
+        `/innbyggerpanelet/ansatt/api/employee?where[firstname]=%${firstname}%&where[surname]=%${surname}%&where[role]=${role}`,
         fetcher,
     )
 

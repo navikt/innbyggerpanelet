@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios'
 import config from '../../config'
 
 export const createCandidates = async (candidates: ICandidate[]) => {
-    const { data, error } = await poster<ICandidate[]>(`${config.basePath}/api/candidate`, candidates)
+    const { data, error } = await poster<ICandidate[]>('/innbyggerpanelet/ansatt/api/candidate', candidates)
 
     if (error?.response?.status === 406) {
         return {

@@ -5,7 +5,7 @@ import { IConsent } from '../../types'
 import { poster } from '../operations'
 
 export const createConsents = async (consents: IConsent[]) => {
-    const { data, error } = await poster<IConsent[]>(`${config.basePath}/api/consent`, consents)
+    const { data, error } = await poster<IConsent[]>('/innbyggerpanelet/ansatt/api/consent', consents)
 
     if (error?.response?.status === 406) {
         return {

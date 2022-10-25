@@ -76,7 +76,6 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
     } catch (error) {
         // Not azure authenticated
         // TODO: throw errors given by employee service
-        console.log(error)
     }
 
     if (!isAzureAuthenticated) {
@@ -122,7 +121,6 @@ const addUserDetailsToRequest: RequestHandler = async (req: Request, res: Respon
         } catch (error) {
             // Not IDporten authenticated
             // TODO: throw errors given by citizen service
-            console.log(error)
         }
     }
     if (!isAzureAuthenticated && !isIDPortenAuthenticated) {

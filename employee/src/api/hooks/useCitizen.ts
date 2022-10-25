@@ -9,7 +9,7 @@ export const useCitizenByCriterias = (criterias: ICriteria[], insightEndDate: st
     const insightEndDateQueryString = `&insightEndDate=${insightEndDate}`
 
     const { data, error } = useSWR<ICitizen[], AxiosError>(
-        `${config.basePath}/api/citizen/prioritized?${criteriasQueryString + insightEndDateQueryString}`,
+        `/innbyggerpanelet/ansatt/api/citizen/prioritized?${criteriasQueryString + insightEndDateQueryString}`,
         fetcher,
     )
 
@@ -17,7 +17,7 @@ export const useCitizenByCriterias = (criterias: ICriteria[], insightEndDate: st
 }
 
 export const useFullCitizen = () => {
-    const { data, error } = useSWR<ICitizen, AxiosError>(`${config.basePath}/api/citizen/full`, fetcher)
+    const { data, error } = useSWR<ICitizen, AxiosError>('/innbyggerpanelet/ansatt/api/citizen/full', fetcher)
 
     return { fullCitizen: data, loading: !data && !error, error }
 }

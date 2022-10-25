@@ -6,7 +6,7 @@ import { fetcher } from '../operations'
 
 export const useCriteriaSearchByName = (name: string) => {
     const { data, error } = useSWR<ICriteria[], AxiosError>(
-        `${config.basePath}/api/criteria?where[name]=%${name}%`,
+        `/innbyggerpanelet/ansatt/api/criteria?where[name]=%${name}%`,
         fetcher,
     )
 
