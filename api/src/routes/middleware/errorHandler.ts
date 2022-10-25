@@ -23,5 +23,5 @@ export function errorHandler(error: Error, request: Request, response: Response,
             .status(StatusCodes.INTERNAL_SERVER_ERROR)
             .json(`Something went wrong.. Try again later. \n${error}`)
 
-    return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json('Something went wrong.. Try again later.')
+    return response.status(504).json('Something went wrong.. Try again later.')
 }
