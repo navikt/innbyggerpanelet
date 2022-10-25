@@ -29,7 +29,7 @@ export const EmployeeInsightProjectCreationPage = (): ReactElement => {
         if (error) return setPostError(error)
         if (validationErrors) return setInsightProjectValidationErrors(validationErrors)
 
-        if (response) navigate(`/ansatt/prosjekt/${response.id}`)
+        if (response) navigate(`/prosjekt/${response.id}`)
     }
 
     return (
