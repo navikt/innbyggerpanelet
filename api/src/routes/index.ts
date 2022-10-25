@@ -13,9 +13,10 @@ import { errorHandler } from './middleware/errorHandler'
 import { logger } from './middleware/httpLogging'
 import smsRoutes from './SmsRoutes'
 import authRoutes from './authRoutes'
+import morgan from 'morgan'
 
 const routes = Router()
-    .use(logger)
+    .use(morgan('dev'))
     .use('/auth', authRoutes)
     .use('/candidate', candidateRoutes)
     .use('/consent', consentRoutes)
