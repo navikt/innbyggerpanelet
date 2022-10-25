@@ -49,9 +49,14 @@ export default function proxy(host: string): RequestHandler {
 
             switch (request.method) {
                 case 'GET':
-                    axiosRes = await axios.get(`${host}${req.path}`, { headers: request.headers }).then((res) => {
-                        return res
-                    })
+                    axiosRes = await axios
+                        .get(`${host}${req.path}`, { headers: request.headers })
+                        .then((res) => {
+                            return res
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
                     break
                 case 'POST':
                     axiosRes = await axios
