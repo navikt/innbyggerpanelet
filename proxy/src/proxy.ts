@@ -16,9 +16,6 @@ const prepareSecuredRequest = async (req: Request) => {
     const { authorization } = req.headers
     const token = authorization!!.split(' ')[1]
 
-    //const claims = jose.decodeJwt(token)
-    //console.log(claims)
-
     const accessToken =
         config.authType === 'azureAD'
             ? await exchangeAzureADToken(token).then((accessToken) => accessToken.access_token)
@@ -82,7 +79,7 @@ export default function proxy(host: string): RequestHandler {
             return res.status(axiosRes?.status!).json(axiosRes?.data)
         } catch (error) {
             if (error instanceof AxiosError) {
-                logger.error(`Call failed (${req.method} - ${req.path}): `, error.cause)
+                logger.error(`Call failed (${req.method} - ${req.path}): `, error.message)
             } else {
                 logger.error(`Call failed (${req.method} - ${req.path}): `, error)
             }

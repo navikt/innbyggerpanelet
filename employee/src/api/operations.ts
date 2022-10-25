@@ -8,6 +8,7 @@ export const fetcher = async (url: string) =>
             return res.data
         })
         .catch((error: AxiosError) => {
+            console.log(error)
             throw error
         })
 

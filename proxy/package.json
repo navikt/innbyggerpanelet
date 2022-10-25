@@ -36,7 +36,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "scripts": {
-    "start": "BASE_PATH=/innbyggerpanelet/innbygger NEEDS_API=ja ts-node-dev --project ./tsconfig.json src/main.ts",
+    "start": "BASE_PATH=/innbyggerpanelet/ansatt NEEDS_API=ja ts-node-dev --project ./tsconfig.json src/main.ts",
     "build": "NODE_ENV=production tsc --project ./tsconfig.json"
   },
   "author": "NAVIKT",
