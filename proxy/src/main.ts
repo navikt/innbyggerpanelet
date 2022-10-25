@@ -40,7 +40,7 @@ if (needAPI == 'ja') {
         createProxyMiddleware({
             target: config.app.apiUrl,
             changeOrigin: true,
-            pathRewrite: { '^/innbyggerpanelet/ansatt/api': '' },
+            pathRewrite: { [`^${basePath}/api`]: '' },
         }),
     )
 }
