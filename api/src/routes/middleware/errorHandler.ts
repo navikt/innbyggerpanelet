@@ -25,13 +25,14 @@ export function errorHandler(error: Error, request: Request, response: Response,
     //         .json(`Something went wrong.. Try again later. \n${error}`)
 
     // return response.status(500).json('Something went wrong.. Try again later.')
+    console.log(error)
+    console.log(typeof error)
     let errorStatus: number = StatusCodes.INTERNAL_SERVER_ERROR
     let errorMessage: IErrorResponse | string = config.backend.prod
         ? `Something went wrong.. Try again later. \n${error}`
         : 'Something went wrong.. Try again later.'
 
     if (error instanceof BaseError) {
-        console.log('git here')
         errorStatus = error.httpStatus
         errorMessage = error.toResponse()
     }
