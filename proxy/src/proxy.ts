@@ -49,14 +49,9 @@ export default function proxy(host: string): RequestHandler {
 
             switch (request.method) {
                 case 'GET':
-                    axiosRes = await axios
-                        .get(`${host}${req.path}`, { headers: request.headers })
-                        .then((res) => {
-                            return res
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
+                    axiosRes = await axios.get(`${host}${req.path}`, { headers: request.headers }).then((res) => {
+                        return res
+                    })
                     break
                 case 'POST':
                     axiosRes = await axios
@@ -78,6 +73,8 @@ export default function proxy(host: string): RequestHandler {
                     })
                     break
             }
+
+            console.log(axiosRes)
 
             logger.info(`${axiosRes?.status} ${axiosRes?.statusText}: ${req.method} ${req.path}`)
 
