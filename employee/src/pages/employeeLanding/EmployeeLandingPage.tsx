@@ -12,7 +12,6 @@ export const EmployeeLandingPage = (): ReactElement => {
     const { user, loading, error } = useUser<IEmployee>()
 
     const { onGoingProjects, futureProjects, completedProjects } = useFilterInsightProjects()
-    console.log(user)
 
     return (
         <>
