@@ -7,7 +7,7 @@ import config from './config'
 import logger from './monitoring/logger'
 import dotenv from 'dotenv'
 import { createProxyMiddleware } from 'http-proxy-middleware'
-import { prepareSecuredRequest } from './proxy'
+import { prepareSecuredRequest } from './prepareSecruredReq'
 
 dotenv.config()
 
