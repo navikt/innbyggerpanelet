@@ -10,7 +10,7 @@ const isEmpty = (obj: any) => !obj || !Object.keys(obj).length
 
 const { exchangeIDPortenToken, exchangeAzureADToken } = new TokenExchangeClient()
 
-export const prepareSecuredRequest = async (req: Request) => {
+export const prepareSecuredRequest = async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers
     const token = authorization!!.split(' ')[1]
 
@@ -19,8 +19,10 @@ export const prepareSecuredRequest = async (req: Request) => {
             ? await exchangeAzureADToken(token).then((accessToken) => accessToken.access_token)
             : (await exchangeIDPortenToken(token).then((accessToken) => accessToken)) || ''
 
-    return {
+    req.headers = {
+        ...req.headers,
         authorization: `Bearer ${accessToken}`,
         x_correlation_id: logger.defaultMeta.x_correlation_id,
     }
+    next()
 }
