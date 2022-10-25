@@ -83,7 +83,7 @@ export default function proxy(host: string): RequestHandler {
                 logger.error(`${axiosRes?.status} ${axiosRes?.statusText}: ${req.method} ${req.path}`)
             }
 
-            return axiosRes
+            return res.status(axiosRes?.status!).json(axiosRes?.data)
         } catch (error) {
             logger.error(`Call failed (${req.method} - ${req.path}): `, error)
 
