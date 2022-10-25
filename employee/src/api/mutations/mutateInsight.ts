@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios'
 import { ValidationError } from 'class-validator'
-import config from '../../config'
 import { IInsight } from '../../types'
 import { poster } from '../operations'
 

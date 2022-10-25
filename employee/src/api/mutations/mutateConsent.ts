@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios'
 import { ValidationError } from 'class-validator'
-import config from '../../config'
 import { IConsent } from '../../types'
 import { poster } from '../operations'
 

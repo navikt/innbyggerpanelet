@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios'
 import useSWR from 'swr'
-import config from '../../config'
 import { IConsentTemplate } from '../../types'
 import { fetcher } from '../operations'
 

@@ -1,8 +1,7 @@
+import { AxiosResponse } from 'axios'
+import { ValidationError } from 'class-validator'
 import { ICandidate } from '../../types'
 import { poster } from '../operations'
-import { ValidationError } from 'class-validator'
-import { AxiosResponse } from 'axios'
-import config from '../../config'
 
 export const createCandidates = async (candidates: ICandidate[]) => {
     const { data, error } = await poster<ICandidate[]>('/innbyggerpanelet/ansatt/api/candidate', candidates)
