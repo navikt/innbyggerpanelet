@@ -8,7 +8,6 @@ import style from './EmployeeLandingPage.module.scss'
 import { PanelNoBackground } from '../../components/common/panelNoBackground/PanelNoBackground'
 import { EmployeeCurrentProjects } from '../../container/employeeCurrentProjects/EmployeeCurrentProjects'
 
-
 export const EmployeeLandingPage = (): ReactElement => {
     const { user, loading, error } = useUser<IEmployee>()
 
