@@ -19,13 +19,11 @@ export const prepareSecuredRequest = async (req: Request, res: Response, next: N
             ? await exchangeAzureADToken(token).then((accessToken) => accessToken.access_token)
             : (await exchangeIDPortenToken(token).then((accessToken) => accessToken)) || ''
 
-    req.method = req.method
     req.headers = {
         ...req.headers,
         authorization: `Bearer ${accessToken}`,
         x_correlation_id: logger.defaultMeta.x_correlation_id,
     }
-    req.body = req.body
 
     next()
 }

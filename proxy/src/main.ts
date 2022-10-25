@@ -32,6 +32,15 @@ app.get(`${basePath}/isalive|${basePath}/isready`, (req: Request, res: Response)
     res.send('OK')
 })
 
+const restream = (proxyReq: any, req: any, res: any) => {
+    if (req.body) {
+        const bodyData = JSON.stringify(req.body)
+        proxyReq.setHeader('Content-Type', 'application/json')
+        proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
+        proxyReq.write(bodyData)
+    }
+}
+
 if (needAPI == 'ja') {
     app.get(`${basePath}/session`, session())
     app.use(
@@ -41,6 +50,7 @@ if (needAPI == 'ja') {
             target: config.app.apiUrl,
             changeOrigin: true,
             pathRewrite: { [`^${basePath}/api`]: '' },
+            onProxyReq: restream,
         }),
     )
 }
