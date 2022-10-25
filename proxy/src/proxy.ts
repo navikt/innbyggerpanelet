@@ -43,10 +43,14 @@ const prepareSecuredRequest = async (req: Request) => {
 
 export default function proxy(host: string): RequestHandler {
     return async (req: Request, res: Response) => {
+        let code = 500
+
         try {
             const request: any = await prepareSecuredRequest(req)
 
             const response = await fetch(`${host}${req.path}`, request)
+
+            code = response.status
 
             if (isOK(response.status)) {
                 logger.info(`${response.status} ${response.statusText}: ${req.method} ${req.path}`)
@@ -60,7 +64,7 @@ export default function proxy(host: string): RequestHandler {
         } catch (error) {
             logger.error(`Call failed (${req.method} - ${req.path}): `, error)
 
-            return res.status(500).send('Error')
+            return res.status(code).send('Error')
         }
     }
 }
