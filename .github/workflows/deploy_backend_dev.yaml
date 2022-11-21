@@ -3,7 +3,7 @@ name: Deploy backend to dev-gcp
 on:
     push:
         branches: [main, dev-**]
-        paths: [apps/api/**]
+        paths: [apps/api/**, package.json]
 
 env:
     IMAGE: ghcr.io/${{ github.repository }}/innbyggerpanelet-api:${{ github.sha }}
