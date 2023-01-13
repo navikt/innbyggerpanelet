@@ -1,5 +1,7 @@
 # Innbyggerpanelet
 
+For nå er utviklingen av innbyggerpanelet satt på vent
+
 ## Environmental variables
 
 In order for this project to run in a local development environment you will have to configure an `.env` file. Most of the fields can be configured as you see fit, however there are OIDC keys which requires you to be a part of the @team-researchops namespace in order to obtain.
