@@ -7,6 +7,7 @@
     "build": "nx build",
     "test": "nx test",
     "test:frontend": "nx test frontend --env=jsdom",
+    "test:api": "nx test api --watch",
     "parallel": "nx run-many --target=serve --projects=api,frontend --parallel",
     "affected:apps": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE",
     "affected:libs": "nx affected:libs --base=remotes/origin/main$NX_BASE",
@@ -17,7 +18,9 @@
     "affected": "nx affected",
     "matrix": "nx affected:apps --plain --base=remotes/origin/main$NX_BASE|tr -d '\\n'|jq -cRs 'split(\" \")'",
     "docker-sms-up": "sudo docker-compose -f docker-compose-sms.yml -p innbyggerpanelet-sms up --build",
-    "docker-sms-down": "sudo docker-compose -f docker-compose-sms.yml down"
+    "docker-sms-down": "sudo docker-compose -f docker-compose-sms.yml down",
+    "docker-test-up": "sudo docker-compose --env-file .env.test -f docker-compose-test.yml up --build -d",
+    "docker-test-down": "sudo docker-compose --env-file .env.test -f docker-compose-test.yml down"
   },
   "private": true,
   "dependencies": {

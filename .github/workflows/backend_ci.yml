@@ -7,17 +7,39 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    name: Backend tests
+  test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: ${{ secrets.INNBYGGERPANELET_POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.INNBYGGERPANELET_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.INNBYGGERPANELET_POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout branch
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
         with:
-          node-version: '14'
-      - name: Install
+          node-version: "15.8"
+      - name: Install dependencies
         run: npm install
       - name: Build
         run: npm run build api
       - name: Test
+        env:
+          INNBYGGERPANELET_POSTGRES_DB: ${{ secrets.INNBYGGERPANELET_POSTGRES_DB }}
+          INNBYGGERPANELET_POSTGRES_USER: ${{ secrets.INNBYGGERPANELET_POSTGRES_USER }}
+          INNBYGGERPANELET_POSTGRES_PASSWORD: ${{ secrets.INNBYGGERPANELET_POSTGRES_PASSWORD }}
+          INNBYGGERPANELET_DB_PORT: ${{ secrets.INNBYGGERPANELET_DB_PORT }}
+          INNBYGGERPANELET_DB_HOST: ${{ secrets.INNBYGGERPANELET_DB_HOST }}
+          IDPORTEN_CLIENT_JWK: ${{ secrets.IDPORTEN_CLIENT_JWK }}
         run: npm run test api

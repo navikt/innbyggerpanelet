@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  db:
+    container_name: 'innbyggerpanelet_test_database'
+    image: postgres
+    volumes:
+      - innbyggerpanelet_test_data:/var/lib/postgresql/data
+    networks:
+      - innbyggerpanelet_test_api
+    ports:
+      - ${INNBYGGERPANELET_DB_PORT}:${INNBYGGERPANELET_DB_PORT}
+    environment:
+      POSTGRES_DB: ${INNBYGGERPANELET_POSTGRES_DB}
+      POSTGRES_USER: ${INNBYGGERPANELET_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${INNBYGGERPANELET_POSTGRES_PASSWORD}
+      DB_HOST: ${INNBYGGERPANELET_DB_HOST}
+      DB_PORT: ${INNBYGGERPANELET_DB_PORT}
+volumes:
+  innbyggerpanelet_test_data:
+networks:
+  innbyggerpanelet_test_api:
