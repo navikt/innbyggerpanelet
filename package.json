@@ -47,7 +47,7 @@
     "history": "^5.2.0",
     "http-error-codes": "^1.0.1",
     "http-proxy-middleware": "^2.0.3",
-    "jose": "^4.8.1",
+    "jose": "^4.9.2",
     "kafkajs": "^2.0.2",
     "morgan": "^1.10.0",
     "msw": "^0.36.4",
